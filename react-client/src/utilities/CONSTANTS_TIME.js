@@ -1,5 +1,7 @@
 import {ID_CONSTANTS} from "./CONSTANTS_ID";
 
+export const APP_REFRESHING_TIME_GAP = 30; // Milliseconds
+
 export const TIMING_KEYWORDS = {
     BEGIN: '.begin',
     END: '.end',

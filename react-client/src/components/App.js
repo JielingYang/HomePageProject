@@ -8,8 +8,8 @@ import {ID_CONSTANTS} from "../utilities/CONSTANTS_ID";
 import {basePanelAction_UpdateBasePanelSize, basePanelAction_UpdateTransformAndFocusPoint} from "../actionCreators/basePanelActions";
 import BasePanel from "./BasePanel";
 import {APP_CONSOLE_FONT} from "../utilities/CONSTANTS_CONSOLE_FONT";
+import {APP_REFRESHING_TIME_GAP} from "../utilities/CONSTANTS_TIME";
 
-const APP_REFRESHING_TIME_GAP = 30; // Milliseconds
 /**
  * App component is a class component (stateful component)
  * It controls:
