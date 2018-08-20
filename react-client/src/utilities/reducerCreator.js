@@ -1,5 +1,9 @@
 const CLASS_NAMES = Object.freeze({
     Base: "Base",
+    Shape2d_Line: "Shape2d_Line",
+    Shape2d_Point: "Shape2d_Point",
+    Shape2d_Polygon: "Shape2d_Polygon",
+    Shape2d_Rectangle: "Shape2d_Rectangle",
 });
 
 /**
@@ -10,8 +14,8 @@ const CLASS_NAMES = Object.freeze({
  */
 export const createReducer = (defaultState, handlers) =>
 {
-    // Return the reducer function
-    return (state = defaultState, action) =>
+    // Create the reducer function
+    let reducer = (state = defaultState, action) =>
     {
         /**
          * Check if this action's type can be recognised
@@ -29,6 +33,9 @@ export const createReducer = (defaultState, handlers) =>
             return state
         }
     };
+
+    // Return the created reducer function
+    return reducer;
 };
 
 /**
@@ -56,6 +63,7 @@ export const deepCopy = (originalObject) =>
             {
                 copiedObject[key] = (typeof o === "object") ? deepCopy(o) : o;
             }
+
         }
     }
     return copiedObject;
