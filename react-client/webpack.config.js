@@ -3,7 +3,7 @@ module.exports = {
         './src/index.js'
     ],
     module: {
-        loaders: [{
+        rules: [{
             test: /\.js$/, // Transform all JavaScript files
             exclude: /node_modules/, // Except those under node_modules directory
             loader: 'babel-loader' // Transform using Bable
@@ -14,6 +14,7 @@ module.exports = {
         filename: 'bundle.js'
     },
     devServer: {
-        contentBase: './build'
+        contentBase: './build',
+        port: 9000
     }
 };
