@@ -1,4 +1,4 @@
-import {createReducer, deepCopy} from "../utilities/reducerCreator";
+import {createReducer} from "./reducerCreator";
 
 const centerComponentDefaultState = {};
 
