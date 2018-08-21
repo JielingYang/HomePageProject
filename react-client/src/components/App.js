@@ -37,7 +37,7 @@ class App extends Component
         return this.previousUsedMouseMoveEventTimeStamp;
     }
 
-    componentWillMount()
+    componentDidMount()
     {
         registerFunctionsOnWindowEvents(() => this.getPreviousUsedMouseMoveEventTimeStamp(), (t: number) => this.setPreviousUsedMouseMoveEventTimeStamp(t));
     }
