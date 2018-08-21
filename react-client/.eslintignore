@@ -1,0 +1,9 @@
+/node_modules/*
+/webpack_config/*
+/licences/*
+/build/*
+/thirdparty/*
+/__mock__/*
+/.idea/*
+/src/images/*
+/__test__/*

@@ -9,6 +9,32 @@
       "react"
     ]
   },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "plugins": [
+      "react"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true,
+        "experimentalObjectRestSpread": true
+      }
+    },
+    "rules": {
+      "no-var": "error",
+      "no-console": "off"
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=development",
