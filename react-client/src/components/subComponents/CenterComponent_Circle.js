@@ -6,10 +6,17 @@ import {CENTER_COMPONENT_TIMING} from "../../utilities/CONSTANTS_TIME";
 import {SVG_ANIMATE_CALC_MODE, SVG_ANIMATE_FILL, SVG_KEY_SPLINES, SVG_KEY_TIMES} from "../../utilities/SvgAnimateBuilder";
 import animateBuilder from "../../utilities/SvgAnimateBuilder";
 
+type CenterComponent_Circle_PropsType = {
+    cx: Number,
+    cy: Number,
+    r: Number,
+    thickness: Number
+}
+
 /**
  * CenterComponent_Circle
  */
-const CenterComponent_Circle = (props) =>
+const CenterComponent_Circle = (props: CenterComponent_Circle_PropsType) =>
 {
     console.log("%c  - CenterComponent_Circle", CENTER_COMPONENT_CONSOLE_FONT);
 

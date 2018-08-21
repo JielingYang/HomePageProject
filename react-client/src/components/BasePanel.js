@@ -5,6 +5,9 @@ import basePanelStyle from "../styles/basePanelStyle";
 import {ID_CONSTANTS} from "../utilities/CONSTANTS_ID";
 import CenterComponent from "./subComponents/CenterComponent";
 import {BASE_PANEL_CONSOLE_FONT} from "../utilities/CONSTANTS_CONSOLE_FONT";
+import type {basePanelStateType} from "../reducers/basePanelReducer";
+
+type BasePanelPropsType = { basePanelState: basePanelStateType }
 
 /**
  * BasePanel is a stateless component
@@ -16,7 +19,7 @@ import {BASE_PANEL_CONSOLE_FONT} from "../utilities/CONSTANTS_CONSOLE_FONT";
  * @returns {*}
  * @constructor
  */
-const BasePanel = (props) =>
+const BasePanel = (props: BasePanelPropsType) =>
 {
     console.log("%c - Base Panel", BASE_PANEL_CONSOLE_FONT);
 

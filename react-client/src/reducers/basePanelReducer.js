@@ -2,9 +2,21 @@ import {BASE_PANEL_ACTION_TYPE} from "../actionCreators/basePanelActions";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {ID_CONSTANTS} from "../utilities/CONSTANTS_ID";
 import Shape2d_Point from "../classes/Shape2d_Point";
-import {deepCopy} from "./reducerCreator";
+import {createReducer, deepCopy} from "./reducerCreator";
+import Base from "../classes/Base";
 
-const basePanelDefaultState = {
+export type basePanelStateType = {
+    basePanelShapeModel: Shape2d_Rectangle,
+    basePanelTranslatePercentageX: String,
+    basePanelTranslatePercentageY:String,
+    basePanelRotationX:String,
+    basePanelRotationY:String,
+    basePanelFocusPointPercentageY: String,
+    basePanelFocusPointPercentageX: String,
+    basePanelObjects: Array<Base>,
+}
+
+const basePanelDefaultState: basePanelStateType = {
     basePanelShapeModel: new Shape2d_Rectangle(0, ID_CONSTANTS.BASE_PANEL_COMPONENT, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
     basePanelTranslatePercentageX: "0",
     basePanelTranslatePercentageY: "0",
@@ -15,14 +27,14 @@ const basePanelDefaultState = {
     basePanelObjects: [],
 };
 
-const basePanelAction_UpdateBasePanelSize_handler = (state, action) =>
+const basePanelAction_UpdateBasePanelSize_handler = (state: basePanelStateType, action) =>
 {
     let nextState = deepCopy(state);
     nextState.basePanelShapeModel.updateRectangleSize(action.newBasePanelWidth, action.newBasePanelHeight);
     return nextState;
 };
 
-const basePanelAction_UpdateTransformAndFocusPoint_handler = (state, action) =>
+const basePanelAction_UpdateTransformAndFocusPoint_handler = (state: basePanelStateType, action) =>
 {
     // Update state only if new values are different from previous ones
     if (state.basePanelTranslatePercentageX !== action.translatePercentageX ||

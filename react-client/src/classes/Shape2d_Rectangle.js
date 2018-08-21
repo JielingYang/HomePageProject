@@ -3,7 +3,7 @@ import Shape2d_Point from "./Shape2d_Point";
 
 export default class Shape2d_Rectangle extends Base
 {
-    constructor(numId: number, strId: string, topLeftPoint: Shape2d_Point, width: number, height: number)
+    constructor(numId: Number, strId: String, topLeftPoint: Shape2d_Point, width: Number, height: Number)
     {
         super(numId, strId);
         this.topLeftPoint = topLeftPoint;
@@ -17,21 +17,21 @@ export default class Shape2d_Rectangle extends Base
         this.calculateCenterPoint();
     }
 
-    getTopLeftPoint(): Shape2d_Point {return this.topLeftPoint};
+    getTopLeftPoint(): Shape2d_Point {return this.topLeftPoint}
 
-    getCenterPoint(): Shape2d_Point {return this.centerPoint};
+    getCenterPoint(): Shape2d_Point {return this.centerPoint}
 
-    getWidth(): number {return this.width};
+    getWidth(): Number {return this.width}
 
-    getHeight(): number {return this.height};
+    getHeight(): Number {return this.height}
 
-    getXUnitLength(): number {return this.xUnitLength};
+    getXUnitLength(): Number {return this.xUnitLength}
 
-    getYUnitLength(): number {return this.yUnitLength};
+    getYUnitLength(): Number {return this.yUnitLength}
 
-    getUnitLength(): number {return this.unitLength};
+    getUnitLength(): Number {return this.unitLength}
 
-    updateRectangleSize(width: number, height: number)
+    updateRectangleSize(width: Number, height: Number)
     {
         this.width = width;
         this.height = height;
@@ -39,7 +39,7 @@ export default class Shape2d_Rectangle extends Base
         this.yUnitLength = height / 100;
         this.unitLength = this.xUnitLength <= this.yUnitLength ? this.xUnitLength : this.yUnitLength;
         this.calculateCenterPoint();
-    };
+    }
 
     calculateCenterPoint()
     {

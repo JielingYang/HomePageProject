@@ -2,15 +2,18 @@ import React from 'react';
 import {ID_CONSTANTS} from "../../utilities/CONSTANTS_ID";
 import {GOLD} from "../../utilities/CONSTANTS_COLOR";
 import {CENTER_COMPONENT_CONSOLE_FONT} from "../../utilities/CONSTANTS_CONSOLE_FONT";
-import {CENTER_COMPONENT_TIMING} from "../../utilities/CONSTANTS_TIME";
-import {SVG_ANIMATE_CALC_MODE, SVG_ANIMATE_FILL, SVG_KEY_SPLINES, SVG_KEY_TIMES} from "../../utilities/SvgAnimateBuilder";
-import animateBuilder from "../../utilities/SvgAnimateBuilder";
 import pathCommandBuilder from "../../utilities/SvgPathDataCommandBuilder";
+
+type CenterComponent_Character_PropsType = {
+    unitLength: Number,
+    startY: Number,
+    startX: Number,
+}
 
 /**
  * CenterComponent_Character
  */
-const CenterComponent_Character = (props) =>
+const CenterComponent_Character = (props: CenterComponent_Character_PropsType) =>
 {
     console.log("%c  - CenterComponent_Character", CENTER_COMPONENT_CONSOLE_FONT);
 

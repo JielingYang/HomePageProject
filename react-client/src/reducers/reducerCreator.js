@@ -8,7 +8,7 @@ const CLASS_NAMES = Object.freeze({
  * @param handlers Object that contains handler functions which take the state and redux action as parameters. Each handler applies the action to the state if the action type can be recognised by this handler
  * @returns reducer Function that represents created reducer
  */
-export const createReducer = (defaultState, handlers) =>
+export const createReducer = (defaultState: Object, handlers: Object) =>
 {
     // Return the reducer function
     return (state = defaultState, action) =>

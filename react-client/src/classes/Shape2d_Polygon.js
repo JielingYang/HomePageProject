@@ -3,7 +3,7 @@ import Shape2d_Point from "./Shape2d_Point";
 
 export default class Shape2d_Polygon extends Base
 {
-    constructor(numId: number, strId: string, points: Array)
+    constructor(numId: Number, strId: String, points: Array<Shape2d_Point>)
     {
         super(numId, strId);
 
@@ -15,7 +15,7 @@ export default class Shape2d_Polygon extends Base
         this.points = points;
     }
 
-    getPoints(): Array {return this.points};
+    getPoints(): Array<Shape2d_Point> {return this.points}
 
-    clone(): Shape2d_Polygon {return new Shape2d_Polygon(this.getNumberId(), this.getStringId(), this.getPoints().map((point: Shape2d_Point) => point.clone()))};
+    clone(): Shape2d_Polygon {return new Shape2d_Polygon(this.getNumberId(), this.getStringId(), this.getPoints().map((point: Shape2d_Point) => point.clone()))}
 }

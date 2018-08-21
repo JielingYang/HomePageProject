@@ -3,13 +3,20 @@ import {ID_CONSTANTS} from "../../utilities/CONSTANTS_ID";
 import {GOLD, GOLD_OPACITY_10} from "../../utilities/CONSTANTS_COLOR";
 import {CENTER_COMPONENT_CONSOLE_FONT} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import {CENTER_COMPONENT_TIMING} from "../../utilities/CONSTANTS_TIME";
-import {SVG_ANIMATE_CALC_MODE, SVG_ANIMATE_FILL, SVG_KEY_SPLINES, SVG_KEY_TIMES} from "../../utilities/SvgAnimateBuilder";
+import {SVG_ANIMATE_FILL} from "../../utilities/SvgAnimateBuilder";
 import animateBuilder from "../../utilities/SvgAnimateBuilder";
+
+type CenterComponent_LoadingBar_PropsType = {
+    x: Number,
+    y: Number,
+    width: Number,
+    height: Number
+}
 
 /**
  * CenterComponent_LoadingBar
  */
-const CenterComponent_LoadingBar = (props) =>
+const CenterComponent_LoadingBar = (props: CenterComponent_LoadingBar_PropsType) =>
 {
     console.log("%c  - CenterComponent_LoadingBar", CENTER_COMPONENT_CONSOLE_FONT);
 

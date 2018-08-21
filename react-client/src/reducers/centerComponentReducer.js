@@ -1,6 +1,8 @@
 import {createReducer} from "./reducerCreator";
 
-const centerComponentDefaultState = {};
+export type centerComponentStateType = {};
+
+const centerComponentDefaultState: centerComponentStateType = {};
 
 // Check reducerCreator for explanation of handlers
 const centerComponentReducerHandlers = {};

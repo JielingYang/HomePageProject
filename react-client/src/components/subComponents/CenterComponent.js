@@ -8,6 +8,12 @@ import {CENTER_COMPONENT_CIRCLE_RADIUS_RATIO, CENTER_COMPONENT_CIRCLE_THICKNESS_
 import CenterComponent_Character from "./CenterComponent_Character";
 import CenterComponent_LoadingBar from "./CenterComponent_LoadingBar";
 
+type CenterComponentPropsType = {
+    basePanelCenterPointX: Number,
+    basePanelCenterPointY: Number,
+    basePanelUnitLength: Number
+};
+
 /**
  * CenterComponent is a stateless component
  * It groups its child components and passes the latest related store data to them for rendering
@@ -15,7 +21,7 @@ import CenterComponent_LoadingBar from "./CenterComponent_LoadingBar";
  * @returns {*}
  * @constructor
  */
-const CenterComponent = (props) =>
+const CenterComponent = (props: CenterComponentPropsType) =>
 {
     console.log("%c  - CenterComponent", CENTER_COMPONENT_CONSOLE_FONT);
 
@@ -49,7 +55,7 @@ const CenterComponent = (props) =>
     );
 };
 
-const mapStateToProps = (store) =>
+const mapStateToProps = () =>
 {
     return {}
 };

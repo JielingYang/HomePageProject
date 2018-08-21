@@ -1,14 +1,14 @@
 export default class Base
 {
-    constructor(numId: number, strId: string)
+    constructor(numId: Number, strId: String)
     {
         this.numId = numId;
         this.strId = strId;
     }
 
-    getNumberId(): number {return this.numId}
+    getNumberId(): Number {return this.numId}
 
-    getStringId(): string {return this.strId}
+    getStringId(): String {return this.strId}
 
     clone(): Base {return new Base(this.getNumberId(), this.getStringId())}
 }

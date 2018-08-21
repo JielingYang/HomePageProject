@@ -1,32 +1,32 @@
 export default class Shape2d_Point
 {
-    constructor(x: number, y: number)
+    constructor(x: Number, y: Number)
     {
         this.x = x;
         this.y = y;
     }
 
-    getX(): number {return this.x}
+    getX(): Number {return this.x}
 
-    getY(): number {return this.y}
+    getY(): Number {return this.y}
 
-    setX(x: number) {this.x = x}
+    setX(x: Number) {this.x = x}
 
-    setY(y: number) {this.y = y}
+    setY(y: Number) {this.y = y}
 
-    translateX(tx: number): Shape2d_Point
+    translateX(tx: Number): Shape2d_Point
     {
         this.setX(this.getX() + tx);
         return this;
     }
 
-    translateY(ty: number): Shape2d_Point
+    translateY(ty: Number): Shape2d_Point
     {
         this.setY(this.getY() + ty);
         return this;
     }
 
-    translate(tx: number, ty: number): Shape2d_Point
+    translate(tx: Number, ty: Number): Shape2d_Point
     {
         this.translateX(tx);
         this.translateY(ty);
