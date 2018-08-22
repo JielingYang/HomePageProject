@@ -42,15 +42,15 @@ const CenterComponent = (props: CenterComponentPropsType) =>
 
     return (
         <g id={ID_CONSTANTS.CENTER_COMPONENT}>
-            <CenterComponent_Circle cx={basePanelCenterPointX} cy={basePanelCenterPointY}
-                                    r={centerComponentCircleRadius} thickness={centerComponentCircleThickness}/>
-            <CenterComponent_Character unitLength={centerComponentUnitLength}
-                                       startX={basePanelCenterPointX}
-                                       startY={basePanelCenterPointY}/>
-            <CenterComponent_LoadingBar x={basePanelCenterPointX - centerComponentCircleRadius}
-                                        y={basePanelCenterPointY + centerComponentCircleRadius * 1.3}
-                                        width={centerComponentCircleRadius * 2}
-                                        height={centerComponentLoadingBarThickness}/>
+            {/*<CenterComponent_Circle cx={basePanelCenterPointX} cy={basePanelCenterPointY}*/}
+                                    {/*r={centerComponentCircleRadius} thickness={centerComponentCircleThickness}/>*/}
+            {/*<CenterComponent_Character unitLength={centerComponentUnitLength}*/}
+                                       {/*startX={basePanelCenterPointX}*/}
+                                       {/*startY={basePanelCenterPointY}/>*/}
+            {/*<CenterComponent_LoadingBar x={basePanelCenterPointX - centerComponentCircleRadius}*/}
+                                        {/*y={basePanelCenterPointY + centerComponentCircleRadius * 1.3}*/}
+                                        {/*width={centerComponentCircleRadius * 2}*/}
+                                        {/*height={centerComponentLoadingBarThickness}/>*/}
         </g>
     );
 };
