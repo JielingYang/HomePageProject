@@ -3,7 +3,7 @@ import Shape2d_Point from "./Shape2d_Point";
 
 export default class Shape2d_Line extends Base
 {
-    constructor(numId: Number, strId: String, pointA: Shape2d_Point, pointB: Shape2d_Point)
+    constructor(numId: number, strId: string, pointA: Shape2d_Point, pointB: Shape2d_Point)
     {
         super(numId, strId);
 

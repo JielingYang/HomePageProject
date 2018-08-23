@@ -3,7 +3,7 @@ import Shape2d_Point from "./Shape2d_Point";
 
 export default class Shape2d_Rectangle extends Base
 {
-    constructor(numId: Number, strId: String, topLeftPoint: Shape2d_Point, width: Number, height: Number)
+    constructor(numId: number, strId: string, topLeftPoint: Shape2d_Point, width: number, height: number)
     {
         super(numId, strId);
         this.topLeftPoint = topLeftPoint;
@@ -21,17 +21,17 @@ export default class Shape2d_Rectangle extends Base
 
     getCenterPoint(): Shape2d_Point {return this.centerPoint}
 
-    getWidth(): Number {return this.width}
+    getWidth(): number {return this.width}
 
-    getHeight(): Number {return this.height}
+    getHeight(): number {return this.height}
 
-    getXUnitLength(): Number {return this.xUnitLength}
+    getXUnitLength(): number {return this.xUnitLength}
 
-    getYUnitLength(): Number {return this.yUnitLength}
+    getYUnitLength(): number {return this.yUnitLength}
 
-    getUnitLength(): Number {return this.unitLength}
+    getUnitLength(): number {return this.unitLength}
 
-    updateRectangleSize(width: Number, height: Number)
+    updateRectangleSize(width: number, height: number)
     {
         this.width = width;
         this.height = height;
@@ -41,21 +41,9 @@ export default class Shape2d_Rectangle extends Base
         this.calculateCenterPoint();
     }
 
-    calculateCenterPoint()
-    {
-        this.centerPoint = this.getTopLeftPoint()
-                               .clone()
-                               .translate(this.getWidth() / 2, this.getHeight() / 2);
-    }
+    calculateCenterPoint() {this.centerPoint = this.getTopLeftPoint().clone().translate(this.getWidth() / 2, this.getHeight() / 2)}
 
-    clone(): Shape2d_Rectangle
-    {
-        return new Shape2d_Rectangle(
-            this.getNumberId(),
-            this.getStringId(),
-            this.getTopLeftPoint()
-                .clone(),
-            this.getWidth(),
-            this.getHeight())
-    }
+    isSizeEqual(anotherRect: Shape2d_Rectangle): Boolean {return this.width === anotherRect.getWidth() && this.height === anotherRect.getHeight()}
+
+    clone(): Shape2d_Rectangle {return new Shape2d_Rectangle(this.getNumberId(), this.getStringId(), this.getTopLeftPoint().clone(), this.getWidth(), this.getHeight())}
 }

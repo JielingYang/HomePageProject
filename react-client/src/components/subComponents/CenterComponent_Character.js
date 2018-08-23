@@ -2,7 +2,7 @@ import React from 'react';
 import {ID_CONSTANTS} from "../../utilities/CONSTANTS_ID";
 import {GOLD} from "../../utilities/CONSTANTS_COLOR";
 import {CENTER_COMPONENT_CONSOLE_FONT} from "../../utilities/CONSTANTS_CONSOLE_FONT";
-import pathCommandBuilder from "../../utilities/SvgPathDataCommandBuilder";
+import pathCommandBuilder from "../../classes/SvgPathDataCommandBuilder";
 
 type CenterComponent_Character_PropsType = {
     unitLength: Number,

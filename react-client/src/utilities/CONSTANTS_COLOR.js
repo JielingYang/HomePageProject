@@ -3,6 +3,7 @@ export const GOLD_OPACITY_10 = 'rgba(247,197,98,0.1)';
 export const GOLD_OPACITY_50 = 'rgba(247,197,98,0.5)';
 
 export const BLACK = 'rgb(0,0,0)';
+export const WHITE = 'rgb(255,255,255)';
 export const TRANSPARENT = 'rgba(0,0,0,0)';
 
 export const CONSOLE_FONT_RED = 'rgb(230,25,75)';

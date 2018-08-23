@@ -3,8 +3,8 @@ import {ID_CONSTANTS} from "../../utilities/CONSTANTS_ID";
 import {GOLD} from "../../utilities/CONSTANTS_COLOR";
 import {CENTER_COMPONENT_CONSOLE_FONT} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import {CENTER_COMPONENT_TIMING} from "../../utilities/CONSTANTS_TIME";
-import {SVG_ANIMATE_CALC_MODE, SVG_ANIMATE_FILL, SVG_KEY_SPLINES, SVG_KEY_TIMES} from "../../utilities/SvgAnimateBuilder";
-import animateBuilder from "../../utilities/SvgAnimateBuilder";
+import {SVG_ANIMATE_CALC_MODE, SVG_ANIMATE_FILL, SVG_KEY_SPLINES, SVG_KEY_TIMES} from "../../classes/SvgAnimateBuilder";
+import animateBuilder from "../../classes/SvgAnimateBuilder";
 
 type CenterComponent_Circle_PropsType = {
     cx: Number,

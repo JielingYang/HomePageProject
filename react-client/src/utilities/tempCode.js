@@ -1,6 +1,6 @@
-import pathCommandBuilder from "./SvgPathDataCommandBuilder";
+import pathCommandBuilder from "../classes/SvgPathDataCommandBuilder";
 import {ID_CONSTANTS} from "./CONSTANTS_ID";
-import animateBuilder, {SVG_ANIMATE_FILL} from "./SvgAnimateBuilder";
+import animateBuilder, {SVG_ANIMATE_FILL} from "../classes/SvgAnimateBuilder";
 import {GOLD} from "./CONSTANTS_COLOR";
 
 let pathCmd90Circle = pathCommandBuilder.M(centerX, centerY - radius)

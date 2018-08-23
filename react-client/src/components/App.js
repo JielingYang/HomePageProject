@@ -1,113 +1,108 @@
 // App.js
 import React, {Component} from 'react';
-import {appComponentDefaultStyle} from "../styles/appComponentStyle";
-import store from "../store";
-import {Provider} from "react-redux";
+import {connect} from "react-redux";
 import {MAX_ROTATION_DEGREE_VALUE, MAX_TRANSLATE_PERCENTAGE_VALUE} from "../styles/basePanelStyle";
 import {ID_CONSTANTS} from "../utilities/CONSTANTS_ID";
 import {basePanelAction_UpdateBasePanelSize, basePanelAction_UpdateTransformAndFocusPoint} from "../actionCreators/basePanelActions";
 import BasePanel from "./BasePanel";
-import {APP_CONSOLE_FONT} from "../utilities/CONSTANTS_CONSOLE_FONT";
-import {APP_REFRESHING_TIME_GAP} from "../utilities/CONSTANTS_TIME";
+import {LEVEL0_CONSOLE_FONT, LEVEL0_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
+import {bindActionCreators} from "redux";
+import type {appStateType} from "../reducers/appReducer";
+import {appAction_UpdateAppSize, appAction_UpdateAppMouseMoveEventTimeStamp} from "../actionCreators/appActions";
+import {WHITE} from "../utilities/CONSTANTS_COLOR";
+import StyleObject from "../classes/StyleObject";
+import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
+
+type AppPropsType = {
+    appState: appStateType,
+    appAction_UpdateAppSize: Function,
+    appAction_UpdateAppMouseMoveEventTimeStamp: Function,
+}
 
 /**
  * App component is a class component (stateful component)
- * It controls:
- * 1) position and size of each base component
- * 2) Rotation, translation and focus point on X and Y axis of base panel
- * 3) App refreshing rate during on mouse move
+ * It uses React lifecycle function componentDidMount() and componentWillUnmount() to register/remove functions on window events
  */
-class App extends Component
+class App extends Component<AppPropsType>
 {
     constructor(props)
     {
-        console.log("%cApp constructor()", APP_CONSOLE_FONT);
+        console.log(LEVEL0_CONSOLE_PREFIX + "App started", LEVEL0_CONSOLE_FONT);
         super(props);
 
-        this.previousUsedMouseMoveEventTimeStamp = 0;
-    }
-
-    setPreviousUsedMouseMoveEventTimeStamp(t: number)
-    {
-        this.previousUsedMouseMoveEventTimeStamp = t;
-    }
-
-    getPreviousUsedMouseMoveEventTimeStamp()
-    {
-        return this.previousUsedMouseMoveEventTimeStamp;
+        this.props = props;
     }
 
     componentDidMount()
     {
-        registerFunctionsOnWindowEvents(() => this.getPreviousUsedMouseMoveEventTimeStamp(), (t: number) => this.setPreviousUsedMouseMoveEventTimeStamp(t));
+        console.log("Registering functions on window events...");
+        window.addEventListener('resize', () => this.props.appAction_UpdateAppSize(window.innerWidth, window.innerHeight));
+        window.addEventListener('mousemove', (event) => this.props.appAction_UpdateAppMouseMoveEventTimeStamp(event.timeStamp));
+        console.log("Finish registering functions on window events.");
     }
 
     componentWillUnmount()
     {
-        window.removeEventListener('resize', () =>
-        {
-            window.removeEventListener('resize', () => windowOnResizeFunction());
-            window.removeEventListener('mousemove', (event) => windowOnMouseMoveFunction(event, this.getPreviousUsedMouseMoveEventTimeStamp, this.setPreviousUsedMouseMoveEventTimeStamp));
-        })
+        window.removeEventListener('resize', () => this.props.appAction_UpdateAppSize(window.innerWidth, window.innerHeight));
+        window.removeEventListener('mousemove', (event) => this.props.appAction_UpdateAppMouseMoveEventTimeStamp(event.timeStamp));
     }
 
     render()
     {
-        console.log("%cApp - render()", APP_CONSOLE_FONT);
+        let appComponentRect: Shape2d_Rectangle = this.props.appState.appShapeModel;
+
+        console.log(LEVEL0_CONSOLE_PREFIX + appComponentRect.getStringId(), LEVEL0_CONSOLE_FONT);
+
+        let styleObject: StyleObject = new StyleObject().setBasics('absolute', appComponentRect.getWidth(), appComponentRect.getHeight(), appComponentRect.getTopLeftPoint().getX(), appComponentRect.getTopLeftPoint().getY())
+                                                        .setBackgroundColor(WHITE)
+                                                        .setPerspective(100, undefined);
+
         return (
-            <Provider store={store}>
-                <div id={ID_CONSTANTS.APP} style={appComponentDefaultStyle}>
-                    <BasePanel/>
-                </div>
-            </Provider>
+            <div id={appComponentRect.getStringId()} style={styleObject.getStyle()}>
+                {/*<BasePanel/>*/}
+            </div>
         );
     }
 }
 
-const registerFunctionsOnWindowEvents = (getPreviousUsedMouseMoveEventTimeStamp, setPreviousUsedMouseMoveEventTimeStamp) =>
+// let currentMouseMoveEventTimeStamp = Math.trunc(event.timeStamp);
+// let previousUsedMouseMoveEventTimeStamp = getPreviousUsedMouseMoveEventTimeStamp();
+// // Different browsers have different rates when firing mouse move events, this "if" ensures a stable graphics performance across different browsers
+// if (currentMouseMoveEventTimeStamp - previousUsedMouseMoveEventTimeStamp >= APP_REFRESHING_TIME_GAP)
+// {
+//     setPreviousUsedMouseMoveEventTimeStamp(currentMouseMoveEventTimeStamp);
+//
+//     let mouseXOverWindowWidth = event.clientX / window.innerWidth;
+//     let mouseYOverWindowHeight = event.clientY / window.innerHeight;
+//
+//     let maxRotationDegreeValue = MAX_ROTATION_DEGREE_VALUE;
+//     let basePanelRotationX = Number((1 - mouseYOverWindowHeight) * maxRotationDegreeValue - maxRotationDegreeValue / 2).toFixed(2);
+//     let basePanelRotationY = Number(maxRotationDegreeValue / 2 - (1 - mouseXOverWindowWidth) * maxRotationDegreeValue).toFixed(2);
+//
+//     let maxTranslatePercentageValue = MAX_TRANSLATE_PERCENTAGE_VALUE;
+//     let basePanelTranslatePercentageX = Number((1 - mouseXOverWindowWidth) * maxTranslatePercentageValue - maxTranslatePercentageValue / 2).toFixed(2);
+//     let basePanelTranslatePercentageY = Number((1 - mouseYOverWindowHeight) * maxTranslatePercentageValue - maxTranslatePercentageValue / 2).toFixed(2);
+//
+//     let basePanelFocusPointPercentageX = Number(mouseXOverWindowWidth * 100).toFixed(2);
+//     let basePanelFocusPointPercentageY = Number(mouseYOverWindowHeight * 100).toFixed(2);
+//
+//     store.dispatch(basePanelAction_UpdateTransformAndFocusPoint(basePanelTranslatePercentageX, basePanelTranslatePercentageY, basePanelRotationX, basePanelRotationY, basePanelFocusPointPercentageX, basePanelFocusPointPercentageY));
+// }
+
+
+const mapStateToProps = (store) =>
 {
-    console.log("Registering functions on window events...");
-
-    window.addEventListener('resize', () => windowOnResizeFunction());
-    console.log("* window resize event function done.");
-    window.addEventListener('mousemove', (event) => windowOnMouseMoveFunction(event, getPreviousUsedMouseMoveEventTimeStamp, setPreviousUsedMouseMoveEventTimeStamp));
-    console.log("* window mousemove event function done.");
-
-    console.log("Finish registering functions on window events.");
-};
-
-const windowOnResizeFunction = () =>
-{
-    let windowWidth = window.innerWidth;
-    let windowHeight = window.innerHeight;
-    store.dispatch(basePanelAction_UpdateBasePanelSize(windowWidth, windowHeight));
-};
-
-const windowOnMouseMoveFunction = (event, getPreviousUsedMouseMoveEventTimeStamp, setPreviousUsedMouseMoveEventTimeStamp) =>
-{
-    let currentMouseMoveEventTimeStamp = Math.trunc(event.timeStamp);
-    let previousUsedMouseMoveEventTimeStamp = getPreviousUsedMouseMoveEventTimeStamp();
-    // Different browsers have different rates when firing mouse move events, this "if" ensures a stable graphics performance across different browsers
-    if (currentMouseMoveEventTimeStamp - previousUsedMouseMoveEventTimeStamp >= APP_REFRESHING_TIME_GAP)
-    {
-        setPreviousUsedMouseMoveEventTimeStamp(currentMouseMoveEventTimeStamp);
-
-        let mouseXOverWindowWidth = event.clientX / window.innerWidth;
-        let mouseYOverWindowHeight = event.clientY / window.innerHeight;
-
-        let maxRotationDegreeValue = MAX_ROTATION_DEGREE_VALUE;
-        let basePanelRotationX = Number((1 - mouseYOverWindowHeight) * maxRotationDegreeValue - maxRotationDegreeValue / 2).toFixed(2);
-        let basePanelRotationY = Number(maxRotationDegreeValue / 2 - (1 - mouseXOverWindowWidth) * maxRotationDegreeValue).toFixed(2);
-
-        let maxTranslatePercentageValue = MAX_TRANSLATE_PERCENTAGE_VALUE;
-        let basePanelTranslatePercentageX = Number((1 - mouseXOverWindowWidth) * maxTranslatePercentageValue - maxTranslatePercentageValue / 2).toFixed(2);
-        let basePanelTranslatePercentageY = Number((1 - mouseYOverWindowHeight) * maxTranslatePercentageValue - maxTranslatePercentageValue / 2).toFixed(2);
-
-        let basePanelFocusPointPercentageX = Number(mouseXOverWindowWidth * 100).toFixed(2);
-        let basePanelFocusPointPercentageY = Number(mouseYOverWindowHeight * 100).toFixed(2);
-
-        store.dispatch(basePanelAction_UpdateTransformAndFocusPoint(basePanelTranslatePercentageX, basePanelTranslatePercentageY, basePanelRotationX, basePanelRotationY, basePanelFocusPointPercentageX, basePanelFocusPointPercentageY));
+    return {
+        appState: store.appState,
     }
 };
 
-export default App;
+const matchDispatchToProps = (dispatch) =>
+{
+    return bindActionCreators({
+        appAction_UpdateAppSize: appAction_UpdateAppSize,
+        appAction_UpdateAppMouseMoveEventTimeStamp: appAction_UpdateAppMouseMoveEventTimeStamp,
+    }, dispatch)
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(App);
