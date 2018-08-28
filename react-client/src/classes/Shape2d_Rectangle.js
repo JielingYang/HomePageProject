@@ -45,5 +45,5 @@ export default class Shape2d_Rectangle extends Base
 
     isSizeEqual(anotherRect: Shape2d_Rectangle): Boolean {return this.width === anotherRect.getWidth() && this.height === anotherRect.getHeight()}
 
-    clone(): Shape2d_Rectangle {return new Shape2d_Rectangle(this.getNumberId(), this.getStringId(), this.getTopLeftPoint().clone(), this.getWidth(), this.getHeight())}
+    deepClone(): Shape2d_Rectangle {return new Shape2d_Rectangle(this.getNumberId(), this.getStringId(), this.getTopLeftPoint().clone(), this.getWidth(), this.getHeight())}
 }

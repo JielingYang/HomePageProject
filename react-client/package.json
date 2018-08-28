@@ -31,7 +31,10 @@
     },
     "rules": {
       "no-var": "error",
-      "no-console": "off"
+      "no-console": "off",
+      "eqeqeq": ["warn", "always", {"null": "ignore"}],
+      "no-undef": "warn",
+      "func-style": ["error", "expression"]
     },
     "env": {
       "browser": true,

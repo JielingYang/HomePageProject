@@ -10,5 +10,5 @@ export default class Base
 
     getStringId(): string {return this.strId}
 
-    clone(): Base {return new Base(this.getNumberId(), this.getStringId())}
+    deepClone(): Base {return new Base(this.getNumberId(), this.getStringId())}
 }

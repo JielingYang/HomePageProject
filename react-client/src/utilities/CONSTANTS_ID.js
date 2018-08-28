@@ -1,5 +1,5 @@
 export const ID_CONSTANTS = Object.freeze({
-    APP: 'app',
+    APP_COMPONENT: 'appComponent',
 
     /**
      *

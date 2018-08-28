@@ -53,8 +53,8 @@ export const deepCopy = (originalObject) =>
             // If target is class object
             if (CLASS_NAMES.hasOwnProperty(o.constructor.name))
             {
-                // Call class object clone method
-                copiedObject[key] = o.clone();
+                // Call class object deepClone method
+                copiedObject[key] = o.deepClone();
             }
             else
             {

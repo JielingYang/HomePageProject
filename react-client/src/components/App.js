@@ -7,16 +7,15 @@ import {basePanelAction_UpdateBasePanelSize, basePanelAction_UpdateTransformAndF
 import BasePanel from "./BasePanel";
 import {LEVEL0_CONSOLE_FONT, LEVEL0_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 import {bindActionCreators} from "redux";
-import type {appStateType} from "../reducers/appReducer";
-import {appAction_UpdateAppSize, appAction_UpdateAppMouseMoveEventTimeStamp} from "../actionCreators/appActions";
+import {appAction_UpdateAppSize, appAction_requestToUpdateAppMouseMoveRelatedData} from "../actionCreators/appActions";
 import {WHITE} from "../utilities/CONSTANTS_COLOR";
 import StyleObject from "../classes/StyleObject";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 
 type AppPropsType = {
-    appState: appStateType,
+    appShapeModel: Shape2d_Rectangle,
     appAction_UpdateAppSize: Function,
-    appAction_UpdateAppMouseMoveEventTimeStamp: Function,
+    appAction_requestToUpdateAppMouseMoveRelatedData: Function,
 }
 
 /**
@@ -37,36 +36,32 @@ class App extends Component<AppPropsType>
     {
         console.log("Registering functions on window events...");
         window.addEventListener('resize', () => this.props.appAction_UpdateAppSize(window.innerWidth, window.innerHeight));
-        window.addEventListener('mousemove', (event) => this.props.appAction_UpdateAppMouseMoveEventTimeStamp(event.timeStamp));
+        window.addEventListener('mousemove', (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
         console.log("Finish registering functions on window events.");
     }
 
     componentWillUnmount()
     {
         window.removeEventListener('resize', () => this.props.appAction_UpdateAppSize(window.innerWidth, window.innerHeight));
-        window.removeEventListener('mousemove', (event) => this.props.appAction_UpdateAppMouseMoveEventTimeStamp(event.timeStamp));
+        window.removeEventListener('mousemove', (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
     }
 
     render()
     {
-        let appComponentRect: Shape2d_Rectangle = this.props.appState.appShapeModel;
-
-        console.log(LEVEL0_CONSOLE_PREFIX + appComponentRect.getStringId(), LEVEL0_CONSOLE_FONT);
-
-        let styleObject: StyleObject = new StyleObject().setBasics('absolute', appComponentRect.getWidth(), appComponentRect.getHeight(), appComponentRect.getTopLeftPoint().getX(), appComponentRect.getTopLeftPoint().getY())
+        let appComponentShapeModel: Shape2d_Rectangle = this.props.appShapeModel;
+        let styleObject: StyleObject = new StyleObject().setBasics('absolute', appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY())
                                                         .setBackgroundColor(WHITE)
                                                         .setPerspective(100, undefined);
 
+        console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
         return (
-            <div id={appComponentRect.getStringId()} style={styleObject.getStyle()}>
-                {/*<BasePanel/>*/}
+            <div id={appComponentShapeModel.getStringId()} style={styleObject.getStyle()}>
+                <BasePanel/>
             </div>
         );
     }
 }
 
-// let currentMouseMoveEventTimeStamp = Math.trunc(event.timeStamp);
-// let previousUsedMouseMoveEventTimeStamp = getPreviousUsedMouseMoveEventTimeStamp();
 // // Different browsers have different rates when firing mouse move events, this "if" ensures a stable graphics performance across different browsers
 // if (currentMouseMoveEventTimeStamp - previousUsedMouseMoveEventTimeStamp >= APP_REFRESHING_TIME_GAP)
 // {
@@ -93,7 +88,7 @@ class App extends Component<AppPropsType>
 const mapStateToProps = (store) =>
 {
     return {
-        appState: store.appState,
+        appShapeModel: store.appState.appShapeModel,
     }
 };
 
@@ -101,7 +96,7 @@ const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
         appAction_UpdateAppSize: appAction_UpdateAppSize,
-        appAction_UpdateAppMouseMoveEventTimeStamp: appAction_UpdateAppMouseMoveEventTimeStamp,
+        appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
     }, dispatch)
 };
 
