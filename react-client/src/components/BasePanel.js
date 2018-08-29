@@ -9,8 +9,7 @@ import type {basePanelStateType} from "../reducers/basePanelReducer";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 
 type BasePanelPropsType = {
-    basePanelShapeModel: Shape2d_Rectangle,
-    // appTestState: number,
+    basePanelState: basePanelStateType,
 }
 
 /**
@@ -25,13 +24,18 @@ type BasePanelPropsType = {
  */
 const BasePanel = (props: BasePanelPropsType) =>
 {
-    let basePanelShapeModel: Shape2d_Rectangle = props.basePanelShapeModel;
+    let basePanelShapeModel: Shape2d_Rectangle = props.basePanelState.basePanelShapeModel;
+    let basePanelTranslatePercentageX: String = props.basePanelState.basePanelTranslatePercentageX;
+    let basePanelTranslatePercentageY: String = props.basePanelState.basePanelTranslatePercentageY;
+    let basePanelRotationX: String = props.basePanelState.basePanelRotationX;
+    let basePanelRotationY: String = props.basePanelState.basePanelRotationY;
+    let basePanelFocusPointPercentageY: String = props.basePanelState.basePanelFocusPointPercentageY;
+    let basePanelFocusPointPercentageX: String = props.basePanelState.basePanelFocusPointPercentageX;
 
     // let basePanelCenterPoint = basePanelShapeModel.getCenterPoint();
     // let basePanelCenterPointX = basePanelCenterPoint.getX();
     // let basePanelCenterPointY = basePanelCenterPoint.getY();
     // let basePanelUnitLength = basePanelShapeModel.getUnitLength();
-    //
     // let basePanelSubComponents =
     //     <g id={ID_CONSTANTS.BASE_PANEL_SUB_COMPONENTS_WRAPPER}>
     //         <CenterComponent basePanelCenterPointX={basePanelCenterPointX}
@@ -98,8 +102,7 @@ const BasePanel = (props: BasePanelPropsType) =>
 const mapStateToProps = (store) =>
 {
     return {
-        basePanelShapeModel: store.basePanelState.basePanelShapeModel,
-        // appTestState: store.appState.appMouseMoveEventTimeStamp,
+        basePanelState: store.basePanelState,
     };
 };
 
