@@ -28,12 +28,10 @@ const BasePanel = (props: BasePanelPropsType) =>
     // let basePanelCenterPointX = basePanelCenterPoint.getX();
     // let basePanelCenterPointY = basePanelCenterPoint.getY();
     // let basePanelUnitLength = basePanelShapeModel.getUnitLength();
-    // let basePanelSubComponents =
-    //     <g id={ID_CONSTANTS.BASE_PANEL_SUB_COMPONENTS_WRAPPER}>
-    //         <CenterComponent basePanelCenterPointX={basePanelCenterPointX}
-    //                          basePanelCenterPointY={basePanelCenterPointY}
-    //                          basePanelUnitLength={basePanelUnitLength}/>
-    //     </g>;
+    let basePanelContents =
+        <g id={ID_CONSTANTS.BASE_PANEL_SUB_COMPONENTS_WRAPPER}>
+            <rect x={0} y={0} width="300" height="100" fill="rgb(0,0,255)"/>
+        </g>;
 
 
     console.log(LEVEL1_CONSOLE_PREFIX + basePanelShapeModel.getStringId(), LEVEL1_CONSOLE_FONT);
@@ -79,6 +77,7 @@ const BasePanel = (props: BasePanelPropsType) =>
 
                 {/*Actual nodes/elements to interact with. This is a workaround to let events "pass" through <use>*/}
                 <g id={ID_CONSTANTS.BASE_PANEL_SUB_COMPONENTS_INVISIBLE_WRAPPER} style={{opacity: 0}}>
+                    {basePanelContents}
                 </g>
 
             </svg>
