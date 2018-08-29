@@ -21,11 +21,11 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
         let basePanelTranslatePercentageX: string = numberToPercentageString((1 - mouseXToAppWidthRatio) * MAX_TRANSLATE_PERCENTAGE_VALUE - MAX_TRANSLATE_PERCENTAGE_VALUE / 2);
         let basePanelTranslatePercentageY: string = numberToPercentageString((1 - mouseYToAppHeightRatio) * MAX_TRANSLATE_PERCENTAGE_VALUE - MAX_TRANSLATE_PERCENTAGE_VALUE / 2);
 
-        let basePanelRotationX: string = numberToPercentageString((1 - mouseYToAppHeightRatio) * MAX_ROTATION_DEGREE_VALUE - MAX_ROTATION_DEGREE_VALUE / 2);
-        let basePanelRotationY: string = numberToPercentageString(MAX_ROTATION_DEGREE_VALUE / 2 - (1 - mouseXToAppWidthRatio) * MAX_ROTATION_DEGREE_VALUE);
+        let basePanelRotationX: string = Number((1 - mouseYToAppHeightRatio) * MAX_ROTATION_DEGREE_VALUE - MAX_ROTATION_DEGREE_VALUE / 2).toFixed(2);
+        let basePanelRotationY: string = Number(MAX_ROTATION_DEGREE_VALUE / 2 - (1 - mouseXToAppWidthRatio) * MAX_ROTATION_DEGREE_VALUE).toFixed(2);
 
-        let basePanelFocusPointPercentageX: string = numberToPercentageString(mouseXToAppWidthRatio);
-        let basePanelFocusPointPercentageY: string = numberToPercentageString(mouseYToAppHeightRatio);
+        let basePanelFocusPointPercentageX: string = numberToPercentageString(mouseXToAppWidthRatio * 100);
+        let basePanelFocusPointPercentageY: string = numberToPercentageString(mouseYToAppHeightRatio * 100);
 
         // Compare against old values
         if (basePanelState.basePanelTranslatePercentageX !== basePanelTranslatePercentageX ||

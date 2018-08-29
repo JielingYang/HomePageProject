@@ -7,6 +7,7 @@ const basePanelStyle = {
     height: null,
     left: 0,
     top: 0,
+    backgroundColor: "rgba(0,0,0,0.2)",
 
     transform: null,
     transformStyle: 'preserve-3d',
@@ -14,6 +15,6 @@ const basePanelStyle = {
 
 export default (width: number, height: number, translatePercentageX: string, translatePercentageY: string, rotationX: string, rotationY: string) =>
 {
-    let transform = 'translate(' + translatePercentageX + '%,' + translatePercentageY + '%) rotateX(' + rotationX + 'deg) rotateY(' + rotationY + 'deg)';
+    let transform = 'translate(' + translatePercentageX + ',' + translatePercentageY + ') rotateX(' + rotationX + 'deg) rotateY(' + rotationY + 'deg)';
     return {...basePanelStyle, width: width, height: height, transform: transform};
 };
