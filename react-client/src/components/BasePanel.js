@@ -7,11 +7,9 @@ import type {basePanelStateType} from "../reducers/basePanelReducer";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import StyleObject from "../classes/StyleObject";
 import {BLACK, BLACK_TRANSPARENT_20, WHITE} from "../utilities/CONSTANTS_COLOR";
-import {basePanelAction_requestToUpdateBasePanelMouseMoveRelatedData} from "../actionCreators/basePanelActions";
 
 type BasePanelPropsType = {
     basePanelState: basePanelStateType,
-    basePanelAction_requestToUpdateBasePanelMouseMoveRelatedData: Function,
 }
 
 /**
@@ -49,8 +47,7 @@ const BasePanel = (props: BasePanelPropsType) =>
 
     console.log(LEVEL1_CONSOLE_PREFIX + basePanelShapeModel.getStringId(), LEVEL1_CONSOLE_FONT);
     return (
-        <div id={basePanelShapeModel.getStringId()} style={basePanelComponentStyleObject.getStyle()}
-             onMouseMove={event => props.basePanelAction_requestToUpdateBasePanelMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY)}>
+        <div id={basePanelShapeModel.getStringId()} style={basePanelComponentStyleObject.getStyle()}>
 
             <svg id={ID_CONSTANTS.BASE_PANEL_COMPONENT_SVG} style={basePanelComponentSvgStyleObject.getStyle()}>
 
@@ -98,7 +95,6 @@ const mapStateToProps = (store) =>
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-        basePanelAction_requestToUpdateBasePanelMouseMoveRelatedData: basePanelAction_requestToUpdateBasePanelMouseMoveRelatedData,
     }, dispatch)
 };
 

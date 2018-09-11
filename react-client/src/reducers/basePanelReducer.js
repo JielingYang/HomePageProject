@@ -31,19 +31,13 @@ const basePanelAction_updateBasePanelSize_handler = (state: basePanelStateType, 
     return nextState;
 };
 
-const basePanelAction_updateBasePanelTransform_handler = (state: basePanelStateType, action) =>
+const basePanelAction_updateBasePanelTransformAndFocusPoint_handler = (state: basePanelStateType, action) =>
 {
     let nextState = deepCopy(state);
     nextState.basePanelTranslatePercentageX = action.basePanelTranslatePercentageX;
     nextState.basePanelTranslatePercentageY = action.basePanelTranslatePercentageY;
     nextState.basePanelRotationX = action.basePanelRotationX;
     nextState.basePanelRotationY = action.basePanelRotationY;
-    return nextState;
-};
-
-const basePanelAction_updateBasePanelFocusPoint_handler = (state: basePanelStateType, action) =>
-{
-    let nextState = deepCopy(state);
     nextState.basePanelFocusPointPercentageX = action.basePanelFocusPointPercentageX;
     nextState.basePanelFocusPointPercentageY = action.basePanelFocusPointPercentageY;
     return nextState;
@@ -52,8 +46,7 @@ const basePanelAction_updateBasePanelFocusPoint_handler = (state: basePanelState
 // Check reducerCreator for explanation of handlers
 const basePanelReducerHandlers = {
     [BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_SIZE]: basePanelAction_updateBasePanelSize_handler,
-    [BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM]: basePanelAction_updateBasePanelTransform_handler,
-    [BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_POINT]: basePanelAction_updateBasePanelFocusPoint_handler,
+    [BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT]: basePanelAction_updateBasePanelTransformAndFocusPoint_handler,
 };
 
 export default createReducer(basePanelDefaultState, basePanelReducerHandlers);
