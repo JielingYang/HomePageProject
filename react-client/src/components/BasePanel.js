@@ -33,9 +33,9 @@ const BasePanel = (props: BasePanelPropsType) =>
     // let basePanelUnitLength = basePanelShapeModel.getUnitLength();
     let basePanelContents =
         <g id={ID_CONSTANTS.BASE_PANEL_SUB_COMPONENTS_WRAPPER}>
-            <rect style={{x: 0, y: 0, width: 300, height: 100, fill: "rgb(0,0,255)"}}>
-                <animate attributeName="fill" from="rgb(0,0,255)" to="rgb(0,255,0)"
-                         dur="3s" repeatCount="indefinite"/>
+            <rect style={{x: 0, y: 0, width: 300, height: 100, fill: 'rgb(0,0,255)'}}>
+                <animate attributeName='fill' from='rgb(0,0,255)' to='rgb(0,255,0)'
+                         dur='3s' repeatCount='indefinite'/>
             </rect>
         </g>;
 
