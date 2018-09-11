@@ -1,5 +1,5 @@
 import type {appStateType} from "../reducers/appReducer";
-import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint} from "./basePanelActions";
+import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransform} from "./basePanelActions";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 
 /* ************************** Requesting actions ************************** */
@@ -23,8 +23,8 @@ export const appAction_requestToUpdateAppMouseMoveRelatedData = (mouseMoveEventT
          */
         if (currentTimestamp - previousTimestamp >= appMaximumRefreshingTimeGap)
         {
+            dispatch(basePanelAction_requestToUpdateBasePanelTransform(mouseMoveX, mouseMoveY)); // Request base panel action to update base panel transformation data
             dispatch(appAction_updateAppMouseMoveEventTimeStamp(currentTimestamp)); // Update timestamp to prepare next check
-            dispatch(basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint(mouseMoveX, mouseMoveY)) // Request base panel action to update base panel data
         }
     };
 };
