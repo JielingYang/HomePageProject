@@ -7,7 +7,7 @@ import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 /* They check on new data to decide whether to call updating actions or not */
 /* ************************************************************************ */
 
-export const appAction_requestToUpdateMouseMoveRelatedData = (mouseMoveEventTimeStamp: number, mouseMoveX: number, mouseMoveY: number) =>
+export const appAction_requestToUpdateAppMouseMoveRelatedData = (mouseMoveEventTimeStamp: number, mouseMoveX: number, mouseMoveY: number) =>
 {
     return (dispatch, getState) =>
     {

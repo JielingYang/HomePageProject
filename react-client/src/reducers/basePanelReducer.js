@@ -15,7 +15,7 @@ export type basePanelStateType = {
 }
 
 const basePanelDefaultState: basePanelStateType = {
-    basePanelShapeModel: new Shape2d_Rectangle(0, ID_CONSTANTS.BASE_PANEL_COMPONENT, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
+    basePanelShapeModel: new Shape2d_Rectangle(1, ID_CONSTANTS.BASE_PANEL_COMPONENT, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
     basePanelTranslatePercentageX: "0%",
     basePanelTranslatePercentageY: "0%",
     basePanelRotationX: "0%",

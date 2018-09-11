@@ -34,4 +34,38 @@ export default class StyleObject
         }
         return this;
     }
+
+    setTransformStyle(transformStyle: string)
+    {
+        this.style.transformStyle = transformStyle;
+        return this;
+    }
+
+    addTranslation(translateX: string | number, translateY: string | number, translateZ: string | number)
+    {
+        let translation: string = " translateX(" + translateX + ")" + " translateY(" + translateY + ")" + " translateZ(" + translateZ + ")";
+        if (this.style.transform !== undefined)
+        {
+            this.style.transform = this.style.transform + translation;
+        }
+        else
+        {
+            this.style.transform = translation;
+        }
+        return this;
+    }
+
+    addRotation(rotateX: string | number, rotateY: string | number, rotateZ: string | number)
+    {
+        let rotation: string = " rotateX(" + rotateX + "deg)" + " rotateY(" + rotateY + "deg)" + " rotateZ(" + rotateZ + "deg)";
+        if (this.style.transform !== undefined)
+        {
+            this.style.transform = this.style.transform + rotation;
+        }
+        else
+        {
+            this.style.transform = rotation;
+        }
+        return this;
+    }
 }

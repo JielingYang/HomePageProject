@@ -1,12 +1,35 @@
-import {MAX_ROTATION_DEGREE_VALUE, MAX_TRANSLATE_PERCENTAGE_VALUE} from "../styles/basePanelStyle";
 import {numberToPercentageString} from "../utilities/UTILITIES";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import type {basePanelStateType} from "../reducers/basePanelReducer";
+import type {appStateType} from "../reducers/appReducer";
+
+const MAX_ROTATION_DEGREE_VALUE = 2;
+const MAX_TRANSLATE_PERCENTAGE_VALUE = 10;
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
 /* They check on new data to decide whether to call updating actions or not */
 /* ************************************************************************ */
+export const basePanelAction_requestToUpdateBasePanelMouseMoveRelatedData = (mouseMoveEventTimeStamp: number, mouseMoveX: number, mouseMoveY: number) =>
+{
+    return (dispatch, getState) =>
+    {
+        let appState: appStateType = getState().appState;
+
+        let appMaximumRefreshingTimeGap: number = appState.appMaximumRefreshingTimeGap;
+        let currentTimestamp: number = Math.trunc(mouseMoveEventTimeStamp);
+        let previousTimestamp: number = appState.appMouseMoveEventTimeStamp;
+
+        /*
+         I use timestamp to prevent new data being sent to reducer too often
+         New data will be sent only if current timestamp is at least 30ms (by default) younger than previous one
+         */
+        if (currentTimestamp - previousTimestamp >= appMaximumRefreshingTimeGap)
+        {
+            dispatch(basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint(mouseMoveX, mouseMoveY)) // Request base panel action to update base panel data
+        }
+    };
+};
 
 export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (mouseMoveX: number, mouseMoveY: number) =>
 {
@@ -47,6 +70,7 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
 export const BASE_PANEL_ACTION_TYPE = Object.freeze({
     BASE_PANEL_ACTION_UPDATE_BASE_PANEL_SIZE: 'BASE_PANEL_ACTION_UPDATE_BASE_PANEL_SIZE',
     BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT: 'BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT',
+    BASE_PANEL_ACTION_UPDATE_BASE_PANEL_MOUSE_MOVE_EVENT_TIME_STAMP: 'BASE_PANEL_ACTION_UPDATE_BASE_PANEL_MOUSE_MOVE_EVENT_TIME_STAMP',
 });
 
 export const basePanelAction_updateBasePanelSize = (newBasePanelWidth: number, newBasePanelHeight: number) =>

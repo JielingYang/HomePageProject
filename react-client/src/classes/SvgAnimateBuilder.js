@@ -304,6 +304,12 @@ class SvgAnimateBuilder
         return this;
     }
 
+    setRepeatCountIndefinite()
+    {
+        this.repeatCount = "indefinite";
+        return this;
+    }
+
     setRepeatDur(repeatDur: string)
     {
         this.repeatDur = repeatDur;
