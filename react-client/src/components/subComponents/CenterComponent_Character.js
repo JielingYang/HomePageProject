@@ -1,5 +1,4 @@
 import React from 'react';
-import {ID_CONSTANTS} from "../../utilities/CONSTANTS_ID";
 import {GOLD} from "../../utilities/CONSTANTS_COLOR";
 import {CENTER_COMPONENT_CONSOLE_FONT} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import pathCommandBuilder from "../../classes/SvgPathDataCommandBuilder";
@@ -93,7 +92,7 @@ const CenterComponent_Character = (props: CenterComponent_Character_PropsType) =
                                     .buildCommandAndClear();
 
     return (
-        <path id={ID_CONSTANTS.CENTER_COMPONENT_CHARACTER} fill={GOLD} d={pathCmd}
+        <path fill={GOLD} d={pathCmd}
               transform={'translate(-' + 2 * startX + ',0) rotate(180,' + startX + ',' + startY + ') scale(-1,1)'}>
             {/*{animate}*/}
         </path>

@@ -12,7 +12,7 @@ export type appStateType = {
 }
 
 const appDefaultState: appStateType = {
-    appShapeModel: new Shape2d_Rectangle(0, ID.APP_COMPONENT, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
+    appShapeModel: new Shape2d_Rectangle(0, ID.APP_ID, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
     appMaximumRefreshingTimeGap: APP_REFRESHING_TIME_GAP,
     appMouseMoveEventTimeStamp: 0,
 };

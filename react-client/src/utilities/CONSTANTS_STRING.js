@@ -1,21 +1,21 @@
 export const ID = Object.freeze({
-    APP_COMPONENT: 'appComponent',
+    APP_ID: 'appComponent',
 
     /**
      *
      */
-    BASE_PANEL_COMPONENT: 'basePanelComponent',
-    BASE_PANEL_COMPONENT_SVG: 'basePanelComponent_svg',
-    BASE_PANEL_SUB_COMPONENTS_WRAPPER: 'basePanel_subComponentsWrapper',
-    BASE_PANEL_BLUR_FILTER: 'basePanel_blurFilter',
-    BASE_PANEL_FOCUS_GRADIENT: 'basePanel_focusGradient',
-    BASE_PANEL_FOCUS_MASK: 'basePanel_focusMask',
-    BASE_PANEL_SUB_COMPONENTS_INVISIBLE_WRAPPER: 'basePanel_subComponentsInvisibleWrapper',
+    BASE_PANEL_ID: 'basePanelComponent',
+    BASE_PANEL_SVG_ID: 'basePanelComponent_svg',
+    BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID: 'basePanel_subComponentsWrapper',
+    BASE_PANEL_BLUR_FILTER_ID: 'basePanel_blurFilter',
+    BASE_PANEL_FOCUS_GRADIENT_ID: 'basePanel_focusGradient',
+    BASE_PANEL_FOCUS_MASK_ID: 'basePanel_focusMask',
+    BASE_PANEL_SUB_COMPONENTS_INVISIBLE_WRAPPER_ID: 'basePanel_subComponentsInvisibleWrapper',
 
     /**
      *
      */
-    CENTER_COMPONENT: 'centerComponent',
+    CENTER_CIRCLE_ID: 'centerCircleComponent',
     CENTER_COMPONENT_CIRCLE: 'centerComponent_circle',
     CENTER_COMPONENT_CHARACTER: 'centerComponent_character',
     // Animate IDs

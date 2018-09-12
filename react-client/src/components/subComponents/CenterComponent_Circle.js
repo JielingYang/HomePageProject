@@ -1,5 +1,4 @@
 import React from 'react';
-import {ID_CONSTANTS} from "../../utilities/CONSTANTS_ID";
 import {GOLD} from "../../utilities/CONSTANTS_COLOR";
 import {CENTER_COMPONENT_CONSOLE_FONT} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import {CENTER_COMPONENT_TIMING} from "../../utilities/CONSTANTS_TIME";
@@ -58,7 +57,7 @@ const CenterComponent_Circle = (props: CenterComponent_Circle_PropsType) =>
         .buildAnimateAndReset();
 
     return (
-        <g id={ID_CONSTANTS.CENTER_COMPONENT_CIRCLE}>
+        <g>
             <circle cx={cx} cy={cy}
                     r={r}
                     stroke={GOLD} strokeWidth={thickness}

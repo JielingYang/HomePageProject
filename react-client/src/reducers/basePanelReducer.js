@@ -17,14 +17,14 @@ export type basePanelStateType = {
 }
 
 const basePanelDefaultState: basePanelStateType = {
-    basePanelShapeModel: new Shape2d_Rectangle(1, ID.BASE_PANEL_COMPONENT, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
+    basePanelShapeModel: new Shape2d_Rectangle(1, ID.BASE_PANEL_ID, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
     basePanelTranslatePercentageX: "0%",
     basePanelTranslatePercentageY: "0%",
     basePanelRotationX: "0%",
     basePanelRotationY: "0%",
     basePanelFocusPointPercentageY: "50%",
     basePanelFocusPointPercentageX: "50%",
-    basePanelFocusRadiance: "30%",
+    basePanelFocusRadiance: "20%",
     basePanelBlurLevel: 10,
 };
 
