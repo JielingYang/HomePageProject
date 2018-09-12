@@ -6,12 +6,14 @@ import {ID} from "../utilities/CONSTANTS_STRING";
 
 export type basePanelStateType = {
     basePanelShapeModel: Shape2d_Rectangle,
-    basePanelTranslatePercentageX: String,
-    basePanelTranslatePercentageY: String,
-    basePanelRotationX: String,
-    basePanelRotationY: String,
-    basePanelFocusPointPercentageY: String,
-    basePanelFocusPointPercentageX: String,
+    basePanelTranslatePercentageX: string,
+    basePanelTranslatePercentageY: string,
+    basePanelRotationX: string,
+    basePanelRotationY: string,
+    basePanelFocusPointPercentageY: string,
+    basePanelFocusPointPercentageX: string,
+    basePanelFocusRadiance: string,
+    basePanelBlurLevel: number,
 }
 
 const basePanelDefaultState: basePanelStateType = {
@@ -22,6 +24,8 @@ const basePanelDefaultState: basePanelStateType = {
     basePanelRotationY: "0%",
     basePanelFocusPointPercentageY: "50%",
     basePanelFocusPointPercentageX: "50%",
+    basePanelFocusRadiance: "30%",
+    basePanelBlurLevel: 10,
 };
 
 const basePanelAction_updateBasePanelSize_handler = (state: basePanelStateType, action) =>

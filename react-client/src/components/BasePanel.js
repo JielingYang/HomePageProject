@@ -5,7 +5,7 @@ import {LEVEL1_CONSOLE_FONT, LEVEL1_CONSOLE_PREFIX} from "../utilities/CONSTANTS
 import type {basePanelStateType} from "../reducers/basePanelReducer";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import StyleObject from "../classes/StyleObject";
-import {BLACK, BLACK_TRANSPARENT_20, WHITE} from "../utilities/CONSTANTS_COLOR";
+import {BLACK, BLACK_TRANSPARENT_10, WHITE} from "../utilities/CONSTANTS_COLOR";
 import {ID, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
 
 type BasePanelPropsType = {
@@ -18,12 +18,14 @@ type BasePanelPropsType = {
 const BasePanel = (props: BasePanelPropsType) =>
 {
     let basePanelShapeModel: Shape2d_Rectangle = props.basePanelState.basePanelShapeModel;
-    let basePanelTranslatePercentageX: String = props.basePanelState.basePanelTranslatePercentageX;
-    let basePanelTranslatePercentageY: String = props.basePanelState.basePanelTranslatePercentageY;
-    let basePanelRotationX: String = props.basePanelState.basePanelRotationX;
-    let basePanelRotationY: String = props.basePanelState.basePanelRotationY;
-    let basePanelFocusPointPercentageY: String = props.basePanelState.basePanelFocusPointPercentageY;
-    let basePanelFocusPointPercentageX: String = props.basePanelState.basePanelFocusPointPercentageX;
+    let basePanelTranslatePercentageX: string = props.basePanelState.basePanelTranslatePercentageX;
+    let basePanelTranslatePercentageY: string = props.basePanelState.basePanelTranslatePercentageY;
+    let basePanelRotationX: string = props.basePanelState.basePanelRotationX;
+    let basePanelRotationY: string = props.basePanelState.basePanelRotationY;
+    let basePanelFocusPointPercentageY: string = props.basePanelState.basePanelFocusPointPercentageY;
+    let basePanelFocusPointPercentageX: string = props.basePanelState.basePanelFocusPointPercentageX;
+    let basePanelFocusRadiance: string = props.basePanelState.basePanelFocusRadiance;
+    let basePanelBlurLevel: number = props.basePanelState.basePanelBlurLevel;
 
     // let basePanelCenterPoint = basePanelShapeModel.getCenterPoint();
     // let basePanelCenterPointX = basePanelCenterPoint.getX();
@@ -38,7 +40,7 @@ const BasePanel = (props: BasePanelPropsType) =>
         </g>;
 
     let basePanelComponentStyleObject = new StyleObject().setBasics('absolute', basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
-                                                         .setBackgroundColor(BLACK_TRANSPARENT_20)
+                                                         .setBackgroundColor(BLACK_TRANSPARENT_10)
                                                          .setTransformStyle('preserve-3d')
                                                          .addTranslation(basePanelTranslatePercentageX, basePanelTranslatePercentageY, 0)
                                                          .addRotation(basePanelRotationX, basePanelRotationY, 0);
@@ -54,9 +56,9 @@ const BasePanel = (props: BasePanelPropsType) =>
                 <defs>
                     {/*The IDs for filters, masks and gradients here are not constants because they are very specific to base panel. There is no need to do so*/}
                     <filter id={ID.BASE_PANEL_BLUR_FILTER}>
-                        <feGaussianBlur stdDeviation={10}/>
+                        <feGaussianBlur stdDeviation={basePanelBlurLevel}/>
                     </filter>
-                    <radialGradient id={ID.BASE_PANEL_FOCUS_GRADIENT} r='30%'
+                    <radialGradient id={ID.BASE_PANEL_FOCUS_GRADIENT} r={basePanelFocusRadiance}
                                     fx={basePanelFocusPointPercentageX}
                                     fy={basePanelFocusPointPercentageY}
                                     cx={basePanelFocusPointPercentageX}
@@ -74,7 +76,7 @@ const BasePanel = (props: BasePanelPropsType) =>
                 {/*When reusing by <use> tag, all child nodes/elements become pure graphic content and no longer take any event*/}
                 <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER}
                      filter={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_BLUR_FILTER + UTILITY_STRING.CLOSE_PARENTHESIS}
-                     style={{opacity: 0.4}}/>
+                     style={{opacity: 0.1}}/>
                 <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER}
                      mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK + UTILITY_STRING.CLOSE_PARENTHESIS}/>
 
