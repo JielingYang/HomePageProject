@@ -17,6 +17,8 @@ export default class Shape2d_Circle extends Base
 
     getUnitLength(): number {return this.unitLength}
 
+    updateCenterPoint(centerPoint: Shape2d_Point) {this.centerPoint = centerPoint}
+
     updateCircleRadiant(radiant: number)
     {
         this.radiant = radiant;

@@ -41,6 +41,12 @@ export default class Shape2d_Rectangle extends Base
         this.calculateCenterPoint();
     }
 
+    updateTopLeftPoint(topLeftPoint: Shape2d_Point)
+    {
+        this.topLeftPoint = topLeftPoint;
+        this.calculateCenterPoint();
+    }
+
     calculateCenterPoint() {this.centerPoint = this.getTopLeftPoint().clone().translate(this.getWidth() / 2, this.getHeight() / 2)}
 
     isSizeEqual(anotherRect: Shape2d_Rectangle): Boolean {return this.width === anotherRect.getWidth() && this.height === anotherRect.getHeight()}
