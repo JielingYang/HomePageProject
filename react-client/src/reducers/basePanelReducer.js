@@ -1,8 +1,8 @@
 import {BASE_PANEL_ACTION_TYPE} from "../actionCreators/basePanelActions";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
-import {ID_CONSTANTS} from "../utilities/CONSTANTS_ID";
 import Shape2d_Point from "../classes/Shape2d_Point";
 import {createReducer, deepCopy} from "./reducerCreator";
+import {ID} from "../utilities/CONSTANTS_STRING";
 
 export type basePanelStateType = {
     basePanelShapeModel: Shape2d_Rectangle,
@@ -15,7 +15,7 @@ export type basePanelStateType = {
 }
 
 const basePanelDefaultState: basePanelStateType = {
-    basePanelShapeModel: new Shape2d_Rectangle(1, ID_CONSTANTS.BASE_PANEL_COMPONENT, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
+    basePanelShapeModel: new Shape2d_Rectangle(1, ID.BASE_PANEL_COMPONENT, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
     basePanelTranslatePercentageX: "0%",
     basePanelTranslatePercentageY: "0%",
     basePanelRotationX: "0%",
