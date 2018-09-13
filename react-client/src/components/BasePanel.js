@@ -7,7 +7,7 @@ import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import StyleObject from "../classes/StyleObject";
 import {BLACK, BLACK_TRANSPARENT_10, WHITE} from "../utilities/CONSTANTS_COLOR";
 import {ID, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
-import CenterCircle from "./subComponents/CenterCircle";
+import CenterCircle from "./basePanelSubComponents/CenterCircle";
 
 type BasePanelPropsType = {
     basePanelState: basePanelStateType,
@@ -28,16 +28,12 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelFocusRadiance: string = props.basePanelState.basePanelFocusRadiance;
     let basePanelBlurLevel: number = props.basePanelState.basePanelBlurLevel;
 
-    // let basePanelCenterPoint = basePanelShapeModel.getCenterPoint();
-    // let basePanelCenterPointX = basePanelCenterPoint.getX();
-    // let basePanelCenterPointY = basePanelCenterPoint.getY();
-    // let basePanelUnitLength = basePanelShapeModel.getUnitLength();
     let basePanelContents =
         <g id={ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}>
-            <rect style={{x: 0, y: 0, width: 300, height: 100, fill: 'rgb(0,0,255)'}}>
-                <animate attributeName='fill' from='rgb(0,0,255)' to='rgb(0,255,0)'
-                         dur='3s' repeatCount='indefinite'/>
-            </rect>
+            {/*<rect style={{x: 0, y: 0, width: 300, height: 100, fill: 'rgb(0,0,255)'}}>*/}
+                {/*<animate attributeName='fill' from='rgb(0,0,255)' to='rgb(0,255,0)'*/}
+                         {/*dur='3s' repeatCount='indefinite'/>*/}
+            {/*</rect>*/}
             <CenterCircle/>
         </g>;
 

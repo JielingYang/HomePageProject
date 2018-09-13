@@ -35,7 +35,7 @@ let circleAnimate = animateBuilder
     .setFill(SVG_ANIMATE_FILL.freeze)
     .buildAnimateAndReset();
 
-return <g id={ID_CONSTANTS.CENTER_COMPONENT_CIRCLE}>
+return <g >
     <path stroke={GOLD}
           strokeDasharray={2 * radius * Math.PI + ',' + 2 * radius * Math.PI}
           strokeDashoffset={'0%'}

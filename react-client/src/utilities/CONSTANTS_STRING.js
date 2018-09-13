@@ -16,8 +16,11 @@ export const ID = Object.freeze({
      *
      */
     CENTER_CIRCLE_ID: 'centerCircleComponent',
-    CENTER_COMPONENT_CIRCLE: 'centerComponent_circle',
-    CENTER_COMPONENT_CHARACTER: 'centerComponent_character',
+    TOP_LEFT_PANEL_ID: 'topLeftPanelComponent',
+    TOP_RIGHT_PANEL_ID: 'topRightPanelComponent',
+    BOTTOM_RIGHT_PANEL_ID: 'bottomRightPanelComponent',
+    BOTTOM_LEFT_PANEL_ID: 'bottomLeftPanelComponent',
+
     // Animate IDs
     CENTER_COMPONENT_ANIMATE_LOADING_BAR_WIDTH: 'centerComponent_animateLoadingBarWidth',
     CENTER_COMPONENT_ANIMATE_FADE_OUT: 'centerComponent_animateCenterComponentFadeOut',
@@ -26,9 +29,6 @@ export const ID = Object.freeze({
     CENTER_COMPONENT_ANIMATE_DASH_CIRCLE_TO_NONE: 'centerComponent_animateDashCircleToNone',
 
 
-    /**
-     *
-     */
 });
 
 export const UTILITY_STRING = Object.freeze({
