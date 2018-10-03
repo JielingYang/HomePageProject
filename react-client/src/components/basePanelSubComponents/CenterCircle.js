@@ -26,7 +26,6 @@ const CenterCircle = (props: CenterCirclePropsType) =>
     let centerCircleShapeModel: Shape2d_Circle = props.centerCircleShapeModel;
     let centerCircleCenterPoint: Shape2d_Point = centerCircleShapeModel.getCenterPoint();
 
-
     console.log(LEVEL2_CONSOLE_PREFIX + centerCircleShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
         <g id={centerCircleShapeModel.getStringId()}>

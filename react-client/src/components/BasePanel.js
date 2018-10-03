@@ -8,6 +8,7 @@ import StyleObject from "../classes/StyleObject";
 import {BLACK, BLACK_TRANSPARENT_10, WHITE} from "../utilities/CONSTANTS_COLOR";
 import {ID, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
 import CenterCircle from "./basePanelSubComponents/CenterCircle";
+import TopLeftPanel from "./basePanelSubComponents/TopLeftPanel";
 
 type BasePanelPropsType = {
     basePanelState: basePanelStateType,
@@ -34,7 +35,8 @@ const BasePanel = (props: BasePanelPropsType) =>
                 {/*<animate attributeName='fill' from='rgb(0,0,255)' to='rgb(0,255,0)'*/}
                          {/*dur='3s' repeatCount='indefinite'/>*/}
             {/*</rect>*/}
-            <CenterCircle/>
+            {/*<CenterCircle/>*/}
+            <TopLeftPanel/>
         </g>;
 
     let basePanelComponentStyleObject = new StyleObject().setBasics('absolute', basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
@@ -74,7 +76,7 @@ const BasePanel = (props: BasePanelPropsType) =>
                 {/*When reusing by <use> tag, all child nodes/elements become pure graphic content and no longer take any event*/}
                 <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      filter={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_BLUR_FILTER_ID + UTILITY_STRING.CLOSE_PARENTHESIS}
-                     style={{opacity: 0.1}}/>
+                     opacity={0.1}/>
                 <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
 
