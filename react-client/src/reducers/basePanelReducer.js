@@ -10,9 +10,9 @@ export type basePanelStateType = {
     basePanelTranslatePercentageY: string,
     basePanelRotationX: string,
     basePanelRotationY: string,
-    basePanelFocusPointPercentageY: string,
-    basePanelFocusPointPercentageX: string,
-    basePanelFocusRadiance: string,
+    basePanelMouseFocusPercentageY: string,
+    basePanelMouseFocusPercentageX: string,
+    basePanelMouseFocusRadiance: string,
     basePanelBlurLevel: number,
 }
 
@@ -22,9 +22,9 @@ const basePanelDefaultState: basePanelStateType = {
     basePanelTranslatePercentageY: "0%",
     basePanelRotationX: "0%",
     basePanelRotationY: "0%",
-    basePanelFocusPointPercentageY: "50%",
-    basePanelFocusPointPercentageX: "50%",
-    basePanelFocusRadiance: "20%",
+    basePanelMouseFocusPercentageY: "50%",
+    basePanelMouseFocusPercentageX: "50%",
+    basePanelMouseFocusRadiance: "20%",
     basePanelBlurLevel: 10,
 };
 
@@ -42,8 +42,8 @@ const basePanelAction_updateBasePanelTransformAndFocusPoint_handler = (state: ba
     nextState.basePanelTranslatePercentageY = action.basePanelTranslatePercentageY;
     nextState.basePanelRotationX = action.basePanelRotationX;
     nextState.basePanelRotationY = action.basePanelRotationY;
-    nextState.basePanelFocusPointPercentageX = action.basePanelFocusPointPercentageX;
-    nextState.basePanelFocusPointPercentageY = action.basePanelFocusPointPercentageY;
+    nextState.basePanelMouseFocusPercentageX = action.basePanelMouseFocusPercentageX;
+    nextState.basePanelMouseFocusPercentageY = action.basePanelMouseFocusPercentageY;
     return nextState;
 };
 

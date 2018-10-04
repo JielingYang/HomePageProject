@@ -25,16 +25,16 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelTranslatePercentageY: string = props.basePanelState.basePanelTranslatePercentageY;
     let basePanelRotationX: string = props.basePanelState.basePanelRotationX;
     let basePanelRotationY: string = props.basePanelState.basePanelRotationY;
-    let basePanelFocusPointPercentageY: string = props.basePanelState.basePanelFocusPointPercentageY;
-    let basePanelFocusPointPercentageX: string = props.basePanelState.basePanelFocusPointPercentageX;
-    let basePanelFocusRadiance: string = props.basePanelState.basePanelFocusRadiance;
+    let basePanelMouseFocusPercentageY: string = props.basePanelState.basePanelMouseFocusPercentageY;
+    let basePanelMouseFocusPercentageX: string = props.basePanelState.basePanelMouseFocusPercentageX;
+    let basePanelMouseFocusRadiance: string = props.basePanelState.basePanelMouseFocusRadiance;
     let basePanelBlurLevel: number = props.basePanelState.basePanelBlurLevel;
 
     let basePanelContents =
         <g id={ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}>
             {/*<rect style={{x: 0, y: 0, width: 300, height: 100, fill: 'rgb(0,0,255)'}}>*/}
-                {/*<animate attributeName='fill' from='rgb(0,0,255)' to='rgb(0,255,0)'*/}
-                         {/*dur='3s' repeatCount='indefinite'/>*/}
+            {/*<animate attributeName='fill' from='rgb(0,0,255)' to='rgb(0,255,0)'*/}
+            {/*dur='3s' repeatCount='indefinite'/>*/}
             {/*</rect>*/}
             {/*<CenterCircle/>*/}
             <TopLeftPanel/>
@@ -60,11 +60,11 @@ const BasePanel = (props: BasePanelPropsType) =>
                     <filter id={ID.BASE_PANEL_BLUR_FILTER_ID}>
                         <feGaussianBlur stdDeviation={basePanelBlurLevel}/>
                     </filter>
-                    <radialGradient id={ID.BASE_PANEL_FOCUS_GRADIENT_ID} r={basePanelFocusRadiance}
-                                    fx={basePanelFocusPointPercentageX}
-                                    fy={basePanelFocusPointPercentageY}
-                                    cx={basePanelFocusPointPercentageX}
-                                    cy={basePanelFocusPointPercentageY}>
+                    <radialGradient id={ID.BASE_PANEL_FOCUS_GRADIENT_ID} r={basePanelMouseFocusRadiance}
+                                    fx={basePanelMouseFocusPercentageX}
+                                    fy={basePanelMouseFocusPercentageY}
+                                    cx={basePanelMouseFocusPercentageX}
+                                    cy={basePanelMouseFocusPercentageY}>
                         {/*NOTE: stopColor here is not actually controlling color of gradient when the gradient is applied to mask, instead, it's controlling transparency of the mask*/}
                         <stop offset='0%' stopColor={WHITE}/>
                         <stop offset='100%' stopColor={BLACK}/>

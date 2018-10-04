@@ -26,8 +26,8 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
         let basePanelRotationX: string = Number((1 - mouseYToAppHeightRatio) * MAX_ROTATION_DEGREE_VALUE - MAX_ROTATION_DEGREE_VALUE / 2).toFixed(2);
         let basePanelRotationY: string = Number(MAX_ROTATION_DEGREE_VALUE / 2 - (1 - mouseXToAppWidthRatio) * MAX_ROTATION_DEGREE_VALUE).toFixed(2);
 
-        let basePanelFocusPointPercentageX: string = numberToPercentageString(mouseXToAppWidthRatio * 100);
-        let basePanelFocusPointPercentageY: string = numberToPercentageString(mouseYToAppHeightRatio * 100);
+        let basePanelMouseFocusPercentageX: string = numberToPercentageString(mouseXToAppWidthRatio * 100);
+        let basePanelMouseFocusPercentageY: string = numberToPercentageString(mouseYToAppHeightRatio * 100);
 
 
         // Compare against old values
@@ -35,10 +35,10 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
             basePanelState.basePanelTranslatePercentageY !== basePanelTranslatePercentageY ||
             basePanelState.basePanelRotationX !== basePanelRotationX ||
             basePanelState.basePanelRotationY !== basePanelRotationY ||
-            basePanelState.basePanelFocusPointPercentageX !== basePanelFocusPointPercentageX ||
-            basePanelState.basePanelFocusPointPercentageY !== basePanelFocusPointPercentageY)
+            basePanelState.basePanelMouseFocusPercentageX !== basePanelMouseFocusPercentageX ||
+            basePanelState.basePanelMouseFocusPercentageY !== basePanelMouseFocusPercentageY)
         {
-            dispatch(basePanelAction_updateBasePanelTransformAndFocusPoint(basePanelTranslatePercentageX, basePanelTranslatePercentageY, basePanelRotationX, basePanelRotationY, basePanelFocusPointPercentageX, basePanelFocusPointPercentageY));
+            dispatch(basePanelAction_updateBasePanelTransformAndFocusPoint(basePanelTranslatePercentageX, basePanelTranslatePercentageY, basePanelRotationX, basePanelRotationY, basePanelMouseFocusPercentageX, basePanelMouseFocusPercentageY));
         }
     }
 };
@@ -61,7 +61,7 @@ export const basePanelAction_updateBasePanelSize = (newBasePanelWidth: number, n
     };
 };
 
-const basePanelAction_updateBasePanelTransformAndFocusPoint = (basePanelTranslatePercentageX: string, basePanelTranslatePercentageY: string, basePanelRotationX: string, basePanelRotationY: string, basePanelFocusPointPercentageX: string, basePanelFocusPointPercentageY: string) =>
+const basePanelAction_updateBasePanelTransformAndFocusPoint = (basePanelTranslatePercentageX: string, basePanelTranslatePercentageY: string, basePanelRotationX: string, basePanelRotationY: string, basePanelMouseFocusPercentageX: string, basePanelMouseFocusPercentageY: string) =>
 {
     return {
         type: BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT,
@@ -69,7 +69,7 @@ const basePanelAction_updateBasePanelTransformAndFocusPoint = (basePanelTranslat
         basePanelTranslatePercentageY: basePanelTranslatePercentageY,
         basePanelRotationX: basePanelRotationX,
         basePanelRotationY: basePanelRotationY,
-        basePanelFocusPointPercentageX: basePanelFocusPointPercentageX,
-        basePanelFocusPointPercentageY: basePanelFocusPointPercentageY,
+        basePanelMouseFocusPercentageX: basePanelMouseFocusPercentageX,
+        basePanelMouseFocusPercentageY: basePanelMouseFocusPercentageY,
     }
 };
