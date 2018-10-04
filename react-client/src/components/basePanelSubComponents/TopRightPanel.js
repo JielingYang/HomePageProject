@@ -16,7 +16,9 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
         <g id={topRightPanelShapeModel.getStringId()}>
-            <rect x={topRightPanelShapeModel.getTopLeftPoint().getX()}
+            <rect onMouseEnter={() => console.log("ENTER!!!!!")}
+                  onMouseLeave={() => console.log("LEAVE!!!!!")}
+                  x={topRightPanelShapeModel.getTopLeftPoint().getX()}
                   y={topRightPanelShapeModel.getTopLeftPoint().getY()}
                   width={topRightPanelShapeModel.getWidth()}
                   height={topRightPanelShapeModel.getHeight()}

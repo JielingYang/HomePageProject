@@ -29,7 +29,6 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
         let basePanelMouseFocusPercentageX: string = numberToPercentageString(mouseXToAppWidthRatio * 100);
         let basePanelMouseFocusPercentageY: string = numberToPercentageString(mouseYToAppHeightRatio * 100);
 
-
         // Compare against old values
         if (basePanelState.basePanelTranslatePercentageX !== basePanelTranslatePercentageX ||
             basePanelState.basePanelTranslatePercentageY !== basePanelTranslatePercentageY ||

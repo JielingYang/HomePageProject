@@ -3,6 +3,7 @@ import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import Shape2d_Point from "../classes/Shape2d_Point";
 import {createReducer, deepCopy} from "./reducerCreator";
 import {ID} from "../utilities/CONSTANTS_STRING";
+import {BLUR_LEVEL} from "../utilities/CONSTANTS_NUMBER";
 
 export type basePanelStateType = {
     basePanelShapeModel: Shape2d_Rectangle,
@@ -10,6 +11,7 @@ export type basePanelStateType = {
     basePanelTranslatePercentageY: string,
     basePanelRotationX: string,
     basePanelRotationY: string,
+    basePanelMouseFocusOn: boolean,
     basePanelMouseFocusPercentageY: string,
     basePanelMouseFocusPercentageX: string,
     basePanelMouseFocusRadiance: string,
@@ -22,10 +24,11 @@ const basePanelDefaultState: basePanelStateType = {
     basePanelTranslatePercentageY: "0%",
     basePanelRotationX: "0%",
     basePanelRotationY: "0%",
+    basePanelMouseFocusOn: false,
     basePanelMouseFocusPercentageY: "50%",
     basePanelMouseFocusPercentageX: "50%",
     basePanelMouseFocusRadiance: "20%",
-    basePanelBlurLevel: 10,
+    basePanelBlurLevel: BLUR_LEVEL.NONE,
 };
 
 const basePanelAction_updateBasePanelSize_handler = (state: basePanelStateType, action) =>

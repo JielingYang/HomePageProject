@@ -25,6 +25,7 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelTranslatePercentageY: string = props.basePanelState.basePanelTranslatePercentageY;
     let basePanelRotationX: string = props.basePanelState.basePanelRotationX;
     let basePanelRotationY: string = props.basePanelState.basePanelRotationY;
+    let basePanelMouseFocusOn: boolean = props.basePanelState.basePanelMouseFocusOn;
     let basePanelMouseFocusPercentageY: string = props.basePanelState.basePanelMouseFocusPercentageY;
     let basePanelMouseFocusPercentageX: string = props.basePanelState.basePanelMouseFocusPercentageX;
     let basePanelMouseFocusRadiance: string = props.basePanelState.basePanelMouseFocusRadiance;
@@ -48,6 +49,11 @@ const BasePanel = (props: BasePanelPropsType) =>
                                                          .addRotation(basePanelRotationX, basePanelRotationY, 0);
 
     let basePanelComponentSvgStyleObject = new StyleObject().setBasics('absolute', basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY());
+
+    let basePanelMouseFocus = <use x={0} y={0}
+                                   href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
+                                   mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>;
+    let basePanelSubComponentFocus = null;
 
     console.log(LEVEL1_CONSOLE_PREFIX + basePanelShapeModel.getStringId(), LEVEL1_CONSOLE_FONT);
     return (
@@ -78,9 +84,8 @@ const BasePanel = (props: BasePanelPropsType) =>
                 {/*When reusing by <use> tag, all child nodes/elements become pure graphic content and no longer take any event*/}
                 <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      filter={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_BLUR_FILTER_ID + UTILITY_STRING.CLOSE_PARENTHESIS}
-                     opacity={0.1}/>
-                <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
-                     mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
+                     opacity={1}/>
+                {basePanelMouseFocusOn ? basePanelMouseFocus : basePanelSubComponentFocus}
 
                 {/*Actual nodes/elements to interact with. This is a workaround to let events "pass" through <use>*/}
                 <g id={ID.BASE_PANEL_SUB_COMPONENTS_INVISIBLE_WRAPPER_ID} style={{opacity: 0}}>

@@ -2,18 +2,18 @@ import {ID} from "./CONSTANTS_STRING";
 
 export const APP_REFRESHING_TIME_GAP = 30; // Milliseconds
 
-export const TIMING_KEYWORDS = {
+export const TIMING_KEYWORDS = Object.freeze({
     BEGIN: '.begin',
     END: '.end',
     CLICK: '.click',
-};
+});
 
-export const GENERAL_TIMING = {
+export const GENERAL_TIMING = Object.freeze({
     INITIAL: 0, // The earliest time that any animate can start with
 
-};
+});
 
-export const CENTER_COMPONENT_TIMING = {
+export const CENTER_COMPONENT_TIMING = Object.freeze({
     LOADING_BAR_BEGIN: GENERAL_TIMING.INITIAL,
     LOADING_BAR_DUR: 1,
 
@@ -32,4 +32,4 @@ export const CENTER_COMPONENT_TIMING = {
     DASH_CIRCLE_TO_NONE_BEGIN: ID.CENTER_COMPONENT_ANIMATE_PARTIAL_CIRCLE_TO_FULL + TIMING_KEYWORDS.END,
     DASH_CIRCLE_TO_NONE_DUR: 0.1,
     DASH_CIRCLE_TO_NONE_DELAY: 0,
-};
+});
