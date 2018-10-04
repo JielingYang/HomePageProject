@@ -2,6 +2,7 @@ import type {appStateType} from "../reducers/appReducer";
 import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint} from "./basePanelActions";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
+import {topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -41,13 +42,16 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
         // Compare against previous size
         if (newAppWidth !== previousAppWidth || newAppHeight !== previousAppHeight)
         {
+            let newTopLeftPanelWidth: number = newAppWidth / 2;
+            let newTopLeftPanelHeight: number = newAppHeight / 2;
+
+            let newTopRightPanelWidth: number = newAppWidth / 2;
+            let newTopRightPanelHeight: number = newAppHeight / 2;
+
             dispatch(appAction_updateAppSize(newAppWidth, newAppHeight)); // Update app component size
             dispatch(basePanelAction_updateBasePanelSize(newAppWidth, newAppHeight)); // Update base panel size
-
-           let newTopLeftPanelWidth: number = newAppWidth / 2;
-           let newTopLeftPanelHeight: number = newAppHeight / 2;
-
             dispatch(topLeftPanelAction_updateTopLeftPanelSize(newTopLeftPanelWidth, newTopLeftPanelHeight)); // Update top left panel size
+            dispatch(topRightPanelAction_updateTopRightPanelSize(newTopRightPanelWidth, newTopRightPanelHeight)); // Update top right panel size
         }
     };
 };

@@ -9,6 +9,7 @@ import {BLACK, BLACK_TRANSPARENT_10, WHITE} from "../utilities/CONSTANTS_COLOR";
 import {ID, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
 import CenterCircle from "./basePanelSubComponents/CenterCircle";
 import TopLeftPanel from "./basePanelSubComponents/TopLeftPanel";
+import TopRightPanel from "./basePanelSubComponents/TopRightPanel";
 
 type BasePanelPropsType = {
     basePanelState: basePanelStateType,
@@ -37,6 +38,7 @@ const BasePanel = (props: BasePanelPropsType) =>
             {/*</rect>*/}
             {/*<CenterCircle/>*/}
             <TopLeftPanel/>
+            <TopRightPanel/>
         </g>;
 
     let basePanelComponentStyleObject = new StyleObject().setBasics('absolute', basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
