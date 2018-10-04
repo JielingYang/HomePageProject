@@ -15,7 +15,7 @@ export type basePanelStateType = {
     basePanelMouseFocusPercentageY: string,
     basePanelMouseFocusPercentageX: string,
     basePanelMouseFocusRadiance: string,
-    basePanelBlurLevel: number,
+    basePanelBlurLevel: BLUR_LEVEL,
 }
 
 const basePanelDefaultState: basePanelStateType = {
