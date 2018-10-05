@@ -78,11 +78,18 @@ const BasePanel = (props: BasePanelPropsType) =>
                     {
                         if (shape instanceof Shape2d_Rectangle)
                         {
-                            return <rect x={shape.getTopLeftPoint().getX()}
-                                         y={shape.getTopLeftPoint().getY()}
-                                         width={shape.getWidth()}
-                                         height={shape.getHeight()}
-                                         fill={WHITE}/>
+                            console.log("!!!!!!!!!")
+                            return (
+                                <rect x={shape.getTopLeftPoint().getX()}
+                                      y={shape.getTopLeftPoint().getY()}
+                                      width={shape.getWidth()}
+                                      height={shape.getHeight()}
+                                      fill={BLACK}>
+                                    <animate attributeType='XML' attributeName='fill'
+                                             from={BLACK} to={WHITE}
+                                             dur={0.3} fill={'freeze'}
+                                             begin={shape.getStringId() + ".mouseenter"}/>
+                                </rect>)
                         }
                         else if (shape instanceof Shape2d_Circle)
                         {
