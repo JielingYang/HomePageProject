@@ -50,10 +50,26 @@ const BasePanel = (props: BasePanelPropsType) =>
 
     let basePanelComponentSvgStyleObject = new StyleObject().setBasics('absolute', basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY());
 
-    let basePanelMouseFocus = <use x={0} y={0}
-                                   href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
-                                   mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>;
-    let basePanelSubComponentFocus = null;
+    let focusGradient =
+        <radialGradient id={ID.BASE_PANEL_FOCUS_GRADIENT_ID} r={basePanelMouseFocusRadiance}
+                        fx={basePanelMouseFocusPercentageX}
+                        fy={basePanelMouseFocusPercentageY}
+                        cx={basePanelMouseFocusPercentageX}
+                        cy={basePanelMouseFocusPercentageY}>
+            {/*NOTE: stopColor here is not actually controlling color of gradient when the gradient is applied to mask, instead, it's controlling transparency of the mask*/}
+            <stop offset='0%' stopColor={WHITE}/>
+            <stop offset='100%' stopColor={BLACK}/>
+        </radialGradient>;
+
+    let focusMask =
+        <mask id={ID.BASE_PANEL_FOCUS_MASK_ID}>
+            {
+                basePanelMouseFocusOn ?
+                    <rect width={basePanelShapeModel.getWidth()} height={basePanelShapeModel.getHeight()}
+                          fill={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_GRADIENT_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/> :
+                    null
+            }
+        </mask>;
 
     console.log(LEVEL1_CONSOLE_PREFIX + basePanelShapeModel.getStringId(), LEVEL1_CONSOLE_FONT);
     return (
@@ -66,26 +82,18 @@ const BasePanel = (props: BasePanelPropsType) =>
                     <filter id={ID.BASE_PANEL_BLUR_FILTER_ID}>
                         <feGaussianBlur stdDeviation={basePanelBlurLevel}/>
                     </filter>
-                    <radialGradient id={ID.BASE_PANEL_FOCUS_GRADIENT_ID} r={basePanelMouseFocusRadiance}
-                                    fx={basePanelMouseFocusPercentageX}
-                                    fy={basePanelMouseFocusPercentageY}
-                                    cx={basePanelMouseFocusPercentageX}
-                                    cy={basePanelMouseFocusPercentageY}>
-                        {/*NOTE: stopColor here is not actually controlling color of gradient when the gradient is applied to mask, instead, it's controlling transparency of the mask*/}
-                        <stop offset='0%' stopColor={WHITE}/>
-                        <stop offset='100%' stopColor={BLACK}/>
-                    </radialGradient>
-                    <mask id={ID.BASE_PANEL_FOCUS_MASK_ID}>
-                        <rect width={basePanelShapeModel.getWidth()} height={basePanelShapeModel.getHeight()}
-                              fill={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_GRADIENT_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
-                    </mask>
+                    {focusGradient}
+                    {focusMask}
                 </defs>
 
                 {/*When reusing by <use> tag, all child nodes/elements become pure graphic content and no longer take any event*/}
-                <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
+                <use x={0} y={0}
+                     href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      filter={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_BLUR_FILTER_ID + UTILITY_STRING.CLOSE_PARENTHESIS}
                      opacity={1}/>
-                {basePanelMouseFocusOn ? basePanelMouseFocus : basePanelSubComponentFocus}
+                <use x={0} y={0}
+                     href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
+                     mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
 
                 {/*Actual nodes/elements to interact with. This is a workaround to let events "pass" through <use>*/}
                 <g id={ID.BASE_PANEL_SUB_COMPONENTS_INVISIBLE_WRAPPER_ID} style={{opacity: 0}}>

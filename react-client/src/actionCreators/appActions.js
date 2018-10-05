@@ -2,7 +2,8 @@ import type {appStateType} from "../reducers/appReducer";
 import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint} from "./basePanelActions";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
-import {topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
+import {topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
+import Shape2d_Point from "../classes/Shape2d_Point";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -47,11 +48,17 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
 
             let newTopRightPanelWidth: number = newAppWidth / 2;
             let newTopRightPanelHeight: number = newAppHeight / 2;
+            let newTopRightPanelPosition: Shape2d_Point = new Shape2d_Point(newAppWidth / 2, 0);
 
-            dispatch(appAction_updateAppSize(newAppWidth, newAppHeight)); // Update app component size
-            dispatch(basePanelAction_updateBasePanelSize(newAppWidth, newAppHeight)); // Update base panel size
-            dispatch(topLeftPanelAction_updateTopLeftPanelSize(newTopLeftPanelWidth, newTopLeftPanelHeight)); // Update top left panel size
-            dispatch(topRightPanelAction_updateTopRightPanelSize(newTopRightPanelWidth, newTopRightPanelHeight)); // Update top right panel size
+            // Update app component size
+            dispatch(appAction_updateAppSize(newAppWidth, newAppHeight));
+            // Update base panel size
+            dispatch(basePanelAction_updateBasePanelSize(newAppWidth, newAppHeight));
+            // Update top left panel size
+            dispatch(topLeftPanelAction_updateTopLeftPanelSize(newTopLeftPanelWidth, newTopLeftPanelHeight));
+            // Update top right panel size and position
+            dispatch(topRightPanelAction_updateTopRightPanelSize(newTopRightPanelWidth, newTopRightPanelHeight));
+            dispatch(topRightPanelAction_updateTopRightPanelPosition(newTopRightPanelPosition));
         }
     };
 };

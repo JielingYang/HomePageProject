@@ -11,7 +11,7 @@ export type topRightPanelStateType = {
 }
 
 const topRightPanelDefaultState: topRightPanelStateType = {
-    topRightPanelShapeModel: new Shape2d_Rectangle(3, ID.TOP_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, 0), window.innerWidth / 2, window.innerHeight / 2),
+    topRightPanelShapeModel: new Shape2d_Rectangle(4, ID.TOP_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, 0), window.innerWidth / 2, window.innerHeight / 2),
     topRightPanelBlurLevel: BLUR_LEVEL.NONE,
 };
 
