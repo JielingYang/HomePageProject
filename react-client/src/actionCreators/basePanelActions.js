@@ -62,6 +62,14 @@ export const basePanelAction_updateBasePanelSize = (newBasePanelWidth: number, n
     };
 };
 
+export const basePanelAction_updateBasePanelFocusMaskShapeModels = (newBasePanelFocusMaskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle>) =>
+{
+    return {
+        type: BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS,
+        newBasePanelFocusMaskShapeModels: newBasePanelFocusMaskShapeModels,
+    }
+};
+
 const basePanelAction_updateBasePanelTransformAndFocusPoint = (basePanelTranslatePercentageX: string, basePanelTranslatePercentageY: string, basePanelRotationX: string, basePanelRotationY: string, basePanelMouseFocusPercentageX: string, basePanelMouseFocusPercentageY: string) =>
 {
     return {
@@ -72,13 +80,5 @@ const basePanelAction_updateBasePanelTransformAndFocusPoint = (basePanelTranslat
         basePanelRotationY: basePanelRotationY,
         basePanelMouseFocusPercentageX: basePanelMouseFocusPercentageX,
         basePanelMouseFocusPercentageY: basePanelMouseFocusPercentageY,
-    }
-};
-
-const basePanelAction_updateBasePanelFocusMaskShapeModels = (newBasePanelFocusMaskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle>) =>
-{
-    return {
-        type: BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS,
-        newBasePanelFocusMaskShapeModels: newBasePanelFocusMaskShapeModels,
     }
 };

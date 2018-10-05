@@ -10,6 +10,7 @@ import {ID, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
 import CenterCircle from "./basePanelSubComponents/CenterCircle";
 import TopLeftPanel from "./basePanelSubComponents/TopLeftPanel";
 import TopRightPanel from "./basePanelSubComponents/TopRightPanel";
+import Shape2d_Circle from "../classes/Shape2d_Circle";
 
 type BasePanelPropsType = {
     basePanelState: basePanelStateType,
@@ -29,6 +30,7 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelMouseFocusPercentageY: string = props.basePanelState.basePanelMouseFocusPercentageY;
     let basePanelMouseFocusPercentageX: string = props.basePanelState.basePanelMouseFocusPercentageX;
     let basePanelMouseFocusRadiance: string = props.basePanelState.basePanelMouseFocusRadiance;
+    let basePanelFocusMaskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle> = props.basePanelState.basePanelFocusMaskShapeModels;
     let basePanelBlurLevel: number = props.basePanelState.basePanelBlurLevel;
 
     let basePanelContents =
@@ -64,16 +66,35 @@ const BasePanel = (props: BasePanelPropsType) =>
     let focusMask =
         <mask id={ID.BASE_PANEL_FOCUS_MASK_ID}>
             {
-                basePanelMouseFocusOn ?
+                basePanelMouseFocusOn
+                    ?
                     <rect width={basePanelShapeModel.getWidth()} height={basePanelShapeModel.getHeight()}
-                          fill={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_GRADIENT_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/> :
-                    null
+                          fill={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_GRADIENT_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
+                    :
+                    basePanelFocusMaskShapeModels.map((shape: Shape2d_Rectangle | Shape2d_Circle) =>
+                    {
+                        if (shape instanceof Shape2d_Rectangle)
+                        {
+                            return <rect x={shape.getTopLeftPoint().getX()} y={shape.getTopLeftPoint().getY()}
+                                         width={shape.getWidth()} height={shape.getHeight()}
+                                         fill={WHITE}/>
+                        }
+                        else if (shape instanceof Shape2d_Circle)
+                        {
+                            return <circle cx={shape.getCenterPoint().getX()} cy={shape.getCenterPoint().getY()}
+                                           r={shape.getRadiant()}
+                                           fill={WHITE}/>
+                        }
+                    })
             }
         </mask>;
 
     console.log(LEVEL1_CONSOLE_PREFIX + basePanelShapeModel.getStringId(), LEVEL1_CONSOLE_FONT);
     return (
-        <div id={basePanelShapeModel.getStringId()} style={basePanelComponentStyleObject.getStyle()}>
+        <div id={basePanelShapeModel.getStringId()} style={basePanelComponentStyleObject.getStyle()} onMouseOver={(e) =>
+        {
+            e.stopPropagation();
+        }}>
 
             <svg id={ID.BASE_PANEL_SVG_ID} style={basePanelComponentSvgStyleObject.getStyle()}>
 
@@ -90,7 +111,7 @@ const BasePanel = (props: BasePanelPropsType) =>
                 <use x={0} y={0}
                      href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      filter={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_BLUR_FILTER_ID + UTILITY_STRING.CLOSE_PARENTHESIS}
-                     opacity={1}/>
+                     opacity={0.5}/>
                 <use x={0} y={0}
                      href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>

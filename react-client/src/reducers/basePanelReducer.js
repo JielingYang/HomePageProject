@@ -26,7 +26,7 @@ const basePanelDefaultState: basePanelStateType = {
     basePanelTranslatePercentageY: "0%",
     basePanelRotationX: "0%",
     basePanelRotationY: "0%",
-    basePanelMouseFocusOn: true,
+    basePanelMouseFocusOn: false,
     basePanelMouseFocusPercentageY: "50%",
     basePanelMouseFocusPercentageX: "50%",
     basePanelMouseFocusRadiance: "20%",
