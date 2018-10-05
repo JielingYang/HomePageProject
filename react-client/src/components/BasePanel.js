@@ -84,10 +84,9 @@ const BasePanel = (props: BasePanelPropsType) =>
                                       y={shape.getTopLeftPoint().getY()}
                                       width={shape.getWidth()}
                                       height={shape.getHeight()}
-                                      fill={BLACK}>
+                                      fill={WHITE}>
                                     <animate attributeType='XML' attributeName='fill'
-                                             from={BLACK} to={WHITE}
-                                             dur={0.3} fill={'freeze'}
+                                             from={BLACK} to={WHITE} dur={0.3}
                                              begin={shape.getStringId() + ".mouseenter"}/>
                                 </rect>)
                         }
