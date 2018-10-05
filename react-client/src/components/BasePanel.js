@@ -68,20 +68,26 @@ const BasePanel = (props: BasePanelPropsType) =>
             {
                 basePanelMouseFocusOn
                     ?
-                    <rect width={basePanelShapeModel.getWidth()} height={basePanelShapeModel.getHeight()}
+                    <rect x={basePanelShapeModel.getTopLeftPoint().getX()}
+                          y={basePanelShapeModel.getTopLeftPoint().getY()}
+                          width={basePanelShapeModel.getWidth()}
+                          height={basePanelShapeModel.getHeight()}
                           fill={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_GRADIENT_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
                     :
                     basePanelFocusMaskShapeModels.map((shape: Shape2d_Rectangle | Shape2d_Circle) =>
                     {
                         if (shape instanceof Shape2d_Rectangle)
                         {
-                            return <rect x={shape.getTopLeftPoint().getX()} y={shape.getTopLeftPoint().getY()}
-                                         width={shape.getWidth()} height={shape.getHeight()}
+                            return <rect x={shape.getTopLeftPoint().getX()}
+                                         y={shape.getTopLeftPoint().getY()}
+                                         width={shape.getWidth()}
+                                         height={shape.getHeight()}
                                          fill={WHITE}/>
                         }
                         else if (shape instanceof Shape2d_Circle)
                         {
-                            return <circle cx={shape.getCenterPoint().getX()} cy={shape.getCenterPoint().getY()}
+                            return <circle cx={shape.getCenterPoint().getX()}
+                                           cy={shape.getCenterPoint().getY()}
                                            r={shape.getRadiant()}
                                            fill={WHITE}/>
                         }
@@ -111,7 +117,7 @@ const BasePanel = (props: BasePanelPropsType) =>
                 <use x={0} y={0}
                      href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      filter={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_BLUR_FILTER_ID + UTILITY_STRING.CLOSE_PARENTHESIS}
-                     opacity={0.5}/>
+                     opacity={0.8}/>
                 <use x={0} y={0}
                      href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
