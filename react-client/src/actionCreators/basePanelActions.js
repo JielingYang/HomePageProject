@@ -3,8 +3,8 @@ import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import type {basePanelStateType} from "../reducers/basePanelReducer";
 import Shape2d_Circle from "../classes/Shape2d_Circle";
 
-const MAX_ROTATION_DEGREE_VALUE = 2;
-const MAX_TRANSLATE_PERCENTAGE_VALUE = 10;
+const MAX_ROTATION_DEGREE_VALUE = 0.5;
+const MAX_TRANSLATE_PERCENTAGE_VALUE = 2;
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */

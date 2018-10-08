@@ -7,7 +7,6 @@ import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import StyleObject from "../classes/StyleObject";
 import {BLACK, BLACK_TRANSPARENT_10, WHITE} from "../utilities/CONSTANTS_COLOR";
 import {ID, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
-import CenterCircle from "./basePanelSubComponents/CenterCircle";
 import TopLeftPanel from "./basePanelSubComponents/TopLeftPanel";
 import TopRightPanel from "./basePanelSubComponents/TopRightPanel";
 import Shape2d_Circle from "../classes/Shape2d_Circle";
@@ -30,16 +29,12 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelMouseFocusPercentageY: string = props.basePanelState.basePanelMouseFocusPercentageY;
     let basePanelMouseFocusPercentageX: string = props.basePanelState.basePanelMouseFocusPercentageX;
     let basePanelMouseFocusRadiance: string = props.basePanelState.basePanelMouseFocusRadiance;
-    let basePanelFocusMaskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle> = props.basePanelState.basePanelFocusMaskShapeModels;
+    let basePanelCurrentFocusMaskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle> = props.basePanelState.basePanelCurrentFocusMaskShapeModels;
+    let basePanelPreviousFocusMaskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle> = props.basePanelState.basePanelPreviousFocusMaskShapeModels;
     let basePanelBlurLevel: number = props.basePanelState.basePanelBlurLevel;
 
     let basePanelContents =
         <g id={ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}>
-            {/*<rect style={{x: 0, y: 0, width: 300, height: 100, fill: 'rgb(0,0,255)'}}>*/}
-            {/*<animate attributeName='fill' from='rgb(0,0,255)' to='rgb(0,255,0)'*/}
-            {/*dur='3s' repeatCount='indefinite'/>*/}
-            {/*</rect>*/}
-            {/*<CenterCircle/>*/}
             <TopLeftPanel/>
             <TopRightPanel/>
         </g>;
@@ -63,43 +58,66 @@ const BasePanel = (props: BasePanelPropsType) =>
             <stop offset='100%' stopColor={BLACK}/>
         </radialGradient>;
 
-    let focusMask =
-        <mask id={ID.BASE_PANEL_FOCUS_MASK_ID}>
+    let focusMask = null;
+    if (basePanelMouseFocusOn)
+    {
+        focusMask =
+            <mask id={ID.BASE_PANEL_FOCUS_MASK_ID}>
+                <rect x={basePanelShapeModel.getTopLeftPoint().getX()}
+                      y={basePanelShapeModel.getTopLeftPoint().getY()}
+                      width={basePanelShapeModel.getWidth()}
+                      height={basePanelShapeModel.getHeight()}
+                      fill={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_GRADIENT_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
+            </mask>;
+    }
+    else
+    {
+        let currentFocusMaskShapeModels = basePanelCurrentFocusMaskShapeModels.map((shape: Shape2d_Rectangle | Shape2d_Circle) =>
+        {
+            let animateFocusIn = <animate id={"focusIn"} attributeType='XML' attributeName='fill'
+                                          from={BLACK} to={WHITE} dur={0.3}
+                                          fill={'freeze'}
+                                          begin={shape.getStringId() + ".mouseenter"}/>;
+
+            if (shape instanceof Shape2d_Rectangle)
             {
-                basePanelMouseFocusOn
-                    ?
-                    <rect x={basePanelShapeModel.getTopLeftPoint().getX()}
-                          y={basePanelShapeModel.getTopLeftPoint().getY()}
-                          width={basePanelShapeModel.getWidth()}
-                          height={basePanelShapeModel.getHeight()}
-                          fill={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_GRADIENT_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
-                    :
-                    basePanelFocusMaskShapeModels.map((shape: Shape2d_Rectangle | Shape2d_Circle) =>
-                    {
-                        if (shape instanceof Shape2d_Rectangle)
-                        {
-                            console.log("!!!!!!!!!")
-                            return (
-                                <rect x={shape.getTopLeftPoint().getX()}
-                                      y={shape.getTopLeftPoint().getY()}
-                                      width={shape.getWidth()}
-                                      height={shape.getHeight()}
-                                      fill={WHITE}>
-                                    <animate attributeType='XML' attributeName='fill'
-                                             from={BLACK} to={WHITE} dur={0.3}
-                                             begin={shape.getStringId() + ".mouseenter"}/>
-                                </rect>)
-                        }
-                        else if (shape instanceof Shape2d_Circle)
-                        {
-                            return <circle cx={shape.getCenterPoint().getX()}
-                                           cy={shape.getCenterPoint().getY()}
-                                           r={shape.getRadiant()}
-                                           fill={WHITE}/>
-                        }
-                    })
+                return (
+                    <rect x={shape.getTopLeftPoint().getX()}
+                          y={shape.getTopLeftPoint().getY()}
+                          width={shape.getWidth()}
+                          height={shape.getHeight()}
+                          fill={BLACK}>
+                        {animateFocusIn}
+                    </rect>)
             }
-        </mask>;
+        });
+
+        let previousFocusMaskShapeModels = basePanelPreviousFocusMaskShapeModels.map((shape: Shape2d_Rectangle | Shape2d_Circle) =>
+        {
+            let animateBlurOut = <animate attributeType='XML' attributeName='fill'
+                                          from={WHITE} to={BLACK} dur={0.3}
+                                          fill={'freeze'}
+                                          begin={"focusIn.begin"}/>;
+
+            if (shape instanceof Shape2d_Rectangle)
+            {
+                return (
+                    <rect x={shape.getTopLeftPoint().getX()}
+                          y={shape.getTopLeftPoint().getY()}
+                          width={shape.getWidth()}
+                          height={shape.getHeight()}
+                          fill={WHITE}>
+                        {animateBlurOut}
+                    </rect>)
+            }
+        });
+
+        focusMask =
+            <mask id={ID.BASE_PANEL_FOCUS_MASK_ID}>
+                {currentFocusMaskShapeModels}
+                {previousFocusMaskShapeModels}
+            </mask>;
+    }
 
     console.log(LEVEL1_CONSOLE_PREFIX + basePanelShapeModel.getStringId(), LEVEL1_CONSOLE_FONT);
     return (
@@ -123,7 +141,7 @@ const BasePanel = (props: BasePanelPropsType) =>
                 <use x={0} y={0}
                      href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      filter={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_BLUR_FILTER_ID + UTILITY_STRING.CLOSE_PARENTHESIS}
-                     opacity={0.8}/>
+                     opacity={0.4}/>
                 <use x={0} y={0}
                      href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>

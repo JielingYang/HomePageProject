@@ -17,10 +17,14 @@ export const topLeftPanelAction_requestTopLeftPanelFocus = () =>
         if (!state.basePanelState.basePanelMouseFocusOn)
         {
             let maskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle> = [];
-
             maskShapeModels.push(state.topLeftPanelState.topLeftPanelShapeModel);
+            let signature = maskShapeModels.map((model: Shape2d_Rectangle | Shape2d_Circle) => model.getNumberId()).join();
 
-            dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels(maskShapeModels));
+            // Update component focus if new focus is different
+            if (signature !== state.basePanelState.basePanelFocusMaskShapeModelsSignature)
+            {
+                dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels(maskShapeModels));
+            }
         }
     };
 };
