@@ -24,7 +24,7 @@ class App extends Component<AppPropsType>
     {
         console.log(LEVEL0_CONSOLE_PREFIX + "App started", LEVEL0_CONSOLE_FONT);
         super(props);
-console.log("!!!!!!")
+
         this.props = props;
     }
 
