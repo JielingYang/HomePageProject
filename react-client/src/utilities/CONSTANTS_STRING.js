@@ -18,8 +18,8 @@ export const ID = Object.freeze({
     CENTER_CIRCLE_ID: 'centerCircleComponent',
     TOP_LEFT_PANEL_ID: 'topLeftPanelComponent',
     TOP_RIGHT_PANEL_ID: 'topRightPanelComponent',
-    BOTTOM_RIGHT_PANEL_ID: 'bottomRightPanelComponent',
     BOTTOM_LEFT_PANEL_ID: 'bottomLeftPanelComponent',
+    BOTTOM_RIGHT_PANEL_ID: 'bottomRightPanelComponent',
 
     // Animate IDs
     CENTER_COMPONENT_ANIMATE_LOADING_BAR_WIDTH: 'centerComponent_animateLoadingBarWidth',

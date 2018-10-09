@@ -45,9 +45,7 @@ class App extends Component<AppPropsType>
     render()
     {
         let appComponentShapeModel: Shape2d_Rectangle = this.props.appShapeModel;
-        let appComponentStyleObject: StyleObject = new StyleObject().setBasics('absolute', appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY())
-                                                        .setBackgroundColor(WHITE)
-                                                        .setPerspective(100, undefined);
+        let appComponentStyleObject: StyleObject = new StyleObject().setBasics('absolute', appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY()).setBackgroundColor(WHITE).setPerspective(100, undefined);
 
         console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
         return (
@@ -68,9 +66,9 @@ const mapStateToProps = (store) =>
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-        appAction_requestToUpdateAppSize: appAction_requestToUpdateAppSize,
-        appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
-    }, dispatch)
+                                  appAction_requestToUpdateAppSize: appAction_requestToUpdateAppSize,
+                                  appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
+                              }, dispatch)
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(App);

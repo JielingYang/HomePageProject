@@ -4,6 +4,10 @@ import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
 import {topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
 import Shape2d_Point from "../classes/Shape2d_Point";
+import {
+    bottomLeftPanelAction_updateBottomLeftPanelPosition,
+    bottomLeftPanelAction_updateBottomLeftPanelSize
+} from "./bottomLeftPanelActions";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -50,6 +54,10 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
             let newTopRightPanelHeight: number = newAppHeight / 2;
             let newTopRightPanelPosition: Shape2d_Point = new Shape2d_Point(newAppWidth / 2, 0);
 
+            let newBottomLeftPanelWidth: number = newAppWidth / 2;
+            let newBottomLeftPanelHeight: number = newAppHeight / 2;
+            let newBottomLeftPanelPosition: Shape2d_Point = new Shape2d_Point(0, newAppHeight / 2);
+
             // Update app component size
             dispatch(appAction_updateAppSize(newAppWidth, newAppHeight));
             // Update base panel size
@@ -59,6 +67,9 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
             // Update top right panel size and position
             dispatch(topRightPanelAction_updateTopRightPanelSize(newTopRightPanelWidth, newTopRightPanelHeight));
             dispatch(topRightPanelAction_updateTopRightPanelPosition(newTopRightPanelPosition));
+            // Update bottom left panel size and position
+            dispatch(bottomLeftPanelAction_updateBottomLeftPanelSize(newBottomLeftPanelWidth, newBottomLeftPanelHeight));
+            dispatch(bottomLeftPanelAction_updateBottomLeftPanelPosition(newBottomLeftPanelPosition));
         }
     };
 };

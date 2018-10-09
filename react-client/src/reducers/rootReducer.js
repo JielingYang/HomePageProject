@@ -4,6 +4,7 @@ import centerCircleReducer from "./centerCircleReducer";
 import appReducer from "./appReducer";
 import topLeftPanelReducer from "./topLeftPanelReducer";
 import topRightPanelReducer from "./topRightPanelReducer";
+import bottomLeftPanelReducer from "./bottomLeftPanelReducer";
 
 const rootReducer = combineReducers({
     appState: appReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     centerCircleState: centerCircleReducer,
     topLeftPanelState: topLeftPanelReducer,
     topRightPanelState: topRightPanelReducer,
+    bottomLeftPanelState: bottomLeftPanelReducer,
 });
 
 export default rootReducer;

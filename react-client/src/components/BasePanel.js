@@ -1,6 +1,6 @@
-import React from "react"
-import {bindActionCreators} from "redux"
-import {connect} from "react-redux"
+import React from "react";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 import {LEVEL1_CONSOLE_FONT, LEVEL1_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 import type {basePanelStateType} from "../reducers/basePanelReducer";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
@@ -10,6 +10,7 @@ import {ID, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
 import TopLeftPanel from "./basePanelSubComponents/TopLeftPanel";
 import TopRightPanel from "./basePanelSubComponents/TopRightPanel";
 import Shape2d_Circle from "../classes/Shape2d_Circle";
+import BottomLeftPanel from "./basePanelSubComponents/BottomLeftPanel";
 
 type BasePanelPropsType = {
     basePanelState: basePanelStateType,
@@ -37,15 +38,16 @@ const BasePanel = (props: BasePanelPropsType) =>
         <g id={ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}>
             <TopLeftPanel/>
             <TopRightPanel/>
+            <BottomLeftPanel/>
         </g>;
 
-    let basePanelComponentStyleObject = new StyleObject().setBasics('absolute', basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
+    let basePanelComponentStyleObject = new StyleObject().setBasics("absolute", basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
                                                          .setBackgroundColor(BLACK_TRANSPARENT_10)
-                                                         .setTransformStyle('preserve-3d')
+                                                         .setTransformStyle("preserve-3d")
                                                          .addTranslation(basePanelTranslatePercentageX, basePanelTranslatePercentageY, 0)
                                                          .addRotation(basePanelRotationX, basePanelRotationY, 0);
 
-    let basePanelComponentSvgStyleObject = new StyleObject().setBasics('absolute', basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY());
+    let basePanelComponentSvgStyleObject = new StyleObject().setBasics("absolute", basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY());
 
     let focusGradient =
         <radialGradient id={ID.BASE_PANEL_FOCUS_GRADIENT_ID} r={basePanelMouseFocusRadiance}
@@ -73,49 +75,58 @@ const BasePanel = (props: BasePanelPropsType) =>
     else
     {
         let currentFocusMaskShapeModels = basePanelCurrentFocusMaskShapeModels.map((shape: Shape2d_Rectangle | Shape2d_Circle) =>
-        {
-            let animateFocusIn = <animate id={"focusIn"} attributeType='XML' attributeName='fill'
-                                          from={BLACK} to={WHITE} dur={0.3}
-                                          fill={'freeze'}
-                                          begin={shape.getStringId() + ".mouseenter"}/>;
+                                                                                   {
+                                                                                       let animateFocusIn = <animate
+                                                                                           id={"focusIn"}
+                                                                                           attributeType='XML'
+                                                                                           attributeName='fill'
+                                                                                           from={BLACK} to={WHITE}
+                                                                                           dur={0.3}
+                                                                                           fill={"freeze"}
+                                                                                           begin={shape.getStringId() + ".mouseenter"}/>;
 
-            if (shape instanceof Shape2d_Rectangle)
-            {
-                return (
-                    <rect x={shape.getTopLeftPoint().getX()}
-                          y={shape.getTopLeftPoint().getY()}
-                          width={shape.getWidth()}
-                          height={shape.getHeight()}
-                          fill={BLACK}>
-                        {animateFocusIn}
-                    </rect>)
-            }
-        });
+                                                                                       if (shape instanceof Shape2d_Rectangle)
+                                                                                       {
+                                                                                           return (
+                                                                                               <rect
+                                                                                                   x={shape.getTopLeftPoint().getX()}
+                                                                                                   y={shape.getTopLeftPoint().getY()}
+                                                                                                   width={shape.getWidth()}
+                                                                                                   height={shape.getHeight()}
+                                                                                                   fill={BLACK}>
+                                                                                                   {animateFocusIn}
+                                                                                               </rect>);
+                                                                                       }
+                                                                                   });
 
         let previousFocusMaskShapeModels = basePanelPreviousFocusMaskShapeModels.map((shape: Shape2d_Rectangle | Shape2d_Circle) =>
-        {
-            let animateBlurOut = <animate attributeType='XML' attributeName='fill'
-                                          from={WHITE} to={BLACK} dur={0.3}
-                                          fill={'freeze'}
-                                          begin={"focusIn.begin"}/>;
+                                                                                     {
+                                                                                         let animateBlurOut = <animate
+                                                                                             attributeType='XML'
+                                                                                             attributeName='fill'
+                                                                                             from={WHITE} to={BLACK}
+                                                                                             dur={0.3}
+                                                                                             fill={"freeze"}
+                                                                                             begin={"focusIn.begin"}/>;
 
-            if (shape instanceof Shape2d_Rectangle)
-            {
-                return (
-                    <rect x={shape.getTopLeftPoint().getX()}
-                          y={shape.getTopLeftPoint().getY()}
-                          width={shape.getWidth()}
-                          height={shape.getHeight()}
-                          fill={WHITE}>
-                        {animateBlurOut}
-                    </rect>)
-            }
-        });
+                                                                                         if (shape instanceof Shape2d_Rectangle)
+                                                                                         {
+                                                                                             return (
+                                                                                                 <rect
+                                                                                                     x={shape.getTopLeftPoint().getX()}
+                                                                                                     y={shape.getTopLeftPoint().getY()}
+                                                                                                     width={shape.getWidth()}
+                                                                                                     height={shape.getHeight()}
+                                                                                                     fill={WHITE}>
+                                                                                                     {animateBlurOut}
+                                                                                                 </rect>);
+                                                                                         }
+                                                                                     });
 
         focusMask =
             <mask id={ID.BASE_PANEL_FOCUS_MASK_ID}>
                 {currentFocusMaskShapeModels}
-                {previousFocusMaskShapeModels}
+                {/*{previousFocusMaskShapeModels}*/}
             </mask>;
     }
 
@@ -138,12 +149,10 @@ const BasePanel = (props: BasePanelPropsType) =>
                 </defs>
 
                 {/*When reusing by <use> tag, all child nodes/elements become pure graphic content and no longer take any event*/}
-                <use x={0} y={0}
-                     href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
+                <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      filter={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_BLUR_FILTER_ID + UTILITY_STRING.CLOSE_PARENTHESIS}
-                     opacity={0.4}/>
-                <use x={0} y={0}
-                     href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
+                     opacity={0.9}/>
+                <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
 
                 {/*Actual nodes/elements to interact with. This is a workaround to let events "pass" through <use>*/}
@@ -151,19 +160,19 @@ const BasePanel = (props: BasePanelPropsType) =>
                     {basePanelContents}
                 </g>
             </svg>
-        </div>)
+        </div>);
 };
 
 const mapStateToProps = (store) =>
 {
     return {
-        basePanelState: store.basePanelState,
+        basePanelState: store.basePanelState
     };
 };
 
 const matchDispatchToProps = (dispatch) =>
 {
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({}, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(BasePanel);
