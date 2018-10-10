@@ -44,25 +44,27 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelComponentStyleObject = new StyleObject().setBasics("absolute", basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
                                                          .setBackgroundColor(BLACK_TRANSPARENT_10)
                                                          .setTransformStyle("preserve-3d")
+                                                         .setBackfaceVisibility("hidden")
                                                          .addTranslation(basePanelTranslatePercentageX, basePanelTranslatePercentageY, 0)
                                                          .addRotation(basePanelRotationX, basePanelRotationY, 0);
 
     let basePanelComponentSvgStyleObject = new StyleObject().setBasics("absolute", basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY());
 
-    let focusGradient =
-        <radialGradient id={ID.BASE_PANEL_FOCUS_GRADIENT_ID} r={basePanelMouseFocusRadiance}
-                        fx={basePanelMouseFocusPercentageX}
-                        fy={basePanelMouseFocusPercentageY}
-                        cx={basePanelMouseFocusPercentageX}
-                        cy={basePanelMouseFocusPercentageY}>
-            {/*NOTE: stopColor here is not actually controlling color of gradient when the gradient is applied to mask, instead, it's controlling transparency of the mask*/}
-            <stop offset='0%' stopColor={WHITE}/>
-            <stop offset='100%' stopColor={BLACK}/>
-        </radialGradient>;
-
+    let focusGradient = null;
     let focusMask = null;
     if (basePanelMouseFocusOn)
     {
+        focusGradient =
+            <radialGradient id={ID.BASE_PANEL_FOCUS_GRADIENT_ID} r={basePanelMouseFocusRadiance}
+                            fx={basePanelMouseFocusPercentageX}
+                            fy={basePanelMouseFocusPercentageY}
+                            cx={basePanelMouseFocusPercentageX}
+                            cy={basePanelMouseFocusPercentageY}>
+                {/*NOTE: stopColor here is not actually controlling color of gradient when the gradient is applied to mask, instead, it's controlling transparency of the mask*/}
+                <stop offset='0%' stopColor={WHITE}/>
+                <stop offset='100%' stopColor={BLACK}/>
+            </radialGradient>;
+
         focusMask =
             <mask id={ID.BASE_PANEL_FOCUS_MASK_ID}>
                 <rect x={basePanelShapeModel.getTopLeftPoint().getX()}
@@ -126,7 +128,7 @@ const BasePanel = (props: BasePanelPropsType) =>
         focusMask =
             <mask id={ID.BASE_PANEL_FOCUS_MASK_ID}>
                 {currentFocusMaskShapeModels}
-                {/*{previousFocusMaskShapeModels}*/}
+                {previousFocusMaskShapeModels}
             </mask>;
     }
 
@@ -151,7 +153,7 @@ const BasePanel = (props: BasePanelPropsType) =>
                 {/*When reusing by <use> tag, all child nodes/elements become pure graphic content and no longer take any event*/}
                 <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      filter={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_BLUR_FILTER_ID + UTILITY_STRING.CLOSE_PARENTHESIS}
-                     opacity={0.9}/>
+                     opacity={0.5}/>
                 <use x={0} y={0} href={UTILITY_STRING.SHARP + ID.BASE_PANEL_SUB_COMPONENTS_WRAPPER_ID}
                      mask={UTILITY_STRING.SVG_URL_PREFIX + ID.BASE_PANEL_FOCUS_MASK_ID + UTILITY_STRING.CLOSE_PARENTHESIS}/>
 

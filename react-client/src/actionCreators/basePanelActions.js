@@ -66,7 +66,7 @@ export const basePanelAction_updateBasePanelFocusMaskShapeModels = (newBasePanel
 {
     return {
         type: BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS,
-        newBasePanelFocusMaskShapeModels: newBasePanelFocusMaskShapeModels
+        newBasePanelFocusMaskShapeModels: newBasePanelFocusMaskShapeModels,
     };
 };
 

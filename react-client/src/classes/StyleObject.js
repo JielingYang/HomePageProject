@@ -41,6 +41,12 @@ export default class StyleObject
         return this;
     }
 
+    setBackfaceVisibility(visibility: string)
+    {
+        this.style.backfaceVisibility = visibility;
+        return this;
+    }
+
     addTranslation(translateX: string | number, translateY: string | number, translateZ: string | number)
     {
         let translation: string = " translateX(" + translateX + ")" + " translateY(" + translateY + ")" + " translateZ(" + translateZ + ")";

@@ -20,7 +20,7 @@ export const bottomLeftPanelAction_requestBottomLeftPanelFocus = () =>
             maskShapeModels.push(state.bottomLeftPanelState.bottomLeftPanelShapeModel);
             let signature = maskShapeModels.map((model: Shape2d_Rectangle | Shape2d_Circle) => model.getNumberId()).join();
 
-            // Update component focus if new focus is different
+            // Add or remove focus mask shape models if signature is different
             if (signature !== state.basePanelState.basePanelFocusMaskShapeModelsSignature)
             {
                 dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels(maskShapeModels));

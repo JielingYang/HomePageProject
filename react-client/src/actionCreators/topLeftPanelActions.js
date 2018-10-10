@@ -20,7 +20,7 @@ export const topLeftPanelAction_requestTopLeftPanelFocus = () =>
             maskShapeModels.push(state.topLeftPanelState.topLeftPanelShapeModel);
             let signature = maskShapeModels.map((model: Shape2d_Rectangle | Shape2d_Circle) => model.getNumberId()).join();
 
-            // Update component focus if new focus is different
+            // Add or remove focus mask shape models if signature is different
             if (signature !== state.basePanelState.basePanelFocusMaskShapeModelsSignature)
             {
                 dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels(maskShapeModels));
@@ -34,16 +34,16 @@ export const topLeftPanelAction_requestTopLeftPanelFocus = () =>
 /* *************************************************************************** */
 
 export const TOP_LEFT_PANEL_ACTION_TYPE = Object.freeze({
-    TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE: 'TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE',
-    TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION: 'TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION',
-});
+                                                            TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE: "TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE",
+                                                            TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION: "TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION"
+                                                        });
 
 export const topLeftPanelAction_updateTopLeftPanelSize = (newTopLeftPanelWidth: number, newTopLeftPanelHeight: number) =>
 {
     return {
         type: TOP_LEFT_PANEL_ACTION_TYPE.TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE,
         newTopLeftPanelWidth: newTopLeftPanelWidth,
-        newTopLeftPanelHeight: newTopLeftPanelHeight,
+        newTopLeftPanelHeight: newTopLeftPanelHeight
     };
 };
 
@@ -51,6 +51,6 @@ export const topLeftPanelAction_updateTopLeftPanelPosition = (newPosition: Shape
 {
     return {
         type: TOP_LEFT_PANEL_ACTION_TYPE.TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION,
-        newPosition: newPosition,
+        newPosition: newPosition
     };
 };
