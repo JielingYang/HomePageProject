@@ -1,10 +1,10 @@
 const CLASS_NAMES = Object.freeze({
-    Base: "Base",
-    Shape2d_Line: "Shape2d_Line",
-    Shape2d_Point: "Shape2d_Point",
-    Shape2d_Polygon: "Shape2d_Polygon",
-    Shape2d_Rectangle: "Shape2d_Rectangle"
-});
+                                      Base: "Base",
+                                      Shape2d_Line: "Shape2d_Line",
+                                      Shape2d_Point: "Shape2d_Point",
+                                      Shape2d_Polygon: "Shape2d_Polygon",
+                                      Shape2d_Rectangle: "Shape2d_Rectangle"
+                                  });
 
 /**
  * Returns a reducer function with two given objects: One contains default state and another contains types of actions and their implementation functions to be used for changing the state
@@ -24,13 +24,13 @@ export const createReducer = (defaultState: Object, handlers: Object) =>
         if (handlers.hasOwnProperty(action.type))
         {
             // Apply the action by calling the related function inside the hsandler
-            return handlers[action.type](state, action)
+            return handlers[action.type](state, action);
         }
         // If type of incoming action is not recognised by the handler
         else
         {
             // Do nothing and just return unchanged old state
-            return state
+            return state;
         }
     };
 };
@@ -42,7 +42,9 @@ export const createReducer = (defaultState: Object, handlers: Object) =>
  */
 export const deepCopy = (originalObject) =>
 {
-    let copiedObject = Array.isArray(originalObject) ? [] : {};
+    let copiedObject = Array.isArray(originalObject)
+                       ? []
+                       : {};
 
     for (let key in originalObject)
     {
@@ -58,7 +60,9 @@ export const deepCopy = (originalObject) =>
             }
             else
             {
-                copiedObject[key] = (typeof o === "object") ? deepCopy(o) : o;
+                copiedObject[key] = (typeof o === "object")
+                                    ? deepCopy(o)
+                                    : o;
             }
         }
     }

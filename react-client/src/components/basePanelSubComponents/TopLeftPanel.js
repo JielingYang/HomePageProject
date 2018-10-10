@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import Shape2d_Rectangle from "../../classes/Shape2d_Rectangle";
@@ -27,21 +27,21 @@ const TopLeftPanel = (props: TopLeftPanelPropsType) =>
                   width={topLeftPanelShapeModel.getWidth()}
                   height={topLeftPanelShapeModel.getHeight()}
                   fill={GOLD}/>
-        </g>)
+        </g>);
 };
 
 const mapStateToProps = (store) =>
 {
     return {
-        topLeftPanelShapeModel: store.topLeftPanelState.topLeftPanelShapeModel,
+        topLeftPanelShapeModel: store.topLeftPanelState.topLeftPanelShapeModel
     };
 };
 
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-        topLeftPanelAction_requestTopLeftPanelFocus: topLeftPanelAction_requestTopLeftPanelFocus,
-    }, dispatch)
+                                  topLeftPanelAction_requestTopLeftPanelFocus: topLeftPanelAction_requestTopLeftPanelFocus
+                              }, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(TopLeftPanel);

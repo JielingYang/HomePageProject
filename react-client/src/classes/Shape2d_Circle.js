@@ -11,13 +11,13 @@ export default class Shape2d_Circle extends Base
         this.unitLength = radiant / 50;
     }
 
-    getCenterPoint(): Shape2d_Point {return this.centerPoint}
+    getCenterPoint(): Shape2d_Point {return this.centerPoint;}
 
-    getRadiant(): number {return this.radiant}
+    getRadiant(): number {return this.radiant;}
 
-    getUnitLength(): number {return this.unitLength}
+    getUnitLength(): number {return this.unitLength;}
 
-    updateCenterPoint(centerPoint: Shape2d_Point) {this.centerPoint = centerPoint}
+    updateCenterPoint(centerPoint: Shape2d_Point) {this.centerPoint = centerPoint;}
 
     updateCircleRadiant(radiant: number)
     {
@@ -25,7 +25,7 @@ export default class Shape2d_Circle extends Base
         this.unitLength = radiant / 50;
     }
 
-    isRadiantEqual(anotherCircle: Shape2d_Circle): Boolean {return this.radiant === anotherCircle.getRadiant()}
+    isRadiantEqual(anotherCircle: Shape2d_Circle): Boolean {return this.radiant === anotherCircle.getRadiant();}
 
-    deepClone(): Shape2d_Circle {return new Shape2d_Circle(this.getNumberId(), this.getStringId(), this.Shape2d_Point().clone(), this.getRadiant())}
+    deepClone(): Shape2d_Circle {return new Shape2d_Circle(this.getNumberId(), this.getStringId(), this.Shape2d_Point().clone(), this.getRadiant());}
 }

@@ -12,24 +12,26 @@ export default class Shape2d_Rectangle extends Base
         this.height = height;
         this.xUnitLength = width / 100; // One percent of the rectangle width
         this.yUnitLength = height / 100; // One percent of the rectangle height
-        this.unitLength = this.xUnitLength <= this.yUnitLength ? this.xUnitLength : this.yUnitLength;
+        this.unitLength = this.xUnitLength <= this.yUnitLength
+                          ? this.xUnitLength
+                          : this.yUnitLength;
 
         this.calculateCenterPoint();
     }
 
-    getTopLeftPoint(): Shape2d_Point {return this.topLeftPoint}
+    getTopLeftPoint(): Shape2d_Point {return this.topLeftPoint;}
 
-    getCenterPoint(): Shape2d_Point {return this.centerPoint}
+    getCenterPoint(): Shape2d_Point {return this.centerPoint;}
 
-    getWidth(): number {return this.width}
+    getWidth(): number {return this.width;}
 
-    getHeight(): number {return this.height}
+    getHeight(): number {return this.height;}
 
-    getXUnitLength(): number {return this.xUnitLength}
+    getXUnitLength(): number {return this.xUnitLength;}
 
-    getYUnitLength(): number {return this.yUnitLength}
+    getYUnitLength(): number {return this.yUnitLength;}
 
-    getUnitLength(): number {return this.unitLength}
+    getUnitLength(): number {return this.unitLength;}
 
     updateRectangleSize(width: number, height: number)
     {
@@ -37,7 +39,9 @@ export default class Shape2d_Rectangle extends Base
         this.height = height;
         this.xUnitLength = width / 100;
         this.yUnitLength = height / 100;
-        this.unitLength = this.xUnitLength <= this.yUnitLength ? this.xUnitLength : this.yUnitLength;
+        this.unitLength = this.xUnitLength <= this.yUnitLength
+                          ? this.xUnitLength
+                          : this.yUnitLength;
         this.calculateCenterPoint();
     }
 
@@ -47,9 +51,9 @@ export default class Shape2d_Rectangle extends Base
         this.calculateCenterPoint();
     }
 
-    calculateCenterPoint() {this.centerPoint = this.getTopLeftPoint().clone().translate(this.getWidth() / 2, this.getHeight() / 2)}
+    calculateCenterPoint() {this.centerPoint = this.getTopLeftPoint().clone().translate(this.getWidth() / 2, this.getHeight() / 2);}
 
-    isSizeEqual(anotherRect: Shape2d_Rectangle): Boolean {return this.width === anotherRect.getWidth() && this.height === anotherRect.getHeight()}
+    isSizeEqual(anotherRect: Shape2d_Rectangle): Boolean {return this.width === anotherRect.getWidth() && this.height === anotherRect.getHeight();}
 
-    deepClone(): Shape2d_Rectangle {return new Shape2d_Rectangle(this.getNumberId(), this.getStringId(), this.getTopLeftPoint().clone(), this.getWidth(), this.getHeight())}
+    deepClone(): Shape2d_Rectangle {return new Shape2d_Rectangle(this.getNumberId(), this.getStringId(), this.getTopLeftPoint().clone(), this.getWidth(), this.getHeight());}
 }

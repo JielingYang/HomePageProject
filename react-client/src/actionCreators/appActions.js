@@ -4,10 +4,7 @@ import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
 import {topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
 import Shape2d_Point from "../classes/Shape2d_Point";
-import {
-    bottomLeftPanelAction_updateBottomLeftPanelPosition,
-    bottomLeftPanelAction_updateBottomLeftPanelSize
-} from "./bottomLeftPanelActions";
+import {bottomLeftPanelAction_updateBottomLeftPanelPosition, bottomLeftPanelAction_updateBottomLeftPanelSize} from "./bottomLeftPanelActions";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -79,10 +76,10 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
 /* *************************************************************************** */
 
 export const APP_ACTION_TYPE = Object.freeze({
-    APP_ACTION_UPDATE_APP_SIZE: 'APP_ACTION_UPDATE_APP_SIZE',
-    APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP: 'APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP',
-    APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP: 'APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP',
-});
+                                                 APP_ACTION_UPDATE_APP_SIZE: "APP_ACTION_UPDATE_APP_SIZE",
+                                                 APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP: "APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP",
+                                                 APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP: "APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP"
+                                             });
 
 export const appAction_updateAppMaximumRefreshingTimeGap = (timeGap: number) =>
 {
@@ -97,7 +94,7 @@ const appAction_updateAppSize = (newAppWidth: number, newAppHeight: number) =>
     return {
         type: APP_ACTION_TYPE.APP_ACTION_UPDATE_APP_SIZE,
         newAppWidth: newAppWidth,
-        newAppHeight: newAppHeight,
+        newAppHeight: newAppHeight
     };
 };
 

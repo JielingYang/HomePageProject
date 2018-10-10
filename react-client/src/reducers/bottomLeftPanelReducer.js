@@ -12,7 +12,7 @@ export type bottomLeftPanelStateType = {
 
 const bottomLeftPanelDefaultState: bottomLeftPanelStateType = {
     bottomLeftPanelShapeModel: new Shape2d_Rectangle(5, ID.BOTTOM_LEFT_PANEL_ID, new Shape2d_Point(0, window.innerHeight / 2), window.innerWidth / 2, window.innerHeight / 2),
-    bottomLeftPanelBlurLevel: BLUR_LEVEL.NONE,
+    bottomLeftPanelBlurLevel: BLUR_LEVEL.NONE
 };
 
 const bottomLeftPanelAction_updateBottomLeftPanelSize_handler = (state: bottomLeftPanelStateType, action) =>
@@ -32,7 +32,7 @@ const bottomLeftPanelAction_updateBottomLeftPanelPosition_handler = (state: bott
 // Check reducerCreator for explanation of handlers
 const bottomLeftPanelReducerHandlers = {
     [BOTTOM_LEFT_PANEL_ACTION_TYPE.BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_SIZE]: bottomLeftPanelAction_updateBottomLeftPanelSize_handler,
-    [BOTTOM_LEFT_PANEL_ACTION_TYPE.BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_POSITION]: bottomLeftPanelAction_updateBottomLeftPanelPosition_handler,
+    [BOTTOM_LEFT_PANEL_ACTION_TYPE.BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_POSITION]: bottomLeftPanelAction_updateBottomLeftPanelPosition_handler
 };
 
 export default createReducer(bottomLeftPanelDefaultState, bottomLeftPanelReducerHandlers);

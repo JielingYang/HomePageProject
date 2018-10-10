@@ -8,7 +8,7 @@ export type centerCircleStateType = {
 };
 
 const centerCircleDefaultState: centerCircleStateType = {
-    centerCircleShapeModel: new Shape2d_Circle(2, ID.CENTER_CIRCLE_ID, new Shape2d_Point(window.innerWidth / 2, window.innerHeight / 2), 50),
+    centerCircleShapeModel: new Shape2d_Circle(2, ID.CENTER_CIRCLE_ID, new Shape2d_Point(window.innerWidth / 2, window.innerHeight / 2), 50)
 };
 
 // Check reducerCreator for explanation of handlers

@@ -6,9 +6,9 @@ export default class Base
         this.strId = strId;
     }
 
-    getNumberId(): number {return this.numId}
+    getNumberId(): number {return this.numId;}
 
-    getStringId(): string {return this.strId}
+    getStringId(): string {return this.strId;}
 
-    deepClone(): Base {return new Base(this.getNumberId(), this.getStringId())}
+    deepClone(): Base {return new Base(this.getNumberId(), this.getStringId());}
 }

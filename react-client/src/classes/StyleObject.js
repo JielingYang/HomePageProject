@@ -5,7 +5,7 @@ export default class StyleObject
         this.style = {};
     }
 
-    getStyle(): Object {return this.style}
+    getStyle(): Object {return this.style;}
 
     setBasics(position: string, width: number, height: number, left: number, top: number): StyleObject
     {
@@ -14,7 +14,7 @@ export default class StyleObject
             width: width,
             height: height,
             left: left,
-            top: top,
+            top: top
         };
         return this;
     }

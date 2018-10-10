@@ -11,9 +11,9 @@ export default class Shape2d_Line extends Base
         this.pointB = pointB;
     }
 
-    getPointA(): Shape2d_Point {return this.pointA}
+    getPointA(): Shape2d_Point {return this.pointA;}
 
-    getPointB(): Shape2d_Point {return this.pointB}
+    getPointB(): Shape2d_Point {return this.pointB;}
 
-    deepClone(): Shape2d_Line {return new Shape2d_Line(this.getNumberId(), this.getStringId(), this.getPointA().clone(), this.getPointB().clone())}
+    deepClone(): Shape2d_Line {return new Shape2d_Line(this.getNumberId(), this.getStringId(), this.getPointA().clone(), this.getPointB().clone());}
 }

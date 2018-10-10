@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {connect} from "react-redux";
 import BasePanel from "./BasePanel";
 import {LEVEL0_CONSOLE_FONT, LEVEL0_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
@@ -31,21 +31,21 @@ class App extends Component<AppPropsType>
     componentDidMount()
     {
         console.log("Registering functions on window events...");
-        window.addEventListener('resize', () => this.props.appAction_requestToUpdateAppSize(window.innerWidth, window.innerHeight));
-        window.addEventListener('mousemove', (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
+        window.addEventListener("resize", () => this.props.appAction_requestToUpdateAppSize(window.innerWidth, window.innerHeight));
+        window.addEventListener("mousemove", (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
         console.log("Finish registering functions on window events.");
     }
 
     componentWillUnmount()
     {
-        window.removeEventListener('resize', () => this.props.appAction_requestToUpdateAppSize(window.innerWidth, window.innerHeight));
-        window.removeEventListener('mousemove', (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
+        window.removeEventListener("resize", () => this.props.appAction_requestToUpdateAppSize(window.innerWidth, window.innerHeight));
+        window.removeEventListener("mousemove", (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
     }
 
     render()
     {
         let appComponentShapeModel: Shape2d_Rectangle = this.props.appShapeModel;
-        let appComponentStyleObject: StyleObject = new StyleObject().setBasics('absolute', appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY()).setBackgroundColor(WHITE).setPerspective(100, undefined);
+        let appComponentStyleObject: StyleObject = new StyleObject().setBasics("absolute", appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY()).setBackgroundColor(WHITE).setPerspective(100, undefined);
 
         console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
         return (
@@ -59,16 +59,16 @@ class App extends Component<AppPropsType>
 const mapStateToProps = (store) =>
 {
     return {
-        appShapeModel: store.appState.appShapeModel,
-    }
+        appShapeModel: store.appState.appShapeModel
+    };
 };
 
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
                                   appAction_requestToUpdateAppSize: appAction_requestToUpdateAppSize,
-                                  appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
-                              }, dispatch)
+                                  appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData
+                              }, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(App);

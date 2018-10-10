@@ -12,7 +12,7 @@ export type topLeftPanelStateType = {
 
 const topLeftPanelDefaultState: topLeftPanelStateType = {
     topLeftPanelShapeModel: new Shape2d_Rectangle(3, ID.TOP_LEFT_PANEL_ID, new Shape2d_Point(0, 0), window.innerWidth / 2, window.innerHeight / 2),
-    topLeftPanelBlurLevel: BLUR_LEVEL.NONE,
+    topLeftPanelBlurLevel: BLUR_LEVEL.NONE
 };
 
 const topLeftPanelAction_updateTopLeftPanelSize_handler = (state: topLeftPanelStateType, action) =>
@@ -32,7 +32,7 @@ const topLeftPanelAction_updateTopLeftPanelPosition_handler = (state: topLeftPan
 // Check reducerCreator for explanation of handlers
 const topLeftPanelReducerHandlers = {
     [TOP_LEFT_PANEL_ACTION_TYPE.TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE]: topLeftPanelAction_updateTopLeftPanelSize_handler,
-    [TOP_LEFT_PANEL_ACTION_TYPE.TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION]: topLeftPanelAction_updateTopLeftPanelPosition_handler,
+    [TOP_LEFT_PANEL_ACTION_TYPE.TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION]: topLeftPanelAction_updateTopLeftPanelPosition_handler
 };
 
 export default createReducer(topLeftPanelDefaultState, topLeftPanelReducerHandlers);

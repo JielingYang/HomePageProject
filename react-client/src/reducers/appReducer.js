@@ -14,7 +14,7 @@ export type appStateType = {
 const appDefaultState: appStateType = {
     appShapeModel: new Shape2d_Rectangle(0, ID.APP_ID, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
     appMaximumRefreshingTimeGap: APP_REFRESHING_TIME_GAP,
-    appMouseMoveEventTimeStamp: 0,
+    appMouseMoveEventTimeStamp: 0
 };
 
 const appAction_updateAppSize_handler = (state: appStateType, action) =>
@@ -43,7 +43,7 @@ const appAction_updateAppMouseMoveEventTimeStamp_handler = (state: appStateType,
 const appReducerHandlers = {
     [APP_ACTION_TYPE.APP_ACTION_UPDATE_APP_SIZE]: appAction_updateAppSize_handler,
     [APP_ACTION_TYPE.APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP]: appAction_updateAppMaximumRefreshingTimeGap_handler,
-    [APP_ACTION_TYPE.APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP]: appAction_updateAppMouseMoveEventTimeStamp_handler,
+    [APP_ACTION_TYPE.APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP]: appAction_updateAppMouseMoveEventTimeStamp_handler
 };
 
 export default createReducer(appDefaultState, appReducerHandlers);

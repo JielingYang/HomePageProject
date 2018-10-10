@@ -1,50 +1,50 @@
 import * as React from "react";
 
 export const SVG_ANIMATE_ATTRIBUTE_TYPE = Object.freeze({
-    CSS: 'CSS',
-    XML: 'XML',
-    auto: 'auto'
-});
+                                                            CSS: "CSS",
+                                                            XML: "XML",
+                                                            auto: "auto"
+                                                        });
 
 export const SVG_ANIMATE_ADDITIVE = Object.freeze({
-    replace: 'replace',
-    sum: 'sum',
-});
+                                                      replace: "replace",
+                                                      sum: "sum"
+                                                  });
 
 export const SVG_ANIMATE_ACCUMULATE = Object.freeze({
-    none: 'none',
-    sum: 'sum',
-});
+                                                        none: "none",
+                                                        sum: "sum"
+                                                    });
 
 export const SVG_ANIMATE_CALC_MODE = Object.freeze({
-    discrete: 'discrete',
-    linear: 'linear',
-    paced: 'paced',
-    spline: 'spline',
-});
+                                                       discrete: "discrete",
+                                                       linear: "linear",
+                                                       paced: "paced",
+                                                       spline: "spline"
+                                                   });
 
 export const SVG_ANIMATE_RESTART = Object.freeze({
-    always: 'always',
-    never: 'never',
-    whenNotActive: 'whenNotActive',
-});
+                                                     always: "always",
+                                                     never: "never",
+                                                     whenNotActive: "whenNotActive"
+                                                 });
 
 export const SVG_ANIMATE_FILL = Object.freeze({
-    remove: 'remove',
-    freeze: 'freeze',
-});
+                                                  remove: "remove",
+                                                  freeze: "freeze"
+                                              });
 
 export const SVG_KEY_TIMES = Object.freeze({
-    default: '0;1',
-});
+                                               default: "0;1"
+                                           });
 
 export const SVG_KEY_SPLINES = Object.freeze({
-    easeInOut: '0.18 0.73 0.87 0.24;',
-    easeIn: '0.42 0 1 1;',
-    easeOut: '0 0 0.59 1;',
-});
+                                                 easeInOut: "0.18 0.73 0.87 0.24;",
+                                                 easeIn: "0.42 0 1 1;",
+                                                 easeOut: "0 0 0.59 1;"
+                                             });
 
-const EMPTY_STRING = '';
+const EMPTY_STRING = "";
 
 /**
  * This is a singleton class
@@ -122,7 +122,7 @@ class SvgAnimateBuilder
                             repeatCount={repeatCount}
                             repeatDur={repeatDur}
                             fill={fill}
-            />
+            />;
         }
         else
         {
@@ -145,7 +145,7 @@ class SvgAnimateBuilder
                             repeatCount={repeatCount}
                             repeatDur={repeatDur}
                             fill={fill}
-            />
+            />;
         }
     }
 
@@ -186,7 +186,7 @@ class SvgAnimateBuilder
 
     setXlinkHref(xlinkHref: string)
     {
-        this.xlinkHref = '#' + xlinkHref;
+        this.xlinkHref = "#" + xlinkHref;
         return this;
     }
 
@@ -264,25 +264,25 @@ class SvgAnimateBuilder
 
     setBeginOnElementTrigger(targetId: string, trigger: string)
     {
-        this.begin = targetId + '.' + trigger;
+        this.begin = targetId + "." + trigger;
         return this;
     }
 
     setBeginOnTime(time: number)
     {
-        this.begin = time + 's';
+        this.begin = time + "s";
         return this;
     }
 
     setBeginOnEventTime(event: string, time: number)
     {
-        this.begin = event + '+' + time + 's';
+        this.begin = event + "+" + time + "s";
         return this;
     }
 
     setDur(dur: number)
     {
-        this.dur = dur + 's';
+        this.dur = dur + "s";
         return this;
     }
 

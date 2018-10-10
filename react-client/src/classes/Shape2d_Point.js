@@ -6,13 +6,13 @@ export default class Shape2d_Point
         this.y = y;
     }
 
-    getX(): number {return this.x}
+    getX(): number {return this.x;}
 
-    getY(): number {return this.y}
+    getY(): number {return this.y;}
 
-    setX(x: number) {this.x = x}
+    setX(x: number) {this.x = x;}
 
-    setY(y: number) {this.y = y}
+    setY(y: number) {this.y = y;}
 
     translateX(tx: number): Shape2d_Point
     {
@@ -33,5 +33,5 @@ export default class Shape2d_Point
         return this;
     }
 
-    clone(): Shape2d_Point {return new Shape2d_Point(this.getX(), this.getY())}
+    clone(): Shape2d_Point {return new Shape2d_Point(this.getX(), this.getY());}
 }
