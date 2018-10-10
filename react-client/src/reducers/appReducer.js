@@ -1,4 +1,5 @@
-import {createReducer, deepCopy} from "./reducerCreator";
+import {deepCopy} from "../utilities/UTILITIES";
+import {createReducer} from "./reducerCreator";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {APP_ACTION_TYPE} from "../actionCreators/appActions";
 import {APP_REFRESHING_TIME_GAP} from "../utilities/CONSTANTS_TIME";

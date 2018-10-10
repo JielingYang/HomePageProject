@@ -1,7 +1,8 @@
 import {BASE_PANEL_ACTION_TYPE} from "../actionCreators/basePanelActions";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import Shape2d_Point from "../classes/Shape2d_Point";
-import {createReducer, deepCopy} from "./reducerCreator";
+import {deepCopy} from "../utilities/UTILITIES";
+import {createReducer} from "./reducerCreator";
 import {ID} from "../utilities/CONSTANTS_STRING";
 import {BLUR_LEVEL} from "../utilities/CONSTANTS_NUMBER";
 import Shape2d_Circle from "../classes/Shape2d_Circle";

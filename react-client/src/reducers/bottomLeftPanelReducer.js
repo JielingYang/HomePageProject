@@ -1,7 +1,8 @@
 import {ID} from "../utilities/CONSTANTS_STRING";
 import Shape2d_Point from "../classes/Shape2d_Point";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
-import {createReducer, deepCopy} from "./reducerCreator";
+import {deepCopy} from "../utilities/UTILITIES";
+import {createReducer} from "./reducerCreator";
 import {BOTTOM_LEFT_PANEL_ACTION_TYPE} from "../actionCreators/bottomLeftPanelActions";
 import {BLUR_LEVEL} from "../utilities/CONSTANTS_NUMBER";
 
