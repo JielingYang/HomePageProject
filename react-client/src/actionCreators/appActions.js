@@ -1,4 +1,5 @@
 import type {appStateType} from "../reducers/appReducer";
+import {getClassObjectByNumId} from "../utilities/UTILITIES";
 import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint, basePanelAction_updateBasePanelFocusMaskShapeModels} from "./basePanelActions";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
@@ -69,6 +70,7 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
             dispatch(bottomLeftPanelAction_updateBottomLeftPanelPosition(newBottomLeftPanelPosition));
 
             // Update base panel focus mask shape models' sizes and positions
+            console.log(getClassObjectByNumId(getState(), 4));
             // dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels(null));
         }
     };

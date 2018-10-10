@@ -1,10 +1,5 @@
-const CLASS_NAMES = Object.freeze({
-                                      Base: "Base",
-                                      Shape2d_Line: "Shape2d_Line",
-                                      Shape2d_Point: "Shape2d_Point",
-                                      Shape2d_Polygon: "Shape2d_Polygon",
-                                      Shape2d_Rectangle: "Shape2d_Rectangle"
-                                  });
+import Base from "../classes/Base";
+
 /**
  * This function do a deep copy on given object (including array) and return copied result.
  * @param originalObject
@@ -22,8 +17,8 @@ export const deepCopy = (originalObject) =>
         {
             let o = originalObject[key];
 
-            // If target is class object
-            if (CLASS_NAMES.hasOwnProperty(o.constructor.name))
+            // If target is Base class object
+            if (o instanceof Base)
             {
                 // Call class object deepClone method
                 copiedObject[key] = o.deepClone();
@@ -37,6 +32,42 @@ export const deepCopy = (originalObject) =>
         }
     }
     return copiedObject;
+};
+
+export const getClassObjectByNumId = (target: Object, id: number) =>
+{
+    let result = null;
+    Object.values(target).some(element =>
+                               {
+                                   // If current element is Base class object
+                                   if (element instanceof Base)
+                                   {
+                                       // And if this Base class object has same number ID being searched
+                                       if (element.getNumberId() === id)
+                                       {
+                                           // Get the result and stop the loop
+                                           result = element;
+                                           return true;
+                                       }
+                                       // Otherwise, continue the loop by returning false
+                                       else
+                                       {
+                                           return false;
+                                       }
+                                   }
+                                   // If current element is other object types (excluding array)
+                                   else if (typeof element === "object" && !Array.isArray(element))
+                                   {
+                                       result = getClassObjectByNumId(element, id);
+                                       return result !== null;
+                                   }
+                                   else
+                                   {
+                                       return false;
+                                   }
+                               });
+
+    return result;
 };
 
 export const numberToPercentageString: string = (number: number, digit: number) =>
