@@ -9,7 +9,7 @@ import bottomLeftPanelReducer from "./bottomLeftPanelReducer";
 const rootReducer = combineReducers({
                                         appState: appReducer,
                                         basePanelState: basePanelReducer,
-                                        centerCircleState: centerCircleReducer,
+                                        // centerCircleState: centerCircleReducer,
                                         topLeftPanelState: topLeftPanelReducer,
                                         topRightPanelState: topRightPanelReducer,
                                         bottomLeftPanelState: bottomLeftPanelReducer

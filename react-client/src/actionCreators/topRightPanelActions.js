@@ -1,7 +1,6 @@
 import Shape2d_Point from "../classes/Shape2d_Point";
-import {basePanelAction_updateBasePanelFocusMaskShapeModels} from "./basePanelActions";
-import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import Shape2d_Circle from "../classes/Shape2d_Circle";
+import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -18,13 +17,6 @@ export const topRightPanelAction_requestTopRightPanelFocus = () =>
         {
             let maskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle> = [];
             maskShapeModels.push(state.topRightPanelState.topRightPanelShapeModel);
-            let signature = maskShapeModels.map((model: Shape2d_Rectangle | Shape2d_Circle) => model.getNumberId()).join();
-
-            // Add or remove focus mask shape models if signature is different
-            if (signature !== state.basePanelState.basePanelFocusMaskShapeModelsSignature)
-            {
-                dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels(maskShapeModels));
-            }
         }
     };
 };
@@ -34,9 +26,9 @@ export const topRightPanelAction_requestTopRightPanelFocus = () =>
 /* *************************************************************************** */
 
 export const TOP_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
-                                                             TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_SIZE: "TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_SIZE",
-                                                             TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION: "TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION"
-                                                         });
+    TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_SIZE: "TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_SIZE",
+    TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION: "TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION"
+});
 
 export const topRightPanelAction_updateTopRightPanelSize = (newTopRightPanelWidth: number, newTopRightPanelHeight: number) =>
 {

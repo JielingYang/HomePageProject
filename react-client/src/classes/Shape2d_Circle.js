@@ -27,5 +27,5 @@ export default class Shape2d_Circle extends Base
 
     isRadiantEqual(anotherCircle: Shape2d_Circle): Boolean {return this.radiant === anotherCircle.getRadiant();}
 
-    deepClone(): Shape2d_Circle {return new Shape2d_Circle(this.getNumberId(), this.getStringId(), this.Shape2d_Point().clone(), this.getRadiant());}
+    deepClone(): Shape2d_Circle {return new Shape2d_Circle(this.getNumberId(), this.getStringId(), this.getCenterPoint().clone(), this.getRadiant());}
 }

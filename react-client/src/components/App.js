@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {basePanelAction_updateBasePanelFocusMaskShapeModels} from "../actionCreators/basePanelActions";
 import BasePanel from "./BasePanel";
 import {LEVEL0_CONSOLE_FONT, LEVEL0_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 import {bindActionCreators} from "redux";
@@ -12,6 +13,7 @@ type AppPropsType = {
     appShapeModel: Shape2d_Rectangle,
     appAction_requestToUpdateAppSize: Function,
     appAction_requestToUpdateAppMouseMoveRelatedData: Function,
+    basePanelAction_updateBasePanelFocusMaskShapeModels: Function
 }
 
 /**
@@ -34,6 +36,8 @@ class App extends Component<AppPropsType>
         window.addEventListener("resize", () => this.props.appAction_requestToUpdateAppSize(window.innerWidth, window.innerHeight));
         window.addEventListener("mousemove", (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
         console.log("Finish registering functions on window events.");
+        
+        this.props.basePanelAction_updateBasePanelFocusMaskShapeModels();
     }
 
     componentWillUnmount()
@@ -49,7 +53,8 @@ class App extends Component<AppPropsType>
 
         console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
         return (
-            <div id={appComponentShapeModel.getStringId()} style={appComponentStyleObject.getStyle()}>
+            <div id={appComponentShapeModel.getStringId()}
+                 style={appComponentStyleObject.getStyle()}>
                 <BasePanel/>
             </div>
         );
@@ -66,9 +71,10 @@ const mapStateToProps = (store) =>
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-                                  appAction_requestToUpdateAppSize: appAction_requestToUpdateAppSize,
-                                  appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData
-                              }, dispatch);
+        appAction_requestToUpdateAppSize: appAction_requestToUpdateAppSize,
+        appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
+        basePanelAction_updateBasePanelFocusMaskShapeModels: basePanelAction_updateBasePanelFocusMaskShapeModels
+    }, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(App);

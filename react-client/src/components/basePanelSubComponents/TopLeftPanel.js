@@ -17,11 +17,12 @@ const TopLeftPanel = (props: TopLeftPanelPropsType) =>
 
     console.log(LEVEL2_CONSOLE_PREFIX + topLeftPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
-        <g id={topLeftPanelShapeModel.getStringId()} onMouseOver={(e) =>
-        {
-            e.stopPropagation();
-            props.topLeftPanelAction_requestTopLeftPanelFocus();
-        }}>
+        <g id={topLeftPanelShapeModel.getStringId()}
+           onMouseOver={(e) =>
+           {
+               e.stopPropagation();
+               props.topLeftPanelAction_requestTopLeftPanelFocus();
+           }}>
             <rect x={topLeftPanelShapeModel.getTopLeftPoint().getX()}
                   y={topLeftPanelShapeModel.getTopLeftPoint().getY()}
                   width={topLeftPanelShapeModel.getWidth()}
@@ -40,8 +41,8 @@ const mapStateToProps = (store) =>
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-                                  topLeftPanelAction_requestTopLeftPanelFocus: topLeftPanelAction_requestTopLeftPanelFocus
-                              }, dispatch);
+        topLeftPanelAction_requestTopLeftPanelFocus: topLeftPanelAction_requestTopLeftPanelFocus
+    }, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(TopLeftPanel);

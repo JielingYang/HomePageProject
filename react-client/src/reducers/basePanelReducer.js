@@ -5,7 +5,6 @@ import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {ID} from "../utilities/CONSTANTS_STRING";
 import {BLUR_LEVEL} from "../utilities/CONSTANTS_NUMBER";
-import Shape2d_Circle from "../classes/Shape2d_Circle";
 
 export type basePanelStateType = {
     basePanelShapeModel: Shape2d_Rectangle,
@@ -18,9 +17,7 @@ export type basePanelStateType = {
     basePanelMouseFocusPercentageX: string,
     basePanelMouseFocusRadiance: string,
     basePanelBlurLevel: BLUR_LEVEL,
-    basePanelFocusMaskShapeModelsSignature: string,
-    basePanelCurrentFocusMaskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle>,
-    basePanelPreviousFocusMaskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle>,
+    basePanelCurrentFocusMaskShapeModels: Array,
 }
 
 const basePanelDefaultState: basePanelStateType = {
@@ -34,9 +31,7 @@ const basePanelDefaultState: basePanelStateType = {
     basePanelMouseFocusPercentageX: "50%",
     basePanelMouseFocusRadiance: "20%",
     basePanelBlurLevel: BLUR_LEVEL.MEDIUM,
-    basePanelFocusMaskShapeModelsSignature: "",
-    basePanelCurrentFocusMaskShapeModels: [],
-    basePanelPreviousFocusMaskShapeModels: []
+    basePanelCurrentFocusMaskShapeModels: []
 };
 
 const basePanelAction_updateBasePanelSize_handler = (state: basePanelStateType, action) =>
@@ -61,9 +56,8 @@ const basePanelAction_updateBasePanelTransformAndFocusPoint_handler = (state: ba
 const basePanelAction_updateBasePanelFocusMaskShapeModels_handler = (state: basePanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.basePanelPreviousFocusMaskShapeModels = state.basePanelCurrentFocusMaskShapeModels;
     nextState.basePanelCurrentFocusMaskShapeModels = action.newBasePanelFocusMaskShapeModels;
-    nextState.basePanelFocusMaskShapeModelsSignature = action.newBasePanelFocusMaskShapeModels.map((model: Shape2d_Rectangle | Shape2d_Circle) => model.getNumberId()).join();
+
     return nextState;
 };
 

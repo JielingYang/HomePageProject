@@ -1,4 +1,5 @@
-import {numberToPercentageString} from "../utilities/UTILITIES";
+import {ID} from "../utilities/CONSTANTS_STRING";
+import {CLASS_NAMES, getObjectsByClassNames, numberToPercentageString} from "../utilities/UTILITIES";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import type {basePanelStateType} from "../reducers/basePanelReducer";
 import Shape2d_Circle from "../classes/Shape2d_Circle";
@@ -48,10 +49,11 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
 /* *************************************************************************** */
 
 export const BASE_PANEL_ACTION_TYPE = Object.freeze({
-                                                        BASE_PANEL_ACTION_UPDATE_BASE_PANEL_SIZE: "BASE_PANEL_ACTION_UPDATE_BASE_PANEL_SIZE",
-                                                        BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT: "BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT",
-                                                        BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS: "BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS"
-                                                    });
+    BASE_PANEL_ACTION_UPDATE_BASE_PANEL_SIZE: "BASE_PANEL_ACTION_UPDATE_BASE_PANEL_SIZE",
+    BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT: "BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT",
+    BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS: "BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS",
+    BASE_PANEL_ACTION_TRIGGER_BASE_PANEL_COMPONENTS_FOCUS: "BASE_PANEL_ACTION_TRIGGER_BASE_PANEL_COMPONENTS_FOCUS"
+});
 
 export const basePanelAction_updateBasePanelSize = (newBasePanelWidth: number, newBasePanelHeight: number) =>
 {
@@ -62,11 +64,25 @@ export const basePanelAction_updateBasePanelSize = (newBasePanelWidth: number, n
     };
 };
 
-export const basePanelAction_updateBasePanelFocusMaskShapeModels = (newBasePanelFocusMaskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle>) =>
+export const basePanelAction_updateBasePanelFocusMaskShapeModels = () =>
+{
+    return (dispatch, getState) =>
+    {
+        let maskShapeModels = getObjectsByClassNames(getState(), [CLASS_NAMES.Shape2d_Rectangle, CLASS_NAMES.Shape2d_Circle]);
+        maskShapeModels = maskShapeModels.filter((model: Shape2d_Rectangle | Shape2d_Circle) => model.getStringId() !== ID.APP_ID && model.getStringId() !== ID.BASE_PANEL_ID);
+
+        dispatch({
+            type: BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS,
+            newBasePanelFocusMaskShapeModels: maskShapeModels
+        });
+    };
+};
+
+export const basePanelAction_triggerBasePanelComponentsFocus = (componentIds: Array<number>) =>
 {
     return {
-        type: BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS,
-        newBasePanelFocusMaskShapeModels: newBasePanelFocusMaskShapeModels,
+        type: BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_TRIGGER_BASE_PANEL_COMPONENTS_FOCUS,
+        componentIds: componentIds
     };
 };
 

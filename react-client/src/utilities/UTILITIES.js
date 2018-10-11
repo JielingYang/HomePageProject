@@ -1,5 +1,14 @@
 import Base from "../classes/Base";
 
+export const CLASS_NAMES = Object.freeze({
+    Base: "Base",
+    Shape2d_Line: "Shape2d_Line",
+    Shape2d_Point: "Shape2d_Point",
+    Shape2d_Polygon: "Shape2d_Polygon",
+    Shape2d_Rectangle: "Shape2d_Rectangle",
+    Shape2d_Circle: "Shape2d_Circle"
+});
+
 /**
  * This function do a deep copy on given object (including array) and return copied result.
  * @param originalObject
@@ -34,39 +43,55 @@ export const deepCopy = (originalObject) =>
     return copiedObject;
 };
 
-export const getClassObjectByNumId = (target: Object, id: number) =>
+export const getObjectsByClassNames: Array = (stateObject: Object, classNames) =>
+{
+    let result: Array = [];
+    Object.values(stateObject).forEach((element: Object) =>
+    {
+        if (classNames.includes(element.constructor.name))
+        {
+            result.push(element);
+        }
+        else if (typeof element === "object" && !Array.isArray(element))
+        {
+            result = result.concat(getObjectsByClassNames(element, classNames));
+        }
+    });
+    return result;
+};
+
+export const getObjectByNumId: Base = (stateObject: Object, id: number) =>
 {
     let result = null;
-    Object.values(target).some(element =>
-                               {
-                                   // If current element is Base class object
-                                   if (element instanceof Base)
-                                   {
-                                       // And if this Base class object has same number ID being searched
-                                       if (element.getNumberId() === id)
-                                       {
-                                           // Get the result and stop the loop
-                                           result = element;
-                                           return true;
-                                       }
-                                       // Otherwise, continue the loop by returning false
-                                       else
-                                       {
-                                           return false;
-                                       }
-                                   }
-                                   // If current element is other object types (excluding array)
-                                   else if (typeof element === "object" && !Array.isArray(element))
-                                   {
-                                       result = getClassObjectByNumId(element, id);
-                                       return result !== null;
-                                   }
-                                   else
-                                   {
-                                       return false;
-                                   }
-                               });
-
+    Object.values(stateObject).some(element =>
+    {
+        // If current element is Base class object
+        if (element instanceof Base)
+        {
+            // And if this Base class object has same number ID being searched
+            if (element.getNumberId() === id)
+            {
+                // Get the result and stop the loop
+                result = element;
+                return true;
+            }
+            // Otherwise, continue the loop by returning false
+            else
+            {
+                return false;
+            }
+        }
+        // If current element is other object types (excluding array)
+        else if (typeof element === "object" && !Array.isArray(element))
+        {
+            result = getObjectByNumId(element, id);
+            return result !== null;
+        }
+        else
+        {
+            return false;
+        }
+    });
     return result;
 };
 

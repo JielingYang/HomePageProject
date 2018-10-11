@@ -1,5 +1,4 @@
 import Shape2d_Point from "../classes/Shape2d_Point";
-import {basePanelAction_updateBasePanelFocusMaskShapeModels} from "./basePanelActions";
 import Shape2d_Circle from "../classes/Shape2d_Circle";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 
@@ -18,13 +17,6 @@ export const topLeftPanelAction_requestTopLeftPanelFocus = () =>
         {
             let maskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle> = [];
             maskShapeModels.push(state.topLeftPanelState.topLeftPanelShapeModel);
-            let signature = maskShapeModels.map((model: Shape2d_Rectangle | Shape2d_Circle) => model.getNumberId()).join();
-
-            // Add or remove focus mask shape models if signature is different
-            if (signature !== state.basePanelState.basePanelFocusMaskShapeModelsSignature)
-            {
-                dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels(maskShapeModels));
-            }
         }
     };
 };
@@ -34,9 +26,9 @@ export const topLeftPanelAction_requestTopLeftPanelFocus = () =>
 /* *************************************************************************** */
 
 export const TOP_LEFT_PANEL_ACTION_TYPE = Object.freeze({
-                                                            TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE: "TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE",
-                                                            TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION: "TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION"
-                                                        });
+    TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE: "TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_SIZE",
+    TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION: "TOP_LEFT_PANEL_ACTION_UPDATE_TOP_LEFT_PANEL_POSITION"
+});
 
 export const topLeftPanelAction_updateTopLeftPanelSize = (newTopLeftPanelWidth: number, newTopLeftPanelHeight: number) =>
 {

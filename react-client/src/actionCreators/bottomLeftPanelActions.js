@@ -1,5 +1,4 @@
 import Shape2d_Point from "../classes/Shape2d_Point";
-import {basePanelAction_updateBasePanelFocusMaskShapeModels} from "./basePanelActions";
 import Shape2d_Circle from "../classes/Shape2d_Circle";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 
@@ -18,13 +17,6 @@ export const bottomLeftPanelAction_requestBottomLeftPanelFocus = () =>
         {
             let maskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle> = [];
             maskShapeModels.push(state.bottomLeftPanelState.bottomLeftPanelShapeModel);
-            let signature = maskShapeModels.map((model: Shape2d_Rectangle | Shape2d_Circle) => model.getNumberId()).join();
-
-            // Add or remove focus mask shape models if signature is different
-            if (signature !== state.basePanelState.basePanelFocusMaskShapeModelsSignature)
-            {
-                dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels(maskShapeModels));
-            }
         }
     };
 };
@@ -34,9 +26,9 @@ export const bottomLeftPanelAction_requestBottomLeftPanelFocus = () =>
 /* *************************************************************************** */
 
 export const BOTTOM_LEFT_PANEL_ACTION_TYPE = Object.freeze({
-                                                               BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_SIZE: "BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_SIZE",
-                                                               BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_POSITION: "BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_POSITION"
-                                                           });
+    BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_SIZE: "BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_SIZE",
+    BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_POSITION: "BOTTOM_LEFT_PANEL_ACTION_UPDATE_BOTTOM_LEFT_PANEL_POSITION"
+});
 
 export const bottomLeftPanelAction_updateBottomLeftPanelSize = (newBottomLeftPanelWidth: number, newBottomLeftPanelHeight: number) =>
 {

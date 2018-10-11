@@ -1,5 +1,4 @@
 import type {appStateType} from "../reducers/appReducer";
-import {getClassObjectByNumId} from "../utilities/UTILITIES";
 import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint, basePanelAction_updateBasePanelFocusMaskShapeModels} from "./basePanelActions";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
@@ -38,7 +37,8 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
 {
     return (dispatch, getState) =>
     {
-        let appShapeModel: Shape2d_Rectangle = getState().appState.appShapeModel;
+        let currentState: Object = getState();
+        let appShapeModel: Shape2d_Rectangle = currentState.appState.appShapeModel;
         let previousAppWidth: number = appShapeModel.getWidth();
         let previousAppHeight: number = appShapeModel.getHeight();
 
@@ -70,8 +70,7 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
             dispatch(bottomLeftPanelAction_updateBottomLeftPanelPosition(newBottomLeftPanelPosition));
 
             // Update base panel focus mask shape models' sizes and positions
-            console.log(getClassObjectByNumId(getState(), 4));
-            // dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels(null));
+            dispatch(basePanelAction_updateBasePanelFocusMaskShapeModels());
         }
     };
 };
@@ -81,10 +80,10 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
 /* *************************************************************************** */
 
 export const APP_ACTION_TYPE = Object.freeze({
-                                                 APP_ACTION_UPDATE_APP_SIZE: "APP_ACTION_UPDATE_APP_SIZE",
-                                                 APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP: "APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP",
-                                                 APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP: "APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP"
-                                             });
+    APP_ACTION_UPDATE_APP_SIZE: "APP_ACTION_UPDATE_APP_SIZE",
+    APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP: "APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP",
+    APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP: "APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP"
+});
 
 export const appAction_updateAppMaximumRefreshingTimeGap = (timeGap: number) =>
 {
