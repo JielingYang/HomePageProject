@@ -4,16 +4,13 @@ import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {TOP_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/topRightPanelActions";
-import {BLUR_LEVEL} from "../utilities/CONSTANTS_NUMBER";
 
 export type topRightPanelStateType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
-    topRightPanelBlurLevel: BLUR_LEVEL,
 }
 
 const topRightPanelDefaultState: topRightPanelStateType = {
-    topRightPanelShapeModel: new Shape2d_Rectangle(4, ID.TOP_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, 0), window.innerWidth / 2, window.innerHeight / 2),
-    topRightPanelBlurLevel: BLUR_LEVEL.NONE
+    topRightPanelShapeModel: new Shape2d_Rectangle(4, ID.TOP_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, 0), window.innerWidth / 2, window.innerHeight / 2)
 };
 
 const topRightPanelAction_updateTopRightPanelSize_handler = (state: topRightPanelStateType, action) =>

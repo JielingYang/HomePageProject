@@ -30,7 +30,7 @@ const basePanelDefaultState: basePanelStateType = {
     basePanelMouseFocusPercentageY: "50%",
     basePanelMouseFocusPercentageX: "50%",
     basePanelMouseFocusRadiance: "20%",
-    basePanelBlurLevel: BLUR_LEVEL.MEDIUM,
+    basePanelBlurLevel: BLUR_LEVEL.HEAVY,
     basePanelCurrentFocusMaskShapeModels: []
 };
 

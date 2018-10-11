@@ -8,6 +8,7 @@ import StyleObject from "../classes/StyleObject";
 import {BLACK, BLACK_TRANSPARENT_10, WHITE} from "../utilities/CONSTANTS_COLOR";
 import {ID, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
 import {BLUR_OUT_TIME, FOCUS_IN_TIME} from "../utilities/CONSTANTS_TIME";
+import BottomRightPanel from "./basePanelSubComponents/BottomRightPanel";
 import TopLeftPanel from "./basePanelSubComponents/TopLeftPanel";
 import TopRightPanel from "./basePanelSubComponents/TopRightPanel";
 import Shape2d_Circle from "../classes/Shape2d_Circle";
@@ -39,6 +40,7 @@ const BasePanel = (props: BasePanelPropsType) =>
             <TopLeftPanel/>
             <TopRightPanel/>
             <BottomLeftPanel/>
+            <BottomRightPanel/>
         </g>;
 
     let basePanelComponentStyleObject = new StyleObject().setBasics("absolute", basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
