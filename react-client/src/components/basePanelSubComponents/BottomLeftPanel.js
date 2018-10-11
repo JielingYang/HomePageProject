@@ -4,11 +4,9 @@ import {connect} from "react-redux";
 import Shape2d_Rectangle from "../../classes/Shape2d_Rectangle";
 import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import {CONSOLE_FONT_ORANGE} from "../../utilities/CONSTANTS_COLOR";
-import {bottomLeftPanelAction_requestBottomLeftPanelFocus} from "../../actionCreators/bottomLeftPanelActions";
 
 type BottomLeftPanelPropsType = {
     bottomLeftPanelShapeModel: Shape2d_Rectangle,
-    bottomLeftPanelAction_requestBottomLeftPanelFocus: Function,
 }
 
 const BottomLeftPanel = (props: BottomLeftPanelPropsType) =>
@@ -17,11 +15,7 @@ const BottomLeftPanel = (props: BottomLeftPanelPropsType) =>
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomLeftPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
-        <g id={bottomLeftPanelShapeModel.getStringId()} onMouseOver={(e) =>
-        {
-            e.stopPropagation();
-            props.bottomLeftPanelAction_requestBottomLeftPanelFocus();
-        }}>
+        <g id={bottomLeftPanelShapeModel.getStringId()}>
             <rect x={bottomLeftPanelShapeModel.getTopLeftPoint().getX()}
                   y={bottomLeftPanelShapeModel.getTopLeftPoint().getY()}
                   width={bottomLeftPanelShapeModel.getWidth()}
@@ -39,9 +33,7 @@ const mapStateToProps = (store) =>
 
 const matchDispatchToProps = (dispatch) =>
 {
-    return bindActionCreators({
-                                  bottomLeftPanelAction_requestBottomLeftPanelFocus: bottomLeftPanelAction_requestBottomLeftPanelFocus
-                              }, dispatch);
+    return bindActionCreators({}, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(BottomLeftPanel);

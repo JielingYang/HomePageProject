@@ -1,25 +1,4 @@
 import Shape2d_Point from "../classes/Shape2d_Point";
-import Shape2d_Circle from "../classes/Shape2d_Circle";
-import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
-
-/* ************************** Requesting actions ************************** */
-/* This kind of actions do not send new data directly to reducer            */
-/* They check on new data to decide whether to call updating actions or not */
-/* ************************************************************************ */
-
-export const bottomLeftPanelAction_requestBottomLeftPanelFocus = () =>
-{
-    return (dispatch, getState) =>
-    {
-        let state = getState();
-        // Update component focus only if mouse focus is not on
-        if (!state.basePanelState.basePanelMouseFocusOn)
-        {
-            let maskShapeModels: Array<Shape2d_Rectangle | Shape2d_Circle> = [];
-            maskShapeModels.push(state.bottomLeftPanelState.bottomLeftPanelShapeModel);
-        }
-    };
-};
 
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
