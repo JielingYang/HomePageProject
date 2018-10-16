@@ -33,4 +33,5 @@ const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION]: topRightPanelAction_updateTopRightPanelPosition_handler
 };
 
+
 export default createReducer(topRightPanelDefaultState, topRightPanelReducerHandlers);
