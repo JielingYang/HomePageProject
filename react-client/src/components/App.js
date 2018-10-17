@@ -10,10 +10,7 @@ import StyleObject from "../classes/StyleObject";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 
 type AppPropsType = {
-    appShapeModel: Shape2d_Rectangle,
-    appAction_requestToUpdateAppSize: Function,
-    appAction_requestToUpdateAppMouseMoveRelatedData: Function,
-    basePanelAction_updateBasePanelFocusMaskShapeModels: Function
+    appShapeModel: Shape2d_Rectangle, appAction_requestToUpdateAppSize: Function, appAction_requestToUpdateAppMouseMoveRelatedData: Function, basePanelAction_updateBasePanelFocusMaskShapeModels: Function
 }
 
 /**
@@ -36,7 +33,7 @@ class App extends Component<AppPropsType>
         window.addEventListener("resize", () => this.props.appAction_requestToUpdateAppSize(window.innerWidth, window.innerHeight));
         window.addEventListener("mousemove", (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
         console.log("Finish registering functions on window events.");
-        
+
         this.props.basePanelAction_updateBasePanelFocusMaskShapeModels();
     }
 
@@ -53,11 +50,9 @@ class App extends Component<AppPropsType>
 
         console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
         return (
-            <div id={appComponentShapeModel.getStringId()}
-                 style={appComponentStyleObject.getStyle()}>
+            <div id={appComponentShapeModel.getStringId()} style={appComponentStyleObject.getStyle()}>
                 <BasePanel/>
-            </div>
-        );
+            </div>);
     }
 }
 

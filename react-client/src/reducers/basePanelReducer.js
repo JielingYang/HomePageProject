@@ -4,7 +4,6 @@ import Shape2d_Point from "../classes/Shape2d_Point";
 import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {ID} from "../utilities/CONSTANTS_STRING";
-import {BLUR_LEVEL} from "../utilities/CONSTANTS_NUMBER";
 
 export type basePanelStateType = {
     basePanelShapeModel: Shape2d_Rectangle,
@@ -16,7 +15,6 @@ export type basePanelStateType = {
     basePanelMouseFocusPercentageY: string,
     basePanelMouseFocusPercentageX: string,
     basePanelMouseFocusRadiance: string,
-    basePanelBlurLevel: BLUR_LEVEL,
     basePanelCurrentFocusMaskShapeModels: Array,
 }
 
@@ -30,7 +28,6 @@ const basePanelDefaultState: basePanelStateType = {
     basePanelMouseFocusPercentageY: "50%",
     basePanelMouseFocusPercentageX: "50%",
     basePanelMouseFocusRadiance: "20%",
-    basePanelBlurLevel: BLUR_LEVEL.HEAVY,
     basePanelCurrentFocusMaskShapeModels: []
 };
 

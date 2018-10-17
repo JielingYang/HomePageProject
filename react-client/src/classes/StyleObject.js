@@ -5,7 +5,10 @@ export default class StyleObject
         this.style = {};
     }
 
-    getStyle(): Object {return this.style;}
+    getStyle(): Object
+    {
+        return this.style;
+    }
 
     setBasics(position: string, width: number, height: number, left: number, top: number): StyleObject
     {
@@ -71,6 +74,20 @@ export default class StyleObject
         else
         {
             this.style.transform = rotation;
+        }
+        return this;
+    }
+
+    addBlur(blurValue: number)
+    {
+        let blur = " blur(" + blurValue + "px)";
+        if (this.style.filter !== undefined)
+        {
+            this.style.filter = this.style.filter + blur;
+        }
+        else
+        {
+            this.style.filter = blur;
         }
         return this;
     }

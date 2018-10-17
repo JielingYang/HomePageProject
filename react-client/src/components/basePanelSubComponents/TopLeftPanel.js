@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import Shape2d_Rectangle from "../../classes/Shape2d_Rectangle";
 import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import {GOLD} from "../../utilities/CONSTANTS_COLOR";
+import StyleObject from "../../classes/StyleObject";
+import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 
 type TopLeftPanelPropsType = {
     topLeftPanelShapeModel: Shape2d_Rectangle,
@@ -12,16 +14,14 @@ type TopLeftPanelPropsType = {
 const TopLeftPanel = (props: TopLeftPanelPropsType) =>
 {
     let topLeftPanelShapeModel: Shape2d_Rectangle = props.topLeftPanelShapeModel;
+    let topLeftPanelStyleObject = new StyleObject().setBasics("absolute", topLeftPanelShapeModel.getWidth(), topLeftPanelShapeModel.getHeight(), topLeftPanelShapeModel.getTopLeftPoint().getX(), topLeftPanelShapeModel.getTopLeftPoint().getY())
+        .setBackgroundColor(GOLD)
+        .addBlur(BLUR_LEVEL.HEAVY);
 
     console.log(LEVEL2_CONSOLE_PREFIX + topLeftPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
-        <g id={topLeftPanelShapeModel.getStringId()}>
-            <rect x={topLeftPanelShapeModel.getTopLeftPoint().getX()}
-                  y={topLeftPanelShapeModel.getTopLeftPoint().getY()}
-                  width={topLeftPanelShapeModel.getWidth()}
-                  height={topLeftPanelShapeModel.getHeight()}
-                  fill={GOLD}/>
-        </g>);
+        <div id={topLeftPanelShapeModel.getStringId()} style={topLeftPanelStyleObject.getStyle()}>
+        </div>);
 };
 
 const mapStateToProps = (store) =>

@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import Shape2d_Rectangle from "../../classes/Shape2d_Rectangle";
 import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import {CONSOLE_FONT_ORANGE} from "../../utilities/CONSTANTS_COLOR";
+import StyleObject from "../../classes/StyleObject";
+import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 
 type BottomLeftPanelPropsType = {
     bottomLeftPanelShapeModel: Shape2d_Rectangle,
@@ -12,16 +14,14 @@ type BottomLeftPanelPropsType = {
 const BottomLeftPanel = (props: BottomLeftPanelPropsType) =>
 {
     let bottomLeftPanelShapeModel: Shape2d_Rectangle = props.bottomLeftPanelShapeModel;
+    let bottomLeftPanelStyleObject = new StyleObject().setBasics("absolute", bottomLeftPanelShapeModel.getWidth(), bottomLeftPanelShapeModel.getHeight(), bottomLeftPanelShapeModel.getTopLeftPoint().getX(), bottomLeftPanelShapeModel.getTopLeftPoint().getY())
+        .setBackgroundColor(CONSOLE_FONT_ORANGE)
+        .addBlur(BLUR_LEVEL.HEAVY);
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomLeftPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
-        <g id={bottomLeftPanelShapeModel.getStringId()}>
-            <rect x={bottomLeftPanelShapeModel.getTopLeftPoint().getX()}
-                  y={bottomLeftPanelShapeModel.getTopLeftPoint().getY()}
-                  width={bottomLeftPanelShapeModel.getWidth()}
-                  height={bottomLeftPanelShapeModel.getHeight()}
-                  fill={CONSOLE_FONT_ORANGE}/>
-        </g>);
+        <div id={bottomLeftPanelShapeModel.getStringId()} style={bottomLeftPanelStyleObject.getStyle()}>
+        </div>);
 };
 
 const mapStateToProps = (store) =>
