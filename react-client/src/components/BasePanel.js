@@ -123,11 +123,7 @@ const BasePanel = (props: BasePanelPropsType) =>
     console.log(LEVEL1_CONSOLE_PREFIX + basePanelShapeModel.getStringId(), LEVEL1_CONSOLE_FONT);
     return (
         <div id={basePanelShapeModel.getStringId()}
-             style={basePanelComponentStyleObject.getStyle()}
-             onMouseOver={(e) =>
-             {
-                 e.stopPropagation();
-             }}>
+             style={basePanelComponentStyleObject.getStyle()}>
 
             <svg id={ID.BASE_PANEL_SVG_ID}
                  style={basePanelComponentSvgStyleObject.getStyle()}>
