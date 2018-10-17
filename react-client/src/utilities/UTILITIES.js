@@ -1,12 +1,8 @@
 import Base from "../classes/Base";
 
 export const CLASS_NAMES = Object.freeze({
-    Base: "Base",
-    Shape2d_Line: "Shape2d_Line",
-    Shape2d_Point: "Shape2d_Point",
-    Shape2d_Polygon: "Shape2d_Polygon",
-    Shape2d_Rectangle: "Shape2d_Rectangle",
-    Shape2d_Circle: "Shape2d_Circle"
+    Base: "Base", Shape2d_Line: "Shape2d_Line", Shape2d_Point: "Shape2d_Point", Shape2d_Polygon: "Shape2d_Polygon",
+    Shape2d_Rectangle: "Shape2d_Rectangle", Shape2d_Circle: "Shape2d_Circle"
 });
 
 /**
@@ -99,8 +95,12 @@ export const numberToPercentageString: string = (number: number, digit: number) 
 {
     let numberInString: string;
     if (digit === undefined || digit === null || digit < 0 || digit > 100)
-    {numberInString = Number(number).toFixed(2);}
+    {
+        numberInString = Number(number).toFixed(2);
+    }
     else
-    {numberInString = Number(number).toFixed(digit);}
+    {
+        numberInString = Number(number).toFixed(digit);
+    }
     return numberInString + "%";
 };
