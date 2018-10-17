@@ -15,7 +15,6 @@ export type basePanelStateType = {
     basePanelMouseFocusPercentageY: string,
     basePanelMouseFocusPercentageX: string,
     basePanelMouseFocusRadiance: string,
-    basePanelCurrentFocusMaskShapeModels: Array,
 }
 
 const basePanelDefaultState: basePanelStateType = {
@@ -28,7 +27,6 @@ const basePanelDefaultState: basePanelStateType = {
     basePanelMouseFocusPercentageY: "50%",
     basePanelMouseFocusPercentageX: "50%",
     basePanelMouseFocusRadiance: "20%",
-    basePanelCurrentFocusMaskShapeModels: []
 };
 
 const basePanelAction_updateBasePanelSize_handler = (state: basePanelStateType, action) =>
@@ -50,18 +48,10 @@ const basePanelAction_updateBasePanelTransformAndFocusPoint_handler = (state: ba
     return nextState;
 };
 
-const basePanelAction_updateBasePanelFocusMaskShapeModels_handler = (state: basePanelStateType, action) =>
-{
-    let nextState = deepCopy(state);
-    nextState.basePanelCurrentFocusMaskShapeModels = action.newBasePanelFocusMaskShapeModels;
-    return nextState;
-};
-
 // Check reducerCreator for explanation of handlers
 const basePanelReducerHandlers = {
     [BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_SIZE]: basePanelAction_updateBasePanelSize_handler,
     [BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT]: basePanelAction_updateBasePanelTransformAndFocusPoint_handler,
-    [BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_FOCUS_MASK_SHAPE_MODELS]: basePanelAction_updateBasePanelFocusMaskShapeModels_handler
 };
 
 export default createReducer(basePanelDefaultState, basePanelReducerHandlers);
