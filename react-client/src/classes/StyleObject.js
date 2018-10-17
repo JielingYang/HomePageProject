@@ -91,4 +91,25 @@ export default class StyleObject
         }
         return this;
     }
+
+    addTransition(name: string, duration: number, timingFunction: string, delay: number)
+    {
+        let tf = timingFunction === undefined
+                 ? ""
+                 : timingFunction + " ";
+        let d = delay === undefined
+                ? ""
+                : delay + "s";
+        let transition = name + " " + duration + "s " + tf + d;
+
+        if (this.style.transition !== undefined)
+        {
+            this.style.transition = this.style.transition + ", " + transition;
+        }
+        else
+        {
+            this.style.transition = transition;
+        }
+        return this;
+    }
 }

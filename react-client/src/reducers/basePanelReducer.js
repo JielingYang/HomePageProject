@@ -54,7 +54,6 @@ const basePanelAction_updateBasePanelFocusMaskShapeModels_handler = (state: base
 {
     let nextState = deepCopy(state);
     nextState.basePanelCurrentFocusMaskShapeModels = action.newBasePanelFocusMaskShapeModels;
-
     return nextState;
 };
 

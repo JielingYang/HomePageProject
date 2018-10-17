@@ -16,7 +16,8 @@ const TopLeftPanel = (props: TopLeftPanelPropsType) =>
     let topLeftPanelShapeModel: Shape2d_Rectangle = props.topLeftPanelShapeModel;
     let topLeftPanelStyleObject = new StyleObject().setBasics("absolute", topLeftPanelShapeModel.getWidth(), topLeftPanelShapeModel.getHeight(), topLeftPanelShapeModel.getTopLeftPoint().getX(), topLeftPanelShapeModel.getTopLeftPoint().getY())
         .setBackgroundColor(GOLD)
-        .addBlur(BLUR_LEVEL.HEAVY);
+        .addBlur(BLUR_LEVEL.HEAVY)
+        .addTransition("filter", 0.3);
 
     console.log(LEVEL2_CONSOLE_PREFIX + topLeftPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (

@@ -16,7 +16,8 @@ const BottomLeftPanel = (props: BottomLeftPanelPropsType) =>
     let bottomLeftPanelShapeModel: Shape2d_Rectangle = props.bottomLeftPanelShapeModel;
     let bottomLeftPanelStyleObject = new StyleObject().setBasics("absolute", bottomLeftPanelShapeModel.getWidth(), bottomLeftPanelShapeModel.getHeight(), bottomLeftPanelShapeModel.getTopLeftPoint().getX(), bottomLeftPanelShapeModel.getTopLeftPoint().getY())
         .setBackgroundColor(CONSOLE_FONT_ORANGE)
-        .addBlur(BLUR_LEVEL.HEAVY);
+        .addBlur(BLUR_LEVEL.HEAVY)
+        .addTransition("filter", 0.3);
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomLeftPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
