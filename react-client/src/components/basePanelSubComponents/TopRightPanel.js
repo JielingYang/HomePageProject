@@ -14,7 +14,10 @@ type TopRightPanelPropsType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
     topRightPanelAction_setTopRightPanelFocusOn: Function,
     topRightPanelFocusOn: boolean,
-    settingsTitles: Array<string>
+    settingsTabsTitles: Array<string>,
+    numberOfSettingsTabs: number,
+    settingsTabsWidthPercentageNumber: number,
+    settingsTabsWidthPercentageString: string,
 }
 
 const TopRightPanel = (props: TopRightPanelPropsType) =>
@@ -31,8 +34,6 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         .setBorderRadius(15);
 
     let tabIndex = 0;
-    let tabWidthPercentageNumber = ;
-    let tabWidthPercentageString = ;
 
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
@@ -45,10 +46,11 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
 
             {/* Tabs */}
             {
-                props.settingsTitles.map((title: string) =>
+                props.settingsTabsTitles.map((title: string) =>
                 {
-                    let settingsTabsDivStyleObject = new StyleObject().setBasics(tabWidthPercentageString, "10%", "5%", 0).setBorder(5, "solid", GREY_HEAVY)
+                    let settingsTabsDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidthPercentageString, "10%", numberToPercentageString(tabIndex * props.settingsTabsWidthPercentageNumber), 0).setBorder(1, "solid", GREY_HEAVY);
                     tabIndex++;
+                    return <div key={tabIndex} style={settingsTabsDivStyleObject.getStyle()}/>
                 })
             }
 
@@ -60,7 +62,10 @@ const mapStateToProps = (store) =>
     return {
         topRightPanelShapeModel: store.topRightPanelState.topRightPanelShapeModel,
         topRightPanelFocusOn: store.topRightPanelState.topRightPanelFocusOn,
-        settingsTitles: store.topRightPanelState.settingsTitles,
+        settingsTabsTitles: store.topRightPanelState.settingsTabsTitles,
+        numberOfSettingsTabs: store.topRightPanelState.numberOfSettingsTabs,
+        settingsTabsWidthPercentageNumber: store.topRightPanelState.settingsTabsWidthPercentageNumber,
+        settingsTabsWidthPercentageString: store.topRightPanelState.settingsTabsWidthPercentageString,
     };
 };
 
