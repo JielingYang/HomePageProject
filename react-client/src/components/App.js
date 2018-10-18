@@ -4,7 +4,7 @@ import BasePanel from "./BasePanel";
 import {LEVEL0_CONSOLE_FONT, LEVEL0_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 import {bindActionCreators} from "redux";
 import {appAction_requestToUpdateAppSize, appAction_requestToUpdateAppMouseMoveRelatedData} from "../actionCreators/appActions";
-import {BLACK_TRANSPARENT_80} from "../utilities/CONSTANTS_COLOR";
+import {GREY_DARK} from "../utilities/CONSTANTS_COLOR";
 import StyleObject from "../classes/StyleObject";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 
@@ -43,7 +43,7 @@ class App extends Component<AppPropsType>
     render()
     {
         let appComponentShapeModel: Shape2d_Rectangle = this.props.appShapeModel;
-        let appComponentStyleObject: StyleObject = new StyleObject().setBasics(appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY()).setBackgroundColor(BLACK_TRANSPARENT_80).setPerspective(100, undefined);
+        let appComponentStyleObject: StyleObject = new StyleObject().setBasics(appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY()).setBackgroundColor(GREY_DARK).setPerspective(100, undefined);
 
         console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
         return (

@@ -8,11 +8,13 @@ import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {FOCUS_IN_TIME} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
 import {GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
+import {numberToPercentageString} from "../../utilities/UTILITIES";
 
 type TopRightPanelPropsType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
     topRightPanelAction_setTopRightPanelFocusOn: Function,
     topRightPanelFocusOn: boolean,
+    settingsTitles: Array<string>
 }
 
 const TopRightPanel = (props: TopRightPanelPropsType) =>
@@ -28,12 +30,28 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     let topRightPanelBorderDivStyleObject = new StyleObject().setBasics("90%", "90%", "5%", "5%").setBorder(5, "solid", GREY_HEAVY)
         .setBorderRadius(15);
 
+    let tabIndex = 0;
+    let tabWidthPercentageNumber = ;
+    let tabWidthPercentageString = ;
+
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
         <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
              onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
              onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
+
+            {/* Panel border */}
             <div style={topRightPanelBorderDivStyleObject.getStyle()}/>
+
+            {/* Tabs */}
+            {
+                props.settingsTitles.map((title: string) =>
+                {
+                    let settingsTabsDivStyleObject = new StyleObject().setBasics(tabWidthPercentageString, "10%", "5%", 0).setBorder(5, "solid", GREY_HEAVY)
+                    tabIndex++;
+                })
+            }
+
         </div>);
 };
 
@@ -42,6 +60,7 @@ const mapStateToProps = (store) =>
     return {
         topRightPanelShapeModel: store.topRightPanelState.topRightPanelShapeModel,
         topRightPanelFocusOn: store.topRightPanelState.topRightPanelFocusOn,
+        settingsTitles: store.topRightPanelState.settingsTitles,
     };
 };
 

@@ -1,4 +1,4 @@
-import {ID} from "../utilities/CONSTANTS_STRING";
+import {ID, SETTINGS_TITLES} from "../utilities/CONSTANTS_STRING";
 import Shape2d_Point from "../classes/Shape2d_Point";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {deepCopy} from "../utilities/UTILITIES";
@@ -7,12 +7,16 @@ import {TOP_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/topRightPanelAction
 
 export type topRightPanelStateType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
-    topRightPanelFocusOn: boolean
+    topRightPanelFocusOn: boolean,
+    settingsTitles: Array<string>,
+    numberOfSettingsTabs: number,
 }
 
 const topRightPanelDefaultState: topRightPanelStateType = {
     topRightPanelShapeModel: new Shape2d_Rectangle(4, ID.TOP_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, 0), window.innerWidth / 2, window.innerHeight / 2),
-    topRightPanelFocusOn: false
+    topRightPanelFocusOn: false,
+    settingsTitles: Object.values(SETTINGS_TITLES),
+    numberOfSettingsTabs: Object.values(SETTINGS_TITLES).length,
 };
 
 const topRightPanelAction_updateTopRightPanelSize_handler = (state: topRightPanelStateType, action) =>

@@ -1,8 +1,12 @@
 import Base from "../classes/Base";
 
 export const CLASS_NAMES = Object.freeze({
-    Base: "Base", Shape2d_Line: "Shape2d_Line", Shape2d_Point: "Shape2d_Point", Shape2d_Polygon: "Shape2d_Polygon",
-    Shape2d_Rectangle: "Shape2d_Rectangle", Shape2d_Circle: "Shape2d_Circle"
+    Base: "Base",
+    Shape2d_Line: "Shape2d_Line",
+    Shape2d_Point: "Shape2d_Point",
+    Shape2d_Polygon: "Shape2d_Polygon",
+    Shape2d_Rectangle: "Shape2d_Rectangle",
+    Shape2d_Circle: "Shape2d_Circle"
 });
 
 /**
