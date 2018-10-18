@@ -7,9 +7,14 @@ import {appAction_requestToUpdateAppSize, appAction_requestToUpdateAppMouseMoveR
 import {GREY_DARK} from "../utilities/CONSTANTS_COLOR";
 import StyleObject from "../classes/StyleObject";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
+import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData} from "../actionCreators/topRightPanelActions";
 
 type AppPropsType = {
-    appShapeModel: Shape2d_Rectangle, appAction_requestToUpdateAppSize: Function, appAction_requestToUpdateAppMouseMoveRelatedData: Function
+    appShapeModel: Shape2d_Rectangle,
+
+    appAction_requestToUpdateAppSize: Function,
+    appAction_requestToUpdateAppMouseMoveRelatedData: Function,
+    topRightPanelAction_requestToSetTopRightPanelContentLayoutData: Function
 }
 
 /**
@@ -32,6 +37,8 @@ class App extends Component<AppPropsType>
         window.addEventListener("resize", () => this.props.appAction_requestToUpdateAppSize(window.innerWidth, window.innerHeight));
         window.addEventListener("mousemove", (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
         console.log("Finish registering functions on window events.");
+
+        this.props.topRightPanelAction_requestToSetTopRightPanelContentLayoutData();
     }
 
     componentWillUnmount()
@@ -64,7 +71,8 @@ const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
         appAction_requestToUpdateAppSize: appAction_requestToUpdateAppSize,
-        appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData
+        appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
+        topRightPanelAction_requestToSetTopRightPanelContentLayoutData: topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData,
     }, dispatch);
 };
 

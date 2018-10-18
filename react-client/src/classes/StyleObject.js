@@ -81,7 +81,7 @@ export default class StyleObject
 
     setBlur(blurValue: number)
     {
-        let blur = " blur(" + blurValue + "px)";
+        let blur: string = " blur(" + blurValue + "px)";
         if (this.style.filter !== undefined)
         {
             if (this.style.filter.includes("blur"))
@@ -106,20 +106,33 @@ export default class StyleObject
         return this;
     }
 
-    setBorderRadius(borderRadius: number)
+    setBorderRadius(r1: number, r2: number, r3: number, r4: number)
     {
-        this.style.borderRadius = borderRadius + "px";
+        let borderRadius: string = r1 + "px ";
+        if (r2 !== undefined)
+        {
+            borderRadius = borderRadius + r2 + "px ";
+            if (r3 !== undefined)
+            {
+                borderRadius = borderRadius + r3 + "px ";
+                if (r4 !== undefined)
+                {
+                    borderRadius = borderRadius + r4 + "px ";
+                }
+            }
+        }
+        this.style.borderRadius = borderRadius;
         return this;
     }
 
     addTransition(name: string, duration: number, timingFunction: string, delay: number)
     {
-        let tf = timingFunction === undefined
-                 ? ""
-                 : timingFunction + " ";
-        let d = delay === undefined
-                ? ""
-                : delay + "s";
+        let tf: string = timingFunction === undefined
+                         ? ""
+                         : timingFunction + " ";
+        let d: string = delay === undefined
+                        ? ""
+                        : delay + "s";
         let transition = name + " " + duration + "s " + tf + d;
 
         if (this.style.transition !== undefined)
