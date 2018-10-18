@@ -7,10 +7,12 @@ import {TOP_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/topRightPanelAction
 
 export type topRightPanelStateType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
+    topRightPanelFocusOn: boolean
 }
 
 const topRightPanelDefaultState: topRightPanelStateType = {
-    topRightPanelShapeModel: new Shape2d_Rectangle(4, ID.TOP_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, 0), window.innerWidth / 2, window.innerHeight / 2)
+    topRightPanelShapeModel: new Shape2d_Rectangle(4, ID.TOP_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, 0), window.innerWidth / 2, window.innerHeight / 2),
+    topRightPanelFocusOn: false
 };
 
 const topRightPanelAction_updateTopRightPanelSize_handler = (state: topRightPanelStateType, action) =>
@@ -27,10 +29,18 @@ const topRightPanelAction_updateTopRightPanelPosition_handler = (state: topRight
     return nextState;
 };
 
+const topRightPanelAction_setTopRightPanelFocusOn_handler = (state: topRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.topRightPanelFocusOn = action.focusOn;
+    return nextState;
+};
+
 // Check reducerCreator for explanation of handlers
 const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_SIZE]: topRightPanelAction_updateTopRightPanelSize_handler,
-    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION]: topRightPanelAction_updateTopRightPanelPosition_handler
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION]: topRightPanelAction_updateTopRightPanelPosition_handler,
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON]: topRightPanelAction_setTopRightPanelFocusOn_handler,
 };
 
 

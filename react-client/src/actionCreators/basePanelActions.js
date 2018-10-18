@@ -1,11 +1,9 @@
-import {ID} from "../utilities/CONSTANTS_STRING";
-import {CLASS_NAMES, getObjectsByClassNames, numberToPercentageString} from "../utilities/UTILITIES";
+import {numberToPercentageString} from "../utilities/UTILITIES";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import type {basePanelStateType} from "../reducers/basePanelReducer";
-import Shape2d_Circle from "../classes/Shape2d_Circle";
 
-const MAX_ROTATION_DEGREE_VALUE = 0.5;
-const MAX_TRANSLATE_PERCENTAGE_VALUE = 2;
+const MAX_ROTATION_DEGREE_VALUE = 5;
+const MAX_TRANSLATE_PERCENTAGE_VALUE = 0;
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -44,13 +42,13 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
     };
 };
 
-export const basePanelAction_requestToSetFocusOnComponentsByStringIds = (componentIds: Array<string>) =>
-{
-    return (dispatch) =>
-    {
-
-    };
-};
+// export const basePanelAction_requestToSetFocusOnComponentsByStringIds = (componentIds: Array<string>) =>
+// {
+//     return (dispatch, getState) =>
+//     {
+//         componentIds.
+//     }
+// };
 
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */

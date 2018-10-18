@@ -1,7 +1,7 @@
 import {ID} from "./CONSTANTS_STRING";
 
-export const APP_REFRESHING_TIME_GAP = 30; // Milliseconds
-export const FOCUS_IN_TIME = 0.05;
+export const APP_REFRESHING_TIME_GAP = 10; // Milliseconds
+export const FOCUS_IN_TIME = 0.3;
 export const BLUR_OUT_TIME = FOCUS_IN_TIME;
 
 export const TIMING_KEYWORDS = Object.freeze({

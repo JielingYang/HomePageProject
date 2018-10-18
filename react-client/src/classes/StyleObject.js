@@ -78,12 +78,19 @@ export default class StyleObject
         return this;
     }
 
-    addBlur(blurValue: number)
+    setBlur(blurValue: number)
     {
         let blur = " blur(" + blurValue + "px)";
         if (this.style.filter !== undefined)
         {
-            this.style.filter = this.style.filter + blur;
+            if (this.style.filter.includes("blur"))
+            {
+                this.style.filter = this.style.filter.replace(/ blur(.*)px/, blur);
+            }
+            else
+            {
+                this.style.filter = this.style.filter + blur;
+            }
         }
         else
         {
