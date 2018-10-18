@@ -2,14 +2,33 @@ export const GOLD = "rgb(247,197,98)";
 export const GOLD_OPACITY_10 = "rgba(247,197,98,0.1)";
 export const GOLD_OPACITY_50 = "rgba(247,197,98,0.5)";
 
-export const BLACK = "rgb(0,0,0)";
 export const BLACK_TRANSPARENT_00 = "rgba(0,0,0,0)";
 export const BLACK_TRANSPARENT_10 = "rgba(0,0,0,0.1)";
 export const BLACK_TRANSPARENT_20 = "rgba(0,0,0,0.2)";
 export const BLACK_TRANSPARENT_30 = "rgba(0,0,0,0.3)";
 export const BLACK_TRANSPARENT_40 = "rgba(0,0,0,0.4)";
 export const BLACK_TRANSPARENT_50 = "rgba(0,0,0,0.5)";
+export const BLACK_TRANSPARENT_60 = "rgba(0,0,0,0.6)";
+export const BLACK_TRANSPARENT_70 = "rgba(0,0,0,0.7)";
+export const BLACK_TRANSPARENT_80 = "rgba(0,0,0,0.8)";
+export const BLACK_TRANSPARENT_90 = "rgba(0,0,0,0.9)";
+export const BLACK = "rgb(0,0,0)";
+
+export const WHITE_TRANSPARENT_00 = "rgba(255,255,255,0)";
+export const WHITE_TRANSPARENT_10 = "rgba(255,255,255,0.1)";
+export const WHITE_TRANSPARENT_20 = "rgba(255,255,255,0.2)";
+export const WHITE_TRANSPARENT_30 = "rgba(255,255,255,0.3)";
+export const WHITE_TRANSPARENT_40 = "rgba(255,255,255,0.4)";
+export const WHITE_TRANSPARENT_50 = "rgba(255,255,255,0.5)";
+export const WHITE_TRANSPARENT_60 = "rgba(255,255,255,0.6)";
+export const WHITE_TRANSPARENT_70 = "rgba(255,255,255,0.7)";
+export const WHITE_TRANSPARENT_80 = "rgba(255,255,255,0.8)";
+export const WHITE_TRANSPARENT_90 = "rgba(255,255,255,0.9)";
 export const WHITE = "rgb(255,255,255)";
+
+export const GREY_LIGHT = "rgb(200,200,200)";
+export const GREY_MEDIUM = "rgb(145,145,145)";
+export const GREY_DARK = "rgb(90,90,90)";
 
 export const CONSOLE_FONT_RED = "rgb(230,25,75)";
 export const CONSOLE_FONT_GREEN = "rgb(60,180,75)";

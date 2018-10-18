@@ -3,11 +3,11 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import Shape2d_Rectangle from "../../classes/Shape2d_Rectangle";
 import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
-import {CONSOLE_FONT_ORANGE} from "../../utilities/CONSTANTS_COLOR";
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {FOCUS_IN_TIME} from "../../utilities/CONSTANTS_TIME";
 import {bottomLeftPanelAction_setBottomLeftPanelFocusOn} from "../../actionCreators/bottomLeftPanelActions";
+import {GREY_DARK} from "../../utilities/CONSTANTS_COLOR";
 
 type BottomLeftPanelPropsType = {
     bottomLeftPanelShapeModel: Shape2d_Rectangle,
@@ -18,18 +18,21 @@ type BottomLeftPanelPropsType = {
 const BottomLeftPanel = (props: BottomLeftPanelPropsType) =>
 {
     let bottomLeftPanelShapeModel: Shape2d_Rectangle = props.bottomLeftPanelShapeModel;
-    let bottomLeftPanelStyleObject = new StyleObject().setBasics("absolute", bottomLeftPanelShapeModel.getWidth(), bottomLeftPanelShapeModel.getHeight(), bottomLeftPanelShapeModel.getTopLeftPoint().getX(), bottomLeftPanelShapeModel.getTopLeftPoint().getY())
-        .setBackgroundColor(CONSOLE_FONT_ORANGE)
+
+    let bottomLeftPanelRootDivStyleObject = new StyleObject().setBasics(bottomLeftPanelShapeModel.getWidth(), bottomLeftPanelShapeModel.getHeight(), bottomLeftPanelShapeModel.getTopLeftPoint().getX(), bottomLeftPanelShapeModel.getTopLeftPoint().getY())
         .setBlur(props.bottomLeftPanelFocusOn
                  ? BLUR_LEVEL.NONE
-                 : BLUR_LEVEL.HEAVY)
+                 : BLUR_LEVEL.MEDIUM)
         .addTransition("filter", FOCUS_IN_TIME);
+
+    let bottomLeftPanelBorderDivStyleObject = new StyleObject().setBasics("90%", "90%", "5%", "5%").setBorder(5, "solid", GREY_DARK).setBorderRadius(15);
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomLeftPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
-        <div id={bottomLeftPanelShapeModel.getStringId()} style={bottomLeftPanelStyleObject.getStyle()}
+        <div id={bottomLeftPanelShapeModel.getStringId()} style={bottomLeftPanelRootDivStyleObject.getStyle()}
              onMouseEnter={() => props.bottomLeftPanelAction_setBottomLeftPanelFocusOn(true)}
              onMouseLeave={() => props.bottomLeftPanelAction_setBottomLeftPanelFocusOn(false)}>
+            <div style={bottomLeftPanelBorderDivStyleObject.getStyle()}/>
         </div>);
 };
 

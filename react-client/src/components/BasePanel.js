@@ -26,7 +26,7 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelRotationX: string = props.basePanelState.basePanelRotationX;
     let basePanelRotationY: string = props.basePanelState.basePanelRotationY;
 
-    let basePanelComponentStyleObject = new StyleObject().setBasics("absolute", basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
+    let basePanelComponentStyleObject = new StyleObject().setBasics(basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
                                                          .setBackgroundColor(BLACK_TRANSPARENT_00)
                                                          .setTransformStyle("preserve-3d")
                                                          .setBackfaceVisibility("hidden")

@@ -10,14 +10,15 @@ export default class StyleObject
         return this.style;
     }
 
-    setBasics(position: string, width: number, height: number, left: number, top: number): StyleObject
+    setBasics(width: number | string, height: number | string, left: number | string, top: number | string): StyleObject
     {
         this.style = {
-            position: position,
+            position: "absolute",
             width: width,
             height: height,
             left: left,
-            top: top
+            top: top,
+            boxSizing: "border-box",
         };
         return this;
     }
@@ -96,6 +97,18 @@ export default class StyleObject
         {
             this.style.filter = blur;
         }
+        return this;
+    }
+
+    setBorder(borderSize: number, borderStyle: string, borderColor: string)
+    {
+        this.style.border = borderSize + "px " + borderStyle + " " + borderColor;
+        return this;
+    }
+
+    setBorderRadius(borderRadius: number)
+    {
+        this.style.borderRadius = borderRadius + "px";
         return this;
     }
 
