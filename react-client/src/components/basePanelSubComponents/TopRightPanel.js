@@ -7,7 +7,7 @@ import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {FOCUS_IN_TIME} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
-import {GREY_DARK} from "../../utilities/CONSTANTS_COLOR";
+import {GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
 
 type TopRightPanelPropsType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
@@ -25,7 +25,8 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                  : BLUR_LEVEL.MEDIUM)
         .addTransition("filter", FOCUS_IN_TIME);
 
-    let topRightPanelBorderDivStyleObject = new StyleObject().setBasics("90%", "90%", "5%", "5%").setBorder(5, "solid", GREY_DARK).setBorderRadius(15);
+    let topRightPanelBorderDivStyleObject = new StyleObject().setBasics("90%", "90%", "5%", "5%").setBorder(5, "solid", GREY_HEAVY)
+        .setBorderRadius(15);
 
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (

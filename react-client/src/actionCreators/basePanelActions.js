@@ -2,7 +2,7 @@ import {numberToPercentageString} from "../utilities/UTILITIES";
 import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import type {basePanelStateType} from "../reducers/basePanelReducer";
 
-const MAX_ROTATION_DEGREE_VALUE = 5;
+const MAX_ROTATION_DEGREE_VALUE = 1;
 const MAX_TRANSLATE_PERCENTAGE_VALUE = 0;
 
 /* ************************** Requesting actions ************************** */
