@@ -4,6 +4,7 @@ import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
 import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {TOP_LEFT_PANEL_ACTION_TYPE} from "../actionCreators/topLeftPanelActions";
+import numberIdGenerator from "../classes/NumberIdGenerator";
 
 export type topLeftPanelStateType = {
     topLeftPanelShapeModel: Shape2d_Rectangle,
@@ -11,7 +12,7 @@ export type topLeftPanelStateType = {
 }
 
 const topLeftPanelDefaultState: topLeftPanelStateType = {
-    topLeftPanelShapeModel: new Shape2d_Rectangle(3, ID.TOP_LEFT_PANEL_ID, new Shape2d_Point(0, 0), window.innerWidth / 2, window.innerHeight / 2),
+    topLeftPanelShapeModel: new Shape2d_Rectangle(numberIdGenerator.generateId(), ID.TOP_LEFT_PANEL_ID, new Shape2d_Point(0, 0), window.innerWidth / 2, window.innerHeight / 2),
     topLeftPanelFocusOn: false
 };
 

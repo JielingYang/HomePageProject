@@ -7,10 +7,17 @@ class NumberIdGenerator
     {
         if (!NumberIdGenerator.instance)
         {
+            this.counter = -1;
             NumberIdGenerator.instance = this;
         }
 
         return NumberIdGenerator.instance;
+    }
+
+    generateId()
+    {
+        this.counter++;
+        return this.counter;
     }
 }
 

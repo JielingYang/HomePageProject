@@ -4,6 +4,7 @@ import Shape2d_Point from "../classes/Shape2d_Point";
 import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {ID} from "../utilities/CONSTANTS_STRING";
+import numberIdGenerator from "../classes/NumberIdGenerator";
 
 export type basePanelStateType = {
     basePanelShapeModel: Shape2d_Rectangle,
@@ -18,7 +19,7 @@ export type basePanelStateType = {
 }
 
 const basePanelDefaultState: basePanelStateType = {
-    basePanelShapeModel: new Shape2d_Rectangle(1, ID.BASE_PANEL_ID, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
+    basePanelShapeModel: new Shape2d_Rectangle(numberIdGenerator.generateId(), ID.BASE_PANEL_ID, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
     basePanelTranslatePercentageX: "0%",
     basePanelTranslatePercentageY: "0%",
     basePanelRotationX: "0%",

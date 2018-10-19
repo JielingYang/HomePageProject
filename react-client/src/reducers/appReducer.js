@@ -5,6 +5,7 @@ import {APP_ACTION_TYPE} from "../actionCreators/appActions";
 import {APP_REFRESHING_TIME_GAP} from "../utilities/CONSTANTS_TIME";
 import Shape2d_Point from "../classes/Shape2d_Point";
 import {ID} from "../utilities/CONSTANTS_STRING";
+import numberIdGenerator from "../classes/NumberIdGenerator";
 
 export type appStateType = {
     appShapeModel: Shape2d_Rectangle,
@@ -13,7 +14,7 @@ export type appStateType = {
 }
 
 const appDefaultState: appStateType = {
-    appShapeModel: new Shape2d_Rectangle(0, ID.APP_ID, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
+    appShapeModel: new Shape2d_Rectangle(numberIdGenerator.generateId(), ID.APP_ID, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
     appMaximumRefreshingTimeGap: APP_REFRESHING_TIME_GAP,
     appMouseMoveEventTimeStamp: 0
 };
