@@ -21,6 +21,11 @@ export const ID = Object.freeze({
     BOTTOM_LEFT_PANEL_ID: "bottomLeftPanelComponent",
     BOTTOM_RIGHT_PANEL_ID: "bottomRightPanelComponent",
 
+    /**
+     *
+     */
+    SETTINGS_TABS_ID: "settingsTabs",
+
     // Animate IDs
     CENTER_COMPONENT_ANIMATE_LOADING_BAR_WIDTH: "centerComponent_animateLoadingBarWidth",
     CENTER_COMPONENT_ANIMATE_FADE_OUT: "centerComponent_animateCenterComponentFadeOut",

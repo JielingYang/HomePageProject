@@ -11,7 +11,7 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
     {
         let topRightPanelState = getState().topRightPanelState;
         let topRightPanelShapeModel = topRightPanelState.topRightPanelShapeModel;
-        let numberOfSettingsTabs = topRightPanelState.settingsTabsTitles.length;
+        let numberOfSettingsTabs = topRightPanelState.settingsTabsStateModel.getNumberOfTabs();
         let topRightPanelPadding = topRightPanelState.topRightPanelPadding;
 
         let topRightPanelBorderWidth = topRightPanelShapeModel.getWidth() - 2 * topRightPanelPadding;

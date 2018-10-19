@@ -8,17 +8,16 @@ import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {FOCUS_IN_TIME} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
 import {BLACK_TRANSPARENT_00, GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
+import Tabs from "../../classes/widgetClasses/Tabs";
 
 type TopRightPanelPropsType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
     topRightPanelFocusOn: boolean,
     topRightPanelPadding: number,
 
-    settingsTabsTitles: Array<string>,
-    numberOfSettingsTabs: number,
+    settingsTabsStateModel: Tabs,
     settingsTabsWidth: number,
     settingsTabsHeight: number,
-    selectedTabIndex: number,
 
     topRightPanelBorderSize: number,
     topRightPanelBorderRadius: number,
@@ -31,6 +30,7 @@ type TopRightPanelPropsType = {
 const TopRightPanel = (props: TopRightPanelPropsType) =>
 {
     let topRightPanelShapeModel: Shape2d_Rectangle = props.topRightPanelShapeModel;
+    let settingsTabsStateModel: Tabs = props.settingsTabsStateModel;
 
     let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
         .setBlur(props.topRightPanelFocusOn
@@ -42,39 +42,40 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         .setBorder(props.topRightPanelBorderSize, "solid", GREY_HEAVY)
         .setBorderRadius(props.topRightPanelBorderRadius);
 
-    let tabIndex = 0;
-
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
-    return (<div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
-                 onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
-                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
+    return (
+        <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
+             onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
+             onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
 
-        {/* Panel border */}
-        <div style={topRightPanelBorderDivStyleObject.getStyle()}/>
+            {/* Panel border */}
+            <div style={topRightPanelBorderDivStyleObject.getStyle()}/>
 
-        {/* Tabs */}
-        {props.settingsTabsTitles.map((title: string) =>
-        {
-            let settingsTabsDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidth, props.settingsTabsHeight, props.topRightPanelPadding + tabIndex * props.settingsTabsWidth, props.topRightPanelPadding)
-                .setBackgroundColor(props.selectedTabIndex === tabIndex
-                                    ? BLACK_TRANSPARENT_00
-                                    : GREY_HEAVY);
-
-            if (tabIndex === 0)
+            {/* Tabs */}
+            {settingsTabsStateModel.getTabsTitles().map((title: string, index: number) =>
             {
-                settingsTabsDivStyleObject.setBorderRadius(props.topRightPanelBorderRadius, 0, 0, 0);
-            }
-            else if (tabIndex === props.numberOfSettingsTabs - 1)
-            {
-                settingsTabsDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
-            }
+                let isSelected = settingsTabsStateModel.getSelectedTabIndex() === index;
+                let isTheFirst = index === 0;
+                let isTheLast = index === settingsTabsStateModel.getNumberOfTabs() - 1;
 
-            tabIndex++;
+                let settingsTabsDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidth, props.settingsTabsHeight, props.topRightPanelPadding + index * props.settingsTabsWidth, props.topRightPanelPadding)
+                    .setBackgroundColor(isSelected
+                                        ? BLACK_TRANSPARENT_00
+                                        : GREY_HEAVY);
 
-            return <div key={tabIndex} style={settingsTabsDivStyleObject.getStyle()}/>
-        })}
+                if (isTheFirst)
+                {
+                    settingsTabsDivStyleObject.setBorderRadius(props.topRightPanelBorderRadius, 0, 0, 0);
+                }
+                else if (isTheLast)
+                {
+                    settingsTabsDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
+                }
 
-    </div>);
+                return <div key={index} style={settingsTabsDivStyleObject.getStyle()}/>
+            })}
+
+        </div>);
 };
 
 const mapStateToProps = (store) =>
@@ -84,11 +85,9 @@ const mapStateToProps = (store) =>
         topRightPanelFocusOn: store.topRightPanelState.topRightPanelFocusOn,
         topRightPanelPadding: store.topRightPanelState.topRightPanelPadding,
 
-        settingsTabsTitles: store.topRightPanelState.settingsTabsTitles,
-        numberOfSettingsTabs: store.topRightPanelState.numberOfSettingsTabs,
+        settingsTabsStateModel: store.topRightPanelState.settingsTabsStateModel,
         settingsTabsWidth: store.topRightPanelState.settingsTabsWidth,
         settingsTabsHeight: store.topRightPanelState.settingsTabsHeight,
-        selectedTabIndex: store.topRightPanelState.selectedTabIndex,
 
         topRightPanelBorderSize: store.topRightPanelState.topRightPanelBorderSize,
         topRightPanelBorderRadius: store.topRightPanelState.topRightPanelBorderRadius,

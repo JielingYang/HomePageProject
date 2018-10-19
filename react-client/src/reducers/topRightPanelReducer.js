@@ -5,17 +5,16 @@ import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {TOP_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/topRightPanelActions";
 import numberIdGenerator from "../classes/NumberIdGenerator";
+import Tabs from "../classes/widgetClasses/Tabs";
 
 export type topRightPanelStateType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
     topRightPanelFocusOn: boolean,
     topRightPanelPadding: number,
 
-    settingsTabsTitles: Array<string>,
-    numberOfSettingsTabs: number,
+    settingsTabsStateModel: Tabs,
     settingsTabsWidth: number,
     settingsTabsHeight: number,
-    selectedTabIndex: number,
 
     topRightPanelBorderSize: number,
     topRightPanelBorderRadius: number,
@@ -28,11 +27,9 @@ const topRightPanelDefaultState: topRightPanelStateType = {
     topRightPanelFocusOn: false,
     topRightPanelPadding: 10,
 
-    settingsTabsTitles: Object.values(SETTINGS_TITLES),
-    numberOfSettingsTabs: Object.values(SETTINGS_TITLES).length,
+    settingsTabsStateModel: new Tabs(numberIdGenerator.generateId(), ID.SETTINGS_TABS_ID, Object.values(SETTINGS_TITLES)),
     settingsTabsWidth: 0,
     settingsTabsHeight: 0,
-    selectedTabIndex: 1,
 
     topRightPanelBorderSize: 5,
     topRightPanelBorderRadius: 15,

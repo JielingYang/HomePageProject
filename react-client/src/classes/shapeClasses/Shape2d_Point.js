@@ -33,5 +33,5 @@ export default class Shape2d_Point
         return this;
     }
 
-    clone(): Shape2d_Point {return new Shape2d_Point(this.getX(), this.getY());}
+    deepClone(): Shape2d_Point {return new Shape2d_Point(this.getX(), this.getY());}
 }
