@@ -5,8 +5,8 @@ import Shape2d_Rectangle from "../../classes/shapeClasses/Shape2d_Rectangle";
 import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
-import {FOCUS_IN_TIME} from "../../utilities/CONSTANTS_TIME";
-import {topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
+import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
+import {topRightPanelAction_requestToSelectSettingsTab, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
 import {BLACK_TRANSPARENT_00, GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
 import Tabs from "../../classes/widgetClasses/Tabs";
 
@@ -25,6 +25,7 @@ type TopRightPanelPropsType = {
     topRightPanelBorderHeight: number,
 
     topRightPanelAction_setTopRightPanelFocusOn: Function,
+    topRightPanelAction_requestToSelectSettingsTab: Function,
 }
 
 const TopRightPanel = (props: TopRightPanelPropsType) =>
@@ -36,7 +37,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         .setBlur(props.topRightPanelFocusOn
                  ? BLUR_LEVEL.NONE
                  : BLUR_LEVEL.MEDIUM)
-        .addTransition("filter", FOCUS_IN_TIME);
+        .addTransition("filter", TRANSITION_TIME_NORMAL);
 
     let topRightPanelBorderDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.topRightPanelBorderHeight, props.topRightPanelPadding, props.topRightPanelPadding)
         .setBorder(props.topRightPanelBorderSize, "solid", GREY_HEAVY)
@@ -61,7 +62,8 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                 let settingsTabsDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidth, props.settingsTabsHeight, props.topRightPanelPadding + index * props.settingsTabsWidth, props.topRightPanelPadding)
                     .setBackgroundColor(isSelected
                                         ? BLACK_TRANSPARENT_00
-                                        : GREY_HEAVY);
+                                        : GREY_HEAVY)
+                    .addTransition("background-color", TRANSITION_TIME_NORMAL);
 
                 if (isTheFirst)
                 {
@@ -72,7 +74,8 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                     settingsTabsDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
                 }
 
-                return <div key={index} style={settingsTabsDivStyleObject.getStyle()}/>
+                return <div key={index} style={settingsTabsDivStyleObject.getStyle()}
+                            onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}/>
             })}
 
         </div>);
@@ -100,6 +103,7 @@ const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
         topRightPanelAction_setTopRightPanelFocusOn: topRightPanelAction_setTopRightPanelFocusOn,
+        topRightPanelAction_requestToSelectSettingsTab: topRightPanelAction_requestToSelectSettingsTab,
     }, dispatch);
 };
 

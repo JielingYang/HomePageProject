@@ -68,12 +68,20 @@ const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: to
     return nextState;
 };
 
+const topRightPanelAction_selectSettingsTab_handler = (state: topRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.settingsTabsStateModel.selectTab(action.tabIndex);
+    return nextState;
+};
+
 // Check reducerCreator for explanation of handlers
 const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_SIZE]: topRightPanelAction_updateTopRightPanelSize_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION]: topRightPanelAction_updateTopRightPanelPosition_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON]: topRightPanelAction_setTopRightPanelFocusOn_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA]: topRightPanelAction_setTopRightPanelContentLayoutData_handler,
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB]: topRightPanelAction_selectSettingsTab_handler,
 };
 
 

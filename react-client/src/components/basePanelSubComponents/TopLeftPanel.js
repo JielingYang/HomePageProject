@@ -5,7 +5,7 @@ import Shape2d_Rectangle from "../../classes/shapeClasses/Shape2d_Rectangle";
 import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
-import {FOCUS_IN_TIME} from "../../utilities/CONSTANTS_TIME";
+import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topLeftPanelAction_setTopLeftPanelFocusOn} from "../../actionCreators/topLeftPanelActions";
 import {GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
 
@@ -23,7 +23,7 @@ const TopLeftPanel = (props: TopLeftPanelPropsType) =>
         .setBlur(props.topLeftPanelFocusOn
                  ? BLUR_LEVEL.NONE
                  : BLUR_LEVEL.MEDIUM)
-        .addTransition("filter", FOCUS_IN_TIME);
+        .addTransition("filter", TRANSITION_TIME_NORMAL);
 
     let topLeftPanelBorderDivStyleObject = new StyleObject().setBasics("90%", "90%", "5%", "5%").setBorder(5, "solid", GREY_HEAVY)
         .setBorderRadius(15);

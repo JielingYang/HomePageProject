@@ -24,6 +24,18 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
     }
 };
 
+export const topRightPanelAction_requestToSelectSettingsTab = (tabIndex: number) =>
+{
+    return (dispatch, getState) =>
+    {
+        let currentSelectedTabIndex = getState().topRightPanelState.settingsTabsStateModel.getSelectedTabIndex();
+        if (currentSelectedTabIndex !== tabIndex)
+        {
+            dispatch(topRightPanelAction_selectSettingsTab(tabIndex));
+        }
+    }
+};
+
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
 /* *************************************************************************** */
@@ -33,6 +45,7 @@ export const TOP_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION: "TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION",
     TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON: "TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON",
     TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA: "TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA",
+    TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB: "TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB",
 });
 
 export const topRightPanelAction_updateTopRightPanelSize = (newTopRightPanelWidth: number, newTopRightPanelHeight: number) =>
@@ -60,7 +73,7 @@ export const topRightPanelAction_setTopRightPanelFocusOn = (focusOn: boolean) =>
     };
 };
 
-export const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelBorderWidth: number, topRightPanelBorderHeight: number, settingsTabsWidth: number, settingsTabsHeight: number) =>
+const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelBorderWidth: number, topRightPanelBorderHeight: number, settingsTabsWidth: number, settingsTabsHeight: number) =>
 {
     return {
         type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA,
@@ -68,5 +81,13 @@ export const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRigh
         topRightPanelBorderHeight: topRightPanelBorderHeight,
         settingsTabsWidth: settingsTabsWidth,
         settingsTabsHeight: settingsTabsHeight
+    };
+};
+
+const topRightPanelAction_selectSettingsTab = (tabIndex: number) =>
+{
+    return {
+        type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB,
+        tabIndex: tabIndex
     };
 };
