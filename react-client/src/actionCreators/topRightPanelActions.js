@@ -36,6 +36,30 @@ export const topRightPanelAction_requestToSelectSettingsTab = (tabIndex: number)
     }
 };
 
+export const topRightPanelAction_requestToMouseHoversIndividualSettingsTab = (tabIndex: number) =>
+{
+    return (dispatch, getState) =>
+    {
+        let currentMouseHoveredTabIndex = getState().topRightPanelState.settingsTabsStateModel.getMouseHoveredItemIndex();
+        if (currentMouseHoveredTabIndex !== tabIndex)
+        {
+            dispatch(topRightPanelAction_mouseHoversIndividualSettingsTab(tabIndex));
+        }
+    }
+};
+
+export const topRightPanelAction_requestToSetIsMouseHoversSettingsTabs = (isHover: boolean) =>
+{
+    return (dispatch) =>
+    {
+        if (!isHover)
+        {
+            dispatch(topRightPanelAction_mouseHoversIndividualSettingsTab(null));
+        }
+        dispatch(topRightPanelAction_setIsMouseHoversSettingsTabs(isHover));
+    }
+};
+
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
 /* *************************************************************************** */
@@ -46,6 +70,8 @@ export const TOP_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON: "TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON",
     TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA: "TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA",
     TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB: "TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB",
+    TOP_RIGHT_PANEL_ACTION_MOUSE_HOVERS_INDIVIDUAL_SETTINGS_TAB: "TOP_RIGHT_PANEL_ACTION_MOUSE_HOVERS_INDIVIDUAL_SETTINGS_TAB",
+    TOP_RIGHT_PANEL_ACTION_SET_IS_MOUSE_HOVERS_SETTINGS_TABS: "TOP_RIGHT_PANEL_ACTION_SET_IS_MOUSE_HOVERS_SETTINGS_TABS",
 });
 
 export const topRightPanelAction_updateTopRightPanelSize = (newTopRightPanelWidth: number, newTopRightPanelHeight: number) =>
@@ -89,5 +115,21 @@ const topRightPanelAction_selectSettingsTab = (tabIndex: number) =>
     return {
         type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB,
         tabIndex: tabIndex
+    };
+};
+
+const topRightPanelAction_mouseHoversIndividualSettingsTab = (tabIndex: number) =>
+{
+    return {
+        type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_MOUSE_HOVERS_INDIVIDUAL_SETTINGS_TAB,
+        tabIndex: tabIndex
+    };
+};
+
+const topRightPanelAction_setIsMouseHoversSettingsTabs = (isHover: boolean) =>
+{
+    return {
+        type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_IS_MOUSE_HOVERS_SETTINGS_TABS,
+        isHover: isHover,
     };
 };

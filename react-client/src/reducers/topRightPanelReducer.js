@@ -75,6 +75,20 @@ const topRightPanelAction_selectSettingsTab_handler = (state: topRightPanelState
     return nextState;
 };
 
+const topRightPanelAction_mouseHoversIndividualSettingsTab_handler = (state: topRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.settingsTabsStateModel.mouseHoversItem(action.tabIndex);
+    return nextState;
+};
+
+const topRightPanelAction_setIsMouseHoversSettingsTabs_handler = (state: topRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.settingsTabsStateModel.setIsMouseHover(action.isHover);
+    return nextState;
+};
+
 // Check reducerCreator for explanation of handlers
 const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_SIZE]: topRightPanelAction_updateTopRightPanelSize_handler,
@@ -82,6 +96,8 @@ const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON]: topRightPanelAction_setTopRightPanelFocusOn_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA]: topRightPanelAction_setTopRightPanelContentLayoutData_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB]: topRightPanelAction_selectSettingsTab_handler,
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_MOUSE_HOVERS_INDIVIDUAL_SETTINGS_TAB]: topRightPanelAction_mouseHoversIndividualSettingsTab_handler,
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_IS_MOUSE_HOVERS_SETTINGS_TABS]: topRightPanelAction_setIsMouseHoversSettingsTabs_handler,
 };
 
 

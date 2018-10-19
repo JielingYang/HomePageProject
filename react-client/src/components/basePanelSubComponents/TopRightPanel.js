@@ -6,7 +6,7 @@ import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTA
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
-import {topRightPanelAction_requestToSelectSettingsTab, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
+import {topRightPanelAction_requestToMouseHoversIndividualSettingsTab, topRightPanelAction_requestToSelectSettingsTab, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
 import {BLACK_TRANSPARENT_00, GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 
@@ -26,6 +26,9 @@ type TopRightPanelPropsType = {
 
     topRightPanelAction_setTopRightPanelFocusOn: Function,
     topRightPanelAction_requestToSelectSettingsTab: Function,
+    topRightPanelAction_requestToMouseHoversIndividualSettingsTab: Function,
+    topRightPanelAction_requestToSetIsMouseHoversSettingsTabs: Function,
+
 }
 
 const TopRightPanel = (props: TopRightPanelPropsType) =>
@@ -39,9 +42,16 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                  : BLUR_LEVEL.MEDIUM)
         .addTransition("filter", TRANSITION_TIME_NORMAL);
 
+    let settingsTabsDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.settingsTabsHeight, props.topRightPanelPadding, props.topRightPanelPadding);
+    let isMouseHoverSettingsTabs = settingsTabsStateModel.getIsMouseHover();
+
     let topRightPanelBorderDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.topRightPanelBorderHeight, props.topRightPanelPadding, props.topRightPanelPadding)
         .setBorder(props.topRightPanelBorderSize, "solid", GREY_HEAVY)
-        .setBorderRadius(props.topRightPanelBorderRadius);
+        .setBorderRadius(props.topRightPanelBorderRadius)
+        .setBlur(isMouseHoverSettingsTabs
+                 ? BLUR_LEVEL.EXTREMELY_LIGHT
+                 : BLUR_LEVEL.VERY_LIGHT)
+        .addTransition("filter", TRANSITION_TIME_NORMAL);
 
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
@@ -53,30 +63,48 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
             <div style={topRightPanelBorderDivStyleObject.getStyle()}/>
 
             {/* Tabs */}
-            {settingsTabsStateModel.getItems().map((title: string, index: number) =>
-            {
-                let isSelected = settingsTabsStateModel.getSelectedItemIndex() === index;
-                let isTheFirst = index === 0;
-                let isTheLast = index === settingsTabsStateModel.getNumberOfItems() - 1;
-
-                let settingsTabsDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidth, props.settingsTabsHeight, props.topRightPanelPadding + index * props.settingsTabsWidth, props.topRightPanelPadding)
-                    .setBackgroundColor(isSelected
-                                        ? BLACK_TRANSPARENT_00
-                                        : GREY_HEAVY)
-                    .addTransition("background-color", TRANSITION_TIME_NORMAL);
-
-                if (isTheFirst)
+            <div style={settingsTabsDivStyleObject.getStyle()}
+                 onMouseEnter={() => props.topRightPanelAction_requestToSetIsMouseHoversSettingsTabs(true)}
+                 onMouseLeave={() => props.topRightPanelAction_requestToSetIsMouseHoversSettingsTabs(false)}>
+                {settingsTabsStateModel.getItems().map((title: string, index: number) =>
                 {
-                    settingsTabsDivStyleObject.setBorderRadius(props.topRightPanelBorderRadius, 0, 0, 0);
-                }
-                else if (isTheLast)
-                {
-                    settingsTabsDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
-                }
+                    let isThisTabSelected = settingsTabsStateModel.getSelectedItemIndex() === index;
+                    let isMouseHoverThisTab = settingsTabsStateModel.getMouseHoveredItemIndex() === index;
+                    let isTheFirst = index === 0;
+                    let isTheLast = index === settingsTabsStateModel.getNumberOfItems() - 1;
+                    let blurLevel = BLUR_LEVEL.VERY_LIGHT;
 
-                return <div key={index} style={settingsTabsDivStyleObject.getStyle()}
-                            onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}/>
-            })}
+                    if(isThisTabSelected || isMouseHoverThisTab)
+                    {
+                        blurLevel = BLUR_LEVEL.NONE;
+                    }
+                    else if(isMouseHoverSettingsTabs)
+                    {
+                        blurLevel = BLUR_LEVEL.EXTREMELY_LIGHT;
+                    }
+
+                    let individualTabDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidth, props.settingsTabsHeight, index * props.settingsTabsWidth, 0)
+                        .setBackgroundColor(isThisTabSelected
+                                            ? BLACK_TRANSPARENT_00
+                                            : GREY_HEAVY)
+                        .setBlur(blurLevel)
+                        .addTransition("background-color", TRANSITION_TIME_NORMAL)
+                        .addTransition("filter", TRANSITION_TIME_NORMAL);
+
+                    if (isTheFirst)
+                    {
+                        individualTabDivStyleObject.setBorderRadius(props.topRightPanelBorderRadius, 0, 0, 0);
+                    }
+                    else if (isTheLast)
+                    {
+                        individualTabDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
+                    }
+
+                    return <div key={index} style={individualTabDivStyleObject.getStyle()}
+                                onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}
+                                onMouseEnter={() => props.topRightPanelAction_requestToMouseHoversIndividualSettingsTab(index)}/>
+                })}
+            </div>
 
         </div>);
 };
@@ -104,6 +132,8 @@ const matchDispatchToProps = (dispatch) =>
     return bindActionCreators({
         topRightPanelAction_setTopRightPanelFocusOn: topRightPanelAction_setTopRightPanelFocusOn,
         topRightPanelAction_requestToSelectSettingsTab: topRightPanelAction_requestToSelectSettingsTab,
+        topRightPanelAction_requestToMouseHoversIndividualSettingsTab: topRightPanelAction_requestToMouseHoversIndividualSettingsTab,
+        topRightPanelAction_requestToSetIsMouseHoversSettingsTabs: topRightPanelAction_requestToSetIsMouseHoversSettingsTabs,
     }, dispatch);
 };
 

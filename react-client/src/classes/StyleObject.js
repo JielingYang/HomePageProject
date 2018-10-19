@@ -51,6 +51,12 @@ export default class StyleObject
         return this;
     }
 
+    setPointerEvents(event: string)
+    {
+        this.style.pointerEvents = event;
+        return this
+    }
+
     addTranslation(translateX: string | number, translateY: string | number, translateZ: string | number)
     {
         let translation: string = " translateX(" + translateX + ")" + " translateY(" + translateY + ")" + " translateZ(" + translateZ + ")";

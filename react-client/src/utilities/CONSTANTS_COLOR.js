@@ -50,3 +50,5 @@ export const CONSOLE_FONT_MINT = "rgb(170,255,195)";
 export const CONSOLE_FONT_OLIVE = "rgb(128,128,0)";
 export const CONSOLE_FONT_CORAL = "rgb(255,215,180)";
 export const CONSOLE_FONT_NAVY = "rgb(0,0,128)";
+
+export const APP_BACKGROUND_COLOR = GREY_DARK;

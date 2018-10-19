@@ -9,7 +9,7 @@ export default class SingleSelectionModel extends StateModel
         this.items = items;
         this.numberOfItems = items.length;
         this.selectedItemIndex = 0;
-        this.hoveredItemIndex = null;
+        this.mouseHoveredItemIndex = null;
     }
 
     getItems(): Array<string>
@@ -22,9 +22,9 @@ export default class SingleSelectionModel extends StateModel
         this.selectedItemIndex = index;
     }
 
-    hoverItem(index: number)
+    mouseHoversItem(index: number)
     {
-        this.hoveredItemIndex = index;
+        this.mouseHoveredItemIndex = index;
     }
 
     getNumberOfItems(): number
@@ -37,16 +37,16 @@ export default class SingleSelectionModel extends StateModel
         return this.selectedItemIndex;
     }
 
-    getHoveredItemIndex(): number
+    getMouseHoveredItemIndex(): number
     {
-        return this.hoveredItemIndex;
+        return this.mouseHoveredItemIndex;
     }
 
     deepClone(): SingleSelectionModel
     {
         let result = new SingleSelectionModel(this.getNumberId(), this.getStringId(), deepCopy(this.getItems()));
         result.selectItem(this.getSelectedItemIndex());
-        result.hoverItem(this.getHoveredItemIndex());
+        result.mouseHoversItem(this.getMouseHoveredItemIndex());
         result.setIsMouseHover(this.getIsMouseHover());
         return result;
     }
