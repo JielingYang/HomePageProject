@@ -8,14 +8,14 @@ import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_requestToSelectSettingsTab, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
 import {BLACK_TRANSPARENT_00, GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
-import Tabs from "../../classes/widgetClasses/Tabs";
+import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 
 type TopRightPanelPropsType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
     topRightPanelFocusOn: boolean,
     topRightPanelPadding: number,
 
-    settingsTabsStateModel: Tabs,
+    settingsTabsStateModel: SingleSelectionModel,
     settingsTabsWidth: number,
     settingsTabsHeight: number,
 
@@ -31,7 +31,7 @@ type TopRightPanelPropsType = {
 const TopRightPanel = (props: TopRightPanelPropsType) =>
 {
     let topRightPanelShapeModel: Shape2d_Rectangle = props.topRightPanelShapeModel;
-    let settingsTabsStateModel: Tabs = props.settingsTabsStateModel;
+    let settingsTabsStateModel: SingleSelectionModel = props.settingsTabsStateModel;
 
     let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
         .setBlur(props.topRightPanelFocusOn
@@ -53,11 +53,11 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
             <div style={topRightPanelBorderDivStyleObject.getStyle()}/>
 
             {/* Tabs */}
-            {settingsTabsStateModel.getTabsTitles().map((title: string, index: number) =>
+            {settingsTabsStateModel.getItems().map((title: string, index: number) =>
             {
-                let isSelected = settingsTabsStateModel.getSelectedTabIndex() === index;
+                let isSelected = settingsTabsStateModel.getSelectedItemIndex() === index;
                 let isTheFirst = index === 0;
-                let isTheLast = index === settingsTabsStateModel.getNumberOfTabs() - 1;
+                let isTheLast = index === settingsTabsStateModel.getNumberOfItems() - 1;
 
                 let settingsTabsDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidth, props.settingsTabsHeight, props.topRightPanelPadding + index * props.settingsTabsWidth, props.topRightPanelPadding)
                     .setBackgroundColor(isSelected

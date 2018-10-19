@@ -5,14 +5,14 @@ import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {TOP_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/topRightPanelActions";
 import numberIdGenerator from "../classes/NumberIdGenerator";
-import Tabs from "../classes/widgetClasses/Tabs";
+import SingleSelectionModel from "../classes/StateModelClasses/SingleSelectionModel";
 
 export type topRightPanelStateType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
     topRightPanelFocusOn: boolean,
     topRightPanelPadding: number,
 
-    settingsTabsStateModel: Tabs,
+    settingsTabsStateModel: SingleSelectionModel,
     settingsTabsWidth: number,
     settingsTabsHeight: number,
 
@@ -27,7 +27,7 @@ const topRightPanelDefaultState: topRightPanelStateType = {
     topRightPanelFocusOn: false,
     topRightPanelPadding: 10,
 
-    settingsTabsStateModel: new Tabs(numberIdGenerator.generateId(), ID.SETTINGS_TABS_ID, Object.values(SETTINGS_TITLES)),
+    settingsTabsStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.SETTINGS_TABS_ID, Object.values(SETTINGS_TITLES)),
     settingsTabsWidth: 0,
     settingsTabsHeight: 0,
 
@@ -71,7 +71,7 @@ const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: to
 const topRightPanelAction_selectSettingsTab_handler = (state: topRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.settingsTabsStateModel.selectTab(action.tabIndex);
+    nextState.settingsTabsStateModel.selectItem(action.tabIndex);
     return nextState;
 };
 

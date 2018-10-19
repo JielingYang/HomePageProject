@@ -11,7 +11,7 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
     {
         let topRightPanelState = getState().topRightPanelState;
         let topRightPanelShapeModel = topRightPanelState.topRightPanelShapeModel;
-        let numberOfSettingsTabs = topRightPanelState.settingsTabsStateModel.getNumberOfTabs();
+        let numberOfSettingsTabs = topRightPanelState.settingsTabsStateModel.getNumberOfItems();
         let topRightPanelPadding = topRightPanelState.topRightPanelPadding;
 
         let topRightPanelBorderWidth = topRightPanelShapeModel.getWidth() - 2 * topRightPanelPadding;
@@ -28,7 +28,7 @@ export const topRightPanelAction_requestToSelectSettingsTab = (tabIndex: number)
 {
     return (dispatch, getState) =>
     {
-        let currentSelectedTabIndex = getState().topRightPanelState.settingsTabsStateModel.getSelectedTabIndex();
+        let currentSelectedTabIndex = getState().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex();
         if (currentSelectedTabIndex !== tabIndex)
         {
             dispatch(topRightPanelAction_selectSettingsTab(tabIndex));
