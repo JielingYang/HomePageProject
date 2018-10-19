@@ -6,7 +6,7 @@ import {bindActionCreators} from "redux";
 import {appAction_requestToUpdateAppSize, appAction_requestToUpdateAppMouseMoveRelatedData} from "../actionCreators/appActions";
 import {GREY_DARK} from "../utilities/CONSTANTS_COLOR";
 import StyleObject from "../classes/StyleObject";
-import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
+import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData} from "../actionCreators/topRightPanelActions";
 
 type AppPropsType = {

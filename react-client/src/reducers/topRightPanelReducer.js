@@ -1,6 +1,6 @@
 import {ID, SETTINGS_TITLES} from "../utilities/CONSTANTS_STRING";
-import Shape2d_Point from "../classes/Shape2d_Point";
-import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
+import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
+import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {TOP_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/topRightPanelActions";

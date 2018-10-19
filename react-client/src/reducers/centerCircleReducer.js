@@ -1,7 +1,7 @@
 import {createReducer} from "./reducerCreator";
-import Shape2d_Circle from "../classes/Shape2d_Circle";
+import Shape2d_Circle from "../classes/shapeClasses/Shape2d_Circle";
 import {ID} from "../utilities/CONSTANTS_STRING";
-import Shape2d_Point from "../classes/Shape2d_Point";
+import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import numberIdGenerator from "../classes/NumberIdGenerator";
 
 export type centerCircleStateType = {

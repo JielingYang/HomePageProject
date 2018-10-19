@@ -6,9 +6,9 @@ import CenterComponent_Circle from "./CenterComponent_Circle";
 import {CENTER_COMPONENT_CIRCLE_RADIUS_RATIO, CENTER_COMPONENT_CIRCLE_THICKNESS_RATIO, CENTER_COMPONENT_LOADING_BAR_THICKNESS_RATIO, CENTER_COMPONENT_UNIT_LENGTH_RATIO} from "../../styles/centerComponentStyle";
 import CenterComponent_Character from "./CenterComponent_Character";
 import CenterComponent_LoadingBar from "./CenterComponent_LoadingBar";
-import Shape2d_Circle from "../../classes/Shape2d_Circle";
+import Shape2d_Circle from "../../classes/shapeClasses/Shape2d_Circle";
 import {GOLD} from "../../utilities/CONSTANTS_COLOR";
-import Shape2d_Point from "../../classes/Shape2d_Point";
+import Shape2d_Point from "../../classes/shapeClasses/Shape2d_Point";
 
 type CenterCirclePropsType = {
     centerCircleShapeModel: Shape2d_Circle,

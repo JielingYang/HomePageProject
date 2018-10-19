@@ -1,10 +1,10 @@
 import type {appStateType} from "../reducers/appReducer";
 import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint} from "./basePanelActions";
-import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
+import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {bottomRightPanelAction_updateBottomRightPanelPosition, bottomRightPanelAction_updateBottomRightPanelSize} from "./bottomRightPanelActions";
 import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData, topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
-import Shape2d_Point from "../classes/Shape2d_Point";
+import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import {bottomLeftPanelAction_updateBottomLeftPanelPosition, bottomLeftPanelAction_updateBottomLeftPanelSize} from "./bottomLeftPanelActions";
 
 /* ************************** Requesting actions ************************** */

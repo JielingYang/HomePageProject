@@ -3,7 +3,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {LEVEL1_CONSOLE_FONT, LEVEL1_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 import type {basePanelStateType} from "../reducers/basePanelReducer";
-import Shape2d_Rectangle from "../classes/Shape2d_Rectangle";
+import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import StyleObject from "../classes/StyleObject";
 import {BLACK_TRANSPARENT_00} from "../utilities/CONSTANTS_COLOR";
 import BottomRightPanel from "./basePanelSubComponents/BottomRightPanel";

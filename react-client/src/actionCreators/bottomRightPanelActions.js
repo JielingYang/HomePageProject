@@ -1,4 +1,4 @@
-import Shape2d_Point from "../classes/Shape2d_Point";
+import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
