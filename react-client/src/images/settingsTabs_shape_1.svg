@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     preserveAspectRatio="xMidYMid meet" viewBox="0.00007626686873490537 0.0037779568110788003 24 23.99999999999998"
+     width="24" height="24">
+    <defs>
+        <path d="M16.5 24C20.64 24 24 20.04 24 15.16C24 10.27 20.64 6.31 16.5 6.31C15.48 6.31 14.52 6.55 13.63 6.98C14.25 8.23 19.17 18.28 19.78 19.54C19.82 19.62 19.79 19.69 19.71 19.69C19.07 19.69 15.85 19.69 10.06 19.69C12.53 22.57 14.68 24 16.5 24Z"
+              id="b5Pb0g5wn"></path>
+        <path d="M0.02 18.29C-0.02 18.36 0.01 18.42 0.08 18.42C1.86 18.42 16.14 18.42 17.92 18.42C17.99 18.42 18.02 18.36 17.98 18.29C17.09 16.46 9.96 1.88 9.07 0.06C9.03 -0.02 8.97 -0.01 8.93 0.06C7.15 3.71 0.91 16.46 0.02 18.29Z"
+              id="a7lsmQaq2s"></path>
+    </defs>
+    <g>
+        <g>
+            <use xlink:href="#b5Pb0g5wn" opacity="1" fill="#000000" fill-opacity="1"></use>
+            <g>
+                <use xlink:href="#b5Pb0g5wn" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1"
+                     stroke-opacity="0"></use>
+            </g>
+        </g>
+        <g>
+            <use xlink:href="#a7lsmQaq2s" opacity="1" fill="#000000" fill-opacity="1"></use>
+            <g>
+                <use xlink:href="#a7lsmQaq2s" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1"
+                     stroke-opacity="0"></use>
+            </g>
+        </g>
+    </g>
+</svg>

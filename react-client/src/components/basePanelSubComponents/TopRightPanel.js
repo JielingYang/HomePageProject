@@ -7,8 +7,9 @@ import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_requestToMouseHoversIndividualSettingsTab, topRightPanelAction_requestToSelectSettingsTab, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
-import {BLACK_TRANSPARENT_00, GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
+import {GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
+import {settingsTabsSvgIcons} from "../../utilities/svgIcons";
 
 type TopRightPanelPropsType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
@@ -48,6 +49,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     let topRightPanelBorderDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.topRightPanelBorderHeight, props.topRightPanelPadding, props.topRightPanelPadding)
         .setBorder(props.topRightPanelBorderSize, "solid", GREY_HEAVY)
         .setBorderRadius(props.topRightPanelBorderRadius)
+        .setPointerEvents("none")
         .setBlur(isMouseHoverSettingsTabs
                  ? BLUR_LEVEL.EXTREMELY_LIGHT
                  : BLUR_LEVEL.VERY_LIGHT)
@@ -58,9 +60,6 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
              onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
              onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
-
-            {/* Panel border */}
-            <div style={topRightPanelBorderDivStyleObject.getStyle()}/>
 
             {/* Tabs */}
             <div style={settingsTabsDivStyleObject.getStyle()}
@@ -84,11 +83,13 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                     }
 
                     let individualTabDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidth, props.settingsTabsHeight, index * props.settingsTabsWidth, 0)
-                        .setBackgroundColor(isThisTabSelected
-                                            ? BLACK_TRANSPARENT_00
-                                            : GREY_HEAVY)
+                        .setDisplay("flex")
                         .setBlur(blurLevel)
                         .addTransition("background-color", TRANSITION_TIME_NORMAL)
+                        .addTransition("filter", TRANSITION_TIME_NORMAL);
+                    let iconWrapperDivStyleObject = new StyleObject().setWidth(props.settingsTabsHeight * 0.8).setHeight(props.settingsTabsHeight * 0.8)
+                        .setMargin("auto")
+                        .setBlur(blurLevel)
                         .addTransition("filter", TRANSITION_TIME_NORMAL);
 
                     if (isTheFirst)
@@ -100,11 +101,21 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                         individualTabDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
                     }
 
-                    return <div key={index} style={individualTabDivStyleObject.getStyle()}
-                                onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}
-                                onMouseEnter={() => props.topRightPanelAction_requestToMouseHoversIndividualSettingsTab(index)}/>
+                    let icon = settingsTabsSvgIcons[index];
+
+                    return (
+                        <div key={index} style={individualTabDivStyleObject.getStyle()}
+                             onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}
+                             onMouseEnter={() => props.topRightPanelAction_requestToMouseHoversIndividualSettingsTab(index)}>
+                            <div style={iconWrapperDivStyleObject.getStyle()}>
+                                {icon}
+                            </div>
+                        </div>)
                 })}
             </div>
+
+            {/* Panel border */}
+            <div style={topRightPanelBorderDivStyleObject.getStyle()}/>
 
         </div>);
 };

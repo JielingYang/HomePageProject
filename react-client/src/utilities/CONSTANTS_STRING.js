@@ -43,9 +43,9 @@ export const UTILITY_STRING = Object.freeze({
 });
 
 export const SETTINGS_TITLES = Object.freeze({
-    THEME: "theme setting",
-    COLOR: "color setting",
-    SHAPE: "shape setting",
-    VIEW: "view setting",
-    PLAYGROUND_OBJECTS: "playground objects setting"
+    THEME_SETTING: "theme setting",
+    COLOR_SETTING: "color setting",
+    SHAPE_SETTING: "shape setting",
+    VIEW_SETTING: "view setting",
+    PLAYGROUND_OBJECTS_SETTING: "playground objects setting"
 });

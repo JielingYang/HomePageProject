@@ -18,7 +18,7 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
         let topRightPanelBorderHeight = topRightPanelShapeModel.getHeight() - 2 * topRightPanelPadding;
 
         let settingsTabsWidth = topRightPanelBorderWidth / numberOfSettingsTabs;
-        let settingsTabsHeight = topRightPanelBorderHeight * 0.1;
+        let settingsTabsHeight = topRightPanelShapeModel.getYUnitLength() * 15;
 
         dispatch(topRightPanelAction_updateTopRightPanelContentLayoutData(topRightPanelBorderWidth, topRightPanelBorderHeight, settingsTabsWidth, settingsTabsHeight));
     }

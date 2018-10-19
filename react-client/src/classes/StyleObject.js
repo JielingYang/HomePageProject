@@ -23,6 +23,18 @@ export default class StyleObject
         return this;
     }
 
+    setWidth(width: number | string)
+    {
+        this.style.width = width;
+        return this;
+    }
+
+    setHeight(height: number | string)
+    {
+        this.style.height = height;
+        return this;
+    }
+
     setBackgroundColor(backgroundColor: string): StyleObject
     {
         this.style.backgroundColor = backgroundColor;
@@ -54,7 +66,19 @@ export default class StyleObject
     setPointerEvents(event: string)
     {
         this.style.pointerEvents = event;
-        return this
+        return this;
+    }
+
+    setDisplay(display: string)
+    {
+        this.style.display = display;
+        return this;
+    }
+
+    setMargin(margin: string)
+    {
+        this.style.margin = margin;
+        return this;
     }
 
     addTranslation(translateX: string | number, translateY: string | number, translateZ: string | number)
@@ -149,6 +173,12 @@ export default class StyleObject
         {
             this.style.transition = transition;
         }
+        return this;
+    }
+
+    setFontColor(color: string)
+    {
+        this.style.color = color;
         return this;
     }
 }
