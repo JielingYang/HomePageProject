@@ -17,6 +17,9 @@ export type topRightPanelStateType = {
     settingsTabsHeight: number,
 
     themesSettingStateModel: SingleSelectionModel,
+    themesSettingOptionsSize: number,
+    themesSettingOptionsGap: number,
+    themesSettingOptionsStartingX: number,
 
     topRightPanelBorderSize: number,
     topRightPanelBorderRadius: number,
@@ -34,6 +37,9 @@ const topRightPanelDefaultState: topRightPanelStateType = {
     settingsTabsHeight: 0,
 
     themesSettingStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.THEMES_SETTING_ID, THEMES_SETTING_TITLES),
+    themesSettingOptionsSize: 0,
+    themesSettingOptionsGap: 0,
+    themesSettingOptionsStartingX: 0,
 
     topRightPanelBorderSize: 0,
     topRightPanelBorderRadius: 0,
@@ -62,18 +68,6 @@ const topRightPanelAction_setTopRightPanelFocusOn_handler = (state: topRightPane
     return nextState;
 };
 
-const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: topRightPanelStateType, action) =>
-{
-    let nextState = deepCopy(state);
-    nextState.topRightPanelBorderWidth = action.topRightPanelBorderWidth;
-    nextState.topRightPanelBorderHeight = action.topRightPanelBorderHeight;
-    nextState.topRightPanelBorderSize = action.topRightPanelBorderSize;
-    nextState.topRightPanelBorderRadius = action.topRightPanelBorderRadius;
-    nextState.settingsTabsWidth = action.settingsTabsWidth;
-    nextState.settingsTabsHeight = action.settingsTabsHeight;
-    return nextState;
-};
-
 const topRightPanelAction_selectSettingsTab_handler = (state: topRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
@@ -92,6 +86,21 @@ const topRightPanelAction_setIsMouseHoversSettingsTabs_handler = (state: topRigh
 {
     let nextState = deepCopy(state);
     nextState.settingsTabsStateModel.setIsMouseHover(action.isHover);
+    return nextState;
+};
+
+const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: topRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.topRightPanelBorderWidth = action.topRightPanelBorderWidth;
+    nextState.topRightPanelBorderHeight = action.topRightPanelBorderHeight;
+    nextState.topRightPanelBorderSize = action.topRightPanelBorderSize;
+    nextState.topRightPanelBorderRadius = action.topRightPanelBorderRadius;
+    nextState.settingsTabsWidth = action.settingsTabsWidth;
+    nextState.settingsTabsHeight = action.settingsTabsHeight;
+    nextState.themesSettingOptionsSize = action.themesSettingOptionsSize;
+    nextState.themesSettingOptionsGap = action.themesSettingOptionsGap;
+    nextState.themesSettingOptionsStartingX = action.themesSettingOptionsStartingX;
     return nextState;
 };
 

@@ -12,25 +12,15 @@ import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectio
 import {getSettingsTabsSvgIcon} from "../../utilities/svgIcons";
 
 type TopRightPanelPropsType = {
-    topRightPanelShapeModel: Shape2d_Rectangle,
-    topRightPanelFocusOn: boolean,
-    topRightPanelPadding: number,
+    topRightPanelShapeModel: Shape2d_Rectangle, topRightPanelFocusOn: boolean, topRightPanelPadding: number,
 
-    settingsTabsStateModel: SingleSelectionModel,
-    settingsTabsWidth: number,
-    settingsTabsHeight: number,
+    settingsTabsStateModel: SingleSelectionModel, settingsTabsWidth: number, settingsTabsHeight: number,
 
-    themesSettingStateModel: SingleSelectionModel,
+    themesSettingStateModel: SingleSelectionModel, themesSettingOptionsSize: number, themesSettingOptionsGap: number, themesSettingOptionsStartingX: number,
 
-    topRightPanelBorderSize: number,
-    topRightPanelBorderRadius: number,
-    topRightPanelBorderWidth: number,
-    topRightPanelBorderHeight: number,
+    topRightPanelBorderSize: number, topRightPanelBorderRadius: number, topRightPanelBorderWidth: number, topRightPanelBorderHeight: number,
 
-    topRightPanelAction_setTopRightPanelFocusOn: Function,
-    topRightPanelAction_requestToSelectSettingsTab: Function,
-    topRightPanelAction_requestToMouseHoversIndividualSettingsTab: Function,
-    topRightPanelAction_requestToSetIsMouseHoversSettingsTabs: Function,
+    topRightPanelAction_setTopRightPanelFocusOn: Function, topRightPanelAction_requestToSelectSettingsTab: Function, topRightPanelAction_requestToMouseHoversIndividualSettingsTab: Function, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs: Function,
 
 }
 
@@ -111,7 +101,20 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     </div>;
 
     // Settings contents
-    
+    // Theme setting content
+    let themesSettingsOptions = props.themesSettingStateModel.getItems();
+    let themesSettingOptionsSize = props.themesSettingOptionsSize;
+    let themesSettingContent = themesSettingsOptions.map((title: string, index: number) =>
+    {
+        let themeSettingOptionDivStyleObject = new StyleObject()
+            .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, props.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + props.themesSettingOptionsGap), "40%")
+            // .setBlur(blurLevel)
+            .setBackgroundColor(WHITE_TRANSPARENT_90)
+            .addTransition("background-color", TRANSITION_TIME_NORMAL)
+            .addTransition("filter", TRANSITION_TIME_NORMAL);
+        return <div key={index} style={themeSettingOptionDivStyleObject.getStyle()}></div>
+    });
+
 
     // Panel border
     let topRightPanelBorderDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.topRightPanelBorderHeight, props.topRightPanelPadding, props.topRightPanelPadding)
@@ -129,6 +132,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                  onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
                  onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
         {settingsTabs}
+        {themesSettingContent}
         {panelBorder}
     </div>);
 };
@@ -145,6 +149,9 @@ const mapStateToProps = (store) =>
         settingsTabsHeight: store.topRightPanelState.settingsTabsHeight,
 
         themesSettingStateModel: store.topRightPanelState.themesSettingStateModel,
+        themesSettingOptionsSize: store.topRightPanelState.themesSettingOptionsSize,
+        themesSettingOptionsGap: store.topRightPanelState.themesSettingOptionsGap,
+        themesSettingOptionsStartingX: store.topRightPanelState.themesSettingOptionsStartingX,
 
         topRightPanelBorderSize: store.topRightPanelState.topRightPanelBorderSize,
         topRightPanelBorderRadius: store.topRightPanelState.topRightPanelBorderRadius,
