@@ -1,3 +1,5 @@
+import {DEFAULT_FONT_COLOR} from "../utilities/CONSTANTS_COLOR";
+
 export default class StyleObject
 {
     constructor()
@@ -5,6 +7,9 @@ export default class StyleObject
         // Default styles
         this.style = {
             boxSizing: "border-box",
+            fontFamily: "sans-serif",
+            fontSize: "0.6vw",
+            color: DEFAULT_FONT_COLOR,
         };
     }
 
@@ -76,6 +81,31 @@ export default class StyleObject
         this.style.display = display;
         return this;
     }
+
+    setFlexDirection(direction: string)
+    {
+        this.style.flexDirection = direction;
+        return this;
+    }
+
+    setJustifyContent(content: string)
+    {
+        this.style.justifyContent = content;
+        return this;
+    }
+
+    setAlignItems(align: string)
+    {
+        this.style.alignItems = align;
+        return this;
+    }
+
+    setAlignContent(align: string)
+    {
+        this.style.alignContent = align;
+        return this;
+    }
+
 
     setMargin(margin: string)
     {
@@ -175,6 +205,12 @@ export default class StyleObject
         {
             this.style.transition = transition;
         }
+        return this;
+    }
+
+    setFontFamily(font: string)
+    {
+        this.style.fontFamily = font;
         return this;
     }
 

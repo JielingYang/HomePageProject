@@ -85,15 +85,26 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                         iconColor = WHITE_TRANSPARENT_50;
                     }
 
-                    let individualTabDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidth, props.settingsTabsHeight, index * props.settingsTabsWidth, 0)
+                    let individualTabDivStyleObject = new StyleObject()
+                        .setBasics(props.settingsTabsWidth, props.settingsTabsHeight, index * props.settingsTabsWidth, 0)
                         .setDisplay("flex")
+                        .setFlexDirection("column")
                         .setBlur(blurLevel)
                         .addTransition("background-color", TRANSITION_TIME_NORMAL)
                         .addTransition("filter", TRANSITION_TIME_NORMAL);
-                    let iconWrapperDivStyleObject = new StyleObject().setWidth(props.settingsTabsHeight * 0.5).setHeight(props.settingsTabsHeight * 0.5)
+                    let tabIconWrapperDivStyleObject = new StyleObject()
+                        .setHeight(props.settingsTabsHeight * 0.4)
+                        .setPointerEvents("none")
                         .setMargin("auto")
                         .setBlur(blurLevel)
                         .addTransition("filter", TRANSITION_TIME_NORMAL);
+                    let tabTextWrapperDivStyleObject = new StyleObject()
+                        .setPointerEvents("none")
+                        .setMargin("auto")
+                        .setBlur(blurLevel)
+                        .setFontColor(iconColor)
+                        .addTransition("filter", TRANSITION_TIME_NORMAL)
+                        .addTransition("color", TRANSITION_TIME_NORMAL);
 
                     if (isTheFirst)
                     {
@@ -108,8 +119,11 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                         <div key={index} style={individualTabDivStyleObject.getStyle()}
                              onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}
                              onMouseEnter={() => props.topRightPanelAction_requestToMouseHoversIndividualSettingsTab(index)}>
-                            <div style={iconWrapperDivStyleObject.getStyle()}>
+                            <div style={tabIconWrapperDivStyleObject.getStyle()}>
                                 {getSettingsTabsSvgIcon(iconColor, index)}
+                            </div>
+                            <div style={tabTextWrapperDivStyleObject.getStyle()}>
+                                {title}
                             </div>
                         </div>)
                 })}
