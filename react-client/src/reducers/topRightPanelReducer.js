@@ -1,30 +1,20 @@
 import {ID, SETTINGS_TABS_TITLES, THEMES_SETTING_TITLES} from "../utilities/CONSTANTS_STRING";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
-import {deepCopy} from "../utilities/UTILITIES";
+import {deepCopy, getObjectById} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {TOP_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/topRightPanelActions";
 import numberIdGenerator from "../classes/NumberIdGenerator";
 import SingleSelectionModel from "../classes/StateModelClasses/SingleSelectionModel";
 
 export type topRightPanelStateType = {
-    topRightPanelShapeModel: Shape2d_Rectangle,
-    topRightPanelFocusOn: boolean,
-    topRightPanelPadding: number,
+    topRightPanelShapeModel: Shape2d_Rectangle, topRightPanelFocusOn: boolean, topRightPanelPadding: number,
 
-    settingsTabsStateModel: SingleSelectionModel,
-    settingsTabsWidth: number,
-    settingsTabsHeight: number,
+    settingsTabsStateModel: SingleSelectionModel, settingsTabsWidth: number, settingsTabsHeight: number,
 
-    themesSettingStateModel: SingleSelectionModel,
-    themesSettingOptionsSize: number,
-    themesSettingOptionsGap: number,
-    themesSettingOptionsStartingX: number,
+    themesSettingStateModel: SingleSelectionModel, themesSettingOptionsSize: number, themesSettingOptionsGap: number, themesSettingOptionsStartingX: number,
 
-    topRightPanelBorderSize: number,
-    topRightPanelBorderRadius: number,
-    topRightPanelBorderWidth: number,
-    topRightPanelBorderHeight: number,
+    topRightPanelBorderSize: number, topRightPanelBorderRadius: number, topRightPanelBorderWidth: number, topRightPanelBorderHeight: number,
 }
 
 const topRightPanelDefaultState: topRightPanelStateType = {
@@ -68,18 +58,34 @@ const topRightPanelAction_setTopRightPanelFocusOn_handler = (state: topRightPane
     return nextState;
 };
 
-const topRightPanelAction_selectSettingsTab_handler = (state: topRightPanelStateType, action) =>
+const topRightPanelAction_selectSingleSelectionModelItem_handler = (state: topRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.settingsTabsStateModel.selectItem(action.tabIndex);
-    return nextState;
+    let targetStateModel: SingleSelectionModel = getObjectById(nextState, action.modelStringId);
+    if (targetStateModel.getSelectedItemIndex() !== action.itemIndex)
+    {
+        targetStateModel.selectItem(action.itemIndex);
+        return nextState;
+    }
+    else
+    {
+        return state;
+    }
 };
 
-const topRightPanelAction_mouseHoversIndividualSettingsTab_handler = (state: topRightPanelStateType, action) =>
+const topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem_handler = (state: topRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.settingsTabsStateModel.mouseHoversItem(action.tabIndex);
-    return nextState;
+    let targetStateModel: SingleSelectionModel = getObjectById(nextState, action.modelStringId);
+    if (targetStateModel.getMouseHoveredItemIndex() !== action.itemIndex)
+    {
+        targetStateModel.mouseHoversItem(action.itemIndex);
+        return nextState;
+    }
+    else
+    {
+        return state;
+    }
 };
 
 const topRightPanelAction_setIsMouseHoversSettingsTabs_handler = (state: topRightPanelStateType, action) =>
@@ -110,8 +116,8 @@ const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION]: topRightPanelAction_updateTopRightPanelPosition_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON]: topRightPanelAction_setTopRightPanelFocusOn_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA]: topRightPanelAction_setTopRightPanelContentLayoutData_handler,
-    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB]: topRightPanelAction_selectSettingsTab_handler,
-    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_MOUSE_HOVERS_INDIVIDUAL_SETTINGS_TAB]: topRightPanelAction_mouseHoversIndividualSettingsTab_handler,
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM]: topRightPanelAction_selectSingleSelectionModelItem_handler,
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM]: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_IS_MOUSE_HOVERS_SETTINGS_TABS]: topRightPanelAction_setIsMouseHoversSettingsTabs_handler,
 };
 

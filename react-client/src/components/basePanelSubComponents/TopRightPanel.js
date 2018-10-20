@@ -6,7 +6,7 @@ import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTA
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
-import {topRightPanelAction_requestToMouseHoversIndividualSettingsTab, topRightPanelAction_requestToSelectSettingsTab, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
+import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
 import {GREY_HEAVY, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90} from "../../utilities/CONSTANTS_COLOR";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 import {getSettingsTabsSvgIcon} from "../../utilities/svgIcons";
@@ -20,7 +20,7 @@ type TopRightPanelPropsType = {
 
     topRightPanelBorderSize: number, topRightPanelBorderRadius: number, topRightPanelBorderWidth: number, topRightPanelBorderHeight: number,
 
-    topRightPanelAction_setTopRightPanelFocusOn: Function, topRightPanelAction_requestToSelectSettingsTab: Function, topRightPanelAction_requestToMouseHoversIndividualSettingsTab: Function, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs: Function,
+    topRightPanelAction_setTopRightPanelFocusOn: Function, topRightPanelAction_selectSingleSelectionModelItem: Function, topRightPanelAction_mouseHoverOnSingleSelectionModelIndividualItem: Function, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs: Function,
 
 }
 
@@ -28,6 +28,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
 {
     let topRightPanelShapeModel: Shape2d_Rectangle = props.topRightPanelShapeModel;
     let settingsTabsStateModel: SingleSelectionModel = props.settingsTabsStateModel;
+    let settingsTabsStateModelStringId = settingsTabsStateModel.getStringId();
     let isMouseHoverSettingsTabs = settingsTabsStateModel.getIsMouseHover();
     let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
         .setBlur(props.topRightPanelFocusOn
@@ -88,8 +89,8 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                 individualTabDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
             }
             return (<div key={index} style={individualTabDivStyleObject.getStyle()}
-                         onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}
-                         onMouseEnter={() => props.topRightPanelAction_requestToMouseHoversIndividualSettingsTab(index)}>
+                         onClick={() => props.topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId)}
+                         onMouseEnter={() => props.topRightPanelAction_mouseHoverOnSingleSelectionModelIndividualItem(index, settingsTabsStateModelStringId)}>
                 <div style={tabIconWrapperDivStyleObject.getStyle()}>
                     {getSettingsTabsSvgIcon(iconColor, index)}
                 </div>
@@ -164,8 +165,8 @@ const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
         topRightPanelAction_setTopRightPanelFocusOn: topRightPanelAction_setTopRightPanelFocusOn,
-        topRightPanelAction_requestToSelectSettingsTab: topRightPanelAction_requestToSelectSettingsTab,
-        topRightPanelAction_requestToMouseHoversIndividualSettingsTab: topRightPanelAction_requestToMouseHoversIndividualSettingsTab,
+        topRightPanelAction_selectSingleSelectionModelItem: topRightPanelAction_selectSingleSelectionModelItem,
+        topRightPanelAction_mouseHoverOnSingleSelectionModelIndividualItem: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem,
         topRightPanelAction_requestToSetIsMouseHoversSettingsTabs: topRightPanelAction_requestToSetIsMouseHoversSettingsTabs,
     }, dispatch);
 };

@@ -1,4 +1,5 @@
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
+import {ID} from "../utilities/CONSTANTS_STRING";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -32,37 +33,13 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
     }
 };
 
-export const topRightPanelAction_requestToSelectSettingsTab = (tabIndex: number) =>
-{
-    return (dispatch, getState) =>
-    {
-        let currentSelectedTabIndex = getState().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex();
-        if (currentSelectedTabIndex !== tabIndex)
-        {
-            dispatch(topRightPanelAction_selectSettingsTab(tabIndex));
-        }
-    }
-};
-
-export const topRightPanelAction_requestToMouseHoversIndividualSettingsTab = (tabIndex: number) =>
-{
-    return (dispatch, getState) =>
-    {
-        let currentMouseHoveredTabIndex = getState().topRightPanelState.settingsTabsStateModel.getMouseHoveredItemIndex();
-        if (currentMouseHoveredTabIndex !== tabIndex)
-        {
-            dispatch(topRightPanelAction_mouseHoversIndividualSettingsTab(tabIndex));
-        }
-    }
-};
-
 export const topRightPanelAction_requestToSetIsMouseHoversSettingsTabs = (isHover: boolean) =>
 {
     return (dispatch) =>
     {
         if (!isHover)
         {
-            dispatch(topRightPanelAction_mouseHoversIndividualSettingsTab(null));
+            dispatch(topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(null, ID.SETTINGS_TABS_ID));
         }
         dispatch(topRightPanelAction_setIsMouseHoversSettingsTabs(isHover));
     }
@@ -77,8 +54,8 @@ export const TOP_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION: "TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_POSITION",
     TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON: "TOP_RIGHT_PANEL_ACTION_SET_TOP_RIGHT_PANEL_FOCUS_ON",
     TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA: "TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA",
-    TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB: "TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB",
-    TOP_RIGHT_PANEL_ACTION_MOUSE_HOVERS_INDIVIDUAL_SETTINGS_TAB: "TOP_RIGHT_PANEL_ACTION_MOUSE_HOVERS_INDIVIDUAL_SETTINGS_TAB",
+    TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM: "TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM",
+    TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM: "TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM",
     TOP_RIGHT_PANEL_ACTION_SET_IS_MOUSE_HOVERS_SETTINGS_TABS: "TOP_RIGHT_PANEL_ACTION_SET_IS_MOUSE_HOVERS_SETTINGS_TABS",
 });
 
@@ -123,19 +100,21 @@ const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelB
     };
 };
 
-const topRightPanelAction_selectSettingsTab = (tabIndex: number) =>
+export const topRightPanelAction_selectSingleSelectionModelItem = (itemIndex: number, modelStringId: string) =>
 {
     return {
-        type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SETTINGS_TAB,
-        tabIndex: tabIndex
+        type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM,
+        itemIndex: itemIndex,
+        modelStringId: modelStringId,
     };
 };
 
-const topRightPanelAction_mouseHoversIndividualSettingsTab = (tabIndex: number) =>
+export const topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem = (itemIndex: number, modelStringId: string) =>
 {
     return {
-        type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_MOUSE_HOVERS_INDIVIDUAL_SETTINGS_TAB,
-        tabIndex: tabIndex
+        type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM,
+        itemIndex: itemIndex,
+        modelStringId: modelStringId,
     };
 };
 

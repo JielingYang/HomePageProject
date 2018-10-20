@@ -60,7 +60,7 @@ export const getObjectsByClassNames: Array = (stateObject: Object, classNames) =
     return result;
 };
 
-export const getObjectByNumId: Base = (stateObject: Object, id: number) =>
+export const getObjectById: Base = (stateObject: Object, id: number | string) =>
 {
     let result = null;
     Object.values(stateObject).some(element =>
@@ -68,8 +68,8 @@ export const getObjectByNumId: Base = (stateObject: Object, id: number) =>
         // If current element is Base class object
         if (element instanceof Base)
         {
-            // And if this Base class object has same number ID being searched
-            if (element.getNumberId() === id)
+            // And if this Base class object has same number or string ID being searched
+            if (element.getNumberId() === id || element.getStringId() === id)
             {
                 // Get the result and stop the loop
                 result = element;
@@ -84,7 +84,7 @@ export const getObjectByNumId: Base = (stateObject: Object, id: number) =>
         // If current element is other object types (excluding array)
         else if (typeof element === "object" && !Array.isArray(element))
         {
-            result = getObjectByNumId(element, id);
+            result = getObjectById(element, id);
             return result !== null;
         }
         else
