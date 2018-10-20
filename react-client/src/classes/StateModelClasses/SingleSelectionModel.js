@@ -47,7 +47,7 @@ export default class SingleSelectionModel extends StateModel
         let result = new SingleSelectionModel(this.getNumberId(), this.getStringId(), deepCopy(this.getItems()));
         result.selectItem(this.getSelectedItemIndex());
         result.mouseHoversItem(this.getMouseHoveredItemIndex());
-        result.setIsMouseHover(this.getIsMouseHover());
+        result.setMouseHover(this.getMouseHover());
         return result;
     }
 }

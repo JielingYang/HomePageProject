@@ -88,10 +88,11 @@ const topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem_hand
     }
 };
 
-const topRightPanelAction_setIsMouseHoversSettingsTabs_handler = (state: topRightPanelStateType, action) =>
+const topRightPanelAction_setMouseHoverOnSingleSelectionModelItems_handler = (state: topRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.settingsTabsStateModel.setIsMouseHover(action.isHover);
+    let targetStateModel: SingleSelectionModel = getObjectById(nextState, action.modelStringId);
+    targetStateModel.setMouseHover(action.hover);
     return nextState;
 };
 
@@ -118,7 +119,7 @@ const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA]: topRightPanelAction_setTopRightPanelContentLayoutData_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM]: topRightPanelAction_selectSingleSelectionModelItem_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM]: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem_handler,
-    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_IS_MOUSE_HOVERS_SETTINGS_TABS]: topRightPanelAction_setIsMouseHoversSettingsTabs_handler,
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS]: topRightPanelAction_setMouseHoverOnSingleSelectionModelItems_handler,
 };
 
 

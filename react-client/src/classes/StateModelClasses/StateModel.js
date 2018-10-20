@@ -5,23 +5,23 @@ export default class StateModel extends Base
     constructor(numId: number, strId: string)
     {
         super(numId, strId);
-        this.isMouseHover = false;
+        this.mouseHover = false;
     }
 
-    setIsMouseHover(value: boolean)
+    setMouseHover(value: boolean)
     {
-        this.isMouseHover = value;
+        this.mouseHover = value;
     }
 
-    getIsMouseHover(): boolean
+    getMouseHover(): boolean
     {
-        return this.isMouseHover;
+        return this.mouseHover;
     }
 
     deepClone(): StateModel
     {
         let result = new StateModel(this.getNumberId(), this.getStringId());
-        result.setIsMouseHover(this.getIsMouseHover());
+        result.setMouseHover(this.getMouseHover());
         return result;
     }
 }

@@ -6,10 +6,10 @@ import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTA
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
-import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
+import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
 import {GREY_HEAVY, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90} from "../../utilities/CONSTANTS_COLOR";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
-import {getSettingsTabsSvgIcon} from "../../utilities/svgIcons";
+import {getSettingsTabsSvgIcon, getThemesSvgIcon} from "../../utilities/svgIcons";
 
 type TopRightPanelPropsType = {
     topRightPanelShapeModel: Shape2d_Rectangle, topRightPanelFocusOn: boolean, topRightPanelPadding: number,
@@ -20,7 +20,7 @@ type TopRightPanelPropsType = {
 
     topRightPanelBorderSize: number, topRightPanelBorderRadius: number, topRightPanelBorderWidth: number, topRightPanelBorderHeight: number,
 
-    topRightPanelAction_setTopRightPanelFocusOn: Function, topRightPanelAction_selectSingleSelectionModelItem: Function, topRightPanelAction_mouseHoverOnSingleSelectionModelIndividualItem: Function, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs: Function,
+    topRightPanelAction_setTopRightPanelFocusOn: Function, topRightPanelAction_selectSingleSelectionModelItem: Function, topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: Function,
 
 }
 
@@ -29,7 +29,8 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     let topRightPanelShapeModel: Shape2d_Rectangle = props.topRightPanelShapeModel;
     let settingsTabsStateModel: SingleSelectionModel = props.settingsTabsStateModel;
     let settingsTabsStateModelStringId = settingsTabsStateModel.getStringId();
-    let isMouseHoverSettingsTabs = settingsTabsStateModel.getIsMouseHover();
+    let isMouseHoverSettingsTabs = settingsTabsStateModel.getMouseHover();
+
     let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
         .setBlur(props.topRightPanelFocusOn
                  ? BLUR_LEVEL.NONE
@@ -39,17 +40,17 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     // Tabs
     let settingsTabsDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.settingsTabsHeight, props.topRightPanelPadding, props.topRightPanelPadding);
     let settingsTabs = <div style={settingsTabsDivStyleObject.getStyle()}
-                            onMouseEnter={() => props.topRightPanelAction_requestToSetIsMouseHoversSettingsTabs(true)}
-                            onMouseLeave={() => props.topRightPanelAction_requestToSetIsMouseHoversSettingsTabs(false)}>
+                            onMouseEnter={() => props.topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems(true, settingsTabsStateModelStringId)}
+                            onMouseLeave={() => props.topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems(false, settingsTabsStateModelStringId)}>
         {settingsTabsStateModel.getItems().map((title: string, index: number) =>
         {
             let isThisTabSelected = settingsTabsStateModel.getSelectedItemIndex() === index;
-            let isMouseHoverThisTab = settingsTabsStateModel.getMouseHoveredItemIndex() === index;
+            let mouseHoverThisTab = settingsTabsStateModel.getMouseHoveredItemIndex() === index;
             let isTheFirst = index === 0;
             let isTheLast = index === settingsTabsStateModel.getNumberOfItems() - 1;
             let blurLevel = BLUR_LEVEL.VERY_LIGHT;
             let iconColor = GREY_HEAVY;
-            if (isThisTabSelected || isMouseHoverThisTab)
+            if (isThisTabSelected || mouseHoverThisTab)
             {
                 blurLevel = BLUR_LEVEL.NONE;
                 iconColor = WHITE_TRANSPARENT_90;
@@ -88,32 +89,48 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
             {
                 individualTabDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
             }
-            return (<div key={index} style={individualTabDivStyleObject.getStyle()}
-                         onClick={() => props.topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId)}
-                         onMouseEnter={() => props.topRightPanelAction_mouseHoverOnSingleSelectionModelIndividualItem(index, settingsTabsStateModelStringId)}>
+
+            return <div key={index} style={individualTabDivStyleObject.getStyle()}
+                        onClick={() => props.topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId)}
+                        onMouseEnter={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, settingsTabsStateModelStringId)}>
                 <div style={tabIconWrapperDivStyleObject.getStyle()}>
                     {getSettingsTabsSvgIcon(iconColor, index)}
                 </div>
                 <div style={tabTextWrapperDivStyleObject.getStyle()}>
                     {title}
                 </div>
-            </div>)
+            </div>
         })}
     </div>;
 
     // Settings contents
     // Theme setting content
-    let themesSettingsOptions = props.themesSettingStateModel.getItems();
+    let themesSettingStateModel = props.themesSettingStateModel;
+    let themesSettingStateModelStringId = themesSettingStateModel.getStringId();
+    let themesSettingsOptions = themesSettingStateModel.getItems();
     let themesSettingOptionsSize = props.themesSettingOptionsSize;
     let themesSettingContent = themesSettingsOptions.map((title: string, index: number) =>
     {
+        let isThisOptionSelected = themesSettingStateModel.getSelectedItemIndex() === index;
+        let mouseHoverThisOption = themesSettingStateModel.getMouseHoveredItemIndex() === index;
+        let blurLevel = BLUR_LEVEL.LIGHT;
+        if (isThisOptionSelected || mouseHoverThisOption)
+        {
+            blurLevel = BLUR_LEVEL.NONE;
+        }
+
         let themeSettingOptionDivStyleObject = new StyleObject()
             .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, props.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + props.themesSettingOptionsGap), "40%")
-            // .setBlur(blurLevel)
-            .setBackgroundColor(WHITE_TRANSPARENT_90)
+            .setBlur(blurLevel)
             .addTransition("background-color", TRANSITION_TIME_NORMAL)
             .addTransition("filter", TRANSITION_TIME_NORMAL);
-        return <div key={index} style={themeSettingOptionDivStyleObject.getStyle()}></div>
+
+        return <div key={index} style={themeSettingOptionDivStyleObject.getStyle()}
+                    onClick={() => props.topRightPanelAction_selectSingleSelectionModelItem(index, themesSettingStateModelStringId)}
+                    onMouseEnter={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, themesSettingStateModelStringId)}
+                    onMouseLeave={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(null, themesSettingStateModelStringId)}>
+            {getThemesSvgIcon(index)}
+        </div>
     });
 
 
@@ -129,13 +146,13 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     let panelBorder = <div style={topRightPanelBorderDivStyleObject.getStyle()}/>;
 
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
-    return (<div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
-                 onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
-                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
+    return <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
+                onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
+                onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
         {settingsTabs}
         {themesSettingContent}
         {panelBorder}
-    </div>);
+    </div>;
 };
 
 const mapStateToProps = (store) =>
@@ -166,8 +183,8 @@ const matchDispatchToProps = (dispatch) =>
     return bindActionCreators({
         topRightPanelAction_setTopRightPanelFocusOn: topRightPanelAction_setTopRightPanelFocusOn,
         topRightPanelAction_selectSingleSelectionModelItem: topRightPanelAction_selectSingleSelectionModelItem,
-        topRightPanelAction_mouseHoverOnSingleSelectionModelIndividualItem: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem,
-        topRightPanelAction_requestToSetIsMouseHoversSettingsTabs: topRightPanelAction_requestToSetIsMouseHoversSettingsTabs,
+        topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem,
+        topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems,
     }, dispatch);
 };
 
