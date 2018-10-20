@@ -25,6 +25,7 @@ export const ID = Object.freeze({
      *
      */
     SETTINGS_TABS_ID: "settingsTabs",
+    THEMES_SETTING_ID: "themesSetting",
 
     // Animate IDs
     CENTER_COMPONENT_ANIMATE_LOADING_BAR_WIDTH: "centerComponent_animateLoadingBarWidth",
@@ -42,10 +43,12 @@ export const UTILITY_STRING = Object.freeze({
     CLOSE_PARENTHESIS: ")"
 });
 
-export const SETTINGS_TITLES = Object.freeze({
-    THEME_SETTING: "theme setting",
-    COLOR_SETTING: "color setting",
-    SHAPE_SETTING: "shape setting",
-    VIEW_SETTING: "view setting",
-    PLAYGROUND_OBJECTS_SETTING: "playground objects setting"
-});
+export const SETTINGS_TABS_TITLES = ["theme setting",
+                                     "color setting",
+                                     "shape setting",
+                                     "view setting",
+                                     "playground objects setting"];
+
+export const THEMES_SETTING_TITLES = ["dark",
+                                      "yellow",
+                                      "bright"]

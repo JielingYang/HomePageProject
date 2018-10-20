@@ -20,6 +20,8 @@ type TopRightPanelPropsType = {
     settingsTabsWidth: number,
     settingsTabsHeight: number,
 
+    themesSettingStateModel: SingleSelectionModel,
+
     topRightPanelBorderSize: number,
     topRightPanelBorderRadius: number,
     topRightPanelBorderWidth: number,
@@ -36,16 +38,82 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
 {
     let topRightPanelShapeModel: Shape2d_Rectangle = props.topRightPanelShapeModel;
     let settingsTabsStateModel: SingleSelectionModel = props.settingsTabsStateModel;
-
+    let isMouseHoverSettingsTabs = settingsTabsStateModel.getIsMouseHover();
     let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
         .setBlur(props.topRightPanelFocusOn
                  ? BLUR_LEVEL.NONE
                  : BLUR_LEVEL.MEDIUM)
         .addTransition("filter", TRANSITION_TIME_NORMAL);
 
+    // Tabs
     let settingsTabsDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.settingsTabsHeight, props.topRightPanelPadding, props.topRightPanelPadding);
-    let isMouseHoverSettingsTabs = settingsTabsStateModel.getIsMouseHover();
+    let settingsTabs = <div style={settingsTabsDivStyleObject.getStyle()}
+                            onMouseEnter={() => props.topRightPanelAction_requestToSetIsMouseHoversSettingsTabs(true)}
+                            onMouseLeave={() => props.topRightPanelAction_requestToSetIsMouseHoversSettingsTabs(false)}>
+        {settingsTabsStateModel.getItems().map((title: string, index: number) =>
+        {
+            let isThisTabSelected = settingsTabsStateModel.getSelectedItemIndex() === index;
+            let isMouseHoverThisTab = settingsTabsStateModel.getMouseHoveredItemIndex() === index;
+            let isTheFirst = index === 0;
+            let isTheLast = index === settingsTabsStateModel.getNumberOfItems() - 1;
+            let blurLevel = BLUR_LEVEL.VERY_LIGHT;
+            let iconColor = GREY_HEAVY;
+            if (isThisTabSelected || isMouseHoverThisTab)
+            {
+                blurLevel = BLUR_LEVEL.NONE;
+                iconColor = WHITE_TRANSPARENT_90;
+            }
+            else if (isMouseHoverSettingsTabs)
+            {
+                blurLevel = BLUR_LEVEL.EXTREMELY_LIGHT;
+                iconColor = WHITE_TRANSPARENT_50;
+            }
 
+            let individualTabDivStyleObject = new StyleObject()
+                .setBasics(props.settingsTabsWidth, props.settingsTabsHeight, index * props.settingsTabsWidth, 0)
+                .setDisplay("flex")
+                .setFlexDirection("column")
+                .setBlur(blurLevel)
+                .addTransition("background-color", TRANSITION_TIME_NORMAL)
+                .addTransition("filter", TRANSITION_TIME_NORMAL);
+            let tabIconWrapperDivStyleObject = new StyleObject()
+                .setHeight(props.settingsTabsHeight * 0.4)
+                .setPointerEvents("none")
+                .setMargin("auto")
+                .setBlur(blurLevel)
+                .addTransition("filter", TRANSITION_TIME_NORMAL);
+            let tabTextWrapperDivStyleObject = new StyleObject()
+                .setPointerEvents("none")
+                .setMargin("auto")
+                .setBlur(blurLevel)
+                .setFontColor(iconColor)
+                .addTransition("filter", TRANSITION_TIME_NORMAL)
+                .addTransition("color", TRANSITION_TIME_NORMAL);
+            if (isTheFirst)
+            {
+                individualTabDivStyleObject.setBorderRadius(props.topRightPanelBorderRadius, 0, 0, 0);
+            }
+            else if (isTheLast)
+            {
+                individualTabDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
+            }
+            return (<div key={index} style={individualTabDivStyleObject.getStyle()}
+                         onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}
+                         onMouseEnter={() => props.topRightPanelAction_requestToMouseHoversIndividualSettingsTab(index)}>
+                <div style={tabIconWrapperDivStyleObject.getStyle()}>
+                    {getSettingsTabsSvgIcon(iconColor, index)}
+                </div>
+                <div style={tabTextWrapperDivStyleObject.getStyle()}>
+                    {title}
+                </div>
+            </div>)
+        })}
+    </div>;
+
+    // Settings contents
+    
+
+    // Panel border
     let topRightPanelBorderDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.topRightPanelBorderHeight, props.topRightPanelPadding, props.topRightPanelPadding)
         .setBorder(props.topRightPanelBorderSize, "solid", GREY_HEAVY)
         .setBorderRadius(props.topRightPanelBorderRadius)
@@ -54,85 +122,15 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                  ? BLUR_LEVEL.EXTREMELY_LIGHT
                  : BLUR_LEVEL.VERY_LIGHT)
         .addTransition("filter", TRANSITION_TIME_NORMAL);
+    let panelBorder = <div style={topRightPanelBorderDivStyleObject.getStyle()}/>;
 
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
-    return (
-        <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
-             onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
-             onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
-
-            {/* Tabs */}
-            <div style={settingsTabsDivStyleObject.getStyle()}
-                 onMouseEnter={() => props.topRightPanelAction_requestToSetIsMouseHoversSettingsTabs(true)}
-                 onMouseLeave={() => props.topRightPanelAction_requestToSetIsMouseHoversSettingsTabs(false)}>
-                {settingsTabsStateModel.getItems().map((title: string, index: number) =>
-                {
-                    let isThisTabSelected = settingsTabsStateModel.getSelectedItemIndex() === index;
-                    let isMouseHoverThisTab = settingsTabsStateModel.getMouseHoveredItemIndex() === index;
-                    let isTheFirst = index === 0;
-                    let isTheLast = index === settingsTabsStateModel.getNumberOfItems() - 1;
-                    let blurLevel = BLUR_LEVEL.VERY_LIGHT;
-                    let iconColor = GREY_HEAVY;
-
-                    if(isThisTabSelected || isMouseHoverThisTab)
-                    {
-                        blurLevel = BLUR_LEVEL.NONE;
-                        iconColor = WHITE_TRANSPARENT_90;
-                    }
-                    else if(isMouseHoverSettingsTabs)
-                    {
-                        blurLevel = BLUR_LEVEL.EXTREMELY_LIGHT;
-                        iconColor = WHITE_TRANSPARENT_50;
-                    }
-
-                    let individualTabDivStyleObject = new StyleObject()
-                        .setBasics(props.settingsTabsWidth, props.settingsTabsHeight, index * props.settingsTabsWidth, 0)
-                        .setDisplay("flex")
-                        .setFlexDirection("column")
-                        .setBlur(blurLevel)
-                        .addTransition("background-color", TRANSITION_TIME_NORMAL)
-                        .addTransition("filter", TRANSITION_TIME_NORMAL);
-                    let tabIconWrapperDivStyleObject = new StyleObject()
-                        .setHeight(props.settingsTabsHeight * 0.4)
-                        .setPointerEvents("none")
-                        .setMargin("auto")
-                        .setBlur(blurLevel)
-                        .addTransition("filter", TRANSITION_TIME_NORMAL);
-                    let tabTextWrapperDivStyleObject = new StyleObject()
-                        .setPointerEvents("none")
-                        .setMargin("auto")
-                        .setBlur(blurLevel)
-                        .setFontColor(iconColor)
-                        .addTransition("filter", TRANSITION_TIME_NORMAL)
-                        .addTransition("color", TRANSITION_TIME_NORMAL);
-
-                    if (isTheFirst)
-                    {
-                        individualTabDivStyleObject.setBorderRadius(props.topRightPanelBorderRadius, 0, 0, 0);
-                    }
-                    else if (isTheLast)
-                    {
-                        individualTabDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
-                    }
-
-                    return (
-                        <div key={index} style={individualTabDivStyleObject.getStyle()}
-                             onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}
-                             onMouseEnter={() => props.topRightPanelAction_requestToMouseHoversIndividualSettingsTab(index)}>
-                            <div style={tabIconWrapperDivStyleObject.getStyle()}>
-                                {getSettingsTabsSvgIcon(iconColor, index)}
-                            </div>
-                            <div style={tabTextWrapperDivStyleObject.getStyle()}>
-                                {title}
-                            </div>
-                        </div>)
-                })}
-            </div>
-
-            {/* Panel border */}
-            <div style={topRightPanelBorderDivStyleObject.getStyle()}/>
-
-        </div>);
+    return (<div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
+                 onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
+                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
+        {settingsTabs}
+        {panelBorder}
+    </div>);
 };
 
 const mapStateToProps = (store) =>
@@ -145,6 +143,8 @@ const mapStateToProps = (store) =>
         settingsTabsStateModel: store.topRightPanelState.settingsTabsStateModel,
         settingsTabsWidth: store.topRightPanelState.settingsTabsWidth,
         settingsTabsHeight: store.topRightPanelState.settingsTabsHeight,
+
+        themesSettingStateModel: store.topRightPanelState.themesSettingStateModel,
 
         topRightPanelBorderSize: store.topRightPanelState.topRightPanelBorderSize,
         topRightPanelBorderRadius: store.topRightPanelState.topRightPanelBorderRadius,

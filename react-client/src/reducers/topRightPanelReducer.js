@@ -1,4 +1,4 @@
-import {ID, SETTINGS_TITLES} from "../utilities/CONSTANTS_STRING";
+import {ID, SETTINGS_TABS_TITLES, THEMES_SETTING_TITLES} from "../utilities/CONSTANTS_STRING";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {deepCopy} from "../utilities/UTILITIES";
@@ -16,6 +16,8 @@ export type topRightPanelStateType = {
     settingsTabsWidth: number,
     settingsTabsHeight: number,
 
+    themesSettingStateModel: SingleSelectionModel,
+
     topRightPanelBorderSize: number,
     topRightPanelBorderRadius: number,
     topRightPanelBorderWidth: number,
@@ -27,9 +29,11 @@ const topRightPanelDefaultState: topRightPanelStateType = {
     topRightPanelFocusOn: false,
     topRightPanelPadding: 10,
 
-    settingsTabsStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.SETTINGS_TABS_ID, Object.values(SETTINGS_TITLES)),
+    settingsTabsStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.SETTINGS_TABS_ID, SETTINGS_TABS_TITLES),
     settingsTabsWidth: 0,
     settingsTabsHeight: 0,
+
+    themesSettingStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.THEMES_SETTING_ID, THEMES_SETTING_TITLES),
 
     topRightPanelBorderSize: 0,
     topRightPanelBorderRadius: 0,
