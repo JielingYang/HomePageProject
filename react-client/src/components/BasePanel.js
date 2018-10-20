@@ -29,7 +29,6 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelComponentStyleObject = new StyleObject().setBasics(basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
                                                          .setBackgroundColor(BLACK_TRANSPARENT_00)
                                                          .setTransformStyle("preserve-3d")
-                                                         .setBackfaceVisibility("hidden")
                                                          .addTranslation(basePanelTranslatePercentageX, basePanelTranslatePercentageY, 0)
                                                          .addRotation(basePanelRotationX, basePanelRotationY, 0);
 

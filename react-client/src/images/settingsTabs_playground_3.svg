@@ -1,5 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 512 512">
-    <polygon points="26.624,142.166 26.624,409.6 231.424,512 231.424,244.564"/>
-    <polygon points="256,0 54.102,100.95 256,201.898 457.898,100.95"/>
-    <polygon points="280.576,244.564 280.576,512 485.376,409.6 485.376,142.166"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="24" height="24">
+    <defs>
+        <path d="M33.28 512L289.28 640L289.28 305.71L33.28 177.71L33.28 512Z" id="aCbfEqEbV"></path>
+        <path d="M67.63 126.19L320 252.37L572.37 126.19L320 0L67.63 126.19Z" id="b4F8KBlxQ1"></path>
+        <path d="M350.72 640L606.72 512L606.72 177.71L350.72 305.71L350.72 640Z" id="a1bTCcUwqo"></path>
+    </defs>
+    <g>
+        <g>
+            <use xlink:href="#aCbfEqEbV" opacity="1" fill="#000000" fill-opacity="1"></use>
+            <g>
+                <use xlink:href="#aCbfEqEbV" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1"
+                     stroke-opacity="0"></use>
+            </g>
+        </g>
+        <g>
+            <use xlink:href="#b4F8KBlxQ1" opacity="1" fill="#000000" fill-opacity="1"></use>
+            <g>
+                <use xlink:href="#b4F8KBlxQ1" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1"
+                     stroke-opacity="0"></use>
+            </g>
+        </g>
+        <g>
+            <use xlink:href="#a1bTCcUwqo" opacity="1" fill="#000000" fill-opacity="1"></use>
+            <g>
+                <use xlink:href="#a1bTCcUwqo" opacity="1" fill-opacity="0" stroke="#000000" stroke-width="1"
+                     stroke-opacity="0"></use>
+            </g>
+        </g>
+    </g>
 </svg>

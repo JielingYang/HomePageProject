@@ -10,17 +10,20 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
     return (dispatch, getState) =>
     {
         let topRightPanelState = getState().topRightPanelState;
+        let basePanelUnitLength = getState().basePanelState.basePanelShapeModel.getUnitLength();
         let topRightPanelShapeModel = topRightPanelState.topRightPanelShapeModel;
         let numberOfSettingsTabs = topRightPanelState.settingsTabsStateModel.getNumberOfItems();
         let topRightPanelPadding = topRightPanelState.topRightPanelPadding;
 
         let topRightPanelBorderWidth = topRightPanelShapeModel.getWidth() - 2 * topRightPanelPadding;
         let topRightPanelBorderHeight = topRightPanelShapeModel.getHeight() - 2 * topRightPanelPadding;
+        let topRightPanelBorderSize = basePanelUnitLength * 0.5;
+        let topRightPanelBorderRadius = basePanelUnitLength * 3;
 
         let settingsTabsWidth = topRightPanelBorderWidth / numberOfSettingsTabs;
-        let settingsTabsHeight = topRightPanelShapeModel.getYUnitLength() * 15;
+        let settingsTabsHeight = topRightPanelShapeModel.getYUnitLength() * 10;
 
-        dispatch(topRightPanelAction_updateTopRightPanelContentLayoutData(topRightPanelBorderWidth, topRightPanelBorderHeight, settingsTabsWidth, settingsTabsHeight));
+        dispatch(topRightPanelAction_updateTopRightPanelContentLayoutData(topRightPanelBorderWidth, topRightPanelBorderHeight, settingsTabsWidth, settingsTabsHeight, topRightPanelBorderSize, topRightPanelBorderRadius));
     }
 };
 
@@ -99,14 +102,16 @@ export const topRightPanelAction_setTopRightPanelFocusOn = (focusOn: boolean) =>
     };
 };
 
-const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelBorderWidth: number, topRightPanelBorderHeight: number, settingsTabsWidth: number, settingsTabsHeight: number) =>
+const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelBorderWidth: number, topRightPanelBorderHeight: number, settingsTabsWidth: number, settingsTabsHeight: number, topRightPanelBorderSize: number, topRightPanelBorderRadius: number) =>
 {
     return {
         type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA,
         topRightPanelBorderWidth: topRightPanelBorderWidth,
         topRightPanelBorderHeight: topRightPanelBorderHeight,
         settingsTabsWidth: settingsTabsWidth,
-        settingsTabsHeight: settingsTabsHeight
+        settingsTabsHeight: settingsTabsHeight,
+        topRightPanelBorderSize: topRightPanelBorderSize,
+        topRightPanelBorderRadius: topRightPanelBorderRadius
     };
 };
 

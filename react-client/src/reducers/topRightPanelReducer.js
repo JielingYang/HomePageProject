@@ -31,8 +31,8 @@ const topRightPanelDefaultState: topRightPanelStateType = {
     settingsTabsWidth: 0,
     settingsTabsHeight: 0,
 
-    topRightPanelBorderSize: 5,
-    topRightPanelBorderRadius: 15,
+    topRightPanelBorderSize: 0,
+    topRightPanelBorderRadius: 0,
     topRightPanelBorderWidth: 0,
     topRightPanelBorderHeight: 0,
 };
@@ -63,6 +63,8 @@ const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: to
     let nextState = deepCopy(state);
     nextState.topRightPanelBorderWidth = action.topRightPanelBorderWidth;
     nextState.topRightPanelBorderHeight = action.topRightPanelBorderHeight;
+    nextState.topRightPanelBorderSize = action.topRightPanelBorderSize;
+    nextState.topRightPanelBorderRadius = action.topRightPanelBorderRadius;
     nextState.settingsTabsWidth = action.settingsTabsWidth;
     nextState.settingsTabsHeight = action.settingsTabsHeight;
     return nextState;

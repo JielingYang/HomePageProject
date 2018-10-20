@@ -11,7 +11,6 @@ export const TIMING_KEYWORDS = Object.freeze({
 
 export const GENERAL_TIMING = Object.freeze({
     INITIAL: 0 // The earliest time that any animate can start with
-
 });
 
 export const CENTER_COMPONENT_TIMING = Object.freeze({

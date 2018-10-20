@@ -2,7 +2,10 @@ export default class StyleObject
 {
     constructor()
     {
-        this.style = {};
+        // Default styles
+        this.style = {
+            boxSizing: "border-box",
+        };
     }
 
     getStyle(): Object
@@ -17,8 +20,7 @@ export default class StyleObject
             width: width,
             height: height,
             left: left,
-            top: top,
-            boxSizing: "border-box",
+            top: top
         };
         return this;
     }

@@ -7,9 +7,9 @@ import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_requestToMouseHoversIndividualSettingsTab, topRightPanelAction_requestToSelectSettingsTab, topRightPanelAction_requestToSetIsMouseHoversSettingsTabs, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
-import {GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
+import {GREY_HEAVY, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90} from "../../utilities/CONSTANTS_COLOR";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
-import {settingsTabsSvgIcons} from "../../utilities/svgIcons";
+import {getSettingsTabsSvgIcon} from "../../utilities/svgIcons";
 
 type TopRightPanelPropsType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
@@ -72,14 +72,17 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                     let isTheFirst = index === 0;
                     let isTheLast = index === settingsTabsStateModel.getNumberOfItems() - 1;
                     let blurLevel = BLUR_LEVEL.VERY_LIGHT;
+                    let iconColor = GREY_HEAVY;
 
                     if(isThisTabSelected || isMouseHoverThisTab)
                     {
                         blurLevel = BLUR_LEVEL.NONE;
+                        iconColor = WHITE_TRANSPARENT_90;
                     }
                     else if(isMouseHoverSettingsTabs)
                     {
                         blurLevel = BLUR_LEVEL.EXTREMELY_LIGHT;
+                        iconColor = WHITE_TRANSPARENT_50;
                     }
 
                     let individualTabDivStyleObject = new StyleObject().setBasics(props.settingsTabsWidth, props.settingsTabsHeight, index * props.settingsTabsWidth, 0)
@@ -87,7 +90,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                         .setBlur(blurLevel)
                         .addTransition("background-color", TRANSITION_TIME_NORMAL)
                         .addTransition("filter", TRANSITION_TIME_NORMAL);
-                    let iconWrapperDivStyleObject = new StyleObject().setWidth(props.settingsTabsHeight * 0.8).setHeight(props.settingsTabsHeight * 0.8)
+                    let iconWrapperDivStyleObject = new StyleObject().setWidth(props.settingsTabsHeight * 0.5).setHeight(props.settingsTabsHeight * 0.5)
                         .setMargin("auto")
                         .setBlur(blurLevel)
                         .addTransition("filter", TRANSITION_TIME_NORMAL);
@@ -101,14 +104,12 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                         individualTabDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
                     }
 
-                    let icon = settingsTabsSvgIcons[index];
-
                     return (
                         <div key={index} style={individualTabDivStyleObject.getStyle()}
                              onClick={() => props.topRightPanelAction_requestToSelectSettingsTab(index)}
                              onMouseEnter={() => props.topRightPanelAction_requestToMouseHoversIndividualSettingsTab(index)}>
                             <div style={iconWrapperDivStyleObject.getStyle()}>
-                                {icon}
+                                {getSettingsTabsSvgIcon(iconColor, index)}
                             </div>
                         </div>)
                 })}
