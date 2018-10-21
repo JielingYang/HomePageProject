@@ -35,6 +35,12 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     let settingsTabsStateModelStringId = settingsTabsStateModel.getStringId();
     let isMouseHoverSettingsTabs = settingsTabsStateModel.getMouseHover();
 
+    let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
+        .setBlur(props.topRightPanelFocusOn
+                 ? BLUR_LEVEL.NONE
+                 : BLUR_LEVEL.MEDIUM)
+        .addTransition("filter", TRANSITION_TIME_NORMAL);
+
     // Panel border
     let topRightPanelBorderDivStyleObject = new StyleObject()
         .setBasics(props.topRightPanelBorderWidth, props.topRightPanelBorderHeight, props.topRightPanelPadding, props.topRightPanelPadding)
@@ -81,12 +87,14 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                 .addTransition("background-color", TRANSITION_TIME_NORMAL)
                 .addTransition("filter", TRANSITION_TIME_NORMAL);
             let tabIconWrapperDivStyleObject = new StyleObject()
+                .setPosition("relative")
                 .setHeight(props.settingsTabsHeight * 0.4)
                 .setPointerEvents("none")
                 .setMargin("auto")
                 .setBlur(blurLevel)
                 .addTransition("filter", TRANSITION_TIME_NORMAL);
             let tabTextWrapperDivStyleObject = new StyleObject()
+                .setPosition("relative")
                 .setPointerEvents("none")
                 .setMargin("auto")
                 .setBlur(blurLevel)
@@ -121,6 +129,12 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     let themesSettingStateModelStringId = themesSettingStateModel.getStringId();
     let themesSettingsOptions = themesSettingStateModel.getItems();
     let themesSettingOptionsSize = props.themesSettingOptionsSize;
+
+    let themesTitleDivStyleObject = new StyleObject()
+        .setBasics(topRightPanelShapeModel.getWidth(), 0, 0, "35%")
+        .setTextAlign("center");
+    let themesTitle = <div style={themesTitleDivStyleObject.getStyle()}>AAAAAAAAAAAAAAAAAAA</div>;
+
     let themesSettingContent = themesSettingsOptions.map((title: string, index: number) =>
     {
         let isThisOptionSelected = themesSettingStateModel.getSelectedItemIndex() === index;
@@ -158,13 +172,17 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
             .setBasics("80%", "80%", "10%", "0%")
             .setBackgroundColor(lightBulbEffectColor)
             .setBlur(BLUR_LEVEL.HEAVY)
+            .setPointerEvents("none")
             .addTransition("background-color", TRANSITION_TIME_NORMAL);
 
         return <div key={index} style={themeSettingOptionDivStyleObject.getStyle()}
                     onClick={() =>
                     {
-                        props.topRightPanelAction_selectSingleSelectionModelItem(index, themesSettingStateModelStringId);
-                        props.appAction_changeAppTheme(index);
+                        if (index !== INDEX.THEME_BRIGHT) // TODO - bright theme not available for now
+                        {
+                            props.topRightPanelAction_selectSingleSelectionModelItem(index, themesSettingStateModelStringId);
+                            props.appAction_changeAppTheme(index);
+                        }
                     }}
                     onMouseEnter={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, themesSettingStateModelStringId)}
                     onMouseLeave={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(null, themesSettingStateModelStringId)}>
@@ -173,17 +191,12 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         </div>
     });
 
-    let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
-        .setBlur(props.topRightPanelFocusOn
-                 ? BLUR_LEVEL.NONE
-                 : BLUR_LEVEL.MEDIUM)
-        .addTransition("filter", TRANSITION_TIME_NORMAL);
-
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
                 onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
         {settingsTabs}
+        {themesTitle}
         {themesSettingContent}
         {panelBorder}
     </div>;

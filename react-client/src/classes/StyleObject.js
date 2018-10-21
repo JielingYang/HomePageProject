@@ -6,6 +6,7 @@ export default class StyleObject
     {
         // Default styles
         this.style = {
+            position: "absolute",
             boxSizing: "border-box",
             fontFamily: "sans-serif",
             fontSize: "0.6vw",
@@ -20,13 +21,22 @@ export default class StyleObject
 
     setBasics(width: number | string, height: number | string, left: number | string, top: number | string): StyleObject
     {
-        this.style = {
-            position: "absolute",
-            width: width,
-            height: height,
-            left: left,
-            top: top
-        };
+        this.style.width = width;
+        this.style.height = height;
+        this.style.left = left;
+        this.style.top = top;
+        return this;
+    }
+
+    setPosition(position: string)
+    {
+        this.style.position = position;
+        return this;
+    }
+
+    setTextAlign(textAlign: string)
+    {
+        this.style.textAlign = textAlign;
         return this;
     }
 

@@ -81,7 +81,7 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
         nextState.iconColorSelectedPrimary = WHITE_TRANSPARENT_90;
         nextState.iconColorSelectedSecondary = WHITE_TRANSPARENT_50;
         nextState.iconColorDarkThemeSelected = GREY_LIGHT;
-        nextState.iconColorYellowThemeSelected = YELLOW_DARK_1;
+        nextState.iconColorYellowThemeSelected = CONSOLE_FONT_YELLOW;
         nextState.iconColorBrightThemeSelected = WHITE_TRANSPARENT_90;
         nextState.lightUpEffectColor = YELLOW_LIGHT_1;
     }
@@ -91,11 +91,11 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
         nextState.appFontColor = GREY_DARK;
         nextState.mainPanelsBackgroundColor = BLACK_TRANSPARENT_00;
         nextState.mainPanelsBorderColor = GREY_DARK;
-        nextState.iconColorDefault = GREY_DARK;
+        nextState.iconColorDefault = GREY_HEAVY;
         nextState.iconColorSelectedPrimary = BLACK_TRANSPARENT_90;
         nextState.iconColorSelectedSecondary = BLACK_TRANSPARENT_50;
         nextState.iconColorDarkThemeSelected = GREY_DARK;
-        nextState.iconColorYellowThemeSelected = YELLOW_DARK_2;
+        nextState.iconColorYellowThemeSelected = YELLOW_DARK_1;
         nextState.iconColorBrightThemeSelected = WHITE;
         nextState.lightUpEffectColor = YELLOW_LIGHT_1;
     }
