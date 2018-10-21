@@ -31,7 +31,13 @@ export const GREY_MEDIUM = "rgb(145,145,145)";
 export const GREY_HEAVY = "rgb(90,90,90)";
 export const GREY_DARK = "rgb(35,35,35)";
 
-export const YELLOW_LIGHT = "rgb(255,255,200)";
+export const YELLOW = "rgb(255,255,0)";
+export const YELLOW_LIGHT_1 = "rgb(255,255,200)";
+export const YELLOW_LIGHT_2 = "rgb(255,255,150)";
+export const YELLOW_DARK_1 = "rgb(224,138,30)";
+export const YELLOW_DARK_2 = "rgb(225,164,0)";
+export const YELLOW_DARK_3 = "rgb(202,105,36)";
+export const YELLOW_DARK_3_TRANSPARENT_50 = "rgba(202,105,36,0.5)";
 
 export const CONSOLE_FONT_RED = "rgb(230,25,75)";
 export const CONSOLE_FONT_GREEN = "rgb(60,180,75)";

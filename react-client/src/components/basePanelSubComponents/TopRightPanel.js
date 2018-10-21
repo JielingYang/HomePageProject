@@ -35,11 +35,19 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     let settingsTabsStateModelStringId = settingsTabsStateModel.getStringId();
     let isMouseHoverSettingsTabs = settingsTabsStateModel.getMouseHover();
 
-    let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
-        .setBlur(props.topRightPanelFocusOn
-                 ? BLUR_LEVEL.NONE
-                 : BLUR_LEVEL.MEDIUM)
+    // Panel border
+    let topRightPanelBorderDivStyleObject = new StyleObject()
+        .setBasics(props.topRightPanelBorderWidth, props.topRightPanelBorderHeight, props.topRightPanelPadding, props.topRightPanelPadding)
+        .setBackgroundColor(props.appState.mainPanelsBackgroundColor)
+        .setBorder(props.topRightPanelBorderSize, "solid", props.appState.mainPanelsBorderColor)
+        .setBorderRadius(props.topRightPanelBorderRadius)
+        .setPointerEvents("none")
+        .setBlur(isMouseHoverSettingsTabs
+                 ? BLUR_LEVEL.EXTREMELY_LIGHT
+                 : BLUR_LEVEL.VERY_LIGHT)
         .addTransition("filter", TRANSITION_TIME_NORMAL);
+
+    let panelBorder = <div style={topRightPanelBorderDivStyleObject.getStyle()}/>;
 
     // Tabs
     let settingsTabsDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.settingsTabsHeight, props.topRightPanelPadding, props.topRightPanelPadding);
@@ -124,10 +132,18 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         if (isThisOptionSelected || mouseHoverThisOption)
         {
             blurLevel = BLUR_LEVEL.NONE;
-            iconColor = null; // So each icon can use its original color
             scale = 1;
-            if (index === INDEX.THEME_BRIGHT)
+            if (index === INDEX.THEME_DARK)
             {
+                iconColor = props.appState.iconColorDarkThemeSelected;
+            }
+            else if (index === INDEX.THEME_YELLOW)
+            {
+                iconColor = props.appState.iconColorYellowThemeSelected;
+            }
+            else if (index === INDEX.THEME_BRIGHT)
+            {
+                iconColor = props.appState.iconColorBrightThemeSelected;
                 lightBulbEffectColor = props.appState.lightUpEffectColor;
             }
         }
@@ -157,20 +173,11 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         </div>
     });
 
-
-    // Panel border
-    let topRightPanelBorderDivStyleObject = new StyleObject()
-        .setBasics(props.topRightPanelBorderWidth, props.topRightPanelBorderHeight, props.topRightPanelPadding, props.topRightPanelPadding)
-        .setBackgroundColor(props.appState.mainPanelsBackgroundColor)
-        .setBorder(props.topRightPanelBorderSize, "solid", props.appState.mainPanelsBorderColor)
-        .setBorderRadius(props.topRightPanelBorderRadius)
-        .setPointerEvents("none")
-        .setBlur(isMouseHoverSettingsTabs
-                 ? BLUR_LEVEL.EXTREMELY_LIGHT
-                 : BLUR_LEVEL.VERY_LIGHT)
+    let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
+        .setBlur(props.topRightPanelFocusOn
+                 ? BLUR_LEVEL.NONE
+                 : BLUR_LEVEL.MEDIUM)
         .addTransition("filter", TRANSITION_TIME_NORMAL);
-
-    let panelBorder = <div style={topRightPanelBorderDivStyleObject.getStyle()}/>;
 
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
