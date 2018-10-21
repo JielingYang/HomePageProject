@@ -4,13 +4,14 @@ import BasePanel from "./BasePanel";
 import {LEVEL0_CONSOLE_FONT, LEVEL0_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 import {bindActionCreators} from "redux";
 import {appAction_requestToUpdateAppSize, appAction_requestToUpdateAppMouseMoveRelatedData} from "../actionCreators/appActions";
-import {APP_BACKGROUND_COLOR} from "../utilities/CONSTANTS_COLOR";
 import StyleObject from "../classes/StyleObject";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData} from "../actionCreators/topRightPanelActions";
+import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
 
 type AppPropsType = {
     appShapeModel: Shape2d_Rectangle,
+    appBackgroundColor: string,
 
     appAction_requestToUpdateAppSize: Function,
     appAction_requestToUpdateAppMouseMoveRelatedData: Function,
@@ -50,8 +51,11 @@ class App extends Component<AppPropsType>
     render()
     {
         let appComponentShapeModel: Shape2d_Rectangle = this.props.appShapeModel;
-        let appComponentStyleObject: StyleObject = new StyleObject().setBasics(appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY())
-            .setBackgroundColor(APP_BACKGROUND_COLOR).setPerspective(100, undefined);
+        let appComponentStyleObject: StyleObject = new StyleObject()
+            .setBasics(appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY())
+            .setBackgroundColor(this.props.appBackgroundColor)
+            .setPerspective(100, undefined)
+            .addTransition("background-color", TRANSITION_TIME_NORMAL);
 
         console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
         return (
@@ -64,7 +68,8 @@ class App extends Component<AppPropsType>
 const mapStateToProps = (store) =>
 {
     return {
-        appShapeModel: store.appState.appShapeModel
+        appShapeModel: store.appState.appShapeModel,
+        appBackgroundColor: store.appState.appBackgroundColor,
     };
 };
 

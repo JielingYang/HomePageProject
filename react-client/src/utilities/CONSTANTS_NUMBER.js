@@ -6,3 +6,15 @@ export const BLUR_LEVEL = Object.freeze({
     MEDIUM: 12,
     HEAVY: 18
 });
+
+export const INDEX = Object.freeze({
+    SETTINGS_TABS_THEME: 0,
+    SETTINGS_TABS_COLOR: 1,
+    SETTINGS_TABS_SHAPE: 2,
+    SETTINGS_TABS_VIEW: 3,
+    SETTINGS_TABS_PLAYGROUND: 4,
+
+    THEME_DARK: 0,
+    THEME_YELLOW: 1,
+    THEME_BRIGHT: 2,
+});

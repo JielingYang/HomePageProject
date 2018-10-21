@@ -6,6 +6,7 @@ import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData, topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import {bottomLeftPanelAction_updateBottomLeftPanelPosition, bottomLeftPanelAction_updateBottomLeftPanelSize} from "./bottomLeftPanelActions";
+import {INDEX} from "../utilities/CONSTANTS_NUMBER";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -88,7 +89,8 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
 export const APP_ACTION_TYPE = Object.freeze({
     APP_ACTION_UPDATE_APP_SIZE: "APP_ACTION_UPDATE_APP_SIZE",
     APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP: "APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP",
-    APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP: "APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP"
+    APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP: "APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP",
+    APP_ACTION_CHANGE_APP_THEME: "APP_ACTION_CHANGE_APP_THEME"
 });
 
 export const appAction_updateAppMaximumRefreshingTimeGap = (timeGap: number) =>
@@ -114,4 +116,12 @@ const appAction_updateAppMouseMoveEventTimeStamp = (mouseMoveEventTimeStamp: num
         type: APP_ACTION_TYPE.APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP,
         mouseMoveEventTimeStamp: mouseMoveEventTimeStamp
     };
+};
+
+export const appAction_changeAppTheme = (themeIndex: number) =>
+{
+    return {
+        type: APP_ACTION_TYPE.APP_ACTION_CHANGE_APP_THEME,
+        themeIndex: themeIndex,
+    }
 };
