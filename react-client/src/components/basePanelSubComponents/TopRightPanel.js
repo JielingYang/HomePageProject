@@ -7,7 +7,7 @@ import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
-import {GREY_HEAVY, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90} from "../../utilities/CONSTANTS_COLOR";
+import {GREY_HEAVY, WHITE_TRANSPARENT_00, WHITE_TRANSPARENT_20, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90, YELLOW_LIGHT} from "../../utilities/CONSTANTS_COLOR";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 import {getSettingsTabsSvgIcon, getThemesSvgIcon} from "../../utilities/svgIcons";
 
@@ -114,22 +114,38 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         let isThisOptionSelected = themesSettingStateModel.getSelectedItemIndex() === index;
         let mouseHoverThisOption = themesSettingStateModel.getMouseHoveredItemIndex() === index;
         let blurLevel = BLUR_LEVEL.LIGHT;
+        let iconColor = WHITE_TRANSPARENT_20;
+        let lightBulbEffectColor = WHITE_TRANSPARENT_00;
+        let scale = 0.8;
         if (isThisOptionSelected || mouseHoverThisOption)
         {
             blurLevel = BLUR_LEVEL.NONE;
+            iconColor = null; // So each icon can use its original color
+            scale = 1;
+            if (index === 2)
+            {
+                lightBulbEffectColor = YELLOW_LIGHT;
+            }
         }
 
         let themeSettingOptionDivStyleObject = new StyleObject()
-            .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, props.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + props.themesSettingOptionsGap), "40%")
+            .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, props.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + props.themesSettingOptionsGap), "45%")
             .setBlur(blurLevel)
-            .addTransition("background-color", TRANSITION_TIME_NORMAL)
-            .addTransition("filter", TRANSITION_TIME_NORMAL);
+            .addScale(scale, scale)
+            .addTransition("filter", TRANSITION_TIME_NORMAL)
+            .addTransition("transform", TRANSITION_TIME_NORMAL);
+        let lightBulbEffectStyleObject = new StyleObject()
+            .setBasics("80%", "80%", "10%", "0%")
+            .setBackgroundColor(lightBulbEffectColor)
+            .setBlur(BLUR_LEVEL.HEAVY)
+            .addTransition("background-color", TRANSITION_TIME_NORMAL);
 
         return <div key={index} style={themeSettingOptionDivStyleObject.getStyle()}
                     onClick={() => props.topRightPanelAction_selectSingleSelectionModelItem(index, themesSettingStateModelStringId)}
                     onMouseEnter={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, themesSettingStateModelStringId)}
                     onMouseLeave={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(null, themesSettingStateModelStringId)}>
-            {getThemesSvgIcon(index)}
+            <div style={lightBulbEffectStyleObject.getStyle()}/>
+            {getThemesSvgIcon(iconColor, index)}
         </div>
     });
 
@@ -143,6 +159,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                  ? BLUR_LEVEL.EXTREMELY_LIGHT
                  : BLUR_LEVEL.VERY_LIGHT)
         .addTransition("filter", TRANSITION_TIME_NORMAL);
+
     let panelBorder = <div style={topRightPanelBorderDivStyleObject.getStyle()}/>;
 
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);

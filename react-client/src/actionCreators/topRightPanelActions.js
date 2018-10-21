@@ -24,8 +24,8 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
         let settingsTabsWidth = topRightPanelBorderWidth / numberOfSettingsTabs;
         let settingsTabsHeight = topRightPanelShapeModel.getYUnitLength() * 13;
 
-        let themesSettingOptionsSize = basePanelUnitLength * 8;
-        let themesSettingOptionsGap = themesSettingOptionsSize / 2;
+        let themesSettingOptionsSize = basePanelUnitLength * 5;
+        let themesSettingOptionsGap = themesSettingOptionsSize / 1.2;
         let themesSettingOptionsStartingX = (topRightPanelShapeModel.getWidth() - numberOfThemes * themesSettingOptionsSize - (numberOfThemes - 1) * themesSettingOptionsGap) / 2;
 
         dispatch(topRightPanelAction_updateTopRightPanelContentLayoutData(topRightPanelBorderWidth, topRightPanelBorderHeight, settingsTabsWidth, settingsTabsHeight, topRightPanelBorderSize, topRightPanelBorderRadius, themesSettingOptionsSize, themesSettingOptionsGap, themesSettingOptionsStartingX));

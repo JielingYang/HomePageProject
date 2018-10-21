@@ -31,6 +31,8 @@ export const GREY_MEDIUM = "rgb(145,145,145)";
 export const GREY_HEAVY = "rgb(90,90,90)";
 export const GREY_DARK = "rgb(35,35,35)";
 
+export const YELLOW_LIGHT = "rgb(255,255,200)";
+
 export const CONSOLE_FONT_RED = "rgb(230,25,75)";
 export const CONSOLE_FONT_GREEN = "rgb(60,180,75)";
 export const CONSOLE_FONT_YELLOW = "rgb(255,225,25)";

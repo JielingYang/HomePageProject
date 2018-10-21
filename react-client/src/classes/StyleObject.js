@@ -64,6 +64,12 @@ export default class StyleObject
         return this;
     }
 
+    setTransformOrigin(transformOrigin: string)
+    {
+        this.style.transformOrigin = transformOrigin;
+        return this;
+    }
+
     setBackfaceVisibility(visibility: string)
     {
         this.style.backfaceVisibility = visibility;
@@ -137,6 +143,20 @@ export default class StyleObject
         else
         {
             this.style.transform = rotation;
+        }
+        return this;
+    }
+
+    addScale(scaleX: number, scaleY: number)
+    {
+        let scale: string = " scale(" + scaleX + "," + scaleY + ")";
+        if (this.style.transform !== undefined)
+        {
+            this.style.transform = this.style.transform + scale;
+        }
+        else
+        {
+            this.style.transform = scale;
         }
         return this;
     }
@@ -217,6 +237,12 @@ export default class StyleObject
     setFontColor(color: string)
     {
         this.style.color = color;
+        return this;
+    }
+
+    setZIndex(zIndex: number)
+    {
+        this.style.zIndex = zIndex;
         return this;
     }
 }
