@@ -16,15 +16,30 @@ import {appAction_changeAppTheme} from "../../actionCreators/appActions";
 type TopRightPanelPropsType = {
     appState: appStateType,
 
-    topRightPanelShapeModel: Shape2d_Rectangle, topRightPanelFocusOn: boolean, topRightPanelPadding: number,
+    topRightPanelShapeModel: Shape2d_Rectangle,
+    topRightPanelFocusOn: boolean,
+    topRightPanelPadding: number,
 
-    settingsTabsStateModel: SingleSelectionModel, settingsTabsWidth: number, settingsTabsHeight: number,
+    settingsTabsStateModel: SingleSelectionModel,
+    settingsTabsWidth: number,
+    settingsTabsHeight: number,
 
-    themesSettingStateModel: SingleSelectionModel, themesSettingOptionsSize: number, themesSettingOptionsGap: number, themesSettingOptionsStartingX: number,
+    themesSettingStateModel: SingleSelectionModel,
+    themesSettingOptionsSize: number,
+    themesSettingOptionsGap: number,
+    themesSettingOptionsStartingX: number,
+    themesSettingOptionsStartingY: number,
 
-    topRightPanelBorderSize: number, topRightPanelBorderRadius: number, topRightPanelBorderWidth: number, topRightPanelBorderHeight: number,
+    topRightPanelBorderSize: number,
+    topRightPanelBorderRadius: number,
+    topRightPanelBorderWidth: number,
+    topRightPanelBorderHeight: number,
 
-    appAction_changeAppTheme: Function, topRightPanelAction_setTopRightPanelFocusOn: Function, topRightPanelAction_selectSingleSelectionModelItem: Function, topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: Function,
+    appAction_changeAppTheme: Function,
+    topRightPanelAction_setTopRightPanelFocusOn: Function,
+    topRightPanelAction_selectSingleSelectionModelItem: Function,
+    topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function,
+    topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: Function,
 
 }
 
@@ -163,7 +178,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         }
 
         let themeSettingOptionDivStyleObject = new StyleObject()
-            .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, props.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + props.themesSettingOptionsGap), "45%")
+            .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, props.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + props.themesSettingOptionsGap), props.themesSettingOptionsStartingY)
             .setBlur(blurLevel)
             .addScale(scale, scale)
             .addTransition("filter", TRANSITION_TIME_NORMAL)
@@ -219,6 +234,7 @@ const mapStateToProps = (store) =>
         themesSettingOptionsSize: store.topRightPanelState.themesSettingOptionsSize,
         themesSettingOptionsGap: store.topRightPanelState.themesSettingOptionsGap,
         themesSettingOptionsStartingX: store.topRightPanelState.themesSettingOptionsStartingX,
+        themesSettingOptionsStartingY: store.topRightPanelState.themesSettingOptionsStartingY,
 
         topRightPanelBorderSize: store.topRightPanelState.topRightPanelBorderSize,
         topRightPanelBorderRadius: store.topRightPanelState.topRightPanelBorderRadius,

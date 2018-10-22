@@ -1,4 +1,6 @@
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
+import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
+import type {topRightPanelStateType} from "../reducers/topRightPanelReducer";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -9,26 +11,27 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
 {
     return (dispatch, getState) =>
     {
-        let topRightPanelState = getState().topRightPanelState;
-        let basePanelUnitLength = getState().basePanelState.basePanelShapeModel.getUnitLength();
-        let topRightPanelShapeModel = topRightPanelState.topRightPanelShapeModel;
-        let numberOfSettingsTabs = topRightPanelState.settingsTabsStateModel.getNumberOfItems();
-        let numberOfThemes = topRightPanelState.themesSettingStateModel.getNumberOfItems();
-        let topRightPanelPadding = topRightPanelState.topRightPanelPadding;
+        let topRightPanelState: topRightPanelStateType = getState().topRightPanelState;
+        let basePanelUnitLength: number = getState().basePanelState.basePanelShapeModel.getUnitLength();
+        let topRightPanelShapeModel: Shape2d_Rectangle = topRightPanelState.topRightPanelShapeModel;
+        let numberOfSettingsTabs: number = topRightPanelState.settingsTabsStateModel.getNumberOfItems();
+        let numberOfThemes: number = topRightPanelState.themesSettingStateModel.getNumberOfItems();
+        let topRightPanelPadding: number = topRightPanelState.topRightPanelPadding;
 
-        let topRightPanelBorderWidth = topRightPanelShapeModel.getWidth() - 2 * topRightPanelPadding;
-        let topRightPanelBorderHeight = topRightPanelShapeModel.getHeight() - 2 * topRightPanelPadding;
-        let topRightPanelBorderSize = basePanelUnitLength * 0.5;
-        let topRightPanelBorderRadius = basePanelUnitLength * 3;
+        let topRightPanelBorderWidth: number = topRightPanelShapeModel.getWidth() - 2 * topRightPanelPadding;
+        let topRightPanelBorderHeight: number = topRightPanelShapeModel.getHeight() - 2 * topRightPanelPadding;
+        let topRightPanelBorderSize: number = basePanelUnitLength * 0.5;
+        let topRightPanelBorderRadius: number = basePanelUnitLength * 3;
 
-        let settingsTabsWidth = topRightPanelBorderWidth / numberOfSettingsTabs;
-        let settingsTabsHeight = topRightPanelShapeModel.getYUnitLength() * 13;
+        let settingsTabsWidth: number = topRightPanelBorderWidth / numberOfSettingsTabs;
+        let settingsTabsHeight: number = topRightPanelShapeModel.getYUnitLength() * 13;
 
-        let themesSettingOptionsSize = basePanelUnitLength * 5;
-        let themesSettingOptionsGap = themesSettingOptionsSize / 1.2;
-        let themesSettingOptionsStartingX = (topRightPanelShapeModel.getWidth() - numberOfThemes * themesSettingOptionsSize - (numberOfThemes - 1) * themesSettingOptionsGap) / 2;
+        let themesSettingOptionsSize: number = basePanelUnitLength * 5;
+        let themesSettingOptionsGap: number = themesSettingOptionsSize / 1.2;
+        let themesSettingOptionsStartingX: number = (topRightPanelShapeModel.getWidth() - numberOfThemes * themesSettingOptionsSize - (numberOfThemes - 1) * themesSettingOptionsGap) / 2;
+        let themesSettingOptionsStartingY: number = settingsTabsHeight + (topRightPanelShapeModel.getHeight() - settingsTabsHeight - themesSettingOptionsSize) / 2;
 
-        dispatch(topRightPanelAction_updateTopRightPanelContentLayoutData(topRightPanelBorderWidth, topRightPanelBorderHeight, settingsTabsWidth, settingsTabsHeight, topRightPanelBorderSize, topRightPanelBorderRadius, themesSettingOptionsSize, themesSettingOptionsGap, themesSettingOptionsStartingX));
+        dispatch(topRightPanelAction_updateTopRightPanelContentLayoutData(topRightPanelBorderWidth, topRightPanelBorderHeight, topRightPanelBorderSize, topRightPanelBorderRadius, settingsTabsWidth, settingsTabsHeight, themesTitleStartingY, themesSettingOptionsSize, themesSettingOptionsGap, themesSettingOptionsStartingX, themesSettingOptionsStartingY));
     }
 };
 
@@ -83,7 +86,7 @@ export const topRightPanelAction_setTopRightPanelFocusOn = (focusOn: boolean) =>
     };
 };
 
-const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelBorderWidth: number, topRightPanelBorderHeight: number, settingsTabsWidth: number, settingsTabsHeight: number, topRightPanelBorderSize: number, topRightPanelBorderRadius: number, themesSettingOptionsSize: number, themesSettingOptionsGap: number, themesSettingOptionsStartingX: number) =>
+const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelBorderWidth: number, topRightPanelBorderHeight: number, topRightPanelBorderSize: number, topRightPanelBorderRadius: number, settingsTabsWidth: number, settingsTabsHeight: number, themesTitleStartingY: number, themesSettingOptionsSize: number, themesSettingOptionsGap: number, themesSettingOptionsStartingX: number, themesSettingOptionsStartingY: number) =>
 {
     return {
         type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA,
@@ -93,9 +96,11 @@ const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelB
         settingsTabsHeight: settingsTabsHeight,
         topRightPanelBorderSize: topRightPanelBorderSize,
         topRightPanelBorderRadius: topRightPanelBorderRadius,
+        themesTitleStartingY: themesTitleStartingY,
         themesSettingOptionsSize: themesSettingOptionsSize,
         themesSettingOptionsGap: themesSettingOptionsGap,
         themesSettingOptionsStartingX: themesSettingOptionsStartingX,
+        themesSettingOptionsStartingY: themesSettingOptionsStartingY,
     };
 };
 

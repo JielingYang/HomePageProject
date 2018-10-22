@@ -39,8 +39,7 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
 {
     return (dispatch, getState) =>
     {
-        let currentState: Object = getState();
-        let appShapeModel: Shape2d_Rectangle = currentState.appState.appShapeModel;
+        let appShapeModel: Shape2d_Rectangle = getState().appState.appShapeModel;
         let previousAppWidth: number = appShapeModel.getWidth();
         let previousAppHeight: number = appShapeModel.getHeight();
 

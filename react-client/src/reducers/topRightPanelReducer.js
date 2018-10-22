@@ -8,13 +8,26 @@ import numberIdGenerator from "../classes/NumberIdGenerator";
 import SingleSelectionModel from "../classes/StateModelClasses/SingleSelectionModel";
 
 export type topRightPanelStateType = {
-    topRightPanelShapeModel: Shape2d_Rectangle, topRightPanelFocusOn: boolean, topRightPanelPadding: number,
+    topRightPanelShapeModel: Shape2d_Rectangle,
+    topRightPanelFocusOn: boolean,
+    topRightPanelPadding: number,
 
-    settingsTabsStateModel: SingleSelectionModel, settingsTabsWidth: number, settingsTabsHeight: number,
+    settingsTabsStateModel: SingleSelectionModel,
+    settingsTabsWidth: number,
+    settingsTabsHeight: number,
 
-    themesSettingStateModel: SingleSelectionModel, themesSettingOptionsSize: number, themesSettingOptionsGap: number, themesSettingOptionsStartingX: number,
+    themesTitleStartingY: number,
 
-    topRightPanelBorderSize: number, topRightPanelBorderRadius: number, topRightPanelBorderWidth: number, topRightPanelBorderHeight: number,
+    themesSettingStateModel: SingleSelectionModel,
+    themesSettingOptionsSize: number,
+    themesSettingOptionsGap: number,
+    themesSettingOptionsStartingX: number,
+    themesSettingOptionsStartingY: number,
+
+    topRightPanelBorderSize: number,
+    topRightPanelBorderRadius: number,
+    topRightPanelBorderWidth: number,
+    topRightPanelBorderHeight: number,
 }
 
 const topRightPanelDefaultState: topRightPanelStateType = {
@@ -26,10 +39,13 @@ const topRightPanelDefaultState: topRightPanelStateType = {
     settingsTabsWidth: 0,
     settingsTabsHeight: 0,
 
+    themesTitleStartingY: 0,
+
     themesSettingStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.THEMES_SETTING_ID, THEMES_SETTING_TITLES),
     themesSettingOptionsSize: 0,
     themesSettingOptionsGap: 0,
     themesSettingOptionsStartingX: 0,
+    themesSettingOptionsStartingY: 0,
 
     topRightPanelBorderSize: 0,
     topRightPanelBorderRadius: 0,
@@ -105,9 +121,11 @@ const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: to
     nextState.topRightPanelBorderRadius = action.topRightPanelBorderRadius;
     nextState.settingsTabsWidth = action.settingsTabsWidth;
     nextState.settingsTabsHeight = action.settingsTabsHeight;
+    nextState.themesTitleStartingY = action.themesTitleStartingY;
     nextState.themesSettingOptionsSize = action.themesSettingOptionsSize;
     nextState.themesSettingOptionsGap = action.themesSettingOptionsGap;
     nextState.themesSettingOptionsStartingX = action.themesSettingOptionsStartingX;
+    nextState.themesSettingOptionsStartingY = action.themesSettingOptionsStartingY;
     return nextState;
 };
 
