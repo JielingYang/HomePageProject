@@ -6,7 +6,6 @@ import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData, topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import {bottomLeftPanelAction_updateBottomLeftPanelPosition, bottomLeftPanelAction_updateBottomLeftPanelSize} from "./bottomLeftPanelActions";
-import {INDEX} from "../utilities/CONSTANTS_NUMBER";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
