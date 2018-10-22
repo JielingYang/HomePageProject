@@ -40,6 +40,18 @@ export default class StyleObject
         return this;
     }
 
+    setLeft(left: number | string)
+    {
+        this.style.left = left;
+        return this;
+    }
+
+    setTop(top: number | string)
+    {
+        this.style.top = top;
+        return this;
+    }
+
     setWidth(width: number | string)
     {
         this.style.width = width;

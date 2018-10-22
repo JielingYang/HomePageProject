@@ -7,7 +7,7 @@ import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL, INDEX} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
-import {WHITE_TRANSPARENT_00} from "../../utilities/CONSTANTS_COLOR";
+import {BLACK_TRANSPARENT_00, WHITE_TRANSPARENT_00} from "../../utilities/CONSTANTS_COLOR";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 import {getSettingsTabsSvgIcon, getThemesSvgIcon} from "../../utilities/svgIcons";
 import type {appStateType} from "../../reducers/appReducer";
@@ -138,8 +138,9 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     {
         let isThisOptionSelected = themesSettingStateModel.getSelectedItemIndex() === index;
         let mouseHoverThisOption = themesSettingStateModel.getMouseHoveredItemIndex() === index;
-        let themeTitleBlurLevel = BLUR_LEVEL.MEDIUM;
-        let themeTitleFontColor = props.appState.appFontColor;
+        let themeTitleBlurLevel = BLUR_LEVEL.HEAVY;
+        let themeTitleFontColor = BLACK_TRANSPARENT_00;
+        let themesTitleStartingY = themesSettingOptionsSize * 2;
         let themesOptionBlurLevel = BLUR_LEVEL.LIGHT;
         let themesDescriptionBlurLevel = BLUR_LEVEL.HEAVY;
         let themesDescriptionFontColor = props.appState.appBackgroundColor;
@@ -177,16 +178,18 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
             {
                 themeTitleBlurLevel = BLUR_LEVEL.NONE;
                 themeTitleFontColor = props.appState.appFontColor;
+                themesTitleStartingY = props.topRightPanelState.themesTitleStartingY
             }
         }
 
         let themesTitleDivStyleObject = new StyleObject()
-            .setBasics(topRightPanelShapeModel.getWidth(), 0, 0, props.topRightPanelState.themesTitleStartingY)
+            .setBasics(topRightPanelShapeModel.getWidth(), 0, 0, themesTitleStartingY)
             .setPointerEvents("none")
             .setFontColor(themeTitleFontColor)
             .setBlur(themeTitleBlurLevel)
             .addTransition("filter", TRANSITION_TIME_NORMAL)
             .addTransition("color", TRANSITION_TIME_NORMAL)
+            .addTransition("top", TRANSITION_TIME_NORMAL)
             .setTextAlign("center");
         let themeSettingOptionDivStyleObject = new StyleObject()
             .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, themesSettingOptionX, props.topRightPanelState.themesSettingOptionsStartingY)
