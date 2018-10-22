@@ -11,10 +11,15 @@ export type topRightPanelStateType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
     topRightPanelFocusOn: boolean,
     topRightPanelPadding: number,
+    topRightPanelBorderSize: number,
+    topRightPanelBorderRadius: number,
+    topRightPanelBorderWidth: number,
+    topRightPanelBorderHeight: number,
 
     settingsTabsStateModel: SingleSelectionModel,
     settingsTabsWidth: number,
     settingsTabsHeight: number,
+    settingsTabsDismissCurrentContent: boolean,
 
     themesTitleStartingY: number,
 
@@ -26,21 +31,21 @@ export type topRightPanelStateType = {
     themesSettingOptionsGap: number,
     themesSettingOptionsStartingX: number,
     themesSettingOptionsStartingY: number,
-
-    topRightPanelBorderSize: number,
-    topRightPanelBorderRadius: number,
-    topRightPanelBorderWidth: number,
-    topRightPanelBorderHeight: number,
 }
 
 const topRightPanelDefaultState: topRightPanelStateType = {
     topRightPanelShapeModel: new Shape2d_Rectangle(numberIdGenerator.generateId(), ID.TOP_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, 0), window.innerWidth / 2, window.innerHeight / 2),
     topRightPanelFocusOn: false,
     topRightPanelPadding: 10,
+    topRightPanelBorderSize: 0,
+    topRightPanelBorderRadius: 0,
+    topRightPanelBorderWidth: 0,
+    topRightPanelBorderHeight: 0,
 
     settingsTabsStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.SETTINGS_TABS_ID, SETTINGS_TABS_TITLES),
     settingsTabsWidth: 0,
     settingsTabsHeight: 0,
+    settingsTabsDismissCurrentContent: false,
 
     themesTitleStartingY: 0,
 
@@ -52,11 +57,6 @@ const topRightPanelDefaultState: topRightPanelStateType = {
     themesSettingOptionsGap: 0,
     themesSettingOptionsStartingX: 0,
     themesSettingOptionsStartingY: 0,
-
-    topRightPanelBorderSize: 0,
-    topRightPanelBorderRadius: 0,
-    topRightPanelBorderWidth: 0,
-    topRightPanelBorderHeight: 0,
 };
 
 const topRightPanelAction_updateTopRightPanelSize_handler = (state: topRightPanelStateType, action) =>
@@ -137,6 +137,13 @@ const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: to
     return nextState;
 };
 
+const topRightPanelAction_setDismissSettingsTabsCurrentContent_handler = (state: topRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.settingsTabsDismissCurrentContent = action.dismiss;
+    return nextState;
+};
+
 // Check reducerCreator for explanation of handlers
 const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_SIZE]: topRightPanelAction_updateTopRightPanelSize_handler,
@@ -146,6 +153,7 @@ const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM]: topRightPanelAction_selectSingleSelectionModelItem_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM]: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS]: topRightPanelAction_setMouseHoverOnSingleSelectionModelItems_handler,
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_DISMISS_SETTINGS_TABS_CURRENT_CONTENT]: topRightPanelAction_setDismissSettingsTabsCurrentContent_handler,
 };
 
 
