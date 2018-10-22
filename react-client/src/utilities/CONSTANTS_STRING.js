@@ -60,7 +60,7 @@ themesTitles[INDEX.THEME_BRIGHT] = "BRIGHT THEME";
 export const THEMES_TITLES = themesTitles;
 
 let themesDescriptions = [];
-themesDescriptions[INDEX.THEME_DARK] = "Come to the dark side, we have cookies...";
-themesDescriptions[INDEX.THEME_YELLOW] = "Boring...zZ... let's add some yellow!";
-themesDescriptions[INDEX.THEME_BRIGHT] = "Bright it up!!! (under construction...)";
+themesDescriptions[INDEX.THEME_DARK] = "Come to the DARK side, we have cookies...";
+themesDescriptions[INDEX.THEME_YELLOW] = "Boring...zZ... let's add some YELLOW!";
+themesDescriptions[INDEX.THEME_BRIGHT] = "BRIGHT it up!!! (under construction...)";
 export const THEMES_DESCRIPTIONS = themesDescriptions;
