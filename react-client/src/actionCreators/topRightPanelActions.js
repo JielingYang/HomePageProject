@@ -55,9 +55,13 @@ export const topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent =
 {
     return (dispatch, getState) =>
     {
-        if(getState().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex() !== tabIndex)
+        if (dismiss && getState().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex() !== tabIndex)
         {
-            dispatch(topRightPanelAction_setDismissSettingsTabsCurrentContent(dismiss));
+            dispatch(topRightPanelAction_setDismissSettingsTabsCurrentContent(true));
+        }
+        else if (!dismiss && getState().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex() === tabIndex)
+        {
+            dispatch(topRightPanelAction_setDismissSettingsTabsCurrentContent(false));
         }
     }
 };

@@ -58,12 +58,12 @@ const settingsTabs = (appState: appStateType, topRightPanelState: topRightPanelS
                 onMouseLeave={() => topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems(false, settingsTabsStateModelStringId)}>
         {settingsTabsStateModel.getItems().map((title: string, index: number) =>
         {
-            let isThisTabSelected = settingsTabsStateModel.getSelectedItemIndex() === index;
-            let mouseHoverThisTab = settingsTabsStateModel.getMouseHoveredItemIndex() === index;
-            let isTheFirst = index === 0;
-            let isTheLast = index === settingsTabsStateModel.getNumberOfItems() - 1;
-            let blurLevel = BLUR_LEVEL.VERY_LIGHT;
-            let iconColor = appState.iconColorDefault;
+            let isThisTabSelected: boolean = settingsTabsStateModel.getSelectedItemIndex() === index;
+            let mouseHoverThisTab: boolean = settingsTabsStateModel.getMouseHoveredItemIndex() === index;
+            let isTheFirst: boolean = index === 0;
+            let isTheLast: boolean = index === settingsTabsStateModel.getNumberOfItems() - 1;
+            let blurLevel: BLUR_LEVEL = BLUR_LEVEL.VERY_LIGHT;
+            let iconColor: string = appState.iconColorDefault;
             if (isThisTabSelected || mouseHoverThisTab)
             {
                 blurLevel = BLUR_LEVEL.NONE;
@@ -111,7 +111,7 @@ const settingsTabs = (appState: appStateType, topRightPanelState: topRightPanelS
                         {
                             topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent(index, true);
                             topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId);
-                            // topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent(index, false);
+                            topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent(index, false);
                         }}
                         onMouseEnter={() => topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, settingsTabsStateModelStringId)}>
                 <div style={tabIconWrapperDivStyleObject.getStyle()}>
@@ -127,27 +127,28 @@ const settingsTabs = (appState: appStateType, topRightPanelState: topRightPanelS
 
 const themesSettingContent = (appState: appStateType, topRightPanelState: topRightPanelStateType, topRightPanelAction_selectSingleSelectionModelItem: Function, topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function, appAction_changeAppTheme: Function) =>
 {
-    let themesSettingStateModel = topRightPanelState.themesSettingStateModel;
-    let themesSettingStateModelStringId = themesSettingStateModel.getStringId();
-    let themesSettingsOptions = themesSettingStateModel.getItems();
-    let themesSettingOptionsSize = topRightPanelState.themesSettingOptionsSize;
-    let themesDescriptionWidth = topRightPanelState.themesDescriptionWidth;
+    let dismissContent: boolean = topRightPanelState.settingsTabsDismissCurrentContent;
+    let themesSettingStateModel: SingleSelectionModel = topRightPanelState.themesSettingStateModel;
+    let themesSettingStateModelStringId: string = themesSettingStateModel.getStringId();
+    let themesSettingsOptions: Array<string> = themesSettingStateModel.getItems();
+    let themesSettingOptionsSize: number = topRightPanelState.themesSettingOptionsSize;
+    let themesDescriptionWidth: number = topRightPanelState.themesDescriptionWidth;
 
     return themesSettingsOptions.map((title: string, index: number) =>
     {
-        let isThisOptionSelected = themesSettingStateModel.getSelectedItemIndex() === index;
-        let mouseHoverThisOption = themesSettingStateModel.getMouseHoveredItemIndex() === index;
-        let themeTitleBlurLevel = BLUR_LEVEL.HEAVY;
-        let themeTitleFontColor = BLACK_TRANSPARENT_00;
-        let themesTitleStartingY = themesSettingOptionsSize * 2;
-        let themesOptionBlurLevel = BLUR_LEVEL.LIGHT;
-        let themesDescriptionBlurLevel = BLUR_LEVEL.HEAVY;
-        let themesDescriptionFontColor = appState.appBackgroundColor;
-        let iconColor = appState.iconColorDefault;
-        let lightBulbEffectColor = WHITE_TRANSPARENT_00;
-        let scale = 0.7;
-        let themesSettingOptionX = topRightPanelState.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + topRightPanelState.themesSettingOptionsGap);
-        let themesDescriptionX = themesSettingOptionX + (themesSettingOptionsSize - themesDescriptionWidth) / 2;
+        let isThisOptionSelected: boolean = themesSettingStateModel.getSelectedItemIndex() === index;
+        let mouseHoverThisOption: boolean = themesSettingStateModel.getMouseHoveredItemIndex() === index;
+        let themeTitleBlurLevel: BLUR_LEVEL = BLUR_LEVEL.HEAVY;
+        let themeTitleFontColor: string = BLACK_TRANSPARENT_00;
+        let themesTitleStartingY: number = themesSettingOptionsSize * 2;
+        let themesOptionBlurLevel: BLUR_LEVEL = BLUR_LEVEL.LIGHT;
+        let themesDescriptionBlurLevel: BLUR_LEVEL = BLUR_LEVEL.HEAVY;
+        let themesDescriptionFontColor: number = appState.appBackgroundColor;
+        let iconColor: string = appState.iconColorDefault;
+        let lightBulbEffectColor: string = WHITE_TRANSPARENT_00;
+        let scale: number = 0.7;
+        let themesSettingOptionX: number = topRightPanelState.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + topRightPanelState.themesSettingOptionsGap);
+        let themesDescriptionX: number = themesSettingOptionX + (themesSettingOptionsSize - themesDescriptionWidth) / 2;
         if (isThisOptionSelected || mouseHoverThisOption)
         {
             themesOptionBlurLevel = BLUR_LEVEL.NONE;
