@@ -31,7 +31,11 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
         let themesSettingOptionsStartingX: number = (topRightPanelShapeModel.getWidth() - numberOfThemes * themesSettingOptionsSize - (numberOfThemes - 1) * themesSettingOptionsGap) / 2;
         let themesSettingOptionsStartingY: number = settingsTabsHeight + (topRightPanelShapeModel.getHeight() - settingsTabsHeight - themesSettingOptionsSize) / 2;
 
-        dispatch(topRightPanelAction_updateTopRightPanelContentLayoutData(topRightPanelBorderWidth, topRightPanelBorderHeight, topRightPanelBorderSize, topRightPanelBorderRadius, settingsTabsWidth, settingsTabsHeight, themesTitleStartingY, themesSettingOptionsSize, themesSettingOptionsGap, themesSettingOptionsStartingX, themesSettingOptionsStartingY));
+        let themesTitleStartingY: number = settingsTabsHeight + (themesSettingOptionsStartingY - settingsTabsHeight) * 2 / 3;
+        let themesDescriptionWidth: number = basePanelUnitLength * 30;
+        let themesDescriptionStartingY: number = themesSettingOptionsStartingY + topRightPanelShapeModel.getYUnitLength() * 13;
+
+        dispatch(topRightPanelAction_updateTopRightPanelContentLayoutData(topRightPanelBorderWidth, topRightPanelBorderHeight, topRightPanelBorderSize, topRightPanelBorderRadius, settingsTabsWidth, settingsTabsHeight, themesTitleStartingY, themesDescriptionStartingY, themesDescriptionWidth, themesSettingOptionsSize, themesSettingOptionsGap, themesSettingOptionsStartingX, themesSettingOptionsStartingY));
     }
 };
 
@@ -86,7 +90,7 @@ export const topRightPanelAction_setTopRightPanelFocusOn = (focusOn: boolean) =>
     };
 };
 
-const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelBorderWidth: number, topRightPanelBorderHeight: number, topRightPanelBorderSize: number, topRightPanelBorderRadius: number, settingsTabsWidth: number, settingsTabsHeight: number, themesTitleStartingY: number, themesSettingOptionsSize: number, themesSettingOptionsGap: number, themesSettingOptionsStartingX: number, themesSettingOptionsStartingY: number) =>
+const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelBorderWidth: number, topRightPanelBorderHeight: number, topRightPanelBorderSize: number, topRightPanelBorderRadius: number, settingsTabsWidth: number, settingsTabsHeight: number, themesTitleStartingY: number, themesDescriptionStartingY: number, themesDescriptionWidth: number, themesSettingOptionsSize: number, themesSettingOptionsGap: number, themesSettingOptionsStartingX: number, themesSettingOptionsStartingY: number) =>
 {
     return {
         type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_CONTENT_LAYOUT_DATA,
@@ -97,6 +101,8 @@ const topRightPanelAction_updateTopRightPanelContentLayoutData = (topRightPanelB
         topRightPanelBorderSize: topRightPanelBorderSize,
         topRightPanelBorderRadius: topRightPanelBorderRadius,
         themesTitleStartingY: themesTitleStartingY,
+        themesDescriptionStartingY: themesDescriptionStartingY,
+        themesDescriptionWidth: themesDescriptionWidth,
         themesSettingOptionsSize: themesSettingOptionsSize,
         themesSettingOptionsGap: themesSettingOptionsGap,
         themesSettingOptionsStartingX: themesSettingOptionsStartingX,

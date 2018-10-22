@@ -12,56 +12,41 @@ import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectio
 import {getSettingsTabsSvgIcon, getThemesSvgIcon} from "../../utilities/svgIcons";
 import type {appStateType} from "../../reducers/appReducer";
 import {appAction_changeAppTheme} from "../../actionCreators/appActions";
+import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
+import {THEMES_DESCRIPTIONS, THEMES_TITLES} from "../../utilities/CONSTANTS_STRING";
 
 type TopRightPanelPropsType = {
     appState: appStateType,
-
-    topRightPanelShapeModel: Shape2d_Rectangle,
-    topRightPanelFocusOn: boolean,
-    topRightPanelPadding: number,
-
-    settingsTabsStateModel: SingleSelectionModel,
-    settingsTabsWidth: number,
-    settingsTabsHeight: number,
-
-    themesSettingStateModel: SingleSelectionModel,
-    themesSettingOptionsSize: number,
-    themesSettingOptionsGap: number,
-    themesSettingOptionsStartingX: number,
-    themesSettingOptionsStartingY: number,
-
-    topRightPanelBorderSize: number,
-    topRightPanelBorderRadius: number,
-    topRightPanelBorderWidth: number,
-    topRightPanelBorderHeight: number,
+    topRightPanelState: topRightPanelStateType,
 
     appAction_changeAppTheme: Function,
     topRightPanelAction_setTopRightPanelFocusOn: Function,
     topRightPanelAction_selectSingleSelectionModelItem: Function,
     topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function,
     topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: Function,
-
 }
 
 const TopRightPanel = (props: TopRightPanelPropsType) =>
 {
-    let topRightPanelShapeModel: Shape2d_Rectangle = props.topRightPanelShapeModel;
-    let settingsTabsStateModel: SingleSelectionModel = props.settingsTabsStateModel;
+    let topRightPanelShapeModel: Shape2d_Rectangle = props.topRightPanelState.topRightPanelShapeModel;
+    let settingsTabsStateModel: SingleSelectionModel = props.topRightPanelState.settingsTabsStateModel;
     let settingsTabsStateModelStringId = settingsTabsStateModel.getStringId();
     let isMouseHoverSettingsTabs = settingsTabsStateModel.getMouseHover();
 
     let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
-        .setBlur(props.topRightPanelFocusOn
+        .setBlur(props.topRightPanelState.topRightPanelFocusOn
                  ? BLUR_LEVEL.NONE
                  : BLUR_LEVEL.MEDIUM)
         .addTransition("filter", TRANSITION_TIME_NORMAL);
 
-    // Panel border
+    /**
+     * Panel border
+     */
     let topRightPanelBorderDivStyleObject = new StyleObject()
-        .setBasics(props.topRightPanelBorderWidth, props.topRightPanelBorderHeight, props.topRightPanelPadding, props.topRightPanelPadding)
+        .setBasics(props.topRightPanelState.topRightPanelBorderWidth, props.topRightPanelState.topRightPanelBorderHeight, props.topRightPanelState.topRightPanelPadding, props.topRightPanelState.topRightPanelPadding)
         .setBackgroundColor(props.appState.mainPanelsBackgroundColor)
-        .setBorder(props.topRightPanelBorderSize, "solid", props.appState.mainPanelsBorderColor)
-        .setBorderRadius(props.topRightPanelBorderRadius)
+        .setBorder(props.topRightPanelState.topRightPanelBorderSize, "solid", props.appState.mainPanelsBorderColor)
+        .setBorderRadius(props.topRightPanelState.topRightPanelBorderRadius)
         .setPointerEvents("none")
         .setBlur(isMouseHoverSettingsTabs
                  ? BLUR_LEVEL.EXTREMELY_LIGHT
@@ -70,8 +55,10 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
 
     let panelBorder = <div style={topRightPanelBorderDivStyleObject.getStyle()}/>;
 
-    // Tabs
-    let settingsTabsDivStyleObject = new StyleObject().setBasics(props.topRightPanelBorderWidth, props.settingsTabsHeight, props.topRightPanelPadding, props.topRightPanelPadding);
+    /**
+     * Tabs
+     */
+    let settingsTabsDivStyleObject = new StyleObject().setBasics(props.topRightPanelState.topRightPanelBorderWidth, props.topRightPanelState.settingsTabsHeight, props.topRightPanelState.topRightPanelPadding, props.topRightPanelState.topRightPanelPadding);
     let settingsTabs = <div style={settingsTabsDivStyleObject.getStyle()}
                             onMouseEnter={() => props.topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems(true, settingsTabsStateModelStringId)}
                             onMouseLeave={() => props.topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems(false, settingsTabsStateModelStringId)}>
@@ -95,7 +82,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
             }
 
             let individualTabDivStyleObject = new StyleObject()
-                .setBasics(props.settingsTabsWidth, props.settingsTabsHeight, index * props.settingsTabsWidth, 0)
+                .setBasics(props.topRightPanelState.settingsTabsWidth, props.topRightPanelState.settingsTabsHeight, index * props.topRightPanelState.settingsTabsWidth, 0)
                 .setDisplay("flex")
                 .setFlexDirection("column")
                 .setBlur(blurLevel)
@@ -103,7 +90,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                 .addTransition("filter", TRANSITION_TIME_NORMAL);
             let tabIconWrapperDivStyleObject = new StyleObject()
                 .setPosition("relative")
-                .setHeight(props.settingsTabsHeight * 0.4)
+                .setHeight(props.topRightPanelState.settingsTabsHeight * 0.4)
                 .setPointerEvents("none")
                 .setMargin("auto")
                 .setBlur(blurLevel)
@@ -118,11 +105,11 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                 .addTransition("color", TRANSITION_TIME_NORMAL);
             if (isTheFirst)
             {
-                individualTabDivStyleObject.setBorderRadius(props.topRightPanelBorderRadius, 0, 0, 0);
+                individualTabDivStyleObject.setBorderRadius(props.topRightPanelState.topRightPanelBorderRadius, 0, 0, 0);
             }
             else if (isTheLast)
             {
-                individualTabDivStyleObject.setBorderRadius(0, props.topRightPanelBorderRadius, 0, 0);
+                individualTabDivStyleObject.setBorderRadius(0, props.topRightPanelState.topRightPanelBorderRadius, 0, 0);
             }
 
             return <div key={index} style={individualTabDivStyleObject.getStyle()}
@@ -138,30 +125,34 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         })}
     </div>;
 
-    // Settings contents
-    // Theme setting content
-    let themesSettingStateModel = props.themesSettingStateModel;
+    /**
+     * Settings contents
+     */
+    /* Theme setting content */
+    let themesSettingStateModel = props.topRightPanelState.themesSettingStateModel;
     let themesSettingStateModelStringId = themesSettingStateModel.getStringId();
     let themesSettingsOptions = themesSettingStateModel.getItems();
-    let themesSettingOptionsSize = props.themesSettingOptionsSize;
-
-    let themesTitleDivStyleObject = new StyleObject()
-        .setBasics(topRightPanelShapeModel.getWidth(), 0, 0, "35%")
-        .setTextAlign("center");
-    let themesTitle = <div style={themesTitleDivStyleObject.getStyle()}>AAAAAAAAAAAAAAAAAAA</div>;
-
+    let themesSettingOptionsSize = props.topRightPanelState.themesSettingOptionsSize;
+    let themesDescriptionWidth = props.topRightPanelState.themesDescriptionWidth;
     let themesSettingContent = themesSettingsOptions.map((title: string, index: number) =>
     {
         let isThisOptionSelected = themesSettingStateModel.getSelectedItemIndex() === index;
         let mouseHoverThisOption = themesSettingStateModel.getMouseHoveredItemIndex() === index;
-        let blurLevel = BLUR_LEVEL.LIGHT;
+        let themeTitleBlurLevel = BLUR_LEVEL.MEDIUM;
+        let themeTitleFontColor = props.appState.appFontColor;
+        let themesOptionBlurLevel = BLUR_LEVEL.LIGHT;
+        let themesDescriptionBlurLevel = BLUR_LEVEL.HEAVY;
+        let themesDescriptionFontColor = props.appState.appBackgroundColor;
         let iconColor = props.appState.iconColorDefault;
         let lightBulbEffectColor = WHITE_TRANSPARENT_00;
         let scale = 0.7;
+        let themesSettingOptionX = props.topRightPanelState.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + props.topRightPanelState.themesSettingOptionsGap);
+        let themesDescriptionX = themesSettingOptionX + (themesSettingOptionsSize - themesDescriptionWidth) / 2;
         if (isThisOptionSelected || mouseHoverThisOption)
         {
-            blurLevel = BLUR_LEVEL.NONE;
+            themesOptionBlurLevel = BLUR_LEVEL.NONE;
             scale = 1;
+
             if (index === INDEX.THEME_DARK)
             {
                 iconColor = props.appState.iconColorDarkThemeSelected;
@@ -175,11 +166,31 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                 iconColor = props.appState.iconColorBrightThemeSelected;
                 lightBulbEffectColor = props.appState.lightUpEffectColor;
             }
+
+            if (mouseHoverThisOption)
+            {
+                themesDescriptionBlurLevel = BLUR_LEVEL.NONE;
+                themesDescriptionFontColor = props.appState.appFontColor;
+            }
+
+            if (isThisOptionSelected)
+            {
+                themeTitleBlurLevel = BLUR_LEVEL.NONE;
+                themeTitleFontColor = props.appState.appFontColor;
+            }
         }
 
+        let themesTitleDivStyleObject = new StyleObject()
+            .setBasics(topRightPanelShapeModel.getWidth(), 0, 0, props.topRightPanelState.themesTitleStartingY)
+            .setPointerEvents("none")
+            .setFontColor(themeTitleFontColor)
+            .setBlur(themeTitleBlurLevel)
+            .addTransition("filter", TRANSITION_TIME_NORMAL)
+            .addTransition("color", TRANSITION_TIME_NORMAL)
+            .setTextAlign("center");
         let themeSettingOptionDivStyleObject = new StyleObject()
-            .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, props.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + props.themesSettingOptionsGap), props.themesSettingOptionsStartingY)
-            .setBlur(blurLevel)
+            .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, themesSettingOptionX, props.topRightPanelState.themesSettingOptionsStartingY)
+            .setBlur(themesOptionBlurLevel)
             .addScale(scale, scale)
             .addTransition("filter", TRANSITION_TIME_NORMAL)
             .addTransition("transform", TRANSITION_TIME_NORMAL);
@@ -189,29 +200,47 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
             .setBlur(BLUR_LEVEL.HEAVY)
             .setPointerEvents("none")
             .addTransition("background-color", TRANSITION_TIME_NORMAL);
+        let themesDescriptionDivStyleObject = new StyleObject()
+            .setBasics(themesDescriptionWidth, 0, themesDescriptionX, props.topRightPanelState.themesDescriptionStartingY)
+            .setPointerEvents("none")
+            .setTextAlign("center")
+            .setFontColor(themesDescriptionFontColor)
+            .setBlur(themesDescriptionBlurLevel)
+            .addTransition("filter", TRANSITION_TIME_NORMAL)
+            .addTransition("color", TRANSITION_TIME_NORMAL);
 
-        return <div key={index} style={themeSettingOptionDivStyleObject.getStyle()}
-                    onClick={() =>
-                    {
-                        if (index !== INDEX.THEME_BRIGHT) // TODO - bright theme not available for now
-                        {
-                            props.topRightPanelAction_selectSingleSelectionModelItem(index, themesSettingStateModelStringId);
-                            props.appAction_changeAppTheme(index);
-                        }
-                    }}
-                    onMouseEnter={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, themesSettingStateModelStringId)}
-                    onMouseLeave={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(null, themesSettingStateModelStringId)}>
-            <div style={lightBulbEffectStyleObject.getStyle()}/>
-            {getThemesSvgIcon(iconColor, index)}
+        return <div key={index} style={{position: "static"}}>
+            <div style={themesTitleDivStyleObject.getStyle()}>
+                {THEMES_TITLES[themesSettingStateModel.getSelectedItemIndex()]}
+            </div>
+            <div style={themeSettingOptionDivStyleObject.getStyle()}
+                 onClick={() =>
+                 {
+                     if (index !== INDEX.THEME_BRIGHT) // TODO - bright theme not available for now
+                     {
+                         props.topRightPanelAction_selectSingleSelectionModelItem(index, themesSettingStateModelStringId);
+                         props.appAction_changeAppTheme(index);
+                     }
+                 }}
+                 onMouseEnter={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, themesSettingStateModelStringId)}
+                 onMouseLeave={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(null, themesSettingStateModelStringId)}>
+                <div style={lightBulbEffectStyleObject.getStyle()}/>
+                {getThemesSvgIcon(iconColor, index)}
+            </div>
+            <div style={themesDescriptionDivStyleObject.getStyle()}>
+                {THEMES_DESCRIPTIONS[index]}
+            </div>
         </div>
     });
 
+    /**
+     * Result to return
+     */
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
                 onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
         {settingsTabs}
-        {themesTitle}
         {themesSettingContent}
         {panelBorder}
     </div>;
@@ -221,25 +250,7 @@ const mapStateToProps = (store) =>
 {
     return {
         appState: store.appState,
-
-        topRightPanelShapeModel: store.topRightPanelState.topRightPanelShapeModel,
-        topRightPanelFocusOn: store.topRightPanelState.topRightPanelFocusOn,
-        topRightPanelPadding: store.topRightPanelState.topRightPanelPadding,
-
-        settingsTabsStateModel: store.topRightPanelState.settingsTabsStateModel,
-        settingsTabsWidth: store.topRightPanelState.settingsTabsWidth,
-        settingsTabsHeight: store.topRightPanelState.settingsTabsHeight,
-
-        themesSettingStateModel: store.topRightPanelState.themesSettingStateModel,
-        themesSettingOptionsSize: store.topRightPanelState.themesSettingOptionsSize,
-        themesSettingOptionsGap: store.topRightPanelState.themesSettingOptionsGap,
-        themesSettingOptionsStartingX: store.topRightPanelState.themesSettingOptionsStartingX,
-        themesSettingOptionsStartingY: store.topRightPanelState.themesSettingOptionsStartingY,
-
-        topRightPanelBorderSize: store.topRightPanelState.topRightPanelBorderSize,
-        topRightPanelBorderRadius: store.topRightPanelState.topRightPanelBorderRadius,
-        topRightPanelBorderWidth: store.topRightPanelState.topRightPanelBorderWidth,
-        topRightPanelBorderHeight: store.topRightPanelState.topRightPanelBorderHeight,
+        topRightPanelState: store.topRightPanelState,
     };
 };
 

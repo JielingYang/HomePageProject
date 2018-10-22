@@ -1,4 +1,4 @@
-import {ID, SETTINGS_TABS_TITLES, THEMES_SETTING_TITLES} from "../utilities/CONSTANTS_STRING";
+import {ID, SETTINGS_TABS_TITLES, THEMES_TITLES} from "../utilities/CONSTANTS_STRING";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {deepCopy, getObjectById} from "../utilities/UTILITIES";
@@ -17,6 +17,9 @@ export type topRightPanelStateType = {
     settingsTabsHeight: number,
 
     themesTitleStartingY: number,
+
+    themesDescriptionStartingY: number,
+    themesDescriptionWidth: number,
 
     themesSettingStateModel: SingleSelectionModel,
     themesSettingOptionsSize: number,
@@ -41,7 +44,10 @@ const topRightPanelDefaultState: topRightPanelStateType = {
 
     themesTitleStartingY: 0,
 
-    themesSettingStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.THEMES_SETTING_ID, THEMES_SETTING_TITLES),
+    themesDescriptionStartingY: 0,
+    themesDescriptionWidth: 0,
+
+    themesSettingStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.THEMES_SETTING_ID, THEMES_TITLES),
     themesSettingOptionsSize: 0,
     themesSettingOptionsGap: 0,
     themesSettingOptionsStartingX: 0,
@@ -122,6 +128,8 @@ const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: to
     nextState.settingsTabsWidth = action.settingsTabsWidth;
     nextState.settingsTabsHeight = action.settingsTabsHeight;
     nextState.themesTitleStartingY = action.themesTitleStartingY;
+    nextState.themesDescriptionStartingY = action.themesDescriptionStartingY;
+    nextState.themesDescriptionWidth = action.themesDescriptionWidth;
     nextState.themesSettingOptionsSize = action.themesSettingOptionsSize;
     nextState.themesSettingOptionsGap = action.themesSettingOptionsGap;
     nextState.themesSettingOptionsStartingX = action.themesSettingOptionsStartingX;

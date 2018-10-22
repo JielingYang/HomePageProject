@@ -1,3 +1,5 @@
+import {INDEX} from "./CONSTANTS_NUMBER";
+
 export const ID = Object.freeze({
     APP_ID: "appComponent",
 
@@ -43,12 +45,22 @@ export const UTILITY_STRING = Object.freeze({
     CLOSE_PARENTHESIS: ")"
 });
 
-export const SETTINGS_TABS_TITLES = ["theme setting",
-                                     "color setting",
-                                     "shape setting",
-                                     "view setting",
-                                     "playground objects setting"];
+let settingsTabsTitles = [];
+settingsTabsTitles[INDEX.SETTINGS_TABS_THEME] = "theme setting";
+settingsTabsTitles[INDEX.SETTINGS_TABS_COLOR] = "color setting";
+settingsTabsTitles[INDEX.SETTINGS_TABS_SHAPE] = "shape setting";
+settingsTabsTitles[INDEX.SETTINGS_TABS_VIEW] = "view setting";
+settingsTabsTitles[INDEX.SETTINGS_TABS_PLAYGROUND] = "playground objects setting";
+export const SETTINGS_TABS_TITLES = settingsTabsTitles;
 
-export const THEMES_SETTING_TITLES = ["dark",
-                                      "yellow",
-                                      "bright"]
+let themesTitles = [];
+themesTitles[INDEX.THEME_DARK] = "DARK THEME";
+themesTitles[INDEX.THEME_YELLOW] = "YELLOW THEME";
+themesTitles[INDEX.THEME_BRIGHT] = "BRIGHT THEME";
+export const THEMES_TITLES = themesTitles;
+
+let themesDescriptions = [];
+themesDescriptions[INDEX.THEME_DARK] = "Come to the dark side, we have cookies...";
+themesDescriptions[INDEX.THEME_YELLOW] = "Boring...zZ... let's add some yellow!";
+themesDescriptions[INDEX.THEME_BRIGHT] = "Bright it up!!! (under construction...)";
+export const THEMES_DESCRIPTIONS = themesDescriptions;
