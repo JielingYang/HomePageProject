@@ -51,21 +51,6 @@ export const topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItem
     }
 };
 
-export const topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent = (tabIndex: number, dismiss: boolean) =>
-{
-    return (dispatch, getState) =>
-    {
-        if (dismiss && getState().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex() !== tabIndex)
-        {
-            dispatch(topRightPanelAction_setDismissSettingsTabsCurrentContent(true));
-        }
-        else if (!dismiss && getState().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex() === tabIndex)
-        {
-            dispatch(topRightPanelAction_setDismissSettingsTabsCurrentContent(false));
-        }
-    }
-};
-
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
 /* *************************************************************************** */
@@ -78,7 +63,6 @@ export const TOP_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM: "TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM",
     TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM: "TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM",
     TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS: "TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS",
-    TOP_RIGHT_PANEL_ACTION_SET_DISMISS_SETTINGS_TABS_CURRENT_CONTENT: "TOP_RIGHT_PANEL_ACTION_SET_DISMISS_SETTINGS_TABS_CURRENT_CONTENT",
 });
 
 export const topRightPanelAction_updateTopRightPanelSize = (newTopRightPanelWidth: number, newTopRightPanelHeight: number) =>
@@ -150,13 +134,5 @@ const topRightPanelAction_setMouseHoverOnSingleSelectionModelItems = (hover: boo
         type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS,
         hover: hover,
         modelStringId: modelStringId,
-    };
-};
-
-const topRightPanelAction_setDismissSettingsTabsCurrentContent = (dismiss: boolean) =>
-{
-    return {
-        type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_DISMISS_SETTINGS_TABS_CURRENT_CONTENT,
-        dismiss: dismiss,
     };
 };

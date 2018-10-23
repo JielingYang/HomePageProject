@@ -6,7 +6,7 @@ import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTA
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL, INDEX} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
-import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems, topRightPanelAction_setTopRightPanelFocusOn, topRightPanelAction_setDismissSettingsTabsCurrentContent, topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent} from "../../actionCreators/topRightPanelActions";
+import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems, topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
 import {BLACK_TRANSPARENT_00, WHITE_TRANSPARENT_00} from "../../utilities/CONSTANTS_COLOR";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 import {getSettingsTabsSvgIcon, getThemesSvgIcon} from "../../utilities/svgIcons";
@@ -24,7 +24,6 @@ type TopRightPanelPropsType = {
     topRightPanelAction_selectSingleSelectionModelItem: Function,
     topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function,
     topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: Function,
-    topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent: Function,
 }
 
 const TopRightPanel = (props: TopRightPanelPropsType) =>
@@ -41,13 +40,13 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     return <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
                 onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
-        {settingsTabs(props.appState, props.topRightPanelState, props.topRightPanelAction_selectSingleSelectionModelItem, props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, props.topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems, props.topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent)}
+        {settingsTabs(props.appState, props.topRightPanelState, props.topRightPanelAction_selectSingleSelectionModelItem, props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, props.topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems)}
         {themesSettingContent(props.appState, props.topRightPanelState, props.topRightPanelAction_selectSingleSelectionModelItem, props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, props.appAction_changeAppTheme)}
         {topRightPanelBorder(props.appState, props.topRightPanelState)}
     </div>;
 };
 
-const settingsTabs = (appState: appStateType, topRightPanelState: topRightPanelStateType, topRightPanelAction_selectSingleSelectionModelItem: Function, topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: Function, topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent: Function) =>
+const settingsTabs = (appState: appStateType, topRightPanelState: topRightPanelStateType, topRightPanelAction_selectSingleSelectionModelItem: Function, topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: Function) =>
 {
     let settingsTabsDivStyleObject: StyleObject = new StyleObject().setBasics(topRightPanelState.topRightPanelBorderWidth, topRightPanelState.settingsTabsHeight, topRightPanelState.topRightPanelPadding, topRightPanelState.topRightPanelPadding);
     let settingsTabsStateModel: SingleSelectionModel = topRightPanelState.settingsTabsStateModel;
@@ -109,9 +108,7 @@ const settingsTabs = (appState: appStateType, topRightPanelState: topRightPanelS
             return <div key={index} style={individualTabDivStyleObject.getStyle()}
                         onClick={() =>
                         {
-                            topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent(index, true);
                             topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId);
-                            topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent(index, false);
                         }}
                         onMouseEnter={() => topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, settingsTabsStateModelStringId)}>
                 <div style={tabIconWrapperDivStyleObject.getStyle()}>
@@ -127,7 +124,7 @@ const settingsTabs = (appState: appStateType, topRightPanelState: topRightPanelS
 
 const themesSettingContent = (appState: appStateType, topRightPanelState: topRightPanelStateType, topRightPanelAction_selectSingleSelectionModelItem: Function, topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function, appAction_changeAppTheme: Function) =>
 {
-    let dismissContent: boolean = topRightPanelState.settingsTabsDismissCurrentContent;
+    let showContent: boolean = topRightPanelState.settingsTabsStateModel.getSelectedItemIndex() === INDEX.SETTINGS_TABS_THEME;
     let themesSettingStateModel: SingleSelectionModel = topRightPanelState.themesSettingStateModel;
     let themesSettingStateModelStringId: string = themesSettingStateModel.getStringId();
     let themesSettingsOptions: Array<string> = themesSettingStateModel.getItems();
@@ -143,44 +140,57 @@ const themesSettingContent = (appState: appStateType, topRightPanelState: topRig
         let themesTitleStartingY: number = themesSettingOptionsSize * 2;
         let themesOptionBlurLevel: BLUR_LEVEL = BLUR_LEVEL.LIGHT;
         let themesDescriptionBlurLevel: BLUR_LEVEL = BLUR_LEVEL.HEAVY;
-        let themesDescriptionFontColor: number = appState.appBackgroundColor;
+        let themesDescriptionFontColor: number = BLACK_TRANSPARENT_00;
         let iconColor: string = appState.iconColorDefault;
         let lightBulbEffectColor: string = WHITE_TRANSPARENT_00;
         let scale: number = 0.7;
-        let themesSettingOptionX: number = topRightPanelState.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + topRightPanelState.themesSettingOptionsGap);
-        let themesDescriptionX: number = themesSettingOptionX + (themesSettingOptionsSize - themesDescriptionWidth) / 2;
-        if (isThisOptionSelected || mouseHoverThisOption)
+        let themesSettingOptionsStartingX: number = topRightPanelState.themesSettingOptionsStartingX + index * (themesSettingOptionsSize + topRightPanelState.themesSettingOptionsGap);
+        let themesSettingOptionsStartingY: number = topRightPanelState.themesSettingOptionsStartingY;
+        let themesDescriptionStartingX: number = themesSettingOptionsStartingX + (themesSettingOptionsSize - themesDescriptionWidth) / 2;
+        let themesDescriptionStartingY: number = topRightPanelState.themesDescriptionStartingY;
+
+        if (showContent)
         {
-            themesOptionBlurLevel = BLUR_LEVEL.NONE;
-            scale = 1;
+            if (isThisOptionSelected || mouseHoverThisOption)
+            {
+                themesOptionBlurLevel = BLUR_LEVEL.NONE;
+                scale = 1;
 
-            if (index === INDEX.THEME_DARK)
-            {
-                iconColor = appState.iconColorDarkThemeSelected;
-            }
-            else if (index === INDEX.THEME_YELLOW)
-            {
-                iconColor = appState.iconColorYellowThemeSelected;
-            }
-            else if (index === INDEX.THEME_BRIGHT)
-            {
-                iconColor = appState.iconColorBrightThemeSelected;
-                lightBulbEffectColor = appState.lightUpEffectColor;
-            }
+                if (index === INDEX.THEME_DARK)
+                {
+                    iconColor = appState.iconColorDarkThemeSelected;
+                }
+                else if (index === INDEX.THEME_YELLOW)
+                {
+                    iconColor = appState.iconColorYellowThemeSelected;
+                }
+                else if (index === INDEX.THEME_BRIGHT)
+                {
+                    iconColor = appState.iconColorBrightThemeSelected;
+                    lightBulbEffectColor = appState.lightUpEffectColor;
+                }
 
-            if (mouseHoverThisOption)
-            {
-                themesDescriptionBlurLevel = BLUR_LEVEL.NONE;
-                themesDescriptionFontColor = appState.appFontColor;
-            }
+                if (mouseHoverThisOption)
+                {
+                    themesDescriptionBlurLevel = BLUR_LEVEL.NONE;
+                    themesDescriptionFontColor = appState.appFontColor;
+                }
 
-            if (isThisOptionSelected)
-            {
-                themeTitleBlurLevel = BLUR_LEVEL.NONE;
-                themeTitleFontColor = appState.appFontColor;
-                themesTitleStartingY = topRightPanelState.themesTitleStartingY
+                if (isThisOptionSelected)
+                {
+                    themeTitleBlurLevel = BLUR_LEVEL.NONE;
+                    themeTitleFontColor = appState.appFontColor;
+                    themesTitleStartingY = topRightPanelState.themesTitleStartingY
+                }
             }
         }
+        else
+        {
+            iconColor = BLACK_TRANSPARENT_00;
+            themesSettingOptionsStartingY = themesTitleStartingY;
+            themesDescriptionStartingY = themesTitleStartingY;
+        }
+
 
         let themesTitleDivStyleObject = new StyleObject()
             .setBasics(topRightPanelState.topRightPanelShapeModel.getWidth(), 0, 0, themesTitleStartingY)
@@ -192,10 +202,11 @@ const themesSettingContent = (appState: appStateType, topRightPanelState: topRig
             .addTransition("top", TRANSITION_TIME_NORMAL)
             .setTextAlign("center");
         let themeSettingOptionDivStyleObject = new StyleObject()
-            .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, themesSettingOptionX, topRightPanelState.themesSettingOptionsStartingY)
+            .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, themesSettingOptionsStartingX, themesSettingOptionsStartingY)
             .setBlur(themesOptionBlurLevel)
             .addScale(scale, scale)
             .addTransition("filter", TRANSITION_TIME_NORMAL)
+            .addTransition("top", TRANSITION_TIME_NORMAL)
             .addTransition("transform", TRANSITION_TIME_NORMAL);
         let lightBulbEffectStyleObject = new StyleObject()
             .setBasics("80%", "80%", "10%", "0%")
@@ -204,12 +215,13 @@ const themesSettingContent = (appState: appStateType, topRightPanelState: topRig
             .setPointerEvents("none")
             .addTransition("background-color", TRANSITION_TIME_NORMAL);
         let themesDescriptionDivStyleObject = new StyleObject()
-            .setBasics(themesDescriptionWidth, 0, themesDescriptionX, topRightPanelState.themesDescriptionStartingY)
+            .setBasics(themesDescriptionWidth, 0, themesDescriptionStartingX, themesDescriptionStartingY)
             .setPointerEvents("none")
             .setTextAlign("center")
             .setFontColor(themesDescriptionFontColor)
             .setBlur(themesDescriptionBlurLevel)
             .addTransition("filter", TRANSITION_TIME_NORMAL)
+            .addTransition("top", TRANSITION_TIME_NORMAL)
             .addTransition("color", TRANSITION_TIME_NORMAL);
 
         return <div key={index} style={{
@@ -272,7 +284,6 @@ const matchDispatchToProps = (dispatch) =>
         topRightPanelAction_selectSingleSelectionModelItem: topRightPanelAction_selectSingleSelectionModelItem,
         topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem,
         topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems,
-        topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent: topRightPanelAction_requestToSetDismissSettingsTabsCurrentContent,
     }, dispatch);
 };
 

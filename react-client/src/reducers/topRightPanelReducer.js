@@ -137,13 +137,6 @@ const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: to
     return nextState;
 };
 
-const topRightPanelAction_setDismissSettingsTabsCurrentContent_handler = (state: topRightPanelStateType, action) =>
-{
-    let nextState = deepCopy(state);
-    nextState.settingsTabsDismissCurrentContent = action.dismiss;
-    return nextState;
-};
-
 // Check reducerCreator for explanation of handlers
 const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_UPDATE_TOP_RIGHT_PANEL_SIZE]: topRightPanelAction_updateTopRightPanelSize_handler,
@@ -153,7 +146,6 @@ const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM]: topRightPanelAction_selectSingleSelectionModelItem_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM]: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS]: topRightPanelAction_setMouseHoverOnSingleSelectionModelItems_handler,
-    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_DISMISS_SETTINGS_TABS_CURRENT_CONTENT]: topRightPanelAction_setDismissSettingsTabsCurrentContent_handler,
 };
 
 
