@@ -1,6 +1,7 @@
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import type {topRightPanelStateType} from "../reducers/topRightPanelReducer";
+import {INDEX} from "../utilities/CONSTANTS_NUMBER";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -51,6 +52,17 @@ export const topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItem
     }
 };
 
+export const topRightPanelAction_requestToRemoveThemesTabContent = (themeOptionIndex: number, transitionName: string, transitionedValue: number, valueToCheck: number) =>
+{
+    return (dispatch) =>
+    {
+        if(themeOptionIndex === INDEX.THEME_DARK && transitionName === "top" && transitionedValue === valueToCheck)
+        {
+            dispatch(topRightPanelAction_setSettingsTabsContentDisplayValue(themeOptionIndex, "none"));
+        }
+    }
+};
+
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
 /* *************************************************************************** */
@@ -63,6 +75,7 @@ export const TOP_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM: "TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM",
     TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM: "TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM",
     TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS: "TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS",
+    TOP_RIGHT_PANEL_ACTION_SET_SETTINGS_TABS_CONTENT_DISPLAY_VALUE: "TOP_RIGHT_PANEL_ACTION_SET_SETTINGS_TABS_CONTENT_DISPLAY_VALUE",
 });
 
 export const topRightPanelAction_updateTopRightPanelSize = (newTopRightPanelWidth: number, newTopRightPanelHeight: number) =>
@@ -134,5 +147,14 @@ const topRightPanelAction_setMouseHoverOnSingleSelectionModelItems = (hover: boo
         type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS,
         hover: hover,
         modelStringId: modelStringId,
+    };
+};
+
+export const topRightPanelAction_setSettingsTabsContentDisplayValue = (itemIndex: number, display: string) =>
+{
+    return {
+        type: TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_SETTINGS_TABS_CONTENT_DISPLAY_VALUE,
+        itemIndex: itemIndex,
+        display: display,
     };
 };

@@ -6,6 +6,14 @@ import {createReducer} from "./reducerCreator";
 import {TOP_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/topRightPanelActions";
 import numberIdGenerator from "../classes/NumberIdGenerator";
 import SingleSelectionModel from "../classes/StateModelClasses/SingleSelectionModel";
+import {INDEX} from "../utilities/CONSTANTS_NUMBER";
+
+let settingsTabsContentDisplayValues: Array<string> = [];
+settingsTabsContentDisplayValues[INDEX.SETTINGS_TABS_THEME] = "block";
+settingsTabsContentDisplayValues[INDEX.SETTINGS_TABS_COLOR] = "none";
+settingsTabsContentDisplayValues[INDEX.SETTINGS_TABS_SHAPE] = "none";
+settingsTabsContentDisplayValues[INDEX.SETTINGS_TABS_VIEW] = "none";
+settingsTabsContentDisplayValues[INDEX.SETTINGS_TABS_PLAYGROUND] = "none";
 
 export type topRightPanelStateType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
@@ -19,13 +27,12 @@ export type topRightPanelStateType = {
     settingsTabsStateModel: SingleSelectionModel,
     settingsTabsWidth: number,
     settingsTabsHeight: number,
-    settingsTabsDismissCurrentContent: boolean,
+    settingsTabsContentDisplayValues: Array<string>,
 
+    themesDisplay: string,
     themesTitleStartingY: number,
-
     themesDescriptionStartingY: number,
     themesDescriptionWidth: number,
-
     themesSettingStateModel: SingleSelectionModel,
     themesSettingOptionsSize: number,
     themesSettingOptionsGap: number,
@@ -45,13 +52,11 @@ const topRightPanelDefaultState: topRightPanelStateType = {
     settingsTabsStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.SETTINGS_TABS_ID, SETTINGS_TABS_TITLES),
     settingsTabsWidth: 0,
     settingsTabsHeight: 0,
-    settingsTabsDismissCurrentContent: false,
+    settingsTabsContentDisplayValues: settingsTabsContentDisplayValues,
 
     themesTitleStartingY: 0,
-
     themesDescriptionStartingY: 0,
     themesDescriptionWidth: 0,
-
     themesSettingStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.THEMES_SETTING_ID, THEMES_TITLES),
     themesSettingOptionsSize: 0,
     themesSettingOptionsGap: 0,
@@ -118,6 +123,13 @@ const topRightPanelAction_setMouseHoverOnSingleSelectionModelItems_handler = (st
     return nextState;
 };
 
+const topRightPanelAction_setSettingsTabsContentDisplayValue_handler = (state: topRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.settingsTabsContentDisplayValues[action.itemIndex] = action.display;
+    return nextState;
+};
+
 const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: topRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
@@ -146,6 +158,7 @@ const topRightPanelReducerHandlers = {
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SELECT_SINGLE_SELECTION_MODEL_ITEM]: topRightPanelAction_selectSingleSelectionModelItem_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGLE_SELECTION_MODEL_INDIVIDUAL_ITEM]: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem_handler,
     [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_SINGE_SELECTION_MODEL_ITEMS]: topRightPanelAction_setMouseHoverOnSingleSelectionModelItems_handler,
+    [TOP_RIGHT_PANEL_ACTION_TYPE.TOP_RIGHT_PANEL_ACTION_SET_SETTINGS_TABS_CONTENT_DISPLAY_VALUE]: topRightPanelAction_setSettingsTabsContentDisplayValue_handler,
 };
 
 
