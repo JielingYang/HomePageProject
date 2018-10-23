@@ -36,11 +36,11 @@ const TopRightPanel_SettingsTabsThemesSetting = (props: TopRightPanel_SettingsTa
     let themesDescriptionWidth: number = topRightPanelState.themesDescriptionWidth;
     let displayValue: string = topRightPanelState.settingsTabsContentDisplayValues[INDEX.SETTINGS_TABS_THEME];
     let themesSettingContentOpacity: number = 0;
-    let themesSettingContentY: string = "-30%";
+    let themesSettingContentY: number | string = topRightPanelState.settingsTabsContentHideY;
     if (showContent)
     {
         themesSettingContentOpacity = 1;
-        themesSettingContentY = "0%";
+        themesSettingContentY = 0;
     }
 
     let themesSettingContentWrapperDivStyleObject = new StyleObject()

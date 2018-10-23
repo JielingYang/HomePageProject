@@ -37,6 +37,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
         <TopRightPanel_PanelBorder/>
         <TopRightPanel_SettingsTabsThemesSetting/>
+
         <TopRightPanel_SettingsTabs/>
     </div>;
 };

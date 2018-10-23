@@ -27,6 +27,7 @@ export type topRightPanelStateType = {
     settingsTabsStateModel: SingleSelectionModel,
     settingsTabsWidth: number,
     settingsTabsHeight: number,
+    settingsTabsContentHideY: string,
     settingsTabsContentDisplayValues: Array<string>,
 
     themesDisplay: string,
@@ -52,6 +53,7 @@ const topRightPanelDefaultState: topRightPanelStateType = {
     settingsTabsStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.SETTINGS_TABS_ID, SETTINGS_TABS_TITLES),
     settingsTabsWidth: 0,
     settingsTabsHeight: 0,
+    settingsTabsContentHideY: "-30%",
     settingsTabsContentDisplayValues: settingsTabsContentDisplayValues,
 
     themesTitleStartingY: 0,
