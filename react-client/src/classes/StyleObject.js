@@ -110,6 +110,12 @@ export default class StyleObject
         return this;
     }
 
+    setOpacity(opacity: number)
+    {
+        this.style.opacity = opacity;
+        return this;
+    }
+
     setFlexDirection(direction: string)
     {
         this.style.flexDirection = direction;

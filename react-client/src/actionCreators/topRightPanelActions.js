@@ -52,13 +52,13 @@ export const topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItem
     }
 };
 
-export const topRightPanelAction_requestToRemoveThemesTabContent = (themeOptionIndex: number, transitionName: string, transitionedValue: number, valueToCheck: number) =>
+export const topRightPanelAction_requestToRemoveThemesTabContent = (transitionName: string, transitionedValue: number, valueToCheck: number) =>
 {
     return (dispatch) =>
     {
-        if(themeOptionIndex === INDEX.THEME_DARK && transitionName === "top" && transitionedValue === valueToCheck)
+        if(transitionName === "opacity" && transitionedValue === valueToCheck)
         {
-            dispatch(topRightPanelAction_setSettingsTabsContentDisplayValue(themeOptionIndex, "none"));
+            dispatch(topRightPanelAction_setSettingsTabsContentDisplayValue(INDEX.THEME_DARK, "none"));
         }
     }
 };
