@@ -106,10 +106,7 @@ const settingsTabs = (appState: appStateType, topRightPanelState: topRightPanelS
             }
 
             return <div key={index} style={individualTabDivStyleObject.getStyle()}
-                        onClick={() =>
-                        {
-                            topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId);
-                        }}
+                        onClick={() => topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId)}
                         onMouseEnter={() => topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, settingsTabsStateModelStringId)}>
                 <div style={tabIconWrapperDivStyleObject.getStyle()}>
                     {getSettingsTabsSvgIcon(iconColor, index)}
