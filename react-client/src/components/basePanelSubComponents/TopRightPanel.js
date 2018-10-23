@@ -26,10 +26,10 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     let topRightPanelShapeModel: Shape2d_Rectangle = props.topRightPanelState.topRightPanelShapeModel;
 
     let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
+        .addTransition("filter", TRANSITION_TIME_NORMAL)
         .setBlur(props.topRightPanelState.topRightPanelFocusOn
                  ? BLUR_LEVEL.NONE
-                 : BLUR_LEVEL.MEDIUM)
-        .addTransition("filter", TRANSITION_TIME_NORMAL);
+                 : BLUR_LEVEL.MEDIUM);
 
     console.log(LEVEL2_CONSOLE_PREFIX + topRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}

@@ -72,6 +72,7 @@ const TopRightPanel_SettingsTabs = (props: TopRightPanel_SettingsTabsPropsType) 
                 .setFontColor(iconColor)
                 .addTransition("filter", TRANSITION_TIME_NORMAL)
                 .addTransition("color", TRANSITION_TIME_NORMAL);
+
             if (isTheFirst)
             {
                 individualTabDivStyleObject.setBorderRadius(topRightPanelState.topRightPanelBorderRadius, 0, 0, 0);
@@ -82,12 +83,20 @@ const TopRightPanel_SettingsTabs = (props: TopRightPanel_SettingsTabsPropsType) 
             }
 
             return <div key={index} style={individualTabDivStyleObject.getStyle()}
-                        onClick={() =>
+                        onClick={() => props.topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId)}
+                        onMouseEnter={() =>
                         {
-                            props.topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId);
+                            props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, settingsTabsStateModelStringId);
                             props.topRightPanelAction_setSettingsTabsContentDisplayValue(index, "block");
                         }}
-                        onMouseEnter={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, settingsTabsStateModelStringId)}>
+                        onMouseLeave={() =>
+                        {
+                            // TODO - Move logic into action itself
+                            if (settingsTabsStateModel.getSelectedItemIndex() !== index)
+                            {
+                                props.topRightPanelAction_setSettingsTabsContentDisplayValue(index, "none");
+                            }
+                        }}>
                 <div style={tabIconWrapperDivStyleObject.getStyle()}>
                     {getSettingsTabsSvgIcon(iconColor, index)}
                 </div>
