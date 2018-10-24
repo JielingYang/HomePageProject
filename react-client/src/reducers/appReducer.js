@@ -6,7 +6,7 @@ import {APP_REFRESHING_TIME_GAP} from "../utilities/CONSTANTS_TIME";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import {ID} from "../utilities/CONSTANTS_STRING";
 import numberIdGenerator from "../classes/NumberIdGenerator";
-import {BLACK_TRANSPARENT_00, BLACK_TRANSPARENT_10, BLACK_TRANSPARENT_50, BLACK_TRANSPARENT_90, CONSOLE_FONT_YELLOW, GREY_DARK, GREY_HEAVY, GREY_LIGHT, WHITE, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90, YELLOW, YELLOW_DARK_1, YELLOW_DARK_2, YELLOW_LIGHT_1} from "../utilities/CONSTANTS_COLOR";
+import {BLACK_TRANSPARENT_00, BLACK_TRANSPARENT_10, BLACK_TRANSPARENT_50, BLACK_TRANSPARENT_90, CONSOLE_FONT_YELLOW, GREY_DARK, GREY_HEAVY, GREY_LIGHT, WHITE, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90, YELLOW, YELLOW_DARK_1, YELLOW_DARK_2, YELLOW_LIGHT_1, YELLOW_LIGHT_3} from "../utilities/CONSTANTS_COLOR";
 import {INDEX} from "../utilities/CONSTANTS_NUMBER";
 
 export type appStateType = {
@@ -71,7 +71,7 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
 {
     let nextState: appStateType = deepCopy(state);
 
-    if(action.themeIndex === INDEX.THEME_DARK)
+    if (action.themeIndex === INDEX.THEME_DARK)
     {
         nextState.appBackgroundColor = GREY_DARK;
         nextState.appFontColor = WHITE_TRANSPARENT_90;
@@ -85,7 +85,7 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
         nextState.iconColorBrightThemeSelected = WHITE_TRANSPARENT_90;
         nextState.lightUpEffectColor = YELLOW_LIGHT_1;
     }
-    else if(action.themeIndex === INDEX.THEME_YELLOW)
+    else if (action.themeIndex === INDEX.THEME_BRIGHT)
     {
         nextState.appBackgroundColor = GREY_LIGHT;
         nextState.appFontColor = GREY_DARK;
@@ -97,9 +97,9 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
         nextState.iconColorDarkThemeSelected = GREY_DARK;
         nextState.iconColorYellowThemeSelected = YELLOW_DARK_1;
         nextState.iconColorBrightThemeSelected = WHITE;
-        nextState.lightUpEffectColor = YELLOW_LIGHT_1;
+        nextState.lightUpEffectColor = YELLOW_LIGHT_3;
     }
-    else if(action.themeIndex === INDEX.THEME_BRIGHT)
+    else if (action.themeIndex === INDEX.THEME_YELLOW)
     {
         nextState.appBackgroundColor = WHITE;
         nextState.appFontColor = WHITE_TRANSPARENT_90;

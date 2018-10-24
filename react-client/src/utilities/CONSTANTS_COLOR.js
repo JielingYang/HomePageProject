@@ -34,6 +34,7 @@ export const GREY_DARK = "rgb(35,35,35)";
 export const YELLOW = "rgb(255,255,0)";
 export const YELLOW_LIGHT_1 = "rgb(255,255,200)";
 export const YELLOW_LIGHT_2 = "rgb(255,255,150)";
+export const YELLOW_LIGHT_3 = "rgb(255,255,100)";
 export const YELLOW_DARK_1 = "rgb(224,138,30)";
 export const YELLOW_DARK_2 = "rgb(225,164,0)";
 export const YELLOW_DARK_3 = "rgb(202,105,36)";

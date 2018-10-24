@@ -47,20 +47,20 @@ export const UTILITY_STRING = Object.freeze({
 
 let settingsTabsTitles = [];
 settingsTabsTitles[INDEX.SETTINGS_TABS_THEME] = "theme setting";
-settingsTabsTitles[INDEX.SETTINGS_TABS_COLOR] = "color setting";
-settingsTabsTitles[INDEX.SETTINGS_TABS_SHAPE] = "shape setting";
+// settingsTabsTitles[INDEX.SETTINGS_TABS_COLOR] = "color setting";
+// settingsTabsTitles[INDEX.SETTINGS_TABS_SHAPE] = "shape setting";
 settingsTabsTitles[INDEX.SETTINGS_TABS_VIEW] = "view setting";
 settingsTabsTitles[INDEX.SETTINGS_TABS_PLAYGROUND] = "playground setting";
 export const SETTINGS_TABS_TITLES = settingsTabsTitles;
 
 let themesTitles = [];
 themesTitles[INDEX.THEME_DARK] = "DARK THEME";
-themesTitles[INDEX.THEME_YELLOW] = "YELLOW THEME";
 themesTitles[INDEX.THEME_BRIGHT] = "BRIGHT THEME";
+themesTitles[INDEX.THEME_YELLOW] = "YELLOW THEME";
 export const THEMES_TITLES = themesTitles;
 
 let themesDescriptions = [];
 themesDescriptions[INDEX.THEME_DARK] = "Come to the DARK side, we have cookies...";
-themesDescriptions[INDEX.THEME_YELLOW] = "Boring...zZ... let's add some YELLOW!";
-themesDescriptions[INDEX.THEME_BRIGHT] = "BRIGHT it up!!! (under construction...)";
+themesDescriptions[INDEX.THEME_BRIGHT] = "BRIGHT it up!!!";
+themesDescriptions[INDEX.THEME_YELLOW] = "Under construction..."; // Boring...zZ... let's add some YELLOW!
 export const THEMES_DESCRIPTIONS = themesDescriptions;

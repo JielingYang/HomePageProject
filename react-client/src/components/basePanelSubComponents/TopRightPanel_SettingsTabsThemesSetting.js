@@ -79,14 +79,14 @@ const TopRightPanel_SettingsTabsThemesSetting = (props: TopRightPanel_SettingsTa
                     {
                         iconColor = appState.iconColorDarkThemeSelected;
                     }
-                    else if (index === INDEX.THEME_YELLOW)
-                    {
-                        iconColor = appState.iconColorYellowThemeSelected;
-                    }
                     else if (index === INDEX.THEME_BRIGHT)
                     {
                         iconColor = appState.iconColorBrightThemeSelected;
                         lightBulbEffectColor = appState.lightUpEffectColor;
+                    }
+                    else if (index === INDEX.THEME_YELLOW)
+                    {
+                        iconColor = appState.iconColorYellowThemeSelected;
                     }
 
                     if (mouseHoverThisOption)
@@ -143,7 +143,7 @@ const TopRightPanel_SettingsTabsThemesSetting = (props: TopRightPanel_SettingsTa
                 <div style={themeSettingOptionDivStyleObject.getStyle()}
                      onClick={() =>
                      {
-                         if (index !== INDEX.THEME_BRIGHT) // TODO - bright theme not available for now
+                         if (index !== INDEX.THEME_YELLOW) // TODO - bright theme not available for now
                          {
                              props.topRightPanelAction_selectSingleSelectionModelItem(index, themesSettingStateModelStringId);
                              props.appAction_changeAppTheme(index);
