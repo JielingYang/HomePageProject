@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
-import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems, topRightPanelAction_setSettingsTabsContentDisplayValue} from "../../actionCreators/topRightPanelActions";
+import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems, topRightPanelAction_setSettingsTabsContentDisplayValue, topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenMouseLeave} from "../../actionCreators/topRightPanelActions";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 import {getSettingsTabsSvgIcon} from "../../utilities/svgIcons";
 import type {appStateType} from "../../reducers/appReducer";
@@ -18,6 +18,7 @@ type TopRightPanel_SettingsTabsPropsType = {
     topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function,
     topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: Function,
     topRightPanelAction_setSettingsTabsContentDisplayValue: Function,
+    topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenMouseLeave: Function,
 }
 
 const TopRightPanel_SettingsTabs = (props: TopRightPanel_SettingsTabsPropsType) =>
@@ -84,18 +85,11 @@ const TopRightPanel_SettingsTabs = (props: TopRightPanel_SettingsTabsPropsType) 
 
             return <div key={index} style={individualTabDivStyleObject.getStyle()}
                         onClick={() => props.topRightPanelAction_selectSingleSelectionModelItem(index, settingsTabsStateModelStringId)}
+                        onMouseLeave={() => props.topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenMouseLeave(index)}
                         onMouseEnter={() =>
                         {
                             props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, settingsTabsStateModelStringId);
                             props.topRightPanelAction_setSettingsTabsContentDisplayValue(index, "block");
-                        }}
-                        onMouseLeave={() =>
-                        {
-                            // TODO - Move logic into action itself
-                            if (settingsTabsStateModel.getSelectedItemIndex() !== index)
-                            {
-                                props.topRightPanelAction_setSettingsTabsContentDisplayValue(index, "none");
-                            }
                         }}>
                 <div style={tabIconWrapperDivStyleObject.getStyle()}>
                     {getSettingsTabsSvgIcon(iconColor, index)}
@@ -124,6 +118,7 @@ const matchDispatchToProps = (dispatch) =>
         topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem,
         topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems,
         topRightPanelAction_setSettingsTabsContentDisplayValue: topRightPanelAction_setSettingsTabsContentDisplayValue,
+        topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenMouseLeave: topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenMouseLeave,
     }, dispatch);
 };
 

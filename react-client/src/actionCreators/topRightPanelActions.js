@@ -63,6 +63,17 @@ export const topRightPanelAction_requestToRemoveThemesTabContent = (transitionNa
     }
 };
 
+export const topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenMouseLeave = (tabIndex: number) =>
+{
+    return (dispatch, getSate) =>
+    {
+        if(getSate().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex() !== tabIndex)
+        {
+            dispatch(topRightPanelAction_setSettingsTabsContentDisplayValue(tabIndex, "none"));
+        }
+    }
+};
+
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
 /* *************************************************************************** */
