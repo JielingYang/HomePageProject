@@ -14,6 +14,9 @@ import TopRightPanel_PanelBorder from "./TopRightPanel_PanelBorder";
 import TopRightPanel_SettingsTabs from "./TopRightPanel_SettingsTabs";
 import TopRightPanel_SettingsTabsThemesSetting from "./TopRightPanel_SettingsTabsThemesSetting";
 import TopRightPanel_SettingsTabsColorsSettings from "./TopRightPanel_SettingsTabsColorsSetting";
+import TopRightPanel_SettingsTabsShapesSettings from "./TopRightPanel_SettingsTabsShapesSettings";
+import TopRightPanel_SettingsTabsViewSettings from "./TopRightPanel_SettingsTabsViewSettings";
+import TopRightPanel_SettingsTabsPlaygroundSettings from "./TopRightPanel_SettingsTabsPlaygroundSettings";
 
 type TopRightPanelPropsType = {
     appState: appStateType,
@@ -39,6 +42,9 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
         <TopRightPanel_PanelBorder/>
         <TopRightPanel_SettingsTabsThemesSetting/>
         <TopRightPanel_SettingsTabsColorsSettings/>
+        <TopRightPanel_SettingsTabsShapesSettings/>
+        <TopRightPanel_SettingsTabsViewSettings/>
+        <TopRightPanel_SettingsTabsPlaygroundSettings/>
         <TopRightPanel_SettingsTabs/>
     </div>;
 };
