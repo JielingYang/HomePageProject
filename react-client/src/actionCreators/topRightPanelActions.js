@@ -1,7 +1,6 @@
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import type {topRightPanelStateType} from "../reducers/topRightPanelReducer";
-import {INDEX} from "../utilities/CONSTANTS_NUMBER";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -52,13 +51,13 @@ export const topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItem
     }
 };
 
-export const topRightPanelAction_requestToRemoveThemesTabContent = (transitionName: string, transitionedValue: number, valueToCheck: number) =>
+export const topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd = (tabIndex: number, transitionName: string, transitionedValue: number, valueToCheck: number) =>
 {
-    return (dispatch) =>
+    return (dispatch, getSate) =>
     {
-        if(transitionName === "opacity" && transitionedValue === valueToCheck)
+        if(transitionName === "opacity" && transitionedValue === valueToCheck && getSate().topRightPanelState.settingsTabsStateModel.getMouseHoveredItemIndex() !== tabIndex)
         {
-            dispatch(topRightPanelAction_setSettingsTabsContentDisplayValue(INDEX.THEME_DARK, "none"));
+            dispatch(topRightPanelAction_setSettingsTabsContentDisplayValue(tabIndex, "none"));
         }
     }
 };

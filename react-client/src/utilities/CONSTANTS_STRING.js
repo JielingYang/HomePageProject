@@ -50,7 +50,7 @@ settingsTabsTitles[INDEX.SETTINGS_TABS_THEME] = "theme setting";
 settingsTabsTitles[INDEX.SETTINGS_TABS_COLOR] = "color setting";
 settingsTabsTitles[INDEX.SETTINGS_TABS_SHAPE] = "shape setting";
 settingsTabsTitles[INDEX.SETTINGS_TABS_VIEW] = "view setting";
-settingsTabsTitles[INDEX.SETTINGS_TABS_PLAYGROUND] = "playground objects setting";
+settingsTabsTitles[INDEX.SETTINGS_TABS_PLAYGROUND] = "playground setting";
 export const SETTINGS_TABS_TITLES = settingsTabsTitles;
 
 let themesTitles = [];

@@ -5,7 +5,7 @@ import Shape2d_Rectangle from "../../classes/shapeClasses/Shape2d_Rectangle";
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL, INDEX} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
-import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToRemoveThemesTabContent} from "../../actionCreators/topRightPanelActions";
+import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, topRightPanelAction_selectSingleSelectionModelItem, topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd} from "../../actionCreators/topRightPanelActions";
 import {BLACK_TRANSPARENT_00, WHITE_TRANSPARENT_00} from "../../utilities/CONSTANTS_COLOR";
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 import {getThemesSvgIcon} from "../../utilities/svgIcons";
@@ -20,7 +20,7 @@ type TopRightPanel_SettingsTabsThemesSettingPropsType = {
     appAction_changeAppTheme: Function,
     topRightPanelAction_selectSingleSelectionModelItem: Function,
     topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function,
-    topRightPanelAction_requestToRemoveThemesTabContent: Function,
+    topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd: Function,
 }
 
 const TopRightPanel_SettingsTabsThemesSetting = (props: TopRightPanel_SettingsTabsThemesSettingPropsType) =>
@@ -51,7 +51,7 @@ const TopRightPanel_SettingsTabsThemesSetting = (props: TopRightPanel_SettingsTa
         .addTransition("top", TRANSITION_TIME_NORMAL);
 
     return <div style={themesSettingContentWrapperDivStyleObject.getStyle()}
-                onTransitionEnd={(e) => props.topRightPanelAction_requestToRemoveThemesTabContent(e.propertyName, themesSettingContentOpacity, 0)}>
+                onTransitionEnd={(e) => props.topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd(INDEX.SETTINGS_TABS_THEME, e.propertyName, themesSettingContentOpacity, 0)}>
         {themesSettingsOptions.map((title: string, index: number) =>
         {
             let isThisOptionSelected: boolean = themesSettingStateModel.getSelectedItemIndex() === index;
@@ -176,7 +176,7 @@ const matchDispatchToProps = (dispatch) =>
         appAction_changeAppTheme: appAction_changeAppTheme,
         topRightPanelAction_selectSingleSelectionModelItem: topRightPanelAction_selectSingleSelectionModelItem,
         topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem,
-        topRightPanelAction_requestToRemoveThemesTabContent: topRightPanelAction_requestToRemoveThemesTabContent,
+        topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd: topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd,
     }, dispatch);
 };
 

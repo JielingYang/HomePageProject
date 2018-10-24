@@ -13,6 +13,7 @@ import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
 import TopRightPanel_PanelBorder from "./TopRightPanel_PanelBorder";
 import TopRightPanel_SettingsTabs from "./TopRightPanel_SettingsTabs";
 import TopRightPanel_SettingsTabsThemesSetting from "./TopRightPanel_SettingsTabsThemesSetting";
+import TopRightPanel_SettingsTabsColorsSettings from "./TopRightPanel_SettingsTabsColorsSetting";
 
 type TopRightPanelPropsType = {
     appState: appStateType,
@@ -37,7 +38,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
         <TopRightPanel_PanelBorder/>
         <TopRightPanel_SettingsTabsThemesSetting/>
-
+        <TopRightPanel_SettingsTabsColorsSettings/>
         <TopRightPanel_SettingsTabs/>
     </div>;
 };
