@@ -25,7 +25,7 @@ const TopRightPanel_SettingsTabs = (props: TopRightPanel_SettingsTabsPropsType) 
 {
     let appState: appStateType = props.appState;
     let topRightPanelState: topRightPanelStateType = props.topRightPanelState;
-    let settingsTabsDivStyleObject: StyleObject = new StyleObject().setBasics(topRightPanelState.topRightPanelBorderWidth, topRightPanelState.settingsTabsHeight, topRightPanelState.topRightPanelPadding, topRightPanelState.topRightPanelPadding);
+    let settingsTabsDivStyleObject: StyleObject = new StyleObject().setBasics(topRightPanelState.panelBorderWidth, topRightPanelState.settingsTabsHeight, topRightPanelState.panelPadding, topRightPanelState.panelPadding);
     let settingsTabsStateModel: SingleSelectionModel = topRightPanelState.settingsTabsStateModel;
     let settingsTabsStateModelStringId: string = settingsTabsStateModel.getStringId();
 
@@ -76,11 +76,11 @@ const TopRightPanel_SettingsTabs = (props: TopRightPanel_SettingsTabsPropsType) 
 
             if (isTheFirst)
             {
-                individualTabDivStyleObject.setBorderRadius(topRightPanelState.topRightPanelBorderRadius, 0, 0, 0);
+                individualTabDivStyleObject.setBorderRadius(topRightPanelState.panelBorderRadius, 0, 0, 0);
             }
             else if (isTheLast)
             {
-                individualTabDivStyleObject.setBorderRadius(0, topRightPanelState.topRightPanelBorderRadius, 0, 0);
+                individualTabDivStyleObject.setBorderRadius(0, topRightPanelState.panelBorderRadius, 0, 0);
             }
 
             return <div key={index} style={individualTabDivStyleObject.getStyle()}

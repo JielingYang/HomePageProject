@@ -16,8 +16,8 @@ export type appStateType = {
 
     appBackgroundColor: string,
     appFontColor: string,
-    mainPanelsBackgroundColor: string,
-    mainPanelsBorderColor: string,
+    subPanelsBackgroundColor: string,
+    subPanelsBorderColor: string,
     iconColorDefault: string,
     iconColorSelectedPrimary: string,
     iconColorSelectedSecondary: string,
@@ -34,8 +34,8 @@ const appDefaultState: appStateType = {
 
     appBackgroundColor: GREY_DARK,
     appFontColor: WHITE_TRANSPARENT_90,
-    mainPanelsBackgroundColor: BLACK_TRANSPARENT_00,
-    mainPanelsBorderColor: GREY_HEAVY,
+    subPanelsBackgroundColor: BLACK_TRANSPARENT_00,
+    subPanelsBorderColor: GREY_HEAVY,
     iconColorDefault: GREY_HEAVY,
     iconColorSelectedPrimary: WHITE_TRANSPARENT_90,
     iconColorSelectedSecondary: WHITE_TRANSPARENT_50,
@@ -75,8 +75,8 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
     {
         nextState.appBackgroundColor = GREY_DARK;
         nextState.appFontColor = WHITE_TRANSPARENT_90;
-        nextState.mainPanelsBackgroundColor = BLACK_TRANSPARENT_00;
-        nextState.mainPanelsBorderColor = GREY_HEAVY;
+        nextState.subPanelsBackgroundColor = BLACK_TRANSPARENT_00;
+        nextState.subPanelsBorderColor = GREY_HEAVY;
         nextState.iconColorDefault = GREY_HEAVY;
         nextState.iconColorSelectedPrimary = WHITE_TRANSPARENT_90;
         nextState.iconColorSelectedSecondary = WHITE_TRANSPARENT_50;
@@ -89,8 +89,8 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
     {
         nextState.appBackgroundColor = GREY_LIGHT;
         nextState.appFontColor = GREY_DARK;
-        nextState.mainPanelsBackgroundColor = BLACK_TRANSPARENT_00;
-        nextState.mainPanelsBorderColor = GREY_DARK;
+        nextState.subPanelsBackgroundColor = BLACK_TRANSPARENT_00;
+        nextState.subPanelsBorderColor = GREY_DARK;
         nextState.iconColorDefault = GREY_HEAVY;
         nextState.iconColorSelectedPrimary = BLACK_TRANSPARENT_90;
         nextState.iconColorSelectedSecondary = BLACK_TRANSPARENT_50;
@@ -103,8 +103,8 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
     {
         nextState.appBackgroundColor = WHITE;
         nextState.appFontColor = WHITE_TRANSPARENT_90;
-        nextState.mainPanelsBackgroundColor = BLACK_TRANSPARENT_10;
-        nextState.mainPanelsBorderColor = BLACK_TRANSPARENT_00;
+        nextState.subPanelsBackgroundColor = BLACK_TRANSPARENT_10;
+        nextState.subPanelsBorderColor = BLACK_TRANSPARENT_00;
         nextState.iconColorDefault = GREY_HEAVY;
         nextState.iconColorSelectedPrimary = WHITE_TRANSPARENT_90;
         nextState.iconColorSelectedSecondary = WHITE_TRANSPARENT_50;

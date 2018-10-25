@@ -20,10 +20,10 @@ const TopLeftPanel = (props: TopLeftPanelPropsType) =>
     let topLeftPanelShapeModel: Shape2d_Rectangle = props.topLeftPanelShapeModel;
 
     let topLeftPanelStyleObject = new StyleObject().setBasics(topLeftPanelShapeModel.getWidth(), topLeftPanelShapeModel.getHeight(), topLeftPanelShapeModel.getTopLeftPoint().getX(), topLeftPanelShapeModel.getTopLeftPoint().getY())
+        .addTransition("filter", TRANSITION_TIME_NORMAL)
         .setBlur(props.topLeftPanelFocusOn
                  ? BLUR_LEVEL.NONE
-                 : BLUR_LEVEL.MEDIUM)
-        .addTransition("filter", TRANSITION_TIME_NORMAL);
+                 : BLUR_LEVEL.MEDIUM);
 
     let topLeftPanelBorderDivStyleObject = new StyleObject().setBasics("90%", "90%", "5%", "5%").setBorder(5, "solid", GREY_HEAVY)
         .setBorderRadius(15);

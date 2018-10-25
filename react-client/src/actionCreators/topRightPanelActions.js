@@ -16,7 +16,7 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
         let topRightPanelShapeModel: Shape2d_Rectangle = topRightPanelState.topRightPanelShapeModel;
         let numberOfSettingsTabs: number = topRightPanelState.settingsTabsStateModel.getNumberOfItems();
         let numberOfThemes: number = topRightPanelState.themesSettingStateModel.getNumberOfItems();
-        let topRightPanelPadding: number = topRightPanelState.topRightPanelPadding;
+        let topRightPanelPadding: number = topRightPanelState.panelPadding;
 
         let topRightPanelBorderWidth: number = topRightPanelShapeModel.getWidth() - 2 * topRightPanelPadding;
         let topRightPanelBorderHeight: number = topRightPanelShapeModel.getHeight() - 2 * topRightPanelPadding;
@@ -53,9 +53,9 @@ export const topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItem
 
 export const topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd = (tabIndex: number, transitionName: string, transitionedValue: number, valueToCheck: number) =>
 {
-    return (dispatch, getSate) =>
+    return (dispatch, getState) =>
     {
-        if(transitionName === "opacity" && transitionedValue === valueToCheck && getSate().topRightPanelState.settingsTabsStateModel.getMouseHoveredItemIndex() !== tabIndex)
+        if(transitionName === "opacity" && transitionedValue === valueToCheck && getState().topRightPanelState.settingsTabsStateModel.getMouseHoveredItemIndex() !== tabIndex)
         {
             dispatch(topRightPanelAction_setSettingsTabsContentDisplayValue(tabIndex, "none"));
         }
@@ -64,9 +64,9 @@ export const topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNo
 
 export const topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenMouseLeave = (tabIndex: number) =>
 {
-    return (dispatch, getSate) =>
+    return (dispatch, getState) =>
     {
-        if(getSate().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex() !== tabIndex)
+        if(getState().topRightPanelState.settingsTabsStateModel.getSelectedItemIndex() !== tabIndex)
         {
             dispatch(topRightPanelAction_setSettingsTabsContentDisplayValue(tabIndex, "none"));
         }

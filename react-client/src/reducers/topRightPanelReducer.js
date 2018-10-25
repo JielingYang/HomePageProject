@@ -18,11 +18,11 @@ settingsTabsContentDisplayValues[INDEX.SETTINGS_TABS_PLAYGROUND] = "none";
 export type topRightPanelStateType = {
     topRightPanelShapeModel: Shape2d_Rectangle,
     topRightPanelFocusOn: boolean,
-    topRightPanelPadding: number,
-    topRightPanelBorderSize: number,
-    topRightPanelBorderRadius: number,
-    topRightPanelBorderWidth: number,
-    topRightPanelBorderHeight: number,
+    panelPadding: number,
+    panelBorderSize: number,
+    panelBorderRadius: number,
+    panelBorderWidth: number,
+    panelBorderHeight: number,
 
     settingsTabsStateModel: SingleSelectionModel,
     settingsTabsWidth: number,
@@ -44,11 +44,11 @@ export type topRightPanelStateType = {
 const topRightPanelDefaultState: topRightPanelStateType = {
     topRightPanelShapeModel: new Shape2d_Rectangle(numberIdGenerator.generateId(), ID.TOP_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, 0), window.innerWidth / 2, window.innerHeight / 2),
     topRightPanelFocusOn: false,
-    topRightPanelPadding: 10,
-    topRightPanelBorderSize: 0,
-    topRightPanelBorderRadius: 0,
-    topRightPanelBorderWidth: 0,
-    topRightPanelBorderHeight: 0,
+    panelPadding: 10,
+    panelBorderSize: 0,
+    panelBorderRadius: 0,
+    panelBorderWidth: 0,
+    panelBorderHeight: 0,
 
     settingsTabsStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.SETTINGS_TABS_ID, SETTINGS_TABS_TITLES),
     settingsTabsWidth: 0,
@@ -135,10 +135,10 @@ const topRightPanelAction_setSettingsTabsContentDisplayValue_handler = (state: t
 const topRightPanelAction_setTopRightPanelContentLayoutData_handler = (state: topRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.topRightPanelBorderWidth = action.topRightPanelBorderWidth;
-    nextState.topRightPanelBorderHeight = action.topRightPanelBorderHeight;
-    nextState.topRightPanelBorderSize = action.topRightPanelBorderSize;
-    nextState.topRightPanelBorderRadius = action.topRightPanelBorderRadius;
+    nextState.panelBorderWidth = action.topRightPanelBorderWidth;
+    nextState.panelBorderHeight = action.topRightPanelBorderHeight;
+    nextState.panelBorderSize = action.topRightPanelBorderSize;
+    nextState.panelBorderRadius = action.topRightPanelBorderRadius;
     nextState.settingsTabsWidth = action.settingsTabsWidth;
     nextState.settingsTabsHeight = action.settingsTabsHeight;
     nextState.themesTitleStartingY = action.themesTitleStartingY;

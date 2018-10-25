@@ -10,7 +10,7 @@ import {topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/
 import type {appStateType} from "../../reducers/appReducer";
 import {appAction_changeAppTheme} from "../../actionCreators/appActions";
 import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
-import TopRightPanel_PanelBorder from "./TopRightPanel_PanelBorder";
+import SubPanelBorder from "./SubPanelBorder";
 import TopRightPanel_SettingsTabs from "./TopRightPanel_SettingsTabs";
 import TopRightPanel_SettingsTabsThemesSetting from "./TopRightPanel_SettingsTabsThemesSetting";
 import TopRightPanel_SettingsTabsViewSettings from "./TopRightPanel_SettingsTabsViewSettings";
@@ -37,7 +37,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     return <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
                 onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
-        <TopRightPanel_PanelBorder/>
+        <SubPanelBorder subPanelState={props.topRightPanelState}/>
         <TopRightPanel_SettingsTabsThemesSetting/>
         <TopRightPanel_SettingsTabsViewSettings/>
         <TopRightPanel_SettingsTabsPlaygroundSettings/>
