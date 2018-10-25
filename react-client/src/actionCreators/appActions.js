@@ -2,7 +2,7 @@ import type {appStateType} from "../reducers/appReducer";
 import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint} from "./basePanelActions";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {bottomRightPanelAction_updateBottomRightPanelPosition, bottomRightPanelAction_updateBottomRightPanelSize} from "./bottomRightPanelActions";
-import {topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
+import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData, topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData, topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import {bottomLeftPanelAction_updateBottomLeftPanelPosition, bottomLeftPanelAction_updateBottomLeftPanelSize} from "./bottomLeftPanelActions";
@@ -66,6 +66,7 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
             dispatch(basePanelAction_updateBasePanelSize(newAppWidth, newAppHeight));
             // Update top left panel size
             dispatch(topLeftPanelAction_updateTopLeftPanelSize(newTopLeftPanelWidth, newTopLeftPanelHeight));
+            dispatch(topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData());
             // Update top right panel size and position
             dispatch(topRightPanelAction_updateTopRightPanelSize(newTopRightPanelWidth, newTopRightPanelHeight));
             dispatch(topRightPanelAction_updateTopRightPanelPosition(newTopRightPanelPosition));

@@ -8,6 +8,7 @@ import StyleObject from "../classes/StyleObject";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData} from "../actionCreators/topRightPanelActions";
 import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
+import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData} from "../actionCreators/topLeftPanelActions";
 
 type AppPropsType = {
     appShapeModel: Shape2d_Rectangle,
@@ -15,7 +16,8 @@ type AppPropsType = {
 
     appAction_requestToUpdateAppSize: Function,
     appAction_requestToUpdateAppMouseMoveRelatedData: Function,
-    topRightPanelAction_requestToSetTopRightPanelContentLayoutData: Function
+    topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData: Function,
+    topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: Function,
 }
 
 /**
@@ -39,7 +41,8 @@ class App extends Component<AppPropsType>
         window.addEventListener("mousemove", (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
         console.log("Finish registering functions on window events.");
 
-        this.props.topRightPanelAction_requestToSetTopRightPanelContentLayoutData();
+        this.props.topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData();
+        this.props.topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData();
     }
 
     componentWillUnmount()
@@ -78,7 +81,8 @@ const matchDispatchToProps = (dispatch) =>
     return bindActionCreators({
         appAction_requestToUpdateAppSize: appAction_requestToUpdateAppSize,
         appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
-        topRightPanelAction_requestToSetTopRightPanelContentLayoutData: topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData,
+        topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData: topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData,
+        topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData,
     }, dispatch);
 };
 

@@ -6,10 +6,12 @@ import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import type {appStateType} from "../../reducers/appReducer";
 import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
+import type {topLeftPanelStateType} from "../../reducers/topLeftPanelReducer";
 
 type SubPanelBorderPropsType = {
     appState: appStateType,
-    subPanelState: topRightPanelStateType,
+    subPanelState: topRightPanelStateType | topLeftPanelStateType,
+    borderBlurLevel: BLUR_LEVEL,
 }
 
 const SubPanelBorder = (props: SubPanelBorderPropsType) =>
@@ -23,9 +25,7 @@ const SubPanelBorder = (props: SubPanelBorderPropsType) =>
         .setBorder(subPanelState.panelBorderSize, "solid", appState.subPanelsBorderColor)
         .setBorderRadius(subPanelState.panelBorderRadius)
         .setPointerEvents("none")
-        .setBlur(subPanelState.settingsTabsStateModel.getMouseHover()
-                 ? BLUR_LEVEL.EXTREMELY_LIGHT
-                 : BLUR_LEVEL.VERY_LIGHT)
+        .setBlur(props.borderBlurLevel)
         .addTransition("filter", TRANSITION_TIME_NORMAL);
 
     return <div style={subPanelBorderDivStyleObject.getStyle()}/>;

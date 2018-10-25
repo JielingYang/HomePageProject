@@ -26,6 +26,9 @@ type TopRightPanelPropsType = {
 const TopRightPanel = (props: TopRightPanelPropsType) =>
 {
     let topRightPanelShapeModel: Shape2d_Rectangle = props.topRightPanelState.topRightPanelShapeModel;
+    let borderBlurLevel = props.topRightPanelState.settingsTabsStateModel.getMouseHover()
+                          ? BLUR_LEVEL.EXTREMELY_LIGHT
+                          : BLUR_LEVEL.LIGHT;
 
     let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
         .addTransition("filter", TRANSITION_TIME_NORMAL)
@@ -37,7 +40,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
     return <div id={topRightPanelShapeModel.getStringId()} style={topRightPanelStyleObject.getStyle()}
                 onMouseEnter={() => props.topRightPanelAction_setTopRightPanelFocusOn(true)}
                 onMouseLeave={() => props.topRightPanelAction_setTopRightPanelFocusOn(false)}>
-        <SubPanelBorder subPanelState={props.topRightPanelState}/>
+        <SubPanelBorder subPanelState={props.topRightPanelState} borderBlurLevel={borderBlurLevel}/>
         <TopRightPanel_SettingsTabsThemesSetting/>
         <TopRightPanel_SettingsTabsViewSettings/>
         <TopRightPanel_SettingsTabsPlaygroundSettings/>
