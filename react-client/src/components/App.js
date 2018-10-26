@@ -14,6 +14,7 @@ import {bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData} f
 type AppPropsType = {
     appShapeModel: Shape2d_Rectangle,
     appBackgroundColor: string,
+    appPerspective: number,
 
     appAction_requestToUpdateAppSize: Function,
     appAction_requestToUpdateAppMouseMoveRelatedData: Function,
@@ -60,7 +61,7 @@ class App extends Component<AppPropsType>
         let appComponentStyleObject: StyleObject = new StyleObject()
             .setBasics(appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY())
             .setBackgroundColor(this.props.appBackgroundColor)
-            .setPerspective(100, undefined)
+            .setPerspective(this.props.appPerspective, undefined)
             .addTransition("background-color", TRANSITION_TIME_NORMAL);
 
         console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
@@ -76,6 +77,7 @@ const mapStateToProps = (store) =>
     return {
         appShapeModel: store.appState.appShapeModel,
         appBackgroundColor: store.appState.appBackgroundColor,
+        appPerspective: store.appState.appPerspective,
     };
 };
 
