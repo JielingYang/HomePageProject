@@ -147,9 +147,12 @@ export default class StyleObject
         return this;
     }
 
-    addTranslation(translateX: string | number, translateY: string | number, translateZ: string | number)
+    addTranslationX(translateX: string | number)
     {
-        let translation: string = " translateX(" + translateX + ")" + " translateY(" + translateY + ")" + " translateZ(" + translateZ + ")";
+        let tx = typeof translateX === "number"
+                 ? (translateX + "px")
+                 : translateX;
+        let translation: string = " translateX(" + tx + ")";
         if (this.style.transform !== undefined)
         {
             this.style.transform = this.style.transform + translation;
@@ -161,9 +164,71 @@ export default class StyleObject
         return this;
     }
 
-    addRotation(rotateX: string | number, rotateY: string | number, rotateZ: string | number)
+    addTranslationY(translateY: string | number)
     {
-        let rotation: string = " rotateX(" + rotateX + "deg)" + " rotateY(" + rotateY + "deg)" + " rotateZ(" + rotateZ + "deg)";
+        let ty = typeof translateY === "number"
+                 ? (translateY + "px")
+                 : translateY;
+        let translation: string = " translateY(" + ty + ")";
+        if (this.style.transform !== undefined)
+        {
+            this.style.transform = this.style.transform + translation;
+        }
+        else
+        {
+            this.style.transform = translation;
+        }
+        return this;
+    }
+
+    addTranslationZ(translateZ: string | number)
+    {
+        let tx = typeof translateZ === "number"
+                 ? (translateZ + "px")
+                 : translateZ;
+        let translation: string = " translateZ(" + tx + ")";
+        if (this.style.transform !== undefined)
+        {
+            this.style.transform = this.style.transform + translation;
+        }
+        else
+        {
+            this.style.transform = translation;
+        }
+        return this;
+    }
+
+    addRotationX(rotateX: string | number)
+    {
+        let rotation: string = " rotateX(" + rotateX + "deg)";
+        if (this.style.transform !== undefined)
+        {
+            this.style.transform = this.style.transform + rotation;
+        }
+        else
+        {
+            this.style.transform = rotation;
+        }
+        return this;
+    }
+
+    addRotationY(rotateY: string | number)
+    {
+        let rotation: string = " rotateY(" + rotateY + "deg)";
+        if (this.style.transform !== undefined)
+        {
+            this.style.transform = this.style.transform + rotation;
+        }
+        else
+        {
+            this.style.transform = rotation;
+        }
+        return this;
+    }
+
+    addRotationZ(rotateZ: string | number)
+    {
+        let rotation: string = " rotateZ(" + rotateZ + "deg)";
         if (this.style.transform !== undefined)
         {
             this.style.transform = this.style.transform + rotation;
