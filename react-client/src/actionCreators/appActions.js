@@ -1,11 +1,10 @@
 import type {appStateType} from "../reducers/appReducer";
 import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint} from "./basePanelActions";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
-import {bottomRightPanelAction_updateBottomRightPanelPosition, bottomRightPanelAction_updateBottomRightPanelSize} from "./bottomRightPanelActions";
 import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData, topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData, topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
-import {bottomLeftPanelAction_updateBottomLeftPanelPosition, bottomLeftPanelAction_updateBottomLeftPanelSize} from "./bottomLeftPanelActions";
+import {bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData, bottomLeftPanelAction_updateBottomLeftPanelPosition, bottomLeftPanelAction_updateBottomLeftPanelSize} from "./bottomLeftPanelActions";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -56,10 +55,6 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
             let newBottomLeftPanelHeight: number = newAppHeight / 2;
             let newBottomLeftPanelPosition: Shape2d_Point = new Shape2d_Point(0, newAppHeight / 2);
 
-            let newBottomRightPanelWidth: number = newAppWidth / 2;
-            let newBottomRightPanelHeight: number = newAppHeight / 2;
-            let newBottomRightPanelPosition: Shape2d_Point = new Shape2d_Point(newAppWidth / 2, newAppHeight / 2);
-
             // Update app component size
             dispatch(appAction_updateAppSize(newAppWidth, newAppHeight));
             // Update base panel size
@@ -74,9 +69,7 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
             // Update bottom left panel size and position
             dispatch(bottomLeftPanelAction_updateBottomLeftPanelSize(newBottomLeftPanelWidth, newBottomLeftPanelHeight));
             dispatch(bottomLeftPanelAction_updateBottomLeftPanelPosition(newBottomLeftPanelPosition));
-            // Update bottom right panel size and position
-            dispatch(bottomRightPanelAction_updateBottomRightPanelSize(newBottomRightPanelWidth, newBottomRightPanelHeight));
-            dispatch(bottomRightPanelAction_updateBottomRightPanelPosition(newBottomRightPanelPosition));
+            dispatch(bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData());
         }
     };
 };

@@ -6,7 +6,6 @@ import type {basePanelStateType} from "../reducers/basePanelReducer";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import StyleObject from "../classes/StyleObject";
 import {BLACK_TRANSPARENT_00} from "../utilities/CONSTANTS_COLOR";
-import BottomRightPanel from "./basePanelSubComponents/BottomRightPanel";
 import TopLeftPanel from "./basePanelSubComponents/TopLeftPanel";
 import TopRightPanel from "./basePanelSubComponents/TopRightPanel";
 import BottomLeftPanel from "./basePanelSubComponents/BottomLeftPanel";
@@ -38,7 +37,6 @@ const BasePanel = (props: BasePanelPropsType) =>
             <TopLeftPanel/>
             <TopRightPanel/>
             <BottomLeftPanel/>
-            <BottomRightPanel/>
         </div>);
 };
 

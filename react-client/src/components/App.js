@@ -9,6 +9,7 @@ import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData} from "../actionCreators/topRightPanelActions";
 import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
 import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData} from "../actionCreators/topLeftPanelActions";
+import {bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData} from "../actionCreators/bottomLeftPanelActions";
 
 type AppPropsType = {
     appShapeModel: Shape2d_Rectangle,
@@ -18,6 +19,7 @@ type AppPropsType = {
     appAction_requestToUpdateAppMouseMoveRelatedData: Function,
     topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData: Function,
     topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: Function,
+    bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData: Function,
 }
 
 /**
@@ -43,6 +45,7 @@ class App extends Component<AppPropsType>
 
         this.props.topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData();
         this.props.topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData();
+        this.props.bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData();
     }
 
     componentWillUnmount()
@@ -83,6 +86,7 @@ const matchDispatchToProps = (dispatch) =>
         appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
         topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData: topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData,
         topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData,
+        bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData: bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData,
     }, dispatch);
 };
 

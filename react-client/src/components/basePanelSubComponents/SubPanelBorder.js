@@ -7,10 +7,11 @@ import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import type {appStateType} from "../../reducers/appReducer";
 import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
 import type {topLeftPanelStateType} from "../../reducers/topLeftPanelReducer";
+import type {bottomLeftPanelStateType} from "../../reducers/bottomLeftPanelReducer";
 
 type SubPanelBorderPropsType = {
     appState: appStateType,
-    subPanelState: topRightPanelStateType | topLeftPanelStateType,
+    subPanelState: topRightPanelStateType | topLeftPanelStateType | bottomLeftPanelStateType,
     borderBlurLevel: BLUR_LEVEL,
 }
 

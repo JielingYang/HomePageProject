@@ -7,41 +7,37 @@ import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {bottomLeftPanelAction_setBottomLeftPanelFocusOn} from "../../actionCreators/bottomLeftPanelActions";
-import {GREY_HEAVY} from "../../utilities/CONSTANTS_COLOR";
+import SubPanelBorder from "./SubPanelBorder";
+import type {bottomLeftPanelStateType} from "../../reducers/bottomLeftPanelReducer";
 
 type BottomLeftPanelPropsType = {
-    bottomLeftPanelShapeModel: Shape2d_Rectangle,
+    bottomLeftPanelState: bottomLeftPanelStateType,
     bottomLeftPanelAction_setBottomLeftPanelFocusOn: Function,
-    bottomLeftPanelFocusOn: boolean,
 }
 
 const BottomLeftPanel = (props: BottomLeftPanelPropsType) =>
 {
-    let bottomLeftPanelShapeModel: Shape2d_Rectangle = props.bottomLeftPanelShapeModel;
+    let bottomLeftPanelShapeModel: Shape2d_Rectangle = props.bottomLeftPanelState.bottomLeftPanelShapeModel;
 
     let bottomLeftPanelRootDivStyleObject = new StyleObject().setBasics(bottomLeftPanelShapeModel.getWidth(), bottomLeftPanelShapeModel.getHeight(), bottomLeftPanelShapeModel.getTopLeftPoint().getX(), bottomLeftPanelShapeModel.getTopLeftPoint().getY())
-        .setBlur(props.bottomLeftPanelFocusOn
+        .addTransition("filter", TRANSITION_TIME_NORMAL)
+        .setBlur(props.bottomLeftPanelState.bottomLeftPanelFocusOn
                  ? BLUR_LEVEL.NONE
-                 : BLUR_LEVEL.MEDIUM)
-        .addTransition("filter", TRANSITION_TIME_NORMAL);
-
-    let bottomLeftPanelBorderDivStyleObject = new StyleObject().setBasics("90%", "90%", "5%", "5%").setBorder(5, "solid", GREY_HEAVY)
-        .setBorderRadius(15);
+                 : BLUR_LEVEL.MEDIUM);
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomLeftPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
         <div id={bottomLeftPanelShapeModel.getStringId()} style={bottomLeftPanelRootDivStyleObject.getStyle()}
              onMouseEnter={() => props.bottomLeftPanelAction_setBottomLeftPanelFocusOn(true)}
              onMouseLeave={() => props.bottomLeftPanelAction_setBottomLeftPanelFocusOn(false)}>
-            <div style={bottomLeftPanelBorderDivStyleObject.getStyle()}/>
+            <SubPanelBorder subPanelState={props.bottomLeftPanelState} borderBlurLevel={BLUR_LEVEL.LIGHT}/>
         </div>);
 };
 
 const mapStateToProps = (store) =>
 {
     return {
-        bottomLeftPanelShapeModel: store.bottomLeftPanelState.bottomLeftPanelShapeModel,
-        bottomLeftPanelFocusOn: store.bottomLeftPanelState.bottomLeftPanelFocusOn,
+        bottomLeftPanelState: store.bottomLeftPanelState,
     };
 };
 
