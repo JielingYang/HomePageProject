@@ -21,7 +21,6 @@ const BottomLeftPanel = (props: BottomLeftPanelPropsType) =>
 
     let bottomLeftPanelRootDivStyleObject = new StyleObject().setBasics(bottomLeftPanelShapeModel.getWidth(), bottomLeftPanelShapeModel.getHeight(), bottomLeftPanelShapeModel.getTopLeftPoint().getX(), bottomLeftPanelShapeModel.getTopLeftPoint().getY())
         .addTransition("filter", TRANSITION_TIME_NORMAL)
-        .setPerspective(props.bottomLeftPanelState.bottomLeftPanelPerspective, undefined)
         .setBlur(props.bottomLeftPanelState.bottomLeftPanelFocusOn
                  ? BLUR_LEVEL.NONE
                  : BLUR_LEVEL.MEDIUM);

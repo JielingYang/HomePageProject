@@ -9,6 +9,7 @@ import {BLACK_TRANSPARENT_00} from "../utilities/CONSTANTS_COLOR";
 import TopLeftPanel from "./basePanelSubComponents/TopLeftPanel";
 import TopRightPanel from "./basePanelSubComponents/TopRightPanel";
 import BottomLeftPanel from "./basePanelSubComponents/BottomLeftPanel";
+import BottomRightPanel from "./basePanelSubComponents/BottomRightPanel";
 
 type BasePanelPropsType = {
     basePanelState: basePanelStateType,
@@ -26,10 +27,10 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelRotationY: string = props.basePanelState.basePanelRotationY;
 
     let basePanelComponentStyleObject = new StyleObject().setBasics(basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
-                                                         .setBackgroundColor(BLACK_TRANSPARENT_00)
-                                                         .setTransformStyle("preserve-3d")
-                                                         .addTranslation(basePanelTranslatePercentageX, basePanelTranslatePercentageY, 0)
-                                                         .addRotation(basePanelRotationX, basePanelRotationY, 0);
+        .setBackgroundColor(BLACK_TRANSPARENT_00)
+        .setTransformStyle("preserve-3d")
+        .addTranslation(basePanelTranslatePercentageX, basePanelTranslatePercentageY, 0)
+        .addRotation(basePanelRotationX, basePanelRotationY, 0);
 
     console.log(LEVEL1_CONSOLE_PREFIX + basePanelShapeModel.getStringId(), LEVEL1_CONSOLE_FONT);
     return (
@@ -37,6 +38,7 @@ const BasePanel = (props: BasePanelPropsType) =>
             <TopLeftPanel/>
             <TopRightPanel/>
             <BottomLeftPanel/>
+            <BottomRightPanel/>
         </div>);
 };
 

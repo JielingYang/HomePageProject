@@ -7,35 +7,37 @@ import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {bottomRightPanelAction_setBottomRightPanelFocusOn} from "../../actionCreators/bottomRightPanelActions";
+import type {bottomRightPanelStateType} from "../../reducers/bottomRightPanelReducer";
+import SubPanelBorder from "./SubPanelBorder";
 
 type BottomRightPanelPropsType = {
-    bottomRightPanelShapeModel: Shape2d_Rectangle,
+    bottomRightPanelState: bottomRightPanelStateType,
     bottomRightPanelAction_setBottomRightPanelFocusOn: Function,
-    bottomRightPanelFocusOn: boolean,
 }
 
 const BottomRightPanel = (props: BottomRightPanelPropsType) =>
 {
-    let bottomRightPanelShapeModel: Shape2d_Rectangle = props.bottomRightPanelShapeModel;
+    let bottomRightPanelShapeModel: Shape2d_Rectangle = props.bottomRightPanelState.bottomRightPanelShapeModel;
     let bottomRightPanelStyleObject = new StyleObject().setBasics(bottomRightPanelShapeModel.getWidth(), bottomRightPanelShapeModel.getHeight(), bottomRightPanelShapeModel.getTopLeftPoint().getX(), bottomRightPanelShapeModel.getTopLeftPoint().getY())
-        .setBlur(props.bottomRightPanelFocusOn
+        .setPerspective(props.bottomRightPanelState.bottomRightPanelPerspective, undefined)
+        .addTransition("filter", TRANSITION_TIME_NORMAL)
+        .setBlur(props.bottomRightPanelState.bottomRightPanelFocusOn
                  ? BLUR_LEVEL.NONE
-                 : BLUR_LEVEL.MEDIUM)
-        .addTransition("filter", TRANSITION_TIME_NORMAL);
+                 : BLUR_LEVEL.MEDIUM);
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
         <div id={bottomRightPanelShapeModel.getStringId()} style={bottomRightPanelStyleObject.getStyle()}
              onMouseEnter={() => props.bottomRightPanelAction_setBottomRightPanelFocusOn(true)}
              onMouseLeave={() => props.bottomRightPanelAction_setBottomRightPanelFocusOn(false)}>
+            <SubPanelBorder subPanelState={props.bottomRightPanelState} borderBlurLevel={BLUR_LEVEL.LIGHT}/>
         </div>);
 };
 
 const mapStateToProps = (store) =>
 {
     return {
-        bottomRightPanelShapeModel: store.bottomRightPanelState.bottomRightPanelShapeModel,
-        bottomRightPanelFocusOn: store.bottomRightPanelState.bottomRightPanelFocusOn,
+        bottomRightPanelState: store.bottomRightPanelState,
     };
 };
 

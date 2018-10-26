@@ -9,7 +9,6 @@ import numberIdGenerator from "../classes/NumberIdGenerator";
 export type bottomLeftPanelStateType = {
     bottomLeftPanelShapeModel: Shape2d_Rectangle,
     bottomLeftPanelFocusOn: boolean,
-    bottomLeftPanelPerspective: number,
     panelPadding: number,
     panelBorderSize: number,
     panelBorderRadius: number,
@@ -18,9 +17,8 @@ export type bottomLeftPanelStateType = {
 }
 
 const bottomLeftPanelDefaultState: bottomLeftPanelStateType = {
-    bottomLeftPanelShapeModel: new Shape2d_Rectangle(numberIdGenerator.generateId(), ID.BOTTOM_LEFT_PANEL_ID, new Shape2d_Point(0, window.innerHeight / 2), window.innerWidth, window.innerHeight / 2),
+    bottomLeftPanelShapeModel: new Shape2d_Rectangle(numberIdGenerator.generateId(), ID.BOTTOM_LEFT_PANEL_ID, new Shape2d_Point(0, window.innerHeight / 2), window.innerWidth / 2, window.innerHeight / 2),
     bottomLeftPanelFocusOn: false,
-    bottomLeftPanelPerspective: 800,
     panelPadding: 10,
     panelBorderSize: 0,
     panelBorderRadius: 0,

@@ -10,6 +10,7 @@ import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData} from 
 import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
 import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData} from "../actionCreators/topLeftPanelActions";
 import {bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData} from "../actionCreators/bottomLeftPanelActions";
+import {bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData} from "../actionCreators/bottomRightPanelActions";
 
 type AppPropsType = {
     appShapeModel: Shape2d_Rectangle,
@@ -21,6 +22,7 @@ type AppPropsType = {
     topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData: Function,
     topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: Function,
     bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData: Function,
+    bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData: Function,
 }
 
 /**
@@ -47,6 +49,7 @@ class App extends Component<AppPropsType>
         this.props.topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData();
         this.props.topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData();
         this.props.bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData();
+        this.props.bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData();
     }
 
     componentWillUnmount()
@@ -89,6 +92,7 @@ const matchDispatchToProps = (dispatch) =>
         topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData: topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData,
         topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData,
         bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData: bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData,
+        bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData: bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData,
     }, dispatch);
 };
 
