@@ -21,7 +21,9 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         let bottomRightPanelBorderSize: number = basePanelUnitLength * 0.5;
         let bottomRightPanelBorderRadius: number = basePanelUnitLength * 3;
 
-        dispatch(bottomRightPanelAction_updateBottomRightPanelContentLayoutData(bottomRightPanelBorderWidth, bottomRightPanelBorderHeight, bottomRightPanelBorderSize, bottomRightPanelBorderRadius));
+        let engineDistance: number = -100 * basePanelUnitLength;
+
+        dispatch(bottomRightPanelAction_updateBottomRightPanelContentLayoutData(bottomRightPanelBorderWidth, bottomRightPanelBorderHeight, bottomRightPanelBorderSize, bottomRightPanelBorderRadius, engineDistance));
     }
 };
 
@@ -61,7 +63,7 @@ export const bottomRightPanelAction_setBottomRightPanelFocusOn = (focusOn: boole
     };
 };
 
-const bottomRightPanelAction_updateBottomRightPanelContentLayoutData = (bottomRightPanelBorderWidth: number, bottomRightPanelBorderHeight: number, bottomRightPanelBorderSize: number, bottomRightPanelBorderRadius: number) =>
+const bottomRightPanelAction_updateBottomRightPanelContentLayoutData = (bottomRightPanelBorderWidth: number, bottomRightPanelBorderHeight: number, bottomRightPanelBorderSize: number, bottomRightPanelBorderRadius: number, engineDistance: number) =>
 {
     return {
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_CONTENT_LAYOUT_DATA,
@@ -69,5 +71,6 @@ const bottomRightPanelAction_updateBottomRightPanelContentLayoutData = (bottomRi
         bottomRightPanelBorderHeight: bottomRightPanelBorderHeight,
         bottomRightPanelBorderSize: bottomRightPanelBorderSize,
         bottomRightPanelBorderRadius: bottomRightPanelBorderRadius,
+        engineDistance: engineDistance,
     }
 };

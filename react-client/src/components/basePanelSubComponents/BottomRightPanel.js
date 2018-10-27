@@ -31,8 +31,8 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
     let engineContainerDivStyleObject = new StyleObject().setBasics(engineContainerDivSize, engineContainerDivSize, (bottomRightPanelShapeModel.getWidth() - engineContainerDivSize) / 2, 0)
         .setTransformStyle("preserve-3d")
         .addRotationY(-90)
-        .addTranslationX(-engineContainerDivSize)
-        .addRotationY(45);
+        .addTranslationX(props.bottomRightPanelState.engineDistance)
+        .addRotationY(props.bottomRightPanelState.engineRotation);
 
     let enginePartL1StyleObject = new StyleObject().setBasics("100%", "100%", 0, 0)
         .setBackgroundColor(WHITE_TRANSPARENT_50)

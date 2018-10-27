@@ -29,6 +29,11 @@ export const ID = Object.freeze({
     SETTINGS_TABS_ID: "settingsTabs",
     THEMES_SETTING_ID: "themesSetting",
 
+    /**
+     *
+     */
+    ENGINE_GENERAL_STATE_MODEL_ID: "engineGeneralStateModel",
+
     // Animate IDs
     CENTER_COMPONENT_ANIMATE_LOADING_BAR_WIDTH: "centerComponent_animateLoadingBarWidth",
     CENTER_COMPONENT_ANIMATE_FADE_OUT: "centerComponent_animateCenterComponentFadeOut",
@@ -64,3 +69,11 @@ themesDescriptions[INDEX.THEME_DARK] = "Come to the DARK side, we have cookies..
 themesDescriptions[INDEX.THEME_BRIGHT] = "BRIGHT it up!!!";
 themesDescriptions[INDEX.THEME_YELLOW] = "Under construction..."; // Boring...zZ... let's add some YELLOW!
 export const THEMES_DESCRIPTIONS = themesDescriptions;
+
+let enginePartNames = [];
+enginePartNames[INDEX.ENGINE_PART_L1] = "engineL1";
+enginePartNames[INDEX.ENGINE_PART_L2] = "engineL2";
+enginePartNames[INDEX.ENGINE_PART_M] = "engineLM";
+enginePartNames[INDEX.ENGINE_PART_R1] = "engineR1";
+enginePartNames[INDEX.ENGINE_PART_R2] = "engineR2";
+export const ENGINE_PART_NAMES = enginePartNames;
