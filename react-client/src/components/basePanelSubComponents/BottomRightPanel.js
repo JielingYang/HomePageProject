@@ -34,24 +34,7 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
         .addTranslationX(props.bottomRightPanelState.engineDistance)
         .addRotationY(props.bottomRightPanelState.engineRotation);
 
-    let enginePartL1StyleObject = new StyleObject().setBasics("100%", "100%", 0, 0)
-        .setBackgroundColor(WHITE_TRANSPARENT_50)
-        .addTranslationZ(20 * bottomRightPanelUnitLength);
-
-    let enginePartL2StyleObject = new StyleObject().setBasics("100%", "100%", 0, 0)
-        .setBackgroundColor(WHITE_TRANSPARENT_50)
-        .addTranslationZ(40 * bottomRightPanelUnitLength);
-
-    let enginePartMStyleObject = new StyleObject().setBasics("100%", "100%", 0, 0)
-        .setBackgroundColor(WHITE_TRANSPARENT_50);
-
-    let enginePartR1StyleObject = new StyleObject().setBasics("100%", "100%", 0, 0)
-        .setBackgroundColor(WHITE_TRANSPARENT_50)
-        .addTranslationZ(-20 * bottomRightPanelUnitLength);
-
-    let enginePartR2StyleObject = new StyleObject().setBasics("100%", "100%", 0, 0)
-        .setBackgroundColor(WHITE_TRANSPARENT_50)
-        .addTranslationZ(-40 * bottomRightPanelUnitLength);
+    let enginePartsNames = props.bottomRightPanelState.engineGeneralStateModel.getItems();
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
@@ -60,11 +43,14 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
              onMouseLeave={() => props.bottomRightPanelAction_setBottomRightPanelFocusOn(false)}>
             <SubPanelBorder subPanelState={props.bottomRightPanelState} borderBlurLevel={BLUR_LEVEL.LIGHT}/>
             <div style={engineContainerDivStyleObject.getStyle()}>
-                <div style={enginePartL1StyleObject.getStyle()}></div>
-                <div style={enginePartL2StyleObject.getStyle()}></div>
-                <div style={enginePartMStyleObject.getStyle()}></div>
-                <div style={enginePartR1StyleObject.getStyle()}></div>
-                <div style={enginePartR2StyleObject.getStyle()}></div>
+                {enginePartsNames.map((partName: string, index: number) => {
+
+                    let enginePartStyleObject = new StyleObject().setBasics("100%", "100%", 0, 0)
+                        .setBackgroundColor(WHITE_TRANSPARENT_50)
+                        .addTranslationZ((index - (enginePartsNames.length - 1) / 2) * 30 * bottomRightPanelUnitLength);
+
+                    return <div key={index} style={enginePartStyleObject.getStyle()}/>;
+                })}
             </div>
         </div>);
 };
