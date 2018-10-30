@@ -1,6 +1,10 @@
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import type {bottomRightPanelStateType} from "../reducers/bottomRightPanelReducer";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
+import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateModel";
+import numberIdGenerator from "../classes/NumberIdGenerator";
+import {INDEX} from "../utilities/CONSTANTS_NUMBER";
+import {ENGINE_PART_NAMES} from "../utilities/CONSTANTS_STRING";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -12,7 +16,7 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
     return (dispatch, getState) =>
     {
         let bottomRightPanelState: bottomRightPanelStateType = getState().bottomRightPanelState;
-        let basePanelUnitLength: number = getState().basePanelState.basePanelShapeModel.getUnitLength();
+        let basePanelUnitLength: number = getState().basePanelState.basePanelShapeModel.getUnitLengthSmall();
         let bottomRightPanelShapeModel: Shape2d_Rectangle = bottomRightPanelState.bottomRightPanelShapeModel;
         let bottomRightPanelPadding: number = bottomRightPanelState.panelPadding;
 
@@ -24,7 +28,19 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         let engineDistance: number = -100 * basePanelUnitLength;
         let engineRotation: number = 45;
 
-        dispatch(bottomRightPanelAction_updateBottomRightPanelContentLayoutData(bottomRightPanelBorderWidth, bottomRightPanelBorderHeight, bottomRightPanelBorderSize, bottomRightPanelBorderRadius, engineDistance, engineRotation));
+        let enginePartStateModels = getState().bottomRightPanelState.enginePartStateModels;
+        if (enginePartStateModels.length === 0)
+        {
+            enginePartStateModels = [];
+            let enginePartsGapDistance = 30 * bottomRightPanelShapeModel.getUnitLengthLarge();
+            let numberOfEngineParts = ENGINE_PART_NAMES.length;
+            enginePartStateModels[INDEX.ENGINE_PART_F1] = new EnginePartStateModel(numberIdGenerator.generateId(), ENGINE_PART_NAMES[INDEX.ENGINE_PART_F1], (INDEX.ENGINE_PART_F1 - (numberOfEngineParts - 1) / 2) * enginePartsGapDistance);
+            enginePartStateModels[INDEX.ENGINE_PART_F2] = new EnginePartStateModel(numberIdGenerator.generateId(), ENGINE_PART_NAMES[INDEX.ENGINE_PART_F2], (INDEX.ENGINE_PART_F2 - (numberOfEngineParts - 1) / 2) * enginePartsGapDistance);
+            enginePartStateModels[INDEX.ENGINE_PART_M] = new EnginePartStateModel(numberIdGenerator.generateId(), ENGINE_PART_NAMES[INDEX.ENGINE_PART_M], (INDEX.ENGINE_PART_M - (numberOfEngineParts - 1) / 2) * enginePartsGapDistance);
+            enginePartStateModels[INDEX.ENGINE_PART_B1] = new EnginePartStateModel(numberIdGenerator.generateId(), ENGINE_PART_NAMES[INDEX.ENGINE_PART_B1], (INDEX.ENGINE_PART_B1 - (numberOfEngineParts - 1) / 2) * enginePartsGapDistance);
+            enginePartStateModels[INDEX.ENGINE_PART_B2] = new EnginePartStateModel(numberIdGenerator.generateId(), ENGINE_PART_NAMES[INDEX.ENGINE_PART_B2], (INDEX.ENGINE_PART_B2 - (numberOfEngineParts - 1) / 2) * enginePartsGapDistance);
+        }
+        dispatch(bottomRightPanelAction_updateBottomRightPanelContentLayoutData(bottomRightPanelBorderWidth, bottomRightPanelBorderHeight, bottomRightPanelBorderSize, bottomRightPanelBorderRadius, engineDistance, engineRotation, enginePartStateModels));
     }
 };
 
@@ -64,7 +80,7 @@ export const bottomRightPanelAction_setBottomRightPanelFocusOn = (focusOn: boole
     };
 };
 
-const bottomRightPanelAction_updateBottomRightPanelContentLayoutData = (bottomRightPanelBorderWidth: number, bottomRightPanelBorderHeight: number, bottomRightPanelBorderSize: number, bottomRightPanelBorderRadius: number, engineDistance: number, engineRotation: number) =>
+const bottomRightPanelAction_updateBottomRightPanelContentLayoutData = (bottomRightPanelBorderWidth: number, bottomRightPanelBorderHeight: number, bottomRightPanelBorderSize: number, bottomRightPanelBorderRadius: number, engineDistance: number, engineRotation: number, enginePartStateModels: Array<EnginePartStateModel>) =>
 {
     return {
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_CONTENT_LAYOUT_DATA,
@@ -74,5 +90,6 @@ const bottomRightPanelAction_updateBottomRightPanelContentLayoutData = (bottomRi
         bottomRightPanelBorderRadius: bottomRightPanelBorderRadius,
         engineDistance: engineDistance,
         engineRotation: engineRotation,
+        enginePartStateModels: enginePartStateModels,
     }
 };

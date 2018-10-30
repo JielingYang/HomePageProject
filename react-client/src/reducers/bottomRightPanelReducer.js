@@ -1,11 +1,10 @@
-import {ENGINE_PART_NAMES, ID} from "../utilities/CONSTANTS_STRING";
+import {ID} from "../utilities/CONSTANTS_STRING";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {BOTTOM_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/bottomRightPanelActions";
 import numberIdGenerator from "../classes/NumberIdGenerator";
-import SingleSelectionModel from "../classes/StateModelClasses/SingleSelectionModel";
 import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateModel";
 
 export type bottomRightPanelStateType = {
@@ -18,7 +17,6 @@ export type bottomRightPanelStateType = {
     panelBorderWidth: number,
     panelBorderHeight: number,
 
-    engineGeneralStateModel: SingleSelectionModel,
     engineDistance: number,
     engineRotation: number,
     enginePartStateModels: Array<EnginePartStateModel>
@@ -34,7 +32,6 @@ const bottomRightPanelDefaultState: bottomRightPanelStateType = {
     panelBorderWidth: 0,
     panelBorderHeight: 0,
 
-    engineGeneralStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.ENGINE_GENERAL_STATE_MODEL_ID, ENGINE_PART_NAMES),
     engineDistance: 0,
     engineRotation: 0,
     enginePartStateModels: [],
@@ -70,6 +67,7 @@ const bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler = (
     nextState.panelBorderRadius = action.bottomRightPanelBorderRadius;
     nextState.engineDistance = action.engineDistance;
     nextState.engineRotation = action.engineRotation;
+    nextState.enginePartStateModels = action.enginePartStateModels;
     return nextState;
 };
 

@@ -12,7 +12,7 @@ export const topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData =
     return (dispatch, getState) =>
     {
         let topRightPanelState: topRightPanelStateType = getState().topRightPanelState;
-        let basePanelUnitLength: number = getState().basePanelState.basePanelShapeModel.getUnitLength();
+        let basePanelUnitLength: number = getState().basePanelState.basePanelShapeModel.getUnitLengthSmall();
         let topRightPanelShapeModel: Shape2d_Rectangle = topRightPanelState.topRightPanelShapeModel;
         let numberOfSettingsTabs: number = topRightPanelState.settingsTabsStateModel.getNumberOfItems();
         let numberOfThemes: number = topRightPanelState.themesSettingStateModel.getNumberOfItems();

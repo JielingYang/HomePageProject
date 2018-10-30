@@ -32,7 +32,6 @@ export const ID = Object.freeze({
     /**
      *
      */
-    ENGINE_GENERAL_STATE_MODEL_ID: "engineGeneralStateModel",
 
     // Animate IDs
     CENTER_COMPONENT_ANIMATE_LOADING_BAR_WIDTH: "centerComponent_animateLoadingBarWidth",
@@ -71,9 +70,9 @@ themesDescriptions[INDEX.THEME_YELLOW] = "Under construction..."; // Boring...zZ
 export const THEMES_DESCRIPTIONS = themesDescriptions;
 
 let enginePartNames = [];
-enginePartNames[INDEX.ENGINE_PART_L1] = "engineL1";
-enginePartNames[INDEX.ENGINE_PART_L2] = "engineL2";
-enginePartNames[INDEX.ENGINE_PART_M] = "engineLM";
-enginePartNames[INDEX.ENGINE_PART_R1] = "engineR1";
-enginePartNames[INDEX.ENGINE_PART_R2] = "engineR2";
+enginePartNames[INDEX.ENGINE_PART_F1] = "engineF1";
+enginePartNames[INDEX.ENGINE_PART_F2] = "engineF2";
+enginePartNames[INDEX.ENGINE_PART_M] = "engineM";
+enginePartNames[INDEX.ENGINE_PART_B1] = "engineB1";
+enginePartNames[INDEX.ENGINE_PART_B2] = "engineB2";
 export const ENGINE_PART_NAMES = enginePartNames;

@@ -12,7 +12,7 @@ export const bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutDa
     return (dispatch, getState) =>
     {
         let bottomLeftPanelState: bottomLeftPanelStateType = getState().bottomLeftPanelState;
-        let basePanelUnitLength: number = getState().basePanelState.basePanelShapeModel.getUnitLength();
+        let basePanelUnitLength: number = getState().basePanelState.basePanelShapeModel.getUnitLengthSmall();
         let bottomLeftPanelShapeModel: Shape2d_Rectangle = bottomLeftPanelState.bottomLeftPanelShapeModel;
         let bottomLeftPanelPadding: number = bottomLeftPanelState.panelPadding;
 

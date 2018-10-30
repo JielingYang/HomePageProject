@@ -12,9 +12,12 @@ export default class Shape2d_Rectangle extends Base
         this.height = height;
         this.xUnitLength = width / 100; // One percent of the rectangle width
         this.yUnitLength = height / 100; // One percent of the rectangle height
-        this.unitLength = this.xUnitLength <= this.yUnitLength
-                          ? this.xUnitLength
-                          : this.yUnitLength;
+        this.unitLengthSmall = this.xUnitLength <= this.yUnitLength
+                               ? this.xUnitLength
+                               : this.yUnitLength;
+        this.unitLengthLarge = this.xUnitLength > this.yUnitLength
+                               ? this.xUnitLength
+                               : this.yUnitLength;
 
         this.calculateCenterPoint();
     }
@@ -49,9 +52,14 @@ export default class Shape2d_Rectangle extends Base
         return this.yUnitLength;
     }
 
-    getUnitLength(): number
+    getUnitLengthSmall(): number
     {
-        return this.unitLength;
+        return this.unitLengthSmall;
+    }
+
+    getUnitLengthLarge(): number
+    {
+        return this.unitLengthLarge;
     }
 
     updateRectangleSize(width: number, height: number)
@@ -60,9 +68,12 @@ export default class Shape2d_Rectangle extends Base
         this.height = height;
         this.xUnitLength = width / 100;
         this.yUnitLength = height / 100;
-        this.unitLength = this.xUnitLength <= this.yUnitLength
-                          ? this.xUnitLength
-                          : this.yUnitLength;
+        this.unitLengthSmall = this.xUnitLength <= this.yUnitLength
+                               ? this.xUnitLength
+                               : this.yUnitLength;
+        this.unitLengthLarge = this.xUnitLength > this.yUnitLength
+                               ? this.xUnitLength
+                               : this.yUnitLength;
         this.calculateCenterPoint();
     }
 

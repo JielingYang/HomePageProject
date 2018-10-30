@@ -18,9 +18,9 @@ export const INDEX = Object.freeze({
     THEME_BRIGHT: 1,
     THEME_YELLOW: 2,
 
-    ENGINE_PART_L1: 4,
-    ENGINE_PART_L2: 3,
+    ENGINE_PART_F1: 4,
+    ENGINE_PART_F2: 3,
     ENGINE_PART_M: 2,
-    ENGINE_PART_R1: 1,
-    ENGINE_PART_R2: 0,
+    ENGINE_PART_B1: 1,
+    ENGINE_PART_B2: 0,
 });
