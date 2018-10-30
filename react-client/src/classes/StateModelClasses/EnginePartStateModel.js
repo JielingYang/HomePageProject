@@ -1,3 +1,4 @@
+import StateModel from "./StateModel";
 
 export default class EnginePartStateModel extends StateModel
 {

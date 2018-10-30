@@ -6,6 +6,7 @@ import {createReducer} from "./reducerCreator";
 import {BOTTOM_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/bottomRightPanelActions";
 import numberIdGenerator from "../classes/NumberIdGenerator";
 import SingleSelectionModel from "../classes/StateModelClasses/SingleSelectionModel";
+import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateModel";
 
 export type bottomRightPanelStateType = {
     bottomRightPanelShapeModel: Shape2d_Rectangle,
@@ -20,6 +21,7 @@ export type bottomRightPanelStateType = {
     engineGeneralStateModel: SingleSelectionModel,
     engineDistance: number,
     engineRotation: number,
+    enginePartStateModels: Array<EnginePartStateModel>
 }
 
 const bottomRightPanelDefaultState: bottomRightPanelStateType = {
@@ -34,7 +36,8 @@ const bottomRightPanelDefaultState: bottomRightPanelStateType = {
 
     engineGeneralStateModel: new SingleSelectionModel(numberIdGenerator.generateId(), ID.ENGINE_GENERAL_STATE_MODEL_ID, ENGINE_PART_NAMES),
     engineDistance: 0,
-    engineRotation: 45,
+    engineRotation: 0,
+    enginePartStateModels: [],
 };
 
 const bottomRightPanelAction_updateBottomRightPanelSize_handler = (state: bottomRightPanelStateType, action) =>
@@ -58,7 +61,7 @@ const bottomRightPanelAction_setBottomRightPanelFocusOn_handler = (state: bottom
     return nextState;
 };
 
-const bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler  = (state: bottomRightPanelStateType, action) =>
+const bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
     nextState.panelBorderWidth = action.bottomRightPanelBorderWidth;
@@ -66,6 +69,7 @@ const bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler  = 
     nextState.panelBorderSize = action.bottomRightPanelBorderSize;
     nextState.panelBorderRadius = action.bottomRightPanelBorderRadius;
     nextState.engineDistance = action.engineDistance;
+    nextState.engineRotation = action.engineRotation;
     return nextState;
 };
 
