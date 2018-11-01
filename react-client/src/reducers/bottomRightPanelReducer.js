@@ -65,6 +65,12 @@ const bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler = (
     nextState.panelBorderHeight = action.bottomRightPanelBorderHeight;
     nextState.panelBorderSize = action.bottomRightPanelBorderSize;
     nextState.panelBorderRadius = action.bottomRightPanelBorderRadius;
+    return nextState;
+};
+
+const bottomRightPanelAction_setEngineData_handler = (state: bottomRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
     nextState.engineDistance = action.engineDistance;
     nextState.engineRotation = action.engineRotation;
     nextState.enginePartStateModels = action.enginePartStateModels;
@@ -77,6 +83,7 @@ const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_POSITION]: bottomRightPanelAction_updateBottomRightPanelPosition_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_BOTTOM_RIGHT_PANEL_FOCUS_ON]: bottomRightPanelAction_setBottomRightPanelFocusOn_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_CONTENT_LAYOUT_DATA]: bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_DATA]: bottomRightPanelAction_setEngineData_handler,
 };
 
 export default createReducer(bottomRightPanelDefaultState, bottomRightPanelReducerHandlers);
