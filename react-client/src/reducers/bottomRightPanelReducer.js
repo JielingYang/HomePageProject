@@ -68,12 +68,24 @@ const bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler = (
     return nextState;
 };
 
-const bottomRightPanelAction_setEngineData_handler = (state: bottomRightPanelStateType, action) =>
+const bottomRightPanelAction_setEnginePartStateModels_handler = (state: bottomRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.enginePartStateModels = action.enginePartStateModels;
+    return nextState;
+};
+
+const bottomRightPanelAction_updateEngineDistance_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
     nextState.engineDistance = action.engineDistance;
+    return nextState;
+};
+
+const bottomRightPanelAction_updateEngineRotation_handler = (state: bottomRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
     nextState.engineRotation = action.engineRotation;
-    nextState.enginePartStateModels = action.enginePartStateModels;
     return nextState;
 };
 
@@ -83,7 +95,9 @@ const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_POSITION]: bottomRightPanelAction_updateBottomRightPanelPosition_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_BOTTOM_RIGHT_PANEL_FOCUS_ON]: bottomRightPanelAction_setBottomRightPanelFocusOn_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_CONTENT_LAYOUT_DATA]: bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler,
-    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_DATA]: bottomRightPanelAction_setEngineData_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_PART_STATE_MODELS]: bottomRightPanelAction_setEnginePartStateModels_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE]: bottomRightPanelAction_updateEngineDistance_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION]: bottomRightPanelAction_updateEngineRotation_handler,
 };
 
 export default createReducer(bottomRightPanelDefaultState, bottomRightPanelReducerHandlers);
