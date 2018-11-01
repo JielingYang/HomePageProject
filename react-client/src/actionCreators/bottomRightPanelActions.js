@@ -3,7 +3,6 @@ import type {bottomRightPanelStateType} from "../reducers/bottomRightPanelReduce
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateModel";
 import numberIdGenerator from "../classes/NumberIdGenerator";
-import {INDEX} from "../utilities/CONSTANTS_NUMBER";
 import {ENGINE_PART_IDS} from "../utilities/CONSTANTS_STRING";
 
 /* ************************** Requesting actions ************************** */
@@ -26,12 +25,12 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         let bottomRightPanelBorderRadius: number = basePanelUnitLength * 3;
 
         let enginePartsGapDistance: number = 30 * bottomRightPanelShapeModel.getUnitLengthLarge();
+        let numberOfEngineParts: number = ENGINE_PART_IDS.length;
         if (getState().bottomRightPanelState.enginePartStateModels.length === 0) // Initialize engine part state models if none exist
         {
             let enginePartStateModels: Array<EnginePartStateModel> = [];
             let engineDistance: number = -100 * basePanelUnitLength;
             let engineRotation: number = 45;
-            let numberOfEngineParts: number = ENGINE_PART_IDS.length;
             ENGINE_PART_IDS.forEach((id: string, index: number) =>
             {
                 let zPosition: number = (index - (numberOfEngineParts - 1) / 2) * enginePartsGapDistance;
@@ -42,13 +41,14 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
             dispatch(bottomRightPanelAction_updateEngineRotation(engineRotation));
             dispatch(bottomRightPanelAction_setEnginePartStateModels(enginePartStateModels));
         }
-        // else
-        // {
-        //     ENGINE_PART_IDS.forEach((name: string, index: number) =>
-        //     {
-        //         dispatch
-        //     });
-        // }
+        else
+        {
+            ENGINE_PART_IDS.forEach((modelStringId: string, index: number) =>
+            {
+                let zPosition: number = (index - (numberOfEngineParts - 1) / 2) * enginePartsGapDistance;
+                dispatch(bottomRightPanelAction_updateEnginePartStateModelZPosition(modelStringId, zPosition));
+            });
+        }
 
         dispatch(bottomRightPanelAction_updateBottomRightPanelContentLayoutData(bottomRightPanelBorderWidth, bottomRightPanelBorderHeight, bottomRightPanelBorderSize, bottomRightPanelBorderRadius));
     }
@@ -147,11 +147,11 @@ const bottomRightPanelAction_updateEngineRotation = (rotation: number) =>
     }
 };
 
-const bottomRightPanelAction_updateEnginePartStateModelZPosition = (enginePartIndex: number, zPosition: number) =>
+const bottomRightPanelAction_updateEnginePartStateModelZPosition = (stateModelId: number | string, zPosition: number) =>
 {
     return {
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION,
-        enginePartIndex: enginePartIndex,
+        stateModelId: stateModelId,
         zPosition: zPosition,
     }
 };

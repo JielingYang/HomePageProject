@@ -60,10 +60,13 @@ export const getObjectsByClassNames: Array = (stateObject: Object, classNames) =
     return result;
 };
 
-export const getObjectById: Base = (stateObject: Object, id: number | string) =>
+export const getObjectById: Base = (target: Object | Array, id: number | string) =>
 {
     let result = null;
-    Object.values(stateObject).some(element =>
+
+    (Array.isArray(target)
+     ? target
+     : Object.values(target)).some(element =>
     {
         // If current element is Base class object
         if (element instanceof Base)
@@ -81,8 +84,8 @@ export const getObjectById: Base = (stateObject: Object, id: number | string) =>
                 return false;
             }
         }
-        // If current element is other object types (excluding array)
-        else if (typeof element === "object" && !Array.isArray(element))
+        // If current element is other object types (including array)
+        else if (typeof element === "object")
         {
             result = getObjectById(element, id);
             return result !== null;
