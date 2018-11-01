@@ -23,17 +23,23 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
     let bottomRightPanelStyleObject: StyleObject = new StyleObject().setBasics(bottomRightPanelShapeModel.getWidth(), bottomRightPanelShapeModel.getHeight(), bottomRightPanelShapeModel.getTopLeftPoint().getX(), bottomRightPanelShapeModel.getTopLeftPoint().getY())
         .setPerspective(props.bottomRightPanelState.bottomRightPanelPerspective, undefined)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
+        .addTransition("transform", TRANSITION_TIME_NORMAL)
         .setBlur(props.bottomRightPanelState.bottomRightPanelFocusOn
                  ? BLUR_LEVEL.NONE
                  : BLUR_LEVEL.MEDIUM);
 
-    let bottomRightPanelUnitLength: number = bottomRightPanelShapeModel.getUnitLengthSmall();
-    let engineContainerDivSize: number = 100 * bottomRightPanelUnitLength;
-    let engineContainerDivStyleObject: StyleObject = new StyleObject().setBasics(engineContainerDivSize, engineContainerDivSize, (bottomRightPanelShapeModel.getWidth() - engineContainerDivSize) / 2, 0)
-        .setTransformStyle("preserve-3d")
-        .addRotationY(-90)
-        .addTranslationX(props.bottomRightPanelState.engineDistance)
-        .addRotationY(props.bottomRightPanelState.engineRotation);
+    let isLandscape: boolean = bottomRightPanelShapeModel.getWidth() >= bottomRightPanelShapeModel.getHeight();
+    let engineContainerDivSize: number = 100 * bottomRightPanelShapeModel.getUnitLengthSmall();
+    let engineContainerDivStyleObject: StyleObject = new StyleObject().setBasics(engineContainerDivSize, engineContainerDivSize, (bottomRightPanelShapeModel.getUnitLengthLarge() * 100 - engineContainerDivSize) / 2, 0).setTransformStyle("preserve-3d");
+
+    if (isLandscape)
+    {
+        engineContainerDivStyleObject.addRotationY(-90).addTranslationX(props.bottomRightPanelState.engineDistance).addRotationY(props.bottomRightPanelState.engineRotation);
+    }
+    else
+    {
+        engineContainerDivStyleObject.addRotationX(-90).addTranslationY(props.bottomRightPanelState.engineDistance).addRotationX(props.bottomRightPanelState.engineRotation);
+    }
 
     let enginePartModels: Array<EnginePartStateModel> = props.bottomRightPanelState.enginePartStateModels;
     console.log(LEVEL2_CONSOLE_PREFIX + bottomRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
