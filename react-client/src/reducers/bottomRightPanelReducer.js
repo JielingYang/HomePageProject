@@ -97,6 +97,14 @@ const bottomRightPanelAction_updateEnginePartStateModelZPosition_handler = (stat
     return nextState;
 };
 
+const bottomRightPanelAction_setMouseHoverOnEnginePart_handler = (state: bottomRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.enginePartStateModels[action.engineIndex].setMouseHover(action.hover);
+    return nextState;
+
+};
+
 // Check reducerCreator for explanation of handlers
 const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_SIZE]: bottomRightPanelAction_updateBottomRightPanelSize_handler,
@@ -107,6 +115,7 @@ const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE]: bottomRightPanelAction_updateEngineDistance_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION]: bottomRightPanelAction_updateEngineRotation_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION]: bottomRightPanelAction_updateEnginePartStateModelZPosition_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART]: bottomRightPanelAction_setMouseHoverOnEnginePart_handler,
 };
 
 export default createReducer(bottomRightPanelDefaultState, bottomRightPanelReducerHandlers);

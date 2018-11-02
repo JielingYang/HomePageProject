@@ -72,6 +72,17 @@ export const bottomRightPanelAction_requestToUpdateEngineDistanceAndRotation = (
     }
 };
 
+export const bottomRightPanelAction_requestToSetMouseHoverOnEnginePart = (engineIndex: number, hover: boolean) =>
+{
+    return (dispatch, getState) =>
+    {
+        if (getState().bottomRightPanelState.enginePartStateModels[engineIndex].getMouseHover() !== hover)
+        {
+            dispatch(bottomRightPanelAction_setMouseHoverOnEnginePart(engineIndex, hover));
+        }
+    }
+};
+
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
 /* *************************************************************************** */
@@ -85,6 +96,7 @@ export const BOTTOM_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION",
+    BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART: "BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART",
 });
 
 export const bottomRightPanelAction_updateBottomRightPanelSize = (newBottomRightPanelWidth: number, newBottomRightPanelHeight: number) =>
@@ -153,5 +165,14 @@ const bottomRightPanelAction_updateEnginePartStateModelZPosition = (stateModelId
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION,
         stateModelId: stateModelId,
         zPosition: zPosition,
+    }
+};
+
+const bottomRightPanelAction_setMouseHoverOnEnginePart = (engineIndex: number, hover: boolean) =>
+{
+    return {
+        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART,
+        engineIndex: engineIndex,
+        hover: hover,
     }
 };

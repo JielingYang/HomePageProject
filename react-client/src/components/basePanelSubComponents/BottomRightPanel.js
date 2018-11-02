@@ -6,7 +6,7 @@ import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTA
 import StyleObject from "../../classes/StyleObject";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
-import {bottomRightPanelAction_setBottomRightPanelFocusOn} from "../../actionCreators/bottomRightPanelActions";
+import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart, bottomRightPanelAction_setBottomRightPanelFocusOn} from "../../actionCreators/bottomRightPanelActions";
 import type {bottomRightPanelStateType} from "../../reducers/bottomRightPanelReducer";
 import SubPanelBorder from "./SubPanelBorder";
 import {WHITE_TRANSPARENT_50} from "../../utilities/CONSTANTS_COLOR";
@@ -15,6 +15,7 @@ import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStat
 type BottomRightPanelPropsType = {
     bottomRightPanelState: bottomRightPanelStateType,
     bottomRightPanelAction_setBottomRightPanelFocusOn: Function,
+    bottomRightPanelAction_requestToSetMouseHoverOnEnginePart: Function,
 }
 
 const BottomRightPanel = (props: BottomRightPanelPropsType) =>
@@ -23,7 +24,6 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
     let bottomRightPanelStyleObject: StyleObject = new StyleObject().setBasics(bottomRightPanelShapeModel.getWidth(), bottomRightPanelShapeModel.getHeight(), bottomRightPanelShapeModel.getTopLeftPoint().getX(), bottomRightPanelShapeModel.getTopLeftPoint().getY())
         .setPerspective(props.bottomRightPanelState.bottomRightPanelPerspective, undefined)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
-        .addTransition("transform", TRANSITION_TIME_NORMAL)
         .setBlur(props.bottomRightPanelState.bottomRightPanelFocusOn
                  ? BLUR_LEVEL.NONE
                  : BLUR_LEVEL.MEDIUM);
@@ -31,17 +31,23 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
     let isLandscape: boolean = bottomRightPanelShapeModel.getWidth() >= bottomRightPanelShapeModel.getHeight();
     let engineContainerDivSize: number = 100 * bottomRightPanelShapeModel.getUnitLengthSmall();
     let engineContainerDivStyleObject: StyleObject = new StyleObject().setBasics(engineContainerDivSize, engineContainerDivSize, (bottomRightPanelShapeModel.getUnitLengthLarge() * 100 - engineContainerDivSize) / 2, 0).setTransformStyle("preserve-3d");
-
     if (isLandscape)
     {
-        engineContainerDivStyleObject.addRotationY(-90).addTranslationX(props.bottomRightPanelState.engineDistance).addRotationY(props.bottomRightPanelState.engineRotation);
+        // engineContainerDivStyleObject.addRotationY(-45)
+            // .addTranslationX(props.bottomRightPanelState.engineDistance)
+        // .addRotationY(props.bottomRightPanelState.engineRotation);
     }
     else
     {
-        engineContainerDivStyleObject.addRotationX(-90).addTranslationY(props.bottomRightPanelState.engineDistance).addRotationX(props.bottomRightPanelState.engineRotation);
+        // engineContainerDivStyleObject.addRotationX(90).addTranslationY(props.bottomRightPanelState.engineDistance).addRotationX(-props.bottomRightPanelState.engineRotation);
     }
 
     let enginePartModels: Array<EnginePartStateModel> = props.bottomRightPanelState.enginePartStateModels;
+    let mouseHoverOnAny: boolean = enginePartModels.some((m: EnginePartStateModel) => m.getMouseHover());
+    let enginePartBlurLevel: BLUR_LEVEL = mouseHoverOnAny
+                                          ? BLUR_LEVEL.LIGHT
+                                          : BLUR_LEVEL.NONE;
+
     console.log(LEVEL2_CONSOLE_PREFIX + bottomRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
         <div id={bottomRightPanelShapeModel.getStringId()} style={bottomRightPanelStyleObject.getStyle()}
@@ -53,8 +59,12 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
                 {
                     let enginePartStyleObject = new StyleObject().setBasics("100%", "100%", 0, 0)
                         .setBackgroundColor(WHITE_TRANSPARENT_50)
-                        .addTranslationZ(model.getZPosition());
-                    return <div key={index} style={enginePartStyleObject.getStyle()}/>;
+                        .setBlur(enginePartBlurLevel)
+                        .addTranslationZ(0)
+                        .addTransition("filter", TRANSITION_TIME_NORMAL);
+                    return index === 2 ? <div key={index} style={enginePartStyleObject.getStyle()}
+                                onMouseEnter={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(index, true)}
+                                onMouseLeave={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(index, false)}/>:null;
                 })}
             </div>
         </div>);
@@ -70,7 +80,8 @@ const mapStateToProps = (store) =>
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-        bottomRightPanelAction_setBottomRightPanelFocusOn: bottomRightPanelAction_setBottomRightPanelFocusOn
+        bottomRightPanelAction_setBottomRightPanelFocusOn: bottomRightPanelAction_setBottomRightPanelFocusOn,
+        bottomRightPanelAction_requestToSetMouseHoverOnEnginePart: bottomRightPanelAction_requestToSetMouseHoverOnEnginePart,
     }, dispatch);
 };
 
