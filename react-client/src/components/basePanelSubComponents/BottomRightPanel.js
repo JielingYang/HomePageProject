@@ -29,17 +29,19 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
                  : BLUR_LEVEL.MEDIUM);
 
     let isLandscape: boolean = bottomRightPanelShapeModel.getWidth() >= bottomRightPanelShapeModel.getHeight();
-    let engineContainerDivSize: number = 100 * bottomRightPanelShapeModel.getUnitLengthSmall();
-    let engineContainerDivStyleObject: StyleObject = new StyleObject().setBasics(engineContainerDivSize, engineContainerDivSize, (bottomRightPanelShapeModel.getUnitLengthLarge() * 100 - engineContainerDivSize) / 2, 0).setTransformStyle("preserve-3d");
+    let engineContainerDivSize: number = 20 * bottomRightPanelShapeModel.getUnitLengthSmall();
+    let engineContainerDivStyleObject: StyleObject = new StyleObject().setBasics(engineContainerDivSize, engineContainerDivSize, "50%", "50%").setTransformStyle("preserve-3d");
     if (isLandscape)
     {
-        // engineContainerDivStyleObject.addRotationY(-45)
+        engineContainerDivStyleObject.addRotationY(-90)
+            .addTranslationX(3 * engineContainerDivSize)
+        .addRotationY(10);
             // .addTranslationX(props.bottomRightPanelState.engineDistance)
         // .addRotationY(props.bottomRightPanelState.engineRotation);
     }
     else
     {
-        // engineContainerDivStyleObject.addRotationX(90).addTranslationY(props.bottomRightPanelState.engineDistance).addRotationX(-props.bottomRightPanelState.engineRotation);
+        engineContainerDivStyleObject.addRotationX(90).addTranslationY(props.bottomRightPanelState.engineDistance).addRotationX(-props.bottomRightPanelState.engineRotation);
     }
 
     let enginePartModels: Array<EnginePartStateModel> = props.bottomRightPanelState.enginePartStateModels;
@@ -60,7 +62,7 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
                     let enginePartStyleObject = new StyleObject().setBasics("100%", "100%", 0, 0)
                         .setBackgroundColor(WHITE_TRANSPARENT_50)
                         .setBlur(enginePartBlurLevel)
-                        .addTranslationZ(0)
+                        .addTranslationZ(model.getZPosition())
                         .addTransition("filter", TRANSITION_TIME_NORMAL);
                     return index === 2 ? <div key={index} style={enginePartStyleObject.getStyle()}
                                 onMouseEnter={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(index, true)}
