@@ -64,7 +64,7 @@ class App extends Component<AppPropsType>
         let appComponentStyleObject: StyleObject = new StyleObject()
             .setBasics(appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY())
             .setBackgroundColor(this.props.appBackgroundColor)
-            .setPerspective(this.props.appPerspective, undefined)
+            .setPerspective(this.props.appPerspective)
             .addTransition("background-color", TRANSITION_TIME_NORMAL);
 
         console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
