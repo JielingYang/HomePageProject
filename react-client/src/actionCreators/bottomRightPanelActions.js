@@ -24,8 +24,8 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         let bottomRightPanelBorderSize: number = basePanelUnitLength * 0.5;
         let bottomRightPanelBorderRadius: number = basePanelUnitLength * 3;
 
-        let enginePartsGapDistance: number = 30 * bottomRightPanelShapeModel.getUnitLengthLarge();
-        let numberOfEngineParts: number = ENGINE_PART_IDS.length;
+        let enginePartSize: number = 30 * bottomRightPanelShapeModel.getUnitLengthSmall();
+        let enginePartsGapDistance: number = enginePartSize;
         if (getState().bottomRightPanelState.enginePartStateModels.length === 0) // Initialize engine part state models if none exist
         {
             let enginePartStateModels: Array<EnginePartStateModel> = [];
@@ -33,10 +33,11 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
             let engineRotation: number = 45;
             ENGINE_PART_IDS.forEach((id: string, index: number) =>
             {
-                let zPosition: number = (index - (numberOfEngineParts - 1) / 2) * enginePartsGapDistance;
+                let zPosition: number = index * enginePartsGapDistance;
                 enginePartStateModels.push(new EnginePartStateModel(numberIdGenerator.generateId(), id, zPosition));
             });
 
+            dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
             dispatch(bottomRightPanelAction_updateEngineDistance(engineDistance));
             dispatch(bottomRightPanelAction_updateEngineRotation(engineRotation));
             dispatch(bottomRightPanelAction_setEnginePartStateModels(enginePartStateModels));
@@ -45,7 +46,8 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         {
             ENGINE_PART_IDS.forEach((modelStringId: string, index: number) =>
             {
-                let zPosition: number = (index - (numberOfEngineParts - 1) / 2) * enginePartsGapDistance;
+                let zPosition: number = index * enginePartsGapDistance;
+                dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
                 dispatch(bottomRightPanelAction_updateEnginePartStateModelZPosition(modelStringId, zPosition));
             });
         }
@@ -93,6 +95,7 @@ export const BOTTOM_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     BOTTOM_RIGHT_PANEL_ACTION_SET_BOTTOM_RIGHT_PANEL_FOCUS_ON: "BOTTOM_RIGHT_PANEL_ACTION_SET_BOTTOM_RIGHT_PANEL_FOCUS_ON",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_CONTENT_LAYOUT_DATA: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_CONTENT_LAYOUT_DATA",
     BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_PART_STATE_MODELS: "BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_PART_STATE_MODELS",
+    BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION",
@@ -140,6 +143,14 @@ const bottomRightPanelAction_setEnginePartStateModels = (enginePartStateModels: 
     return {
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_PART_STATE_MODELS,
         enginePartStateModels: enginePartStateModels,
+    }
+};
+
+const bottomRightPanelAction_updateEnginePartSize = (size: number) =>
+{
+    return {
+        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE,
+        enginePartSize: size,
     }
 };
 

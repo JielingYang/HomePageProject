@@ -6,7 +6,6 @@ import {createReducer} from "./reducerCreator";
 import {BOTTOM_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/bottomRightPanelActions";
 import numberIdGenerator from "../classes/NumberIdGenerator";
 import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateModel";
-import SingleSelectionModel from "../classes/StateModelClasses/SingleSelectionModel";
 
 export type bottomRightPanelStateType = {
     bottomRightPanelShapeModel: Shape2d_Rectangle,
@@ -18,6 +17,7 @@ export type bottomRightPanelStateType = {
     panelBorderWidth: number,
     panelBorderHeight: number,
 
+    enginePartSize: number,
     engineDistance: number,
     engineRotation: number,
     enginePartStateModels: Array<EnginePartStateModel>
@@ -33,6 +33,7 @@ const bottomRightPanelDefaultState: bottomRightPanelStateType = {
     panelBorderWidth: 0,
     panelBorderHeight: 0,
 
+    enginePartSize: 0,
     engineDistance: 0,
     engineRotation: 0,
     enginePartStateModels: [],
@@ -76,6 +77,13 @@ const bottomRightPanelAction_setEnginePartStateModels_handler = (state: bottomRi
     return nextState;
 };
 
+const bottomRightPanelAction_updateEnginePartSize_handler = (state: bottomRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.enginePartSize = action.enginePartSize;
+    return nextState;
+};
+
 const bottomRightPanelAction_updateEngineDistance_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
@@ -116,6 +124,7 @@ const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION]: bottomRightPanelAction_updateEngineRotation_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION]: bottomRightPanelAction_updateEnginePartStateModelZPosition_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART]: bottomRightPanelAction_setMouseHoverOnEnginePart_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE]: bottomRightPanelAction_updateEnginePartSize_handler,
 };
 
 export default createReducer(bottomRightPanelDefaultState, bottomRightPanelReducerHandlers);
