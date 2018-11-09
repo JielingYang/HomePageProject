@@ -10,6 +10,7 @@ import TopLeftPanel from "./basePanelSubComponents/TopLeftPanel";
 import TopRightPanel from "./basePanelSubComponents/TopRightPanel";
 import BottomLeftPanel from "./basePanelSubComponents/BottomLeftPanel";
 import BottomRightPanel from "./basePanelSubComponents/BottomRightPanel";
+import {COMMON_TYPE} from "../utilities/CONSTANTS_STRING";
 
 type BasePanelPropsType = {
     basePanelState: basePanelStateType,
@@ -26,7 +27,7 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelRotationX: string = props.basePanelState.basePanelRotationX;
     let basePanelRotationY: string = props.basePanelState.basePanelRotationY;
 
-    let basePanelComponentStyleObject = new StyleObject().setBasics(basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
+    let basePanelComponentStyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
         .setBackgroundColor(BLACK_TRANSPARENT_00)
         .addTranslationX(basePanelTranslatePercentageX)
         .addTranslationY(basePanelTranslatePercentageY)

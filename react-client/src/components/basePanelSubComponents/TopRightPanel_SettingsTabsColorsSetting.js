@@ -8,6 +8,7 @@ import {INDEX} from "../../utilities/CONSTANTS_NUMBER";
 import StyleObject from "../../classes/StyleObject";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd} from "../../actionCreators/topRightPanelActions";
+import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
 type TopRightPanel_SettingsTabsColorsSettingPropsType = {
     appState: appStateType,
@@ -29,7 +30,7 @@ const TopRightPanel_SettingsTabsColorsSettings = (props: TopRightPanel_SettingsT
         colorsSettingContentY = 0;
     }
 
-    let colorsSettingContentWrapperDivStyleObject = new StyleObject()
+    let colorsSettingContentWrapperDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), 0, colorsSettingContentY)
         .setOpacity(colorsSettingContentOpacity)
         .setDisplay(displayValue)

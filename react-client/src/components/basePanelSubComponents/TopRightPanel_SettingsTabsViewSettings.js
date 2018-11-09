@@ -8,6 +8,7 @@ import {INDEX} from "../../utilities/CONSTANTS_NUMBER";
 import StyleObject from "../../classes/StyleObject";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd} from "../../actionCreators/topRightPanelActions";
+import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
 type TopRightPanel_SettingsTabsViewSettingPropsType = {
     appState: appStateType,
@@ -30,7 +31,7 @@ const TopRightPanel_SettingsTabsViewSettings = (props: TopRightPanel_SettingsTab
         viewSettingContentY = 0;
     }
 
-    let viewSettingContentWrapperDivStyleObject = new StyleObject()
+    let viewSettingContentWrapperDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), 0, viewSettingContentY)
         .setOpacity(viewSettingContentOpacity)
         .setDisplay(displayValue)

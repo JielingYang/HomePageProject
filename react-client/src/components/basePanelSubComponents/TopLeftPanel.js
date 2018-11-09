@@ -9,6 +9,7 @@ import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topLeftPanelAction_setTopLeftPanelFocusOn} from "../../actionCreators/topLeftPanelActions";
 import SubPanelBorder from "./SubPanelBorder";
 import type {topLeftPanelStateType} from "../../reducers/topLeftPanelReducer";
+import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
 type TopLeftPanelPropsType = {
     topLeftPanelState: topLeftPanelStateType,
@@ -19,7 +20,7 @@ const TopLeftPanel = (props: TopLeftPanelPropsType) =>
 {
     let topLeftPanelShapeModel: Shape2d_Rectangle = props.topLeftPanelState.topLeftPanelShapeModel;
 
-    let topLeftPanelStyleObject = new StyleObject().setBasics(topLeftPanelShapeModel.getWidth(), topLeftPanelShapeModel.getHeight(), topLeftPanelShapeModel.getTopLeftPoint().getX(), topLeftPanelShapeModel.getTopLeftPoint().getY())
+    let topLeftPanelStyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(topLeftPanelShapeModel.getWidth(), topLeftPanelShapeModel.getHeight(), topLeftPanelShapeModel.getTopLeftPoint().getX(), topLeftPanelShapeModel.getTopLeftPoint().getY())
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .setBlur(props.topLeftPanelState.topLeftPanelFocusOn
                  ? BLUR_LEVEL.NONE

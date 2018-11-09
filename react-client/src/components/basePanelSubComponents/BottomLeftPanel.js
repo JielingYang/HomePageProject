@@ -9,6 +9,7 @@ import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {bottomLeftPanelAction_setBottomLeftPanelFocusOn} from "../../actionCreators/bottomLeftPanelActions";
 import SubPanelBorder from "./SubPanelBorder";
 import type {bottomLeftPanelStateType} from "../../reducers/bottomLeftPanelReducer";
+import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
 type BottomLeftPanelPropsType = {
     bottomLeftPanelState: bottomLeftPanelStateType,
@@ -19,7 +20,7 @@ const BottomLeftPanel = (props: BottomLeftPanelPropsType) =>
 {
     let bottomLeftPanelShapeModel: Shape2d_Rectangle = props.bottomLeftPanelState.bottomLeftPanelShapeModel;
 
-    let bottomLeftPanelRootDivStyleObject = new StyleObject().setBasics(bottomLeftPanelShapeModel.getWidth(), bottomLeftPanelShapeModel.getHeight(), bottomLeftPanelShapeModel.getTopLeftPoint().getX(), bottomLeftPanelShapeModel.getTopLeftPoint().getY())
+    let bottomLeftPanelRootDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(bottomLeftPanelShapeModel.getWidth(), bottomLeftPanelShapeModel.getHeight(), bottomLeftPanelShapeModel.getTopLeftPoint().getX(), bottomLeftPanelShapeModel.getTopLeftPoint().getY())
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .setBlur(props.bottomLeftPanelState.bottomLeftPanelFocusOn
                  ? BLUR_LEVEL.NONE

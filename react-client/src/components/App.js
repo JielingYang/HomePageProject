@@ -11,6 +11,7 @@ import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
 import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData} from "../actionCreators/topLeftPanelActions";
 import {bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData} from "../actionCreators/bottomLeftPanelActions";
 import {bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData} from "../actionCreators/bottomRightPanelActions";
+import {COMMON_TYPE} from "../utilities/CONSTANTS_STRING";
 
 type AppPropsType = {
     appShapeModel: Shape2d_Rectangle,
@@ -61,7 +62,7 @@ class App extends Component<AppPropsType>
     render()
     {
         let appComponentShapeModel: Shape2d_Rectangle = this.props.appShapeModel;
-        let appComponentStyleObject: StyleObject = new StyleObject()
+        let appComponentStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
             .setBasics(appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY())
             .setBackgroundColor(this.props.appBackgroundColor)
             .setPerspective(this.props.appPerspective)

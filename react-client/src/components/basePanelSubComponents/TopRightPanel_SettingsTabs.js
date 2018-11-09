@@ -10,6 +10,7 @@ import {getSettingsTabsSvgIcon} from "../../utilities/svgIcons";
 import type {appStateType} from "../../reducers/appReducer";
 import {appAction_changeAppTheme} from "../../actionCreators/appActions";
 import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
+import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
 type TopRightPanel_SettingsTabsPropsType = {
     appState: appStateType,
@@ -25,7 +26,7 @@ const TopRightPanel_SettingsTabs = (props: TopRightPanel_SettingsTabsPropsType) 
 {
     let appState: appStateType = props.appState;
     let topRightPanelState: topRightPanelStateType = props.topRightPanelState;
-    let settingsTabsDivStyleObject: StyleObject = new StyleObject().setBasics(topRightPanelState.panelBorderWidth, topRightPanelState.settingsTabsHeight, topRightPanelState.panelPadding, topRightPanelState.panelPadding);
+    let settingsTabsDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(topRightPanelState.panelBorderWidth, topRightPanelState.settingsTabsHeight, topRightPanelState.panelPadding, topRightPanelState.panelPadding);
     let settingsTabsStateModel: SingleSelectionModel = topRightPanelState.settingsTabsStateModel;
     let settingsTabsStateModelStringId: string = settingsTabsStateModel.getStringId();
 
@@ -51,21 +52,21 @@ const TopRightPanel_SettingsTabs = (props: TopRightPanel_SettingsTabsPropsType) 
                 iconColor = appState.iconColorSelectedSecondary;
             }
 
-            let individualTabDivStyleObject = new StyleObject()
+            let individualTabDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
                 .setBasics(topRightPanelState.settingsTabsWidth, topRightPanelState.settingsTabsHeight, index * topRightPanelState.settingsTabsWidth, 0)
                 .setDisplay("flex")
                 .setFlexDirection("column")
                 .setBlur(blurLevel)
                 .addTransition("background-color", TRANSITION_TIME_NORMAL)
                 .addTransition("filter", TRANSITION_TIME_NORMAL);
-            let tabIconWrapperDivStyleObject = new StyleObject()
+            let tabIconWrapperDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
                 .setPosition("relative")
                 .setHeight(topRightPanelState.settingsTabsHeight * 0.4)
                 .setPointerEvents("none")
                 .setMargin("auto")
                 .setBlur(blurLevel)
                 .addTransition("filter", TRANSITION_TIME_NORMAL);
-            let tabTextWrapperDivStyleObject = new StyleObject()
+            let tabTextWrapperDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
                 .setPosition("relative")
                 .setPointerEvents("none")
                 .setMargin("auto")

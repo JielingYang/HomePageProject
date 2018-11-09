@@ -8,6 +8,7 @@ import {INDEX} from "../../utilities/CONSTANTS_NUMBER";
 import StyleObject from "../../classes/StyleObject";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd} from "../../actionCreators/topRightPanelActions";
+import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
 type TopRightPanel_SettingsTabsPlaygroundSettingPropsType = {
     appState: appStateType,
@@ -30,7 +31,7 @@ const TopRightPanel_SettingsTabsPlaygroundSettings = (props: TopRightPanel_Setti
         playgroundSettingContentY = 0;
     }
 
-    let playgroundSettingContentWrapperDivStyleObject = new StyleObject()
+    let playgroundSettingContentWrapperDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), 0, playgroundSettingContentY)
         .setOpacity(playgroundSettingContentOpacity)
         .setDisplay(displayValue)

@@ -15,6 +15,7 @@ import TopRightPanel_SettingsTabs from "./TopRightPanel_SettingsTabs";
 import TopRightPanel_SettingsTabsThemesSetting from "./TopRightPanel_SettingsTabsThemesSetting";
 import TopRightPanel_SettingsTabsViewSettings from "./TopRightPanel_SettingsTabsViewSettings";
 import TopRightPanel_SettingsTabsPlaygroundSettings from "./TopRightPanel_SettingsTabsPlaygroundSettings";
+import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
 type TopRightPanelPropsType = {
     appState: appStateType,
@@ -30,7 +31,7 @@ const TopRightPanel = (props: TopRightPanelPropsType) =>
                           ? BLUR_LEVEL.EXTREMELY_LIGHT
                           : BLUR_LEVEL.LIGHT;
 
-    let topRightPanelStyleObject = new StyleObject().setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
+    let topRightPanelStyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), topRightPanelShapeModel.getTopLeftPoint().getX(), topRightPanelShapeModel.getTopLeftPoint().getY())
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .setBlur(props.topRightPanelState.topRightPanelFocusOn
                  ? BLUR_LEVEL.NONE

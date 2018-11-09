@@ -12,7 +12,7 @@ import {getThemesSvgIcon} from "../../utilities/svgIcons";
 import type {appStateType} from "../../reducers/appReducer";
 import {appAction_changeAppTheme} from "../../actionCreators/appActions";
 import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
-import {THEMES_DESCRIPTIONS, THEMES_TITLES} from "../../utilities/CONSTANTS_STRING";
+import {COMMON_TYPE, THEMES_DESCRIPTIONS, THEMES_TITLES} from "../../utilities/CONSTANTS_STRING";
 
 type TopRightPanel_SettingsTabsThemesSettingPropsType = {
     appState: appStateType,
@@ -43,7 +43,7 @@ const TopRightPanel_SettingsTabsThemesSetting = (props: TopRightPanel_SettingsTa
         themesSettingContentY = 0;
     }
 
-    let themesSettingContentWrapperDivStyleObject = new StyleObject()
+    let themesSettingContentWrapperDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics(topRightPanelShapeModel.getWidth(), topRightPanelShapeModel.getHeight(), 0, themesSettingContentY)
         .setOpacity(themesSettingContentOpacity)
         .setDisplay(displayValue)
@@ -104,7 +104,7 @@ const TopRightPanel_SettingsTabsThemesSetting = (props: TopRightPanel_SettingsTa
                 }
             }
 
-            let themesTitleDivStyleObject = new StyleObject()
+            let themesTitleDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
                 .setBasics(topRightPanelState.topRightPanelShapeModel.getWidth(), 0, 0, themesTitleStartingY)
                 .setPointerEvents("none")
                 .setFontColor(themeTitleFontColor)
@@ -113,20 +113,20 @@ const TopRightPanel_SettingsTabsThemesSetting = (props: TopRightPanel_SettingsTa
                 .addTransition("color", TRANSITION_TIME_NORMAL)
                 .addTransition("top", TRANSITION_TIME_NORMAL)
                 .setTextAlign("center");
-            let themeSettingOptionDivStyleObject = new StyleObject()
+            let themeSettingOptionDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
                 .setBasics(themesSettingOptionsSize, themesSettingOptionsSize, themesSettingOptionsStartingX, topRightPanelState.themesSettingOptionsStartingY)
                 .setBlur(themesOptionBlurLevel)
                 .addScale(scale, scale)
                 .addTransition("filter", TRANSITION_TIME_NORMAL)
                 .addTransition("top", TRANSITION_TIME_NORMAL)
                 .addTransition("transform", TRANSITION_TIME_NORMAL);
-            let lightBulbEffectStyleObject = new StyleObject()
+            let lightBulbEffectStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
                 .setBasics("80%", "80%", "10%", "0%")
                 .setBackgroundColor(lightBulbEffectColor)
                 .setBlur(BLUR_LEVEL.HEAVY)
                 .setPointerEvents("none")
                 .addTransition("background-color", TRANSITION_TIME_NORMAL);
-            let themesDescriptionDivStyleObject = new StyleObject()
+            let themesDescriptionDivStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
                 .setBasics(themesDescriptionWidth, 0, themesDescriptionStartingX, topRightPanelState.themesDescriptionStartingY)
                 .setPointerEvents("none")
                 .setTextAlign("center")

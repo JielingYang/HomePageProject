@@ -49,6 +49,11 @@ export const UTILITY_STRING = Object.freeze({
     CLOSE_PARENTHESIS: ")"
 });
 
+export const COMMON_TYPE = Object.freeze({
+    DEFAULT: "default",
+    EMPTY: "empty",
+});
+
 let settingsTabsTitles = [];
 settingsTabsTitles[INDEX.SETTINGS_TABS_THEME] = "theme setting";
 // settingsTabsTitles[INDEX.SETTINGS_TABS_COLOR] = "color setting";

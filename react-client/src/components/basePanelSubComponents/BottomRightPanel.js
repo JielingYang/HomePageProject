@@ -9,8 +9,9 @@ import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart, bottomRightPanelAction_setBottomRightPanelFocusOn} from "../../actionCreators/bottomRightPanelActions";
 import type {bottomRightPanelStateType} from "../../reducers/bottomRightPanelReducer";
 import SubPanelBorder from "./SubPanelBorder";
-import {WHITE_TRANSPARENT_10, WHITE_TRANSPARENT_50} from "../../utilities/CONSTANTS_COLOR";
+import {WHITE_TRANSPARENT_10} from "../../utilities/CONSTANTS_COLOR";
 import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
+import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
 type BottomRightPanelPropsType = {
     bottomRightPanelState: bottomRightPanelStateType,
@@ -21,7 +22,7 @@ type BottomRightPanelPropsType = {
 const BottomRightPanel = (props: BottomRightPanelPropsType) =>
 {
     let bottomRightPanelShapeModel: Shape2d_Rectangle = props.bottomRightPanelState.bottomRightPanelShapeModel;
-    let bottomRightPanelStyleObject: StyleObject = new StyleObject().setBasics(bottomRightPanelShapeModel.getWidth(), bottomRightPanelShapeModel.getHeight(), bottomRightPanelShapeModel.getTopLeftPoint().getX(), bottomRightPanelShapeModel.getTopLeftPoint().getY())
+    let bottomRightPanelStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(bottomRightPanelShapeModel.getWidth(), bottomRightPanelShapeModel.getHeight(), bottomRightPanelShapeModel.getTopLeftPoint().getX(), bottomRightPanelShapeModel.getTopLeftPoint().getY())
         .setPerspective(props.bottomRightPanelState.bottomRightPanelPerspective)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .setBlur(props.bottomRightPanelState.bottomRightPanelFocusOn
@@ -56,7 +57,7 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
                                                         ? 0.8
                                                         : 1;
 
-                    let enginePartWrapperStyle = new StyleObject()
+                    let enginePartWrapperStyle = new StyleObject(COMMON_TYPE.DEFAULT)
                         .setBasics(enginePartSize, enginePartSize, model.getZPosition(), enginePartTopPosition)
                         .setPointerEvents("auto")
                         .setBlur(enginePartBlurLevel)
@@ -64,7 +65,7 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
                         .addRotationY(90)
                         .addTransition("filter", TRANSITION_TIME_NORMAL)
                         .addTransition("opacity", TRANSITION_TIME_NORMAL);
-                    let enginePartStyleObject = new StyleObject()
+                    let enginePartStyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
                         .setBasics("100%", "100%", 0, 0)
                         .setBackgroundColor(WHITE_TRANSPARENT_10);
 

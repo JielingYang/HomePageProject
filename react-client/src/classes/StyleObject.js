@@ -1,17 +1,25 @@
 import {DEFAULT_FONT_COLOR} from "../utilities/CONSTANTS_COLOR";
+import {COMMON_TYPE} from "../utilities/CONSTANTS_STRING";
 
 export default class StyleObject
 {
-    constructor()
+    constructor(initialType: COMMON_TYPE)
     {
-        // Default styles
-        this.style = {
-            position: "absolute",
-            boxSizing: "border-box",
-            fontFamily: "sans-serif",
-            fontSize: "0.6vw",
-            color: DEFAULT_FONT_COLOR,
-        };
+        if (initialType === undefined || initialType === COMMON_TYPE.DEFAULT)
+        {
+            // Default styles
+            this.style = {
+                position: "absolute",
+                boxSizing: "border-box",
+                fontFamily: "sans-serif",
+                fontSize: "0.6vw",
+                color: DEFAULT_FONT_COLOR,
+            };
+        }
+        else if (initialType === COMMON_TYPE.EMPTY)
+        {
+            this.style = {};
+        }
     }
 
     getStyle(): Object

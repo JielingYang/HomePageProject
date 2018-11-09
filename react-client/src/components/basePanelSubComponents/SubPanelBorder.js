@@ -8,6 +8,7 @@ import type {appStateType} from "../../reducers/appReducer";
 import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
 import type {topLeftPanelStateType} from "../../reducers/topLeftPanelReducer";
 import type {bottomLeftPanelStateType} from "../../reducers/bottomLeftPanelReducer";
+import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
 type SubPanelBorderPropsType = {
     appState: appStateType,
@@ -20,7 +21,7 @@ const SubPanelBorder = (props: SubPanelBorderPropsType) =>
     let appState = props.appState;
     let subPanelState = props.subPanelState;
 
-    let subPanelBorderDivStyleObject: StyleObject = new StyleObject()
+    let subPanelBorderDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics(subPanelState.panelBorderWidth, subPanelState.panelBorderHeight, subPanelState.panelPadding, subPanelState.panelPadding)
         .setBackgroundColor(appState.subPanelsBackgroundColor)
         .setBorder(subPanelState.panelBorderSize, "solid", appState.subPanelsBorderColor)
