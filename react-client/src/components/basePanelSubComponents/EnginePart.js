@@ -33,6 +33,9 @@ const EnginePart = (props: EnginePartPropsType) =>
     let enginePartOpacity: BLUR_LEVEL = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
                                         ? 0.5
                                         : 1;
+    let hoverTranslation: number = mouseHoverOnThisEnginePart
+                                   ? enginePartSize * 0.7
+                                   : enginePartSize * 0.5;
 
     let enginePartContainerDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics(enginePartSize, enginePartSize, enginePartInitialMiddlePosition, enginePartInitialMiddlePosition)
@@ -50,38 +53,42 @@ const EnginePart = (props: EnginePartPropsType) =>
         .setOpacity(enginePartOpacity)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .addTransition("opacity", TRANSITION_TIME_NORMAL)
-        .addTranslationZ(-enginePartSize / 2)
+        .addTransition("transform", TRANSITION_TIME_NORMAL)
+        .addTranslationZ(-hoverTranslation)
 
     let testStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("200%", "100%",  "-100%", 0)
+        .setBasics("200%", "100%", "-100%", 0)
         .setBackgroundColor(WHITE_TRANSPARENT_10)
         .setPointerEvents("auto")
         .setBlur(enginePartBlurLevel)
         .setOpacity(enginePartOpacity)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .addTransition("opacity", TRANSITION_TIME_NORMAL)
-        .addTranslationZ(enginePartSize / 2)
+        .addTransition("transform", TRANSITION_TIME_NORMAL)
+        .addTranslationZ(hoverTranslation)
 
     let testStyleObject1: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("200%", "100%",  "-100%", 0)
+        .setBasics("200%", "100%", "-100%", 0)
         .setBackgroundColor(WHITE_TRANSPARENT_10)
         .setPointerEvents("auto")
         .setBlur(enginePartBlurLevel)
         .setOpacity(enginePartOpacity)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .addTransition("opacity", TRANSITION_TIME_NORMAL)
-        .addTranslationY(enginePartSize / 2)
+        .addTransition("transform", TRANSITION_TIME_NORMAL)
+        .addTranslationY(hoverTranslation)
         .addRotationX(-90)
 
     let testStyleObject2: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("200%", "100%",  "-100%", 0)
+        .setBasics("200%", "100%", "-100%", 0)
         .setBackgroundColor(WHITE_TRANSPARENT_10)
         .setPointerEvents("auto")
         .setBlur(enginePartBlurLevel)
         .setOpacity(enginePartOpacity)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .addTransition("opacity", TRANSITION_TIME_NORMAL)
-        .addTranslationY(-enginePartSize / 2)
+        .addTransition("transform", TRANSITION_TIME_NORMAL)
+        .addTranslationY(-hoverTranslation)
         .addRotationX(90)
 
     return <div id={stateModel.getStringId()} style={enginePartContainerDivStyleObject.getStyle()}
