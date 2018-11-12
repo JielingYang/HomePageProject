@@ -40,7 +40,7 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
             <SubPanelBorder subPanelState={props.bottomRightPanelState} borderBlurLevel={BLUR_LEVEL.LIGHT}/>
             {enginePartModels.map((model: EnginePartStateModel, index: number) =>
             {
-                return <EnginePart key={index} stateModel={model} engineIndex={index} rotation={props.bottomRightPanelState.engineRotation}
+                return <EnginePart key={index} stateModel={model} engineIndex={index} engineRotationX={props.bottomRightPanelState.engineRotationX} engineRotationY={props.bottomRightPanelState.engineRotationY}
                                    mouseHoverOnAnyEnginePart={mouseHoverOnAny}/>
             })}
         </div>);

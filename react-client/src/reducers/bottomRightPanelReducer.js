@@ -19,7 +19,8 @@ export type bottomRightPanelStateType = {
 
     enginePartSize: number,
     engineDistance: number,
-    engineRotation: number,
+    engineRotationX: number,
+    engineRotationY: number,
     enginePartStateModels: Array<EnginePartStateModel>
 }
 
@@ -35,7 +36,8 @@ const bottomRightPanelDefaultState: bottomRightPanelStateType = {
 
     enginePartSize: 0,
     engineDistance: 0,
-    engineRotation: 0,
+    engineRotationX: 0,
+    engineRotationY: 0,
     enginePartStateModels: [],
 };
 
@@ -93,8 +95,9 @@ const bottomRightPanelAction_updateEngineDistance_handler = (state: bottomRightP
 
 const bottomRightPanelAction_updateEngineRotation_handler = (state: bottomRightPanelStateType, action) =>
 {
-    let nextState = deepCopy(state);
-    nextState.engineRotation = action.engineRotation;
+    let nextState = deepCopy(state);;
+    nextState.engineRotationX = action.engineRotationX;
+    nextState.engineRotationY = action.engineRotationY;
     return nextState;
 };
 

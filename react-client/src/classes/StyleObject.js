@@ -51,12 +51,28 @@ export default class StyleObject
     setLeft(left: number | string)
     {
         this.style.left = left;
+        this.style.right = "auto";
+        return this;
+    }
+
+    setRight(right: number | string)
+    {
+        this.style.right = right;
+        this.style.left = "auto";
+        return this;
+    }
+
+    setBottom(bottom: number | string)
+    {
+        this.style.bottom = bottom;
+        this.style.top = "auto";
         return this;
     }
 
     setTop(top: number | string)
     {
         this.style.top = top;
+        this.style.bottom = "auto";
         return this;
     }
 
