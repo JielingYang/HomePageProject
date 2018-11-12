@@ -21,7 +21,8 @@ type BottomRightPanelPropsType = {
 const BottomRightPanel = (props: BottomRightPanelPropsType) =>
 {
     let bottomRightPanelShapeModel: Shape2d_Rectangle = props.bottomRightPanelState.bottomRightPanelShapeModel;
-    let bottomRightPanelStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(bottomRightPanelShapeModel.getWidth(), bottomRightPanelShapeModel.getHeight(), bottomRightPanelShapeModel.getTopLeftPoint().getX(), bottomRightPanelShapeModel.getTopLeftPoint().getY())
+    let bottomRightPanelStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
+        .setBasics(bottomRightPanelShapeModel.getWidth(), bottomRightPanelShapeModel.getHeight(), bottomRightPanelShapeModel.getTopLeftPoint().getX(), bottomRightPanelShapeModel.getTopLeftPoint().getY())
         .setPerspective(props.bottomRightPanelState.bottomRightPanelPerspective)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .setBlur(props.bottomRightPanelState.bottomRightPanelFocusOn

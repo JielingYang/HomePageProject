@@ -10,7 +10,7 @@ import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData} from 
 import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
 import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData} from "../actionCreators/topLeftPanelActions";
 import {bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData} from "../actionCreators/bottomLeftPanelActions";
-import {bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData} from "../actionCreators/bottomRightPanelActions";
+import {bottomRightPanelAction_requestToSetPerspective, bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData} from "../actionCreators/bottomRightPanelActions";
 import {COMMON_TYPE} from "../utilities/CONSTANTS_STRING";
 
 type AppPropsType = {
@@ -24,6 +24,7 @@ type AppPropsType = {
     topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: Function,
     bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData: Function,
     bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData: Function,
+    bottomRightPanelAction_requestToSetPerspective: Function,
 }
 
 /**
@@ -51,6 +52,7 @@ class App extends Component<AppPropsType>
         this.props.topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData();
         this.props.bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData();
         this.props.bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData();
+        this.props.bottomRightPanelAction_requestToSetPerspective();
     }
 
     componentWillUnmount()
@@ -94,6 +96,7 @@ const matchDispatchToProps = (dispatch) =>
         topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData,
         bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData: bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData,
         bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData: bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData,
+        bottomRightPanelAction_requestToSetPerspective: bottomRightPanelAction_requestToSetPerspective,
     }, dispatch);
 };
 

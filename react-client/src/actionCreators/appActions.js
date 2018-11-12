@@ -5,7 +5,7 @@ import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData, topLeft
 import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData, topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import {bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData, bottomLeftPanelAction_updateBottomLeftPanelPosition, bottomLeftPanelAction_updateBottomLeftPanelSize} from "./bottomLeftPanelActions";
-import {bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData, bottomRightPanelAction_updateBottomRightPanelPosition, bottomRightPanelAction_updateBottomRightPanelSize} from "./bottomRightPanelActions";
+import {bottomRightPanelAction_requestToSetPerspective, bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData, bottomRightPanelAction_updateBottomRightPanelPosition, bottomRightPanelAction_updateBottomRightPanelSize} from "./bottomRightPanelActions";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -75,10 +75,11 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
             dispatch(bottomLeftPanelAction_updateBottomLeftPanelSize(newBottomLeftPanelWidth, newBottomLeftPanelHeight));
             dispatch(bottomLeftPanelAction_updateBottomLeftPanelPosition(newBottomLeftPanelPosition));
             dispatch(bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData());
-            // Update bottom right panel size and position
+            // Update bottom right panel size, position, perspective
             dispatch(bottomRightPanelAction_updateBottomRightPanelSize(newBottomRightPanelWidth, newBottomRightPanelHeight));
             dispatch(bottomRightPanelAction_updateBottomRightPanelPosition(newBottomRightPanelPosition));
             dispatch(bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData());
+            dispatch(bottomRightPanelAction_requestToSetPerspective());
         }
     };
 };

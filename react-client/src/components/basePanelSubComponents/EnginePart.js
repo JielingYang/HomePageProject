@@ -35,13 +35,12 @@ const EnginePart = (props: EnginePartPropsType) =>
 
     let enginePartContainerDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics("100%", "100%", 0, 0)
-        // .setBackgroundColor("rgba(255,255,255,0.02)")
         .setPointerEvents("none")
         .addRotationY(props.rotation)
         .setTransformStyle("preserve-3d");
 
     let enginePartCoreDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics(enginePartSize, enginePartSize, stateModel.getZPosition(), enginePartTopPosition)
+        .setBasics(enginePartSize, enginePartSize, stateModel.getPosition(), enginePartTopPosition)
         .setBackgroundColor(WHITE_TRANSPARENT_10)
         .setPointerEvents("auto")
         .setBlur(enginePartBlurLevel)

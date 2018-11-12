@@ -26,7 +26,7 @@ export type bottomRightPanelStateType = {
 const bottomRightPanelDefaultState: bottomRightPanelStateType = {
     bottomRightPanelShapeModel: new Shape2d_Rectangle(numberIdGenerator.generateId(), ID.BOTTOM_RIGHT_PANEL_ID, new Shape2d_Point(window.innerWidth / 2, window.innerHeight / 2), window.innerWidth / 2, window.innerHeight / 2),
     bottomRightPanelFocusOn: false,
-    bottomRightPanelPerspective: 800,
+    bottomRightPanelPerspective: 0,
     panelPadding: 10,
     panelBorderSize: 0,
     panelBorderRadius: 0,
@@ -98,10 +98,10 @@ const bottomRightPanelAction_updateEngineRotation_handler = (state: bottomRightP
     return nextState;
 };
 
-const bottomRightPanelAction_updateEnginePartStateModelZPosition_handler = (state: bottomRightPanelStateType, action) =>
+const bottomRightPanelAction_updateEnginePartStateModelPosition_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    getObjectById(nextState.enginePartStateModels, action.stateModelId).setZPosition(action.zPosition);
+    getObjectById(nextState.enginePartStateModels, action.stateModelId).setPosition(action.position);
     return nextState;
 };
 
@@ -113,6 +113,13 @@ const bottomRightPanelAction_setMouseHoverOnEnginePart_handler = (state: bottomR
 
 };
 
+const bottomRightPanelAction_setPerspective_handler = (state: bottomRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.bottomRightPanelPerspective = action.bottomRightPanelPerspective;
+    return nextState;
+};
+
 // Check reducerCreator for explanation of handlers
 const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_SIZE]: bottomRightPanelAction_updateBottomRightPanelSize_handler,
@@ -122,9 +129,10 @@ const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_PART_STATE_MODELS]: bottomRightPanelAction_setEnginePartStateModels_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE]: bottomRightPanelAction_updateEngineDistance_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION]: bottomRightPanelAction_updateEngineRotation_handler,
-    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION]: bottomRightPanelAction_updateEnginePartStateModelZPosition_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION]: bottomRightPanelAction_updateEnginePartStateModelPosition_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART]: bottomRightPanelAction_setMouseHoverOnEnginePart_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE]: bottomRightPanelAction_updateEnginePartSize_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE]: bottomRightPanelAction_setPerspective_handler,
 };
 
 export default createReducer(bottomRightPanelDefaultState, bottomRightPanelReducerHandlers);

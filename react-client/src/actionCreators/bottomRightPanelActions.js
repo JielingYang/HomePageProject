@@ -25,7 +25,7 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         let bottomRightPanelBorderRadius: number = basePanelUnitLength * 3;
 
         let enginePartSize: number = 30 * bottomRightPanelShapeModel.getUnitLengthSmall();
-        let enginePartsGapDistance: number = enginePartSize;
+        let enginePartsGapDistance: number = bottomRightPanelShapeModel.getWidth() / (ENGINE_PART_IDS.length + 1);
         if (getState().bottomRightPanelState.enginePartStateModels.length === 0) // Initialize engine part state models if none exist
         {
             let enginePartStateModels: Array<EnginePartStateModel> = [];
@@ -33,8 +33,8 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
             let engineRotation: number = 45;
             ENGINE_PART_IDS.forEach((id: string, index: number) =>
             {
-                let zPosition: number = index * enginePartsGapDistance;
-                enginePartStateModels.push(new EnginePartStateModel(numberIdGenerator.generateId(), id, zPosition));
+                let position: number = (index + 1) * enginePartsGapDistance;
+                enginePartStateModels.push(new EnginePartStateModel(numberIdGenerator.generateId(), id, position));
             });
 
             dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
@@ -46,9 +46,9 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         {
             ENGINE_PART_IDS.forEach((modelStringId: string, index: number) =>
             {
-                let zPosition: number = index * enginePartsGapDistance;
+                let position: number = (index + 1) * enginePartsGapDistance;
                 dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
-                dispatch(bottomRightPanelAction_updateEnginePartStateModelZPosition(modelStringId, zPosition));
+                dispatch(bottomRightPanelAction_updateEnginePartStateModelPosition(modelStringId, position));
             });
         }
 
@@ -85,6 +85,18 @@ export const bottomRightPanelAction_requestToSetMouseHoverOnEnginePart = (engine
     }
 };
 
+export const bottomRightPanelAction_requestToSetPerspective = () =>
+{
+    return (dispatch, getState) =>
+    {
+        let perspective: number = getState().bottomRightPanelState.bottomRightPanelShapeModel.getWidth();
+        if (getState().bottomRightPanelState.bottomRightPanelPerspective !== perspective)
+        {
+            dispatch(bottomRightPanelAction_setPerspective(perspective));
+        }
+    }
+};
+
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
 /* *************************************************************************** */
@@ -100,6 +112,7 @@ export const BOTTOM_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION",
     BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART: "BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART",
+    BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE: "BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE",
 });
 
 export const bottomRightPanelAction_updateBottomRightPanelSize = (newBottomRightPanelWidth: number, newBottomRightPanelHeight: number) =>
@@ -170,12 +183,12 @@ const bottomRightPanelAction_updateEngineRotation = (rotation: number) =>
     }
 };
 
-const bottomRightPanelAction_updateEnginePartStateModelZPosition = (stateModelId: number | string, zPosition: number) =>
+const bottomRightPanelAction_updateEnginePartStateModelPosition = (stateModelId: number | string, position: number) =>
 {
     return {
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION,
         stateModelId: stateModelId,
-        zPosition: zPosition,
+        position: position,
     }
 };
 
@@ -185,5 +198,13 @@ const bottomRightPanelAction_setMouseHoverOnEnginePart = (engineIndex: number, h
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART,
         engineIndex: engineIndex,
         hover: hover,
+    }
+};
+
+const bottomRightPanelAction_setPerspective = (perspective: number) =>
+{
+    return {
+        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE,
+        bottomRightPanelPerspective: perspective,
     }
 };

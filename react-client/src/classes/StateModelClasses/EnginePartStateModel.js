@@ -5,22 +5,22 @@ export default class EnginePartStateModel extends StateModel
     constructor(numId: number, strId: string, startingPosition: number)
     {
         super(numId, strId);
-        this.zPosition = startingPosition;
+        this.position = startingPosition;
     }
 
-    setZPosition(zPosition: number)
+    setPosition(position: number)
     {
-        this.zPosition = zPosition;
+        this.position = position;
     }
 
-    getZPosition(): number
+    getPosition(): number
     {
-        return this.zPosition;
+        return this.position;
     }
 
     deepClone(): EnginePartStateModel
     {
-        let result = new EnginePartStateModel(this.getNumberId(), this.getStringId(), this.getZPosition());
+        let result = new EnginePartStateModel(this.getNumberId(), this.getStringId(), this.getPosition());
         result.setMouseHover(this.getMouseHover());
         return result;
     }
