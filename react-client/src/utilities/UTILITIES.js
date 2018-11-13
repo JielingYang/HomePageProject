@@ -98,6 +98,12 @@ export const getObjectById: Base = (target: Object | Array, id: number | string)
     return result;
 };
 
+/**
+ * Convert a number to string in percentage
+ * @param number
+ * @param digit
+ * @returns {string}
+ */
 export const numberToPercentageString: string = (number: number, digit: number) =>
 {
     let numberInString: string;
@@ -110,4 +116,15 @@ export const numberToPercentageString: string = (number: number, digit: number) 
         numberInString = Number(number).toFixed(digit);
     }
     return numberInString + "%";
+};
+
+/**
+ * With number of sides and inner radius length, calculate side length of a regular polygon
+ * @param numberOfSides
+ * @param innerRadius
+ * @returns {number}
+ */
+export const getRegularPolygonSideLength: number = (numberOfSides: number, innerRadius: number) =>
+{
+    return 2 * innerRadius * Math.tan(Math.PI / numberOfSides)
 };

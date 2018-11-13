@@ -4,6 +4,8 @@ import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateModel";
 import numberIdGenerator from "../classes/NumberIdGenerator";
 import {ENGINE_PART_IDS} from "../utilities/CONSTANTS_STRING";
+import {getRegularPolygonSideLength, numberToPercentageString} from "../utilities/UTILITIES";
+import {NUMBER_OF_ENGINE_PART_SIDE_FACES} from "../utilities/CONSTANTS_NUMBER";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -24,7 +26,7 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         let bottomRightPanelBorderSize: number = basePanelUnitLength * 0.5;
         let bottomRightPanelBorderRadius: number = basePanelUnitLength * 3;
 
-        let enginePartSize: number = 10 * bottomRightPanelShapeModel.getUnitLengthSmall();
+        let enginePartSize: number = bottomRightPanelShapeModel.getWidth() / (ENGINE_PART_IDS.length + 3);
         let enginePartsGapDistance: number = bottomRightPanelShapeModel.getWidth() / (ENGINE_PART_IDS.length + 1);
         if (getState().bottomRightPanelState.enginePartStateModels.length === 0) // Initialize engine part state models if none exist
         {
@@ -34,7 +36,7 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
             let engineRotationY: number = 40;
             ENGINE_PART_IDS.forEach((id: string, index: number) =>
             {
-                let position: number = (ENGINE_PART_IDS.length / 2 - index) * enginePartsGapDistance;
+                let position: number = (ENGINE_PART_IDS.length * 0.4 - index) * enginePartsGapDistance;
                 enginePartStateModels.push(new EnginePartStateModel(numberIdGenerator.generateId(), id, position));
             });
 
@@ -42,12 +44,13 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
             dispatch(bottomRightPanelAction_updateEngineDistance(engineDistance));
             dispatch(bottomRightPanelAction_updateEngineRotation(engineRotationX, engineRotationY));
             dispatch(bottomRightPanelAction_setEnginePartStateModels(enginePartStateModels));
+            dispatch(bottomRightPanelAction_requestToSetEngineSideFaces(NUMBER_OF_ENGINE_PART_SIDE_FACES));
         }
         else
         {
             ENGINE_PART_IDS.forEach((modelStringId: string, index: number) =>
             {
-                let position: number = (ENGINE_PART_IDS.length / 2 - index) * enginePartsGapDistance;
+                let position: number = (ENGINE_PART_IDS.length * 0.4 - index) * enginePartsGapDistance;
                 dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
                 dispatch(bottomRightPanelAction_updateEnginePartStateModelPosition(modelStringId, position));
             });
@@ -57,7 +60,7 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
     }
 };
 
-export const bottomRightPanelAction_requestToUpdateEngineDistanceAndRotation = (distance: number,rotationX: number, rotationY: number) =>
+export const bottomRightPanelAction_requestToUpdateEngineDistanceAndRotation = (distance: number, rotationX: number, rotationY: number) =>
 {
     return (dispatch, getState) =>
     {
@@ -98,6 +101,20 @@ export const bottomRightPanelAction_requestToSetPerspective = () =>
     }
 };
 
+export const bottomRightPanelAction_requestToSetEngineSideFaces = (numberOfEngineSideFaces: number) =>
+{
+    return (dispatch, getState) =>
+    {
+        if (getState().bottomRightPanelState.numberOfEngineSideFaces !== numberOfEngineSideFaces && numberOfEngineSideFaces >= 3)
+        {
+            let engineSideFaceHeightPercentageInNumber: number = getRegularPolygonSideLength(numberOfEngineSideFaces, 50);
+            let engineSideFaceTopPercentage: string = numberToPercentageString(50 - engineSideFaceHeightPercentageInNumber / 2);
+
+            dispatch(bottomRightPanelAction_setEngineSideFaces(numberOfEngineSideFaces, 360 / numberOfEngineSideFaces, numberToPercentageString(engineSideFaceHeightPercentageInNumber), engineSideFaceTopPercentage));
+        }
+    }
+};
+
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
 /* *************************************************************************** */
@@ -114,6 +131,7 @@ export const BOTTOM_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION",
     BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART: "BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART",
     BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE: "BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE",
+    BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_SIDE_FACES: "BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_SIDE_FACES",
 });
 
 export const bottomRightPanelAction_updateBottomRightPanelSize = (newBottomRightPanelWidth: number, newBottomRightPanelHeight: number) =>
@@ -208,5 +226,16 @@ const bottomRightPanelAction_setPerspective = (perspective: number) =>
     return {
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE,
         bottomRightPanelPerspective: perspective,
+    }
+};
+
+const bottomRightPanelAction_setEngineSideFaces = (numberOfEngineSideFaces: number, engineSideFacesExteriorAngle: number, engineSideFaceHeightPercentage: string, engineSideFaceTopPercentage: string) =>
+{
+    return {
+        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_SIDE_FACES,
+        numberOfEngineSideFaces: numberOfEngineSideFaces,
+        engineSideFacesExteriorAngle: engineSideFacesExteriorAngle,
+        engineSideFaceHeightPercentage: engineSideFaceHeightPercentage,
+        engineSideFaceTopPercentage: engineSideFaceTopPercentage,
     }
 };

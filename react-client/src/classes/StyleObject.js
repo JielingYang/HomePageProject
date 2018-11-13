@@ -27,6 +27,18 @@ export default class StyleObject
         return this.style;
     }
 
+    setStyle(style: Object)
+    {
+        this.style = style;
+    }
+
+    clone(): StyleObject
+    {
+        let result: StyleObject = new StyleObject(COMMON_TYPE.EMPTY);
+        result.setStyle(Object.assign({}, this.getStyle()));
+        return result;
+    }
+
     setBasics(width: number | string, height: number | string, left: number | string, top: number | string): StyleObject
     {
         this.style.width = width;

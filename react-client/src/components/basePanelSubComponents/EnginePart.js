@@ -25,7 +25,7 @@ const EnginePart = (props: EnginePartPropsType) =>
 {
     let stateModel: EnginePartStateModel = props.stateModel;
     let enginePartSize = props.bottomRightPanelState.enginePartSize;
-    let enginePartInitialMiddlePosition: number = "calc(50% - " + enginePartSize / 2 + "px)";
+    let enginePartInitialMiddlePosition: string = "calc(50% - " + enginePartSize / 2 + "px)";
     let mouseHoverOnThisEnginePart: boolean = stateModel.getMouseHover();
     let enginePartBlurLevel: BLUR_LEVEL = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
                                           ? BLUR_LEVEL.LIGHT
@@ -45,59 +45,36 @@ const EnginePart = (props: EnginePartPropsType) =>
         .addTranslationX(stateModel.getPosition())
         .setTransformStyle("preserve-3d");
 
-    let enginePartCoreDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("200%", "100%", "-100%", 0)
+    let numberOfEngineSideFaces: number = props.bottomRightPanelState.numberOfEngineSideFaces;
+    let engineSideFacesExteriorAngle: number = props.bottomRightPanelState.engineSideFacesExteriorAngle;
+    let enginePartFaceDivCommonStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
+        .setBasics("100%", props.bottomRightPanelState.engineSideFaceHeightPercentage, 0, props.bottomRightPanelState.engineSideFaceTopPercentage)
         .setBackgroundColor(WHITE_TRANSPARENT_10)
         .setPointerEvents("auto")
         .setBlur(enginePartBlurLevel)
         .setOpacity(enginePartOpacity)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .addTransition("opacity", TRANSITION_TIME_NORMAL)
-        .addTransition("transform", TRANSITION_TIME_NORMAL)
-        .addTranslationZ(-hoverTranslation)
+        .addTransition("transform", TRANSITION_TIME_NORMAL);
+    let enginePartSideFacesStyleObjects = [];
+    for (let i = 0; i < numberOfEngineSideFaces; i++)
+    {
+        enginePartSideFacesStyleObjects.push(enginePartFaceDivCommonStyleObject.clone()
+            .addRotationX(engineSideFacesExteriorAngle * i)
+            .addTranslationZ(hoverTranslation));
+    }
 
-    let testStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("200%", "100%", "-100%", 0)
-        .setBackgroundColor(WHITE_TRANSPARENT_10)
-        .setPointerEvents("auto")
-        .setBlur(enginePartBlurLevel)
-        .setOpacity(enginePartOpacity)
-        .addTransition("filter", TRANSITION_TIME_NORMAL)
-        .addTransition("opacity", TRANSITION_TIME_NORMAL)
-        .addTransition("transform", TRANSITION_TIME_NORMAL)
-        .addTranslationZ(hoverTranslation)
-
-    let testStyleObject1: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("200%", "100%", "-100%", 0)
-        .setBackgroundColor(WHITE_TRANSPARENT_10)
-        .setPointerEvents("auto")
-        .setBlur(enginePartBlurLevel)
-        .setOpacity(enginePartOpacity)
-        .addTransition("filter", TRANSITION_TIME_NORMAL)
-        .addTransition("opacity", TRANSITION_TIME_NORMAL)
-        .addTransition("transform", TRANSITION_TIME_NORMAL)
-        .addTranslationY(hoverTranslation)
-        .addRotationX(-90)
-
-    let testStyleObject2: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("200%", "100%", "-100%", 0)
-        .setBackgroundColor(WHITE_TRANSPARENT_10)
-        .setPointerEvents("auto")
-        .setBlur(enginePartBlurLevel)
-        .setOpacity(enginePartOpacity)
-        .addTransition("filter", TRANSITION_TIME_NORMAL)
-        .addTransition("opacity", TRANSITION_TIME_NORMAL)
-        .addTransition("transform", TRANSITION_TIME_NORMAL)
-        .addTranslationY(-hoverTranslation)
-        .addRotationX(90)
+    let enginePartFrontFaceDivStyleObject: StyleObject = enginePartFaceDivCommonStyleObject.clone()
+        .setHeight("100%")
+        .setTop(0)
+        .addRotationY(-90)
+        .addTranslationZ(hoverTranslation);
 
     return <div id={stateModel.getStringId()} style={enginePartContainerDivStyleObject.getStyle()}
                 onMouseEnter={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, true)}
                 onMouseLeave={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, false)}>
-        <div style={enginePartCoreDivStyleObject.getStyle()}/>
-        <div style={testStyleObject.getStyle()}/>
-        <div style={testStyleObject1.getStyle()}/>
-        <div style={testStyleObject2.getStyle()}/>
+        {enginePartSideFacesStyleObjects.map((so: StyleObject, i: number) => <div key={i} style={so.getStyle()}/>)}
+        <div style={enginePartFrontFaceDivStyleObject.getStyle()}/>
     </div>;
 };
 

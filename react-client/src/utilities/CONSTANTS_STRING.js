@@ -75,9 +75,6 @@ themesDescriptions[INDEX.THEME_YELLOW] = "Under construction..."; // Boring...zZ
 export const THEMES_DESCRIPTIONS = themesDescriptions;
 
 let enginePartIds = [];
-enginePartIds[INDEX.ENGINE_PART_F1] = "engineF1";
-enginePartIds[INDEX.ENGINE_PART_F2] = "engineF2";
-enginePartIds[INDEX.ENGINE_PART_M] = "engineM";
-enginePartIds[INDEX.ENGINE_PART_B1] = "engineB1";
-enginePartIds[INDEX.ENGINE_PART_B2] = "engineB2";
+enginePartIds[INDEX.ENGINE_PART_FRONT] = "engineFront";
+enginePartIds[INDEX.ENGINE_PART_BACK] = "engineBack";
 export const ENGINE_PART_IDS = enginePartIds;

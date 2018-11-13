@@ -1,9 +1,7 @@
 import {numberToPercentageString} from "../utilities/UTILITIES";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import type {basePanelStateType} from "../reducers/basePanelReducer";
-
-const MAX_ROTATION_DEGREE_VALUE = 10;
-const MAX_TRANSLATE_PERCENTAGE_VALUE = 0;
+import {BASE_PANEL_MAX_ROTATION_DEGREE_VALUE, BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE} from "../utilities/CONSTANTS_NUMBER";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -20,11 +18,11 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
         let mouseXToAppWidthRatio: number = mouseMoveX / appShapeModel.getWidth();
         let mouseYToAppHeightRatio: number = mouseMoveY / appShapeModel.getHeight();
 
-        let basePanelTranslatePercentageX: string = numberToPercentageString((1 - mouseXToAppWidthRatio) * MAX_TRANSLATE_PERCENTAGE_VALUE - MAX_TRANSLATE_PERCENTAGE_VALUE / 2);
-        let basePanelTranslatePercentageY: string = numberToPercentageString((1 - mouseYToAppHeightRatio) * MAX_TRANSLATE_PERCENTAGE_VALUE - MAX_TRANSLATE_PERCENTAGE_VALUE / 2);
+        let basePanelTranslatePercentageX: string = numberToPercentageString((1 - mouseXToAppWidthRatio) * BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE - BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE / 2);
+        let basePanelTranslatePercentageY: string = numberToPercentageString((1 - mouseYToAppHeightRatio) * BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE - BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE / 2);
 
-        let basePanelRotationX: string = Number((1 - mouseYToAppHeightRatio) * MAX_ROTATION_DEGREE_VALUE - MAX_ROTATION_DEGREE_VALUE / 2).toFixed(2);
-        let basePanelRotationY: string = Number(MAX_ROTATION_DEGREE_VALUE / 2 - (1 - mouseXToAppWidthRatio) * MAX_ROTATION_DEGREE_VALUE).toFixed(2);
+        let basePanelRotationX: string = Number((1 - mouseYToAppHeightRatio) * BASE_PANEL_MAX_ROTATION_DEGREE_VALUE - BASE_PANEL_MAX_ROTATION_DEGREE_VALUE / 2).toFixed(2);
+        let basePanelRotationY: string = Number(BASE_PANEL_MAX_ROTATION_DEGREE_VALUE / 2 - (1 - mouseXToAppWidthRatio) * BASE_PANEL_MAX_ROTATION_DEGREE_VALUE).toFixed(2);
 
         let basePanelMouseFocusPercentageX: string = numberToPercentageString(mouseXToAppWidthRatio * 100);
         let basePanelMouseFocusPercentageY: string = numberToPercentageString(mouseYToAppHeightRatio * 100);
@@ -41,14 +39,6 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
         }
     };
 };
-
-// export const basePanelAction_requestToSetFocusOnComponentsByStringIds = (componentIds: Array<string>) =>
-// {
-//     return (dispatch, getState) =>
-//     {
-//         componentIds.
-//     }
-// };
 
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */

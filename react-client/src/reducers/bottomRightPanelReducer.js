@@ -21,7 +21,12 @@ export type bottomRightPanelStateType = {
     engineDistance: number,
     engineRotationX: number,
     engineRotationY: number,
-    enginePartStateModels: Array<EnginePartStateModel>
+    enginePartStateModels: Array<EnginePartStateModel>,
+
+    numberOfEngineSideFaces: number,
+    engineSideFacesExteriorAngle: number,
+    engineSideFaceHeightPercentage: string,
+    engineSideFaceTopPercentage: string,
 }
 
 const bottomRightPanelDefaultState: bottomRightPanelStateType = {
@@ -39,6 +44,11 @@ const bottomRightPanelDefaultState: bottomRightPanelStateType = {
     engineRotationX: 0,
     engineRotationY: 0,
     enginePartStateModels: [],
+
+    numberOfEngineSideFaces: 0,
+    engineSideFacesExteriorAngle: 0,
+    engineSideFaceHeightPercentage: "0%",
+    engineSideFaceTopPercentage: "0%",
 };
 
 const bottomRightPanelAction_updateBottomRightPanelSize_handler = (state: bottomRightPanelStateType, action) =>
@@ -95,7 +105,7 @@ const bottomRightPanelAction_updateEngineDistance_handler = (state: bottomRightP
 
 const bottomRightPanelAction_updateEngineRotation_handler = (state: bottomRightPanelStateType, action) =>
 {
-    let nextState = deepCopy(state);;
+    let nextState = deepCopy(state);
     nextState.engineRotationX = action.engineRotationX;
     nextState.engineRotationY = action.engineRotationY;
     return nextState;
@@ -123,6 +133,16 @@ const bottomRightPanelAction_setPerspective_handler = (state: bottomRightPanelSt
     return nextState;
 };
 
+const bottomRightPanelAction_setEngineSideFaces_handler = (state: bottomRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.numberOfEngineSideFaces = action.numberOfEngineSideFaces;
+    nextState.engineSideFacesExteriorAngle = action.engineSideFacesExteriorAngle;
+    nextState.engineSideFaceHeightPercentage = action.engineSideFaceHeightPercentage;
+    nextState.engineSideFaceTopPercentage = action.engineSideFaceTopPercentage;
+    return nextState;
+};
+
 // Check reducerCreator for explanation of handlers
 const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_SIZE]: bottomRightPanelAction_updateBottomRightPanelSize_handler,
@@ -136,6 +156,7 @@ const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART]: bottomRightPanelAction_setMouseHoverOnEnginePart_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE]: bottomRightPanelAction_updateEnginePartSize_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE]: bottomRightPanelAction_setPerspective_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_SIDE_FACES]: bottomRightPanelAction_setEngineSideFaces_handler,
 };
 
 export default createReducer(bottomRightPanelDefaultState, bottomRightPanelReducerHandlers);
