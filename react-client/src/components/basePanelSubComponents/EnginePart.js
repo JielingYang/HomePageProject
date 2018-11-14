@@ -8,7 +8,8 @@ import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart} from "../../actionCreators/bottomRightPanelActions";
 import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
-import {WHITE_TRANSPARENT_10} from "../../utilities/CONSTANTS_COLOR";
+import {WHITE_TRANSPARENT_10, WHITE_TRANSPARENT_80} from "../../utilities/CONSTANTS_COLOR";
+import {getEngineSideFaceCircuitSvg} from "../../utilities/svgIcons";
 
 type EnginePartPropsType = {
     bottomRightPanelState: bottomRightPanelStateType,
@@ -49,7 +50,6 @@ const EnginePart = (props: EnginePartPropsType) =>
     let engineSideFacesExteriorAngle: number = props.bottomRightPanelState.engineSideFacesExteriorAngle;
     let enginePartFaceDivCommonStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics("100%", props.bottomRightPanelState.engineSideFaceHeightPercentage, 0, props.bottomRightPanelState.engineSideFaceTopPercentage)
-        .setBackgroundColor(WHITE_TRANSPARENT_10)
         .setPointerEvents("auto")
         .setBlur(enginePartBlurLevel)
         .setOpacity(enginePartOpacity)
@@ -73,10 +73,15 @@ const EnginePart = (props: EnginePartPropsType) =>
     return <div id={stateModel.getStringId()} style={enginePartContainerDivStyleObject.getStyle()}
                 onMouseEnter={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, true)}
                 onMouseLeave={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, false)}>
-        {enginePartSideFacesStyleObjects.map((so: StyleObject, i: number) => <div key={i} style={so.getStyle()}/>)}
+        {enginePartSideFacesStyleObjects.map((so: StyleObject, i: number) =>
+        {
+            return <div key={i} style={so.getStyle()}>
+                {getEngineSideFaceCircuitSvg(WHITE_TRANSPARENT_80)}
+            </div>
+        })}
         <div style={enginePartFrontFaceDivStyleObject.getStyle()}>
             <svg width="100%" height="100%">
-                <circle cx="50%" cy="50%" r="50%" stroke="white" strokeWidth="3" fill="none" />
+                <circle cx="50%" cy="50%" r="50%" stroke="white" strokeWidth="3" fill="none"/>
             </svg>
         </div>
     </div>;
