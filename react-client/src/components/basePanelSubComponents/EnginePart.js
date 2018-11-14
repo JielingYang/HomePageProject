@@ -74,7 +74,11 @@ const EnginePart = (props: EnginePartPropsType) =>
                 onMouseEnter={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, true)}
                 onMouseLeave={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, false)}>
         {enginePartSideFacesStyleObjects.map((so: StyleObject, i: number) => <div key={i} style={so.getStyle()}/>)}
-        <div style={enginePartFrontFaceDivStyleObject.getStyle()}/>
+        <div style={enginePartFrontFaceDivStyleObject.getStyle()}>
+            <svg width="100%" height="100%">
+                <circle cx="50%" cy="50%" r="50%" stroke="white" strokeWidth="3" fill="none" />
+            </svg>
+        </div>
     </div>;
 };
 
