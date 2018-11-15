@@ -106,6 +106,18 @@ export default class StyleObject
         return this;
     }
 
+    setBackgroundImage(url: string): StyleObject
+    {
+        this.style.backgroundImage = "url(" + url + ")";
+        return this;
+    }
+
+    setBackgroundSize(size: string): StyleObject
+    {
+        this.style.backgroundSize = size;
+        return this;
+    }
+
     setPerspective(perspective: number, perspectiveOrigin: string): StyleObject
     {
         this.style.perspective = perspective;
@@ -272,6 +284,27 @@ export default class StyleObject
         else
         {
             this.style.transform = rotation;
+        }
+        return this;
+    }
+
+    setRotationZ(rotateZ: string | number)
+    {
+        let rz: string = " rotateZ(" + rotateZ + "deg)";
+        if (this.style.transform !== undefined)
+        {
+            if (this.style.transform.includes("rotateZ"))
+            {
+                this.style.transform = this.style.transform.replace(/ rotateZ(.*)deg/, rz);
+            }
+            else
+            {
+                this.style.transform = this.style.transform + rz;
+            }
+        }
+        else
+        {
+            this.style.transform = rz;
         }
         return this;
     }

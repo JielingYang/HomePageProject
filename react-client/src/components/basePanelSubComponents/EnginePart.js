@@ -8,10 +8,12 @@ import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart} from "../../actionCreators/bottomRightPanelActions";
 import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
 import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
-import {WHITE_TRANSPARENT_10, WHITE_TRANSPARENT_80} from "../../utilities/CONSTANTS_COLOR";
-import {getEngineSideFaceCircuitSvg} from "../../utilities/svgIcons";
+import type {basePanelStateType} from "../../reducers/basePanelReducer";
+import {getAllEngineFrontFaceSvg} from "../../utilities/svgIcons";
+import {WHITE_TRANSPARENT_80} from "../../utilities/CONSTANTS_COLOR";
 
 type EnginePartPropsType = {
+    basePanelState: basePanelStateType,
     bottomRightPanelState: bottomRightPanelStateType,
     stateModel: EnginePartStateModel,
     engineIndex: number,
@@ -25,6 +27,7 @@ type EnginePartPropsType = {
 const EnginePart = (props: EnginePartPropsType) =>
 {
     let stateModel: EnginePartStateModel = props.stateModel;
+    let basePanelState: basePanelStateType = props.basePanelState;
     let enginePartSize = props.bottomRightPanelState.enginePartSize;
     let enginePartInitialMiddlePosition: string = "calc(50% - " + enginePartSize / 2 + "px)";
     let mouseHoverOnThisEnginePart: boolean = stateModel.getMouseHover();
@@ -34,15 +37,17 @@ const EnginePart = (props: EnginePartPropsType) =>
     let enginePartOpacity: BLUR_LEVEL = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
                                         ? 0.5
                                         : 1;
-    let hoverTranslation: number = mouseHoverOnThisEnginePart
-                                   ? enginePartSize * 0.7
-                                   : enginePartSize * 0.5;
+    let engineFacesDefaultTranslation: number = enginePartSize * 0.5;
+    let engineFrontFacesDefaultRotation: number = 180;
+
+    let basePanelRotationX: number = basePanelState.basePanelRotationX;
+    let basePanelRotationY: number = basePanelState.basePanelRotationY;
 
     let enginePartContainerDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics(enginePartSize, enginePartSize, enginePartInitialMiddlePosition, enginePartInitialMiddlePosition)
         .setPointerEvents("none")
-        .addRotationX(props.engineRotationX)
-        .addRotationY(props.engineRotationY)
+        .addRotationX(props.engineRotationX + basePanelRotationX)
+        .addRotationY(props.engineRotationY + basePanelRotationY)
         .addTranslationX(stateModel.getPosition())
         .setTransformStyle("preserve-3d");
 
@@ -54,21 +59,23 @@ const EnginePart = (props: EnginePartPropsType) =>
         .setBlur(enginePartBlurLevel)
         .setOpacity(enginePartOpacity)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
-        .addTransition("opacity", TRANSITION_TIME_NORMAL)
-        .addTransition("transform", TRANSITION_TIME_NORMAL);
+        .addTransition("opacity", TRANSITION_TIME_NORMAL);
     let enginePartSideFacesStyleObjects = [];
     for (let i = 0; i < numberOfEngineSideFaces; i++)
     {
         enginePartSideFacesStyleObjects.push(enginePartFaceDivCommonStyleObject.clone()
             .addRotationX(engineSideFacesExteriorAngle * i)
-            .addTranslationZ(hoverTranslation));
+            .addTranslationZ(engineFacesDefaultTranslation));
     }
 
+    let allEnginePartFrontFaceSvg = getAllEngineFrontFaceSvg(WHITE_TRANSPARENT_80);
     let enginePartFrontFaceDivStyleObject: StyleObject = enginePartFaceDivCommonStyleObject.clone()
         .setHeight("100%")
         .setTop(0)
         .addRotationY(-90)
-        .addTranslationZ(hoverTranslation);
+        .addRotationZ(engineFrontFacesDefaultRotation)
+        .addTranslationZ(engineFacesDefaultTranslation)
+        .addTransition("transform", TRANSITION_TIME_NORMAL);
 
     return <div id={stateModel.getStringId()} style={enginePartContainerDivStyleObject.getStyle()}
                 onMouseEnter={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, true)}
@@ -76,20 +83,33 @@ const EnginePart = (props: EnginePartPropsType) =>
         {enginePartSideFacesStyleObjects.map((so: StyleObject, i: number) =>
         {
             return <div key={i} style={so.getStyle()}>
-                {getEngineSideFaceCircuitSvg(WHITE_TRANSPARENT_80)}
+                <svg width="100%" height="100%">
+                    <rect x="10%" y="10%" width="80%" height="80%" stroke="rgba(255,255,255,0.5)" strokeWidth="1"
+                          fill="none"/>
+                    <circle cx="50%" cy="50%" r="10%" stroke="rgba(255,255,255,0.5)" strokeWidth="1" fill="none"/>
+                </svg>
             </div>
         })}
-        <div style={enginePartFrontFaceDivStyleObject.getStyle()}>
-            <svg width="100%" height="100%">
-                <circle cx="50%" cy="50%" r="50%" stroke="white" strokeWidth="3" fill="none"/>
-            </svg>
-        </div>
+        {allEnginePartFrontFaceSvg.map((svg, i) =>
+        {
+            let hoverTranslation = mouseHoverOnThisEnginePart
+                                   ? enginePartSize * 0.13 * (i + 1)
+                                   : 0;
+            let hoverRotation = mouseHoverOnThisEnginePart
+                                   ? 90
+                                   : 0;
+            let so = enginePartFrontFaceDivStyleObject.clone()
+                .addRotationZ(hoverRotation)
+                .addTranslationZ(hoverTranslation);
+            return <div key={i} style={so.getStyle()}>{svg}</div>
+        })}
     </div>;
 };
 
 const mapStateToProps = (store) =>
 {
     return {
+        basePanelState: store.basePanelState,
         bottomRightPanelState: store.bottomRightPanelState,
     };
 };

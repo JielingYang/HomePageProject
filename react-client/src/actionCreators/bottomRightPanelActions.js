@@ -33,7 +33,7 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
             let enginePartStateModels: Array<EnginePartStateModel> = [];
             let engineDistance: number = -100 * basePanelUnitLength;
             let engineRotationX: number = -10;
-            let engineRotationY: number = 40;
+            let engineRotationY: number = 45;
             ENGINE_PART_IDS.forEach((id: string, index: number) =>
             {
                 let position: number = (ENGINE_PART_IDS.length * 0.4 - index) * enginePartsGapDistance;

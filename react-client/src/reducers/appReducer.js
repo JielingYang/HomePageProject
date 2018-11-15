@@ -32,7 +32,7 @@ const appDefaultState: appStateType = {
     appShapeModel: new Shape2d_Rectangle(numberIdGenerator.generateId(), ID.APP_ID, new Shape2d_Point(0, 0), window.innerWidth, window.innerHeight),
     appMaximumRefreshingTimeGap: APP_REFRESHING_TIME_GAP,
     appMouseMoveEventTimeStamp: 0,
-    appPerspective: 800,
+    appPerspective: 0,
 
     appBackgroundColor: GREY_DARK,
     appFontColor: WHITE_TRANSPARENT_90,

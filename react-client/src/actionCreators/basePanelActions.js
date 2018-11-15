@@ -21,8 +21,8 @@ export const basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint = (m
         let basePanelTranslatePercentageX: string = numberToPercentageString((1 - mouseXToAppWidthRatio) * BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE - BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE / 2);
         let basePanelTranslatePercentageY: string = numberToPercentageString((1 - mouseYToAppHeightRatio) * BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE - BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE / 2);
 
-        let basePanelRotationX: string = Number((1 - mouseYToAppHeightRatio) * BASE_PANEL_MAX_ROTATION_DEGREE_VALUE - BASE_PANEL_MAX_ROTATION_DEGREE_VALUE / 2).toFixed(2);
-        let basePanelRotationY: string = Number(BASE_PANEL_MAX_ROTATION_DEGREE_VALUE / 2 - (1 - mouseXToAppWidthRatio) * BASE_PANEL_MAX_ROTATION_DEGREE_VALUE).toFixed(2);
+        let basePanelRotationX: number = Number(((1 - mouseYToAppHeightRatio) * BASE_PANEL_MAX_ROTATION_DEGREE_VALUE - BASE_PANEL_MAX_ROTATION_DEGREE_VALUE / 2).toFixed(2));
+        let basePanelRotationY: number = Number((BASE_PANEL_MAX_ROTATION_DEGREE_VALUE / 2 - (1 - mouseXToAppWidthRatio) * BASE_PANEL_MAX_ROTATION_DEGREE_VALUE).toFixed(2));
 
         let basePanelMouseFocusPercentageX: string = numberToPercentageString(mouseXToAppWidthRatio * 100);
         let basePanelMouseFocusPercentageY: string = numberToPercentageString(mouseYToAppHeightRatio * 100);
@@ -58,7 +58,7 @@ export const basePanelAction_updateBasePanelSize = (newBasePanelWidth: number, n
     };
 };
 
-const basePanelAction_updateBasePanelTransformAndFocusPoint = (basePanelTranslatePercentageX: string, basePanelTranslatePercentageY: string, basePanelRotationX: string, basePanelRotationY: string, basePanelMouseFocusPercentageX: string, basePanelMouseFocusPercentageY: string) =>
+const basePanelAction_updateBasePanelTransformAndFocusPoint = (basePanelTranslatePercentageX: string, basePanelTranslatePercentageY: string, basePanelRotationX: number, basePanelRotationY: number, basePanelMouseFocusPercentageX: string, basePanelMouseFocusPercentageY: string) =>
 {
     return {
         type: BASE_PANEL_ACTION_TYPE.BASE_PANEL_ACTION_UPDATE_BASE_PANEL_TRANSFORM_AND_FOCUS_POINT,
