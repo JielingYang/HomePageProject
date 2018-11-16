@@ -6,7 +6,7 @@ import {APP_REFRESHING_TIME_GAP} from "../utilities/CONSTANTS_TIME";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import {ID} from "../utilities/CONSTANTS_STRING";
 import numberIdGenerator from "../classes/NumberIdGenerator";
-import {BLACK_TRANSPARENT_00, BLACK_TRANSPARENT_10, BLACK_TRANSPARENT_50, BLACK_TRANSPARENT_90, CONSOLE_FONT_YELLOW, GREY_DARK, GREY_HEAVY, GREY_LIGHT, WHITE, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90, YELLOW, YELLOW_DARK_1, YELLOW_DARK_2, YELLOW_LIGHT_1, YELLOW_LIGHT_3} from "../utilities/CONSTANTS_COLOR";
+import {BLACK_TRANSPARENT_00, BLACK_TRANSPARENT_10, BLACK_TRANSPARENT_50, BLACK_TRANSPARENT_90, CONSOLE_FONT_YELLOW, ENGINE_BASIC_COLOR_DARK_THEME, GREY_DARK, GREY_HEAVY, GREY_LIGHT, WHITE, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_70, WHITE_TRANSPARENT_90, YELLOW, YELLOW_DARK_1, YELLOW_DARK_2, YELLOW_LIGHT_1, YELLOW_LIGHT_3} from "../utilities/CONSTANTS_COLOR";
 import {INDEX} from "../utilities/CONSTANTS_NUMBER";
 
 export type appStateType = {
@@ -26,6 +26,8 @@ export type appStateType = {
     iconColorYellowThemeSelected: string,
     iconColorBrightThemeSelected: string,
     lightUpEffectColor: string,
+
+    engineBasicColor: string,
 }
 
 const appDefaultState: appStateType = {
@@ -45,6 +47,8 @@ const appDefaultState: appStateType = {
     iconColorYellowThemeSelected: CONSOLE_FONT_YELLOW,
     iconColorBrightThemeSelected: WHITE,
     lightUpEffectColor: YELLOW_LIGHT_1,
+
+    engineBasicColor: ENGINE_BASIC_COLOR_DARK_THEME,
 };
 
 const appAction_updateAppSize_handler = (state: appStateType, action) =>
@@ -86,6 +90,7 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
         nextState.iconColorYellowThemeSelected = CONSOLE_FONT_YELLOW;
         nextState.iconColorBrightThemeSelected = WHITE_TRANSPARENT_90;
         nextState.lightUpEffectColor = YELLOW_LIGHT_1;
+        nextState.engineBasicColor = ENGINE_BASIC_COLOR_DARK_THEME;
     }
     else if (action.themeIndex === INDEX.THEME_BRIGHT)
     {
@@ -100,6 +105,7 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
         nextState.iconColorYellowThemeSelected = YELLOW_DARK_1;
         nextState.iconColorBrightThemeSelected = WHITE;
         nextState.lightUpEffectColor = YELLOW_LIGHT_3;
+        nextState.engineBasicColor = BLACK_TRANSPARENT_50;
     }
     else if (action.themeIndex === INDEX.THEME_YELLOW)
     {
@@ -114,6 +120,7 @@ const appAction_changeAppTheme_handler = (state: appStateType, action) =>
         nextState.iconColorYellowThemeSelected = YELLOW_DARK_2;
         nextState.iconColorBrightThemeSelected = WHITE;
         nextState.lightUpEffectColor = YELLOW;
+        nextState.engineBasicColor = BLACK_TRANSPARENT_90;
     }
 
     return nextState;

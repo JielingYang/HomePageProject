@@ -128,3 +128,12 @@ export const getRegularPolygonSideLength: number = (numberOfSides: number, inner
 {
     return 2 * innerRadius * Math.tan(Math.PI / numberOfSides)
 };
+
+/**
+ * Check if a number is even
+ * @param number
+ * @returns {boolean}
+ */
+export const isEven: boolean = (number: number) => {
+    return number % 2 === 0
+};

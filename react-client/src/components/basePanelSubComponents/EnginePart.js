@@ -9,10 +9,12 @@ import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart, bottomRightPa
 import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
 import {BLUR_LEVEL, INDEX} from "../../utilities/CONSTANTS_NUMBER";
 import type {basePanelStateType} from "../../reducers/basePanelReducer";
-import {getAllEngineFrontFaceSvg} from "../../utilities/svgIcons";
-import {WHITE_TRANSPARENT_80} from "../../utilities/CONSTANTS_COLOR";
+import {getEngineCoreFaceSvg, getEngineFrontFaceSvg} from "../../utilities/svgIcons";
+import {isEven} from "../../utilities/UTILITIES";
+import type {appStateType} from "../../reducers/appReducer";
 
 type EnginePartPropsType = {
+    appState: appStateType,
     basePanelState: basePanelStateType,
     bottomRightPanelState: bottomRightPanelStateType,
     stateModel: EnginePartStateModel,
@@ -29,12 +31,13 @@ const EnginePart = (props: EnginePartPropsType) =>
 {
     let stateModel: EnginePartStateModel = props.stateModel;
     let basePanelState: basePanelStateType = props.basePanelState;
+    let engineBasicColor: string = props.appState.engineBasicColor;
     let enginePartSize = props.bottomRightPanelState.enginePartSize;
     let enginePartInitialMiddlePosition: string = "calc(50% - " + enginePartSize / 2 + "px)";
     let mouseHoverOnThisEnginePart: boolean = stateModel.getMouseHover();
     let isThisEnginePartSelected: boolean = stateModel.getIsSelected();
     let isFrontEnginePart: boolean = stateModel.getStringId() === ENGINE_PART_IDS[INDEX.ENGINE_PART_FRONT];
-    // let isBackEnginePart: boolean = stateModel.getStringId() === ENGINE_PART_IDS[INDEX.ENGINE_PART_BACK];
+    let isBackEnginePart: boolean = stateModel.getStringId() === ENGINE_PART_IDS[INDEX.ENGINE_PART_BACK];
     let engineSideFacesDefaultTranslation: number = enginePartSize * 0.5;
     let engineFrontFacesDefaultRotation: number = 180;
     let basePanelRotationX: number = basePanelState.basePanelRotationX;
@@ -43,10 +46,14 @@ const EnginePart = (props: EnginePartPropsType) =>
     let numberOfEngineSideFaces: number = props.bottomRightPanelState.numberOfEngineSideFaces;
     let stfRatio: number = numberOfEngineSides / numberOfEngineSideFaces;
     let engineSideFacesExteriorAngle: number = props.bottomRightPanelState.engineSideFacesExteriorAngle;
-    let enginePartSideFacesStyleObjects = [];
-    let hoverTranslation = enginePartSize * 0.05;
-    let selectTranslation = enginePartSize * 0.13;
-    let allEnginePartFrontFaceSvg = getAllEngineFrontFaceSvg(WHITE_TRANSPARENT_80);
+    let enginePartSideFacesStyleObjects: Array<StyleObject> = [];
+    let frontFaceSvg: Array = getEngineFrontFaceSvg(engineBasicColor);
+    let coreFaceSvg: Array = getEngineCoreFaceSvg(engineBasicColor);
+    let numberOfCoreFaceSvg: number = coreFaceSvg.length;
+    let frontFaceHoverTranslation: number = enginePartSize * 0.13;
+    let frontFaceSelectTranslation: number = enginePartSize * 0.2;
+    let coreFaceDefaultTranslation: number = frontFaceSelectTranslation * 0.8;
+    let coreFaceSelectTranslation: number = frontFaceSelectTranslation * 1.2;
     let enginePartBlurLevel: BLUR_LEVEL = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
                                           ? BLUR_LEVEL.LIGHT
                                           : BLUR_LEVEL.NONE;
@@ -68,6 +75,18 @@ const EnginePart = (props: EnginePartPropsType) =>
         .setOpacity(enginePartOpacity)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
         .addTransition("opacity", TRANSITION_TIME_NORMAL);
+    let enginePartFrontFaceDivStyleObject: StyleObject = enginePartFaceDivCommonStyleObject.clone()
+        .setHeight("100%")
+        .setTop(0)
+        .addRotationY(-90)
+        .addRotationZ(engineFrontFacesDefaultRotation)
+        .addTranslationZ(engineSideFacesDefaultTranslation)
+        .addTransition("transform", TRANSITION_TIME_NORMAL);
+    let enginePartFrontCoreFaceDivStyleObject: StyleObject = enginePartFaceDivCommonStyleObject.clone()
+        .setHeight("100%")
+        .setTop(0)
+        .addRotationY(-90)
+        .addTransition("transform", TRANSITION_TIME_NORMAL);
     for (let i = 0; i < numberOfEngineSideFaces; i++)
     {
         enginePartSideFacesStyleObjects.push(enginePartFaceDivCommonStyleObject.clone()
@@ -75,7 +94,7 @@ const EnginePart = (props: EnginePartPropsType) =>
             .addTranslationZ(engineSideFacesDefaultTranslation));
     }
 
-    let enginePartSideFaces = enginePartSideFacesStyleObjects.map((so: StyleObject, i: number) =>
+    let enginePartSideFaces: Array = enginePartSideFacesStyleObjects.map((so: StyleObject, i: number) =>
     {
         return <div key={i} style={so.getStyle()}>
             <svg width="100%" height="100%">
@@ -86,32 +105,58 @@ const EnginePart = (props: EnginePartPropsType) =>
         </div>
     });
 
-    let enginePartFrontFace = isFrontEnginePart
-                              ? allEnginePartFrontFaceSvg.map((svg, i) =>
+    let enginePartFrontFace: Array = isFrontEnginePart
+                                     ? frontFaceSvg.map((svg, i) =>
         {
-            let enginePartFrontFaceDivStyleObject: StyleObject = enginePartFaceDivCommonStyleObject.clone()
-                .setHeight("100%")
-                .setTop(0)
-                .addRotationY(-90)
-                .addRotationZ(engineFrontFacesDefaultRotation)
-                .addTranslationZ(engineSideFacesDefaultTranslation)
-                .addTransition("transform", TRANSITION_TIME_NORMAL);
-            let tz = isThisEnginePartSelected
-                     ? selectTranslation * (i + 1)
-                     : mouseHoverOnThisEnginePart
-                       ? hoverTranslation * (i + 1)
-                       : 0;
-            let selectRotation = isThisEnginePartSelected
-                                 ? 90
-                                 : mouseHoverOnThisEnginePart
-                                   ? 30
-                                   : 0;
+            let tz: number = isThisEnginePartSelected
+                             ? frontFaceSelectTranslation * (i + 1)
+                             : mouseHoverOnThisEnginePart
+                               ? frontFaceHoverTranslation * (i + 1)
+                               : 0;
+            let rz: number = isThisEnginePartSelected
+                             ? 90
+                             : mouseHoverOnThisEnginePart
+                               ? 30
+                               : 0;
             let so = enginePartFrontFaceDivStyleObject.clone()
-                .addRotationZ(selectRotation)
+                .addRotationZ(rz)
                 .addTranslationZ(tz);
             return <div key={i} style={so.getStyle()}>{svg}</div>
         })
-                              : null;
+                                     : null;
+
+    let enginePartCoreFace: Array = coreFaceSvg.map((svg, i) =>
+    {
+        let tz: number = (isThisEnginePartSelected
+                          ? coreFaceSelectTranslation
+                          : coreFaceDefaultTranslation) * (numberOfCoreFaceSvg / 2 - i);
+        let rz: number = isThisEnginePartSelected
+                         ? 180
+                         : mouseHoverOnThisEnginePart
+                           ? 90
+                           : 0;
+        let s: number = isThisEnginePartSelected
+                        ? 1.3
+                        : 1;
+        if (isFrontEnginePart)
+        {
+            tz = isEven(i)
+                 ? -tz
+                 : tz;
+        }
+        else if (isBackEnginePart)
+        {
+            rz = rz + 180;
+            tz = isEven(i)
+                 ? tz
+                 : -tz;
+        }
+        let so: StyleObject = enginePartFrontCoreFaceDivStyleObject.clone()
+            .addScale(s, s)
+            .addRotationZ(rz)
+            .addTranslationZ(tz);
+        return <div key={i} style={so.getStyle()}>{svg}</div>
+    });
 
     return <div id={stateModel.getStringId()} style={enginePartContainerDivStyleObject.getStyle()}
                 onClick={() => props.bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart(props.engineIndex)}
@@ -119,12 +164,14 @@ const EnginePart = (props: EnginePartPropsType) =>
                 onMouseLeave={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, false)}>
         {enginePartSideFaces}
         {enginePartFrontFace}
+        {enginePartCoreFace}
     </div>;
 };
 
 const mapStateToProps = (store) =>
 {
     return {
+        appState: store.appState,
         basePanelState: store.basePanelState,
         bottomRightPanelState: store.bottomRightPanelState,
     };

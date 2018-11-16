@@ -62,3 +62,4 @@ export const CONSOLE_FONT_NAVY = "rgb(0,0,128)";
 
 export const APP_BACKGROUND_COLOR = GREY_DARK;
 export const DEFAULT_FONT_COLOR = WHITE_TRANSPARENT_90;
+export const ENGINE_BASIC_COLOR_DARK_THEME = "rgba(0,255,255,0.6)";
