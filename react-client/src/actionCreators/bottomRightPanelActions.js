@@ -89,6 +89,14 @@ export const bottomRightPanelAction_requestToSetMouseHoverOnEnginePart = (engine
     }
 };
 
+export const bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart = (engineIndex: number) =>
+{
+    return (dispatch, getState) =>
+    {
+        dispatch(bottomRightPanelAction_setSelectOnEnginePart(engineIndex, !getState().bottomRightPanelState.enginePartStateModels[engineIndex].getIsSelected()));
+    }
+};
+
 export const bottomRightPanelAction_requestToSetPerspective = () =>
 {
     return (dispatch, getState) =>
@@ -130,6 +138,7 @@ export const BOTTOM_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION",
     BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART: "BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART",
+    BOTTOM_RIGHT_PANEL_ACTION_SET_SELECT_ON_ENGINE_PART: "BOTTOM_RIGHT_PANEL_ACTION_SET_SELECT_ON_ENGINE_PART",
     BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE: "BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE",
     BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_SIDE_FACES: "BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_SIDE_FACES",
 });
@@ -218,6 +227,15 @@ const bottomRightPanelAction_setMouseHoverOnEnginePart = (engineIndex: number, h
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART,
         engineIndex: engineIndex,
         hover: hover,
+    }
+};
+
+const bottomRightPanelAction_setSelectOnEnginePart = (engineIndex: number, select: boolean) =>
+{
+    return {
+        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_SELECT_ON_ENGINE_PART,
+        engineIndex: engineIndex,
+        select: select,
     }
 };
 

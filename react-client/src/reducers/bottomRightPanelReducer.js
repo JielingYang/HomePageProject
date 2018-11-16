@@ -126,6 +126,14 @@ const bottomRightPanelAction_setMouseHoverOnEnginePart_handler = (state: bottomR
 
 };
 
+const bottomRightPanelAction_setSelectOnEnginePart_handler = (state: bottomRightPanelStateType, action) =>
+{
+    let nextState = deepCopy(state);
+    nextState.enginePartStateModels[action.engineIndex].setIsSelected(action.select);
+    return nextState;
+
+};
+
 const bottomRightPanelAction_setPerspective_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
@@ -154,6 +162,7 @@ const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION]: bottomRightPanelAction_updateEngineRotation_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION]: bottomRightPanelAction_updateEnginePartStateModelPosition_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART]: bottomRightPanelAction_setMouseHoverOnEnginePart_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_SELECT_ON_ENGINE_PART]: bottomRightPanelAction_setSelectOnEnginePart_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE]: bottomRightPanelAction_updateEnginePartSize_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE]: bottomRightPanelAction_setPerspective_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_SIDE_FACES]: bottomRightPanelAction_setEngineSideFaces_handler,

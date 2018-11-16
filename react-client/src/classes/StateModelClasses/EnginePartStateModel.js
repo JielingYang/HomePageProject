@@ -22,6 +22,7 @@ export default class EnginePartStateModel extends StateModel
     {
         let result = new EnginePartStateModel(this.getNumberId(), this.getStringId(), this.getPosition());
         result.setMouseHover(this.getMouseHover());
+        result.setIsSelected(this.getIsSelected());
         return result;
     }
 }
