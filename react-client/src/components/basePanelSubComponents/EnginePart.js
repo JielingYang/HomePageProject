@@ -39,12 +39,14 @@ const EnginePart = (props: EnginePartPropsType) =>
     let engineFrontFacesDefaultRotation: number = 180;
     let basePanelRotationX: number = basePanelState.basePanelRotationX;
     let basePanelRotationY: number = basePanelState.basePanelRotationY;
+    let numberOfEngineSides: number = props.bottomRightPanelState.numberOfEngineSides;
     let numberOfEngineSideFaces: number = props.bottomRightPanelState.numberOfEngineSideFaces;
+    let stfRatio: number = numberOfEngineSides / numberOfEngineSideFaces;
     let engineSideFacesExteriorAngle: number = props.bottomRightPanelState.engineSideFacesExteriorAngle;
     let enginePartSideFacesStyleObjects = [];
-    let allEnginePartFrontFaceSvg = getAllEngineFrontFaceSvg(WHITE_TRANSPARENT_80);
     let hoverTranslation = enginePartSize * 0.05;
     let selectTranslation = enginePartSize * 0.13;
+    let allEnginePartFrontFaceSvg = getAllEngineFrontFaceSvg(WHITE_TRANSPARENT_80);
     let enginePartBlurLevel: BLUR_LEVEL = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
                                           ? BLUR_LEVEL.LIGHT
                                           : BLUR_LEVEL.NONE;
@@ -69,9 +71,20 @@ const EnginePart = (props: EnginePartPropsType) =>
     for (let i = 0; i < numberOfEngineSideFaces; i++)
     {
         enginePartSideFacesStyleObjects.push(enginePartFaceDivCommonStyleObject.clone()
-            .addRotationX(engineSideFacesExteriorAngle * i)
+            .addRotationX(engineSideFacesExteriorAngle * i * stfRatio)
             .addTranslationZ(engineSideFacesDefaultTranslation));
     }
+
+    let enginePartSideFaces = enginePartSideFacesStyleObjects.map((so: StyleObject, i: number) =>
+    {
+        return <div key={i} style={so.getStyle()}>
+            <svg width="100%" height="100%">
+                <rect x="10%" y="10%" width="80%" height="80%" stroke="rgba(255,255,255,1)" strokeWidth="1"
+                      fill="none"/>
+                <circle cx="50%" cy="50%" r="10%" stroke="rgba(255,255,255,0.5)" strokeWidth="1" fill="none"/>
+            </svg>
+        </div>
+    });
 
     let enginePartFrontFace = isFrontEnginePart
                               ? allEnginePartFrontFaceSvg.map((svg, i) =>
@@ -104,16 +117,7 @@ const EnginePart = (props: EnginePartPropsType) =>
                 onClick={() => props.bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart(props.engineIndex)}
                 onMouseEnter={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, true)}
                 onMouseLeave={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, false)}>
-        {enginePartSideFacesStyleObjects.map((so: StyleObject, i: number) =>
-        {
-            return <div key={i} style={so.getStyle()}>
-                <svg width="100%" height="100%">
-                    <rect x="10%" y="10%" width="80%" height="80%" stroke="rgba(255,255,255,0.5)" strokeWidth="1"
-                          fill="none"/>
-                    <circle cx="50%" cy="50%" r="10%" stroke="rgba(255,255,255,0.5)" strokeWidth="1" fill="none"/>
-                </svg>
-            </div>
-        })}
+        {enginePartSideFaces}
         {enginePartFrontFace}
     </div>;
 };

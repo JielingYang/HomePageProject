@@ -31,4 +31,5 @@ export const INDEX = Object.freeze({
 
 export const BASE_PANEL_MAX_ROTATION_DEGREE_VALUE = 20;
 export const BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE = 0;
-export const NUMBER_OF_ENGINE_PART_SIDE_FACES = 8;
+export const NUMBER_OF_ENGINE_PART_SIDES = 8;
+export const NUMBER_OF_ENGINE_PART_SIDE_FACES = 3;

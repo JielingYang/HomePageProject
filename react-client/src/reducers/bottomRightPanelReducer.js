@@ -23,6 +23,7 @@ export type bottomRightPanelStateType = {
     engineRotationY: number,
     enginePartStateModels: Array<EnginePartStateModel>,
 
+    numberOfEngineSides: number,
     numberOfEngineSideFaces: number,
     engineSideFacesExteriorAngle: number,
     engineSideFaceHeightPercentage: string,
@@ -45,6 +46,7 @@ const bottomRightPanelDefaultState: bottomRightPanelStateType = {
     engineRotationY: 0,
     enginePartStateModels: [],
 
+    numberOfEngineSides: 0,
     numberOfEngineSideFaces: 0,
     engineSideFacesExteriorAngle: 0,
     engineSideFaceHeightPercentage: "0%",
@@ -144,6 +146,7 @@ const bottomRightPanelAction_setPerspective_handler = (state: bottomRightPanelSt
 const bottomRightPanelAction_setEngineSideFaces_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
+    nextState.numberOfEngineSides = action.numberOfEngineSides;
     nextState.numberOfEngineSideFaces = action.numberOfEngineSideFaces;
     nextState.engineSideFacesExteriorAngle = action.engineSideFacesExteriorAngle;
     nextState.engineSideFaceHeightPercentage = action.engineSideFaceHeightPercentage;
