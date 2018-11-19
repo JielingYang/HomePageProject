@@ -3,7 +3,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import StyleObject from "../../classes/StyleObject";
 import type {bottomRightPanelStateType} from "../../reducers/bottomRightPanelReducer";
-import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
+import {TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
 import {COMMON_TYPE, ENGINE_PART_IDS} from "../../utilities/CONSTANTS_STRING";
 import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart, bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart} from "../../actionCreators/bottomRightPanelActions";
 import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
@@ -175,9 +175,9 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
             .setOpacity(enginePartOpacity)
             .addRotationZ(transitionRotation)
             .addTranslationZ(transitionTranslation)
-            .addTransition("filter", TRANSITION_TIME_NORMAL)
-            .addTransition("opacity", TRANSITION_TIME_NORMAL)
-            .addTransition("transform", TRANSITION_TIME_NORMAL);
+            .addTransition("filter", TRANSITION_TIME_SLOW)
+            .addTransition("opacity", TRANSITION_TIME_SLOW)
+            .addTransition("transform", TRANSITION_TIME_SLOW);
 
         return <div key={i} style={enginePartFaceDivStyleObject.getStyle()}>{svg}</div>
     });

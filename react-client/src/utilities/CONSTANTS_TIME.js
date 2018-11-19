@@ -2,6 +2,7 @@ import {ID} from "./CONSTANTS_STRING";
 
 export const APP_REFRESHING_TIME_GAP = 10; // Milliseconds
 export const TRANSITION_TIME_NORMAL = 0.3;
+export const TRANSITION_TIME_SLOW = 0.6;
 
 export const TIMING_KEYWORDS = Object.freeze({
     BEGIN: ".begin",
