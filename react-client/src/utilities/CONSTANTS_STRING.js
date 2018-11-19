@@ -38,9 +38,9 @@ export const ID = Object.freeze({
     CENTER_COMPONENT_ANIMATE_FADE_OUT: "centerComponent_animateCenterComponentFadeOut",
     CENTER_COMPONENT_ANIMATE_PARTIAL_CIRCLE_TO_FULL: "centerComponent_animatePartialCircleToFull",
     CENTER_COMPONENT_ANIMATE_FULL_CIRCLE_TO_FINAL: "centerComponent_animateFullCircleToFinal",
-    CENTER_COMPONENT_ANIMATE_DASH_CIRCLE_TO_NONE: "centerComponent_animateDashCircleToNone",
+    CENTER_COMPONENT_ANIMATE_DASH_CIRCLE_TO_NONE: "centerComponent_animateDashCircleToNone"
 
-    ENGINE_ID: "engine",
+
 });
 
 export const UTILITY_STRING = Object.freeze({
@@ -73,3 +73,8 @@ themesDescriptions[INDEX.THEME_DARK] = "Come to the DARK side, we have cookies..
 themesDescriptions[INDEX.THEME_BRIGHT] = "BRIGHT it up!!!";
 themesDescriptions[INDEX.THEME_YELLOW] = "Under construction..."; // Boring...zZ... let's add some YELLOW!
 export const THEMES_DESCRIPTIONS = themesDescriptions;
+
+let enginePartIds = [];
+enginePartIds[INDEX.ENGINE_PART_FRONT] = "engineFront";
+enginePartIds[INDEX.ENGINE_PART_BACK] = "engineBack";
+export const ENGINE_PART_IDS = enginePartIds;

@@ -18,6 +18,9 @@ export const INDEX = Object.freeze({
     THEME_BRIGHT: 1,
     THEME_YELLOW: 2,
 
+    ENGINE_PART_FRONT: 1,
+    ENGINE_PART_BACK: 0,
+
     ENGINE_FRONT_FACE_SVG_1: 0,
     ENGINE_FRONT_FACE_SVG_2: 1,
     ENGINE_FRONT_FACE_SVG_3: 2,
@@ -36,5 +39,5 @@ export const INDEX = Object.freeze({
 
 export const BASE_PANEL_MAX_ROTATION_DEGREE_VALUE = 20;
 export const BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE = 0;
-export const NUMBER_OF_ENGINE_SIDES = 8;
-export const NUMBER_OF_ENGINE_SIDE_FACES = 3;
+export const NUMBER_OF_ENGINE_PART_SIDES = 8;
+export const NUMBER_OF_ENGINE_PART_SIDE_FACES = 3;

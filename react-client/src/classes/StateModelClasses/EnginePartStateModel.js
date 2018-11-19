@@ -1,6 +1,6 @@
 import StateModel from "./StateModel";
 
-export default class EngineStateModel extends StateModel
+export default class EnginePartStateModel extends StateModel
 {
     constructor(numId: number, strId: string, startingPosition: number)
     {
@@ -18,9 +18,9 @@ export default class EngineStateModel extends StateModel
         return this.position;
     }
 
-    deepClone(): EngineStateModel
+    deepClone(): EnginePartStateModel
     {
-        let result = new EngineStateModel(this.getNumberId(), this.getStringId(), this.getPosition());
+        let result = new EnginePartStateModel(this.getNumberId(), this.getStringId(), this.getPosition());
         result.setMouseHover(this.getMouseHover());
         result.setIsSelected(this.getIsSelected());
         return result;

@@ -1,11 +1,11 @@
 import {ID} from "../utilities/CONSTANTS_STRING";
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
-import {deepCopy} from "../utilities/UTILITIES";
+import {deepCopy, getObjectById} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {BOTTOM_RIGHT_PANEL_ACTION_TYPE} from "../actionCreators/bottomRightPanelActions";
 import numberIdGenerator from "../classes/NumberIdGenerator";
-import EngineStateModel from "../classes/StateModelClasses/EngineStateModel";
+import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateModel";
 
 export type bottomRightPanelStateType = {
     bottomRightPanelShapeModel: Shape2d_Rectangle,
@@ -17,11 +17,11 @@ export type bottomRightPanelStateType = {
     panelBorderWidth: number,
     panelBorderHeight: number,
 
-    engineSize: number,
+    enginePartSize: number,
     engineDistance: number,
     engineRotationX: number,
     engineRotationY: number,
-    engineStateModel: EngineStateModel,
+    enginePartStateModels: Array<EnginePartStateModel>,
 
     numberOfEngineSides: number,
     numberOfEngineSideFaces: number,
@@ -40,11 +40,11 @@ const bottomRightPanelDefaultState: bottomRightPanelStateType = {
     panelBorderWidth: 0,
     panelBorderHeight: 0,
 
-    engineSize: 0,
+    enginePartSize: 0,
     engineDistance: 0,
     engineRotationX: 0,
     engineRotationY: 0,
-    engineStateModel: new EngineStateModel(numberIdGenerator.generateId(), ID.ENGINE_ID, 0),
+    enginePartStateModels: [],
 
     numberOfEngineSides: 0,
     numberOfEngineSideFaces: 0,
@@ -84,17 +84,17 @@ const bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler = (
     return nextState;
 };
 
-const bottomRightPanelAction_setEngineStateModel_handler = (state: bottomRightPanelStateType, action) =>
+const bottomRightPanelAction_setEnginePartStateModels_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.engineStateModel = action.engineStateModel;
+    nextState.enginePartStateModels = action.enginePartStateModels;
     return nextState;
 };
 
-const bottomRightPanelAction_updateEngineSize_handler = (state: bottomRightPanelStateType, action) =>
+const bottomRightPanelAction_updateEnginePartSize_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.engineSize = action.engineSize;
+    nextState.enginePartSize = action.enginePartSize;
     return nextState;
 };
 
@@ -113,17 +113,17 @@ const bottomRightPanelAction_updateEngineRotation_handler = (state: bottomRightP
     return nextState;
 };
 
-const bottomRightPanelAction_updateEngineStatePosition_handler = (state: bottomRightPanelStateType, action) =>
+const bottomRightPanelAction_updateEnginePartStateModelPosition_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.engineStateModel.setPosition(action.position);
+    getObjectById(nextState.enginePartStateModels, action.stateModelId).setPosition(action.position);
     return nextState;
 };
 
 const bottomRightPanelAction_setMouseHoverOnEnginePart_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.engineStateModel.setMouseHover(action.hover);
+    nextState.enginePartStateModels[action.engineIndex].setMouseHover(action.hover);
     return nextState;
 
 };
@@ -131,7 +131,7 @@ const bottomRightPanelAction_setMouseHoverOnEnginePart_handler = (state: bottomR
 const bottomRightPanelAction_setSelectOnEnginePart_handler = (state: bottomRightPanelStateType, action) =>
 {
     let nextState = deepCopy(state);
-    nextState.engineStateModel.setIsSelected(action.select);
+    nextState.enginePartStateModels[action.engineIndex].setIsSelected(action.select);
     return nextState;
 
 };
@@ -160,13 +160,13 @@ const bottomRightPanelReducerHandlers = {
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_POSITION]: bottomRightPanelAction_updateBottomRightPanelPosition_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_BOTTOM_RIGHT_PANEL_FOCUS_ON]: bottomRightPanelAction_setBottomRightPanelFocusOn_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_CONTENT_LAYOUT_DATA]: bottomRightPanelAction_updateBottomRightPanelContentLayoutData_handler,
-    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_STATE_MODEL]: bottomRightPanelAction_setEngineStateModel_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_PART_STATE_MODELS]: bottomRightPanelAction_setEnginePartStateModels_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE]: bottomRightPanelAction_updateEngineDistance_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION]: bottomRightPanelAction_updateEngineRotation_handler,
-    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_POSITION]: bottomRightPanelAction_updateEngineStatePosition_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION]: bottomRightPanelAction_updateEnginePartStateModelPosition_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART]: bottomRightPanelAction_setMouseHoverOnEnginePart_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_SELECT_ON_ENGINE_PART]: bottomRightPanelAction_setSelectOnEnginePart_handler,
-    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_SIZE]: bottomRightPanelAction_updateEngineSize_handler,
+    [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE]: bottomRightPanelAction_updateEnginePartSize_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE]: bottomRightPanelAction_setPerspective_handler,
     [BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_SIDE_FACES]: bottomRightPanelAction_setEngineSideFaces_handler,
 };
