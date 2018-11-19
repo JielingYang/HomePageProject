@@ -1,11 +1,8 @@
 import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
 import type {bottomRightPanelStateType} from "../reducers/bottomRightPanelReducer";
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
-import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateModel";
-import numberIdGenerator from "../classes/NumberIdGenerator";
-import {ENGINE_PART_IDS} from "../utilities/CONSTANTS_STRING";
 import {getRegularPolygonSideLength, numberToPercentageString} from "../utilities/UTILITIES";
-import {NUMBER_OF_ENGINE_PART_SIDE_FACES, NUMBER_OF_ENGINE_PART_SIDES} from "../utilities/CONSTANTS_NUMBER";
+import {NUMBER_OF_ENGINE_SIDE_FACES, NUMBER_OF_ENGINE_SIDES} from "../utilities/CONSTANTS_NUMBER";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -26,36 +23,17 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         let bottomRightPanelBorderSize: number = basePanelUnitLength * 0.5;
         let bottomRightPanelBorderRadius: number = basePanelUnitLength * 3;
 
-        let enginePartSize: number = bottomRightPanelShapeModel.getWidth() / (ENGINE_PART_IDS.length + 3);
-        let enginePartsGapDistance: number = bottomRightPanelShapeModel.getWidth() / (ENGINE_PART_IDS.length + 1);
-        if (getState().bottomRightPanelState.enginePartStateModels.length === 0) // Initialize engine part state models if none exist
-        {
-            let enginePartStateModels: Array<EnginePartStateModel> = [];
-            let engineDistance: number = -100 * basePanelUnitLength;
-            let engineRotationX: number = -10;
-            let engineRotationY: number = 45;
-            ENGINE_PART_IDS.forEach((id: string, index: number) =>
-            {
-                let position: number = (ENGINE_PART_IDS.length * 0.4 - index) * enginePartsGapDistance;
-                enginePartStateModels.push(new EnginePartStateModel(numberIdGenerator.generateId(), id, position));
-            });
+        let engineSize: number = bottomRightPanelShapeModel.getWidth() / 4;
+        let engineDistance: number = -100 * basePanelUnitLength;
+        let engineRotationX: number = -10;
+        let engineRotationY: number = 45;
+        let position: number = engineSize / 4;
 
-            dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
-            dispatch(bottomRightPanelAction_updateEngineDistance(engineDistance));
-            dispatch(bottomRightPanelAction_updateEngineRotation(engineRotationX, engineRotationY));
-            dispatch(bottomRightPanelAction_setEnginePartStateModels(enginePartStateModels));
-            dispatch(bottomRightPanelAction_requestToSetEngineSideFaces(NUMBER_OF_ENGINE_PART_SIDES, NUMBER_OF_ENGINE_PART_SIDE_FACES));
-        }
-        else
-        {
-            ENGINE_PART_IDS.forEach((modelStringId: string, index: number) =>
-            {
-                let position: number = (ENGINE_PART_IDS.length * 0.4 - index) * enginePartsGapDistance;
-                dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
-                dispatch(bottomRightPanelAction_updateEnginePartStateModelPosition(modelStringId, position));
-            });
-        }
-
+        dispatch(bottomRightPanelAction_updateEngineSize(engineSize));
+        dispatch(bottomRightPanelAction_updateEnginePosition(position));
+        dispatch(bottomRightPanelAction_updateEngineDistance(engineDistance));
+        dispatch(bottomRightPanelAction_updateEngineRotation(engineRotationX, engineRotationY));
+        dispatch(bottomRightPanelAction_requestToSetEngineSideFaces(NUMBER_OF_ENGINE_SIDES, NUMBER_OF_ENGINE_SIDE_FACES));
         dispatch(bottomRightPanelAction_updateBottomRightPanelContentLayoutData(bottomRightPanelBorderWidth, bottomRightPanelBorderHeight, bottomRightPanelBorderSize, bottomRightPanelBorderRadius));
     }
 };
@@ -82,7 +60,7 @@ export const bottomRightPanelAction_requestToSetMouseHoverOnEnginePart = (engine
 {
     return (dispatch, getState) =>
     {
-        if (getState().bottomRightPanelState.enginePartStateModels[engineIndex].getMouseHover() !== hover)
+        if (getState().bottomRightPanelState.engineStateModel[engineIndex].getMouseHover() !== hover)
         {
             dispatch(bottomRightPanelAction_setMouseHoverOnEnginePart(engineIndex, hover));
         }
@@ -93,7 +71,7 @@ export const bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart = (eng
 {
     return (dispatch, getState) =>
     {
-        dispatch(bottomRightPanelAction_setSelectOnEnginePart(engineIndex, !getState().bottomRightPanelState.enginePartStateModels[engineIndex].getIsSelected()));
+        dispatch(bottomRightPanelAction_setSelectOnEnginePart(engineIndex, !getState().bottomRightPanelState.engineStateModel[engineIndex].getIsSelected()));
     }
 };
 
@@ -132,11 +110,10 @@ export const BOTTOM_RIGHT_PANEL_ACTION_TYPE = Object.freeze({
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_POSITION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_POSITION",
     BOTTOM_RIGHT_PANEL_ACTION_SET_BOTTOM_RIGHT_PANEL_FOCUS_ON: "BOTTOM_RIGHT_PANEL_ACTION_SET_BOTTOM_RIGHT_PANEL_FOCUS_ON",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_CONTENT_LAYOUT_DATA: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_BOTTOM_RIGHT_PANEL_CONTENT_LAYOUT_DATA",
-    BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_PART_STATE_MODELS: "BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_PART_STATE_MODELS",
-    BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE",
+    BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_SIZE: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_SIZE",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_DISTANCE",
     BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_ROTATION",
-    BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION",
+    BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_POSITION: "BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_POSITION",
     BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART: "BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART",
     BOTTOM_RIGHT_PANEL_ACTION_SET_SELECT_ON_ENGINE_PART: "BOTTOM_RIGHT_PANEL_ACTION_SET_SELECT_ON_ENGINE_PART",
     BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE: "BOTTOM_RIGHT_PANEL_ACTION_SET_PERSPECTIVE",
@@ -179,19 +156,11 @@ const bottomRightPanelAction_updateBottomRightPanelContentLayoutData = (bottomRi
     }
 };
 
-const bottomRightPanelAction_setEnginePartStateModels = (enginePartStateModels: Array<EnginePartStateModel>) =>
+const bottomRightPanelAction_updateEngineSize = (size: number) =>
 {
     return {
-        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_ENGINE_PART_STATE_MODELS,
-        enginePartStateModels: enginePartStateModels,
-    }
-};
-
-const bottomRightPanelAction_updateEnginePartSize = (size: number) =>
-{
-    return {
-        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_SIZE,
-        enginePartSize: size,
+        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_SIZE,
+        engineSize: size,
     }
 };
 
@@ -212,29 +181,26 @@ const bottomRightPanelAction_updateEngineRotation = (rotationX: number, rotation
     }
 };
 
-const bottomRightPanelAction_updateEnginePartStateModelPosition = (stateModelId: number | string, position: number) =>
+const bottomRightPanelAction_updateEnginePosition = (position: number) =>
 {
     return {
-        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_PART_STATE_MODEL_Z_POSITION,
-        stateModelId: stateModelId,
+        type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_UPDATE_ENGINE_POSITION,
         position: position,
     }
 };
 
-const bottomRightPanelAction_setMouseHoverOnEnginePart = (engineIndex: number, hover: boolean) =>
+const bottomRightPanelAction_setMouseHoverOnEnginePart = (hover: boolean) =>
 {
     return {
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_MOUSE_HOVER_ON_ENGINE_PART,
-        engineIndex: engineIndex,
         hover: hover,
     }
 };
 
-const bottomRightPanelAction_setSelectOnEnginePart = (engineIndex: number, select: boolean) =>
+const bottomRightPanelAction_setSelectOnEnginePart = (select: boolean) =>
 {
     return {
         type: BOTTOM_RIGHT_PANEL_ACTION_TYPE.BOTTOM_RIGHT_PANEL_ACTION_SET_SELECT_ON_ENGINE_PART,
-        engineIndex: engineIndex,
         select: select,
     }
 };

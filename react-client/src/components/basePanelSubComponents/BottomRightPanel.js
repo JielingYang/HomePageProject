@@ -9,9 +9,9 @@ import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {bottomRightPanelAction_setBottomRightPanelFocusOn} from "../../actionCreators/bottomRightPanelActions";
 import type {bottomRightPanelStateType} from "../../reducers/bottomRightPanelReducer";
 import SubPanelBorder from "./SubPanelBorder";
-import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
+import EngineStateModel from "../../classes/StateModelClasses/EngineStateModel";
 import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
-import EnginePart from "./EnginePart";
+import Engine from "./Engine";
 
 type BottomRightPanelPropsType = {
     bottomRightPanelState: bottomRightPanelStateType,
@@ -29,8 +29,8 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
                  ? BLUR_LEVEL.NONE
                  : BLUR_LEVEL.MEDIUM);
 
-    let enginePartModels: Array<EnginePartStateModel> = props.bottomRightPanelState.enginePartStateModels;
-    let mouseHoverOnAny: boolean = enginePartModels.some((m: EnginePartStateModel) => m.getMouseHover());
+    let engineModel: EngineStateModel = props.bottomRightPanelState.engineStateModel;
+    let mouseHoverOnAny: boolean = engineModel.getMouseHover();
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
@@ -38,13 +38,10 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
              onMouseEnter={() => props.bottomRightPanelAction_setBottomRightPanelFocusOn(true)}
              onMouseLeave={() => props.bottomRightPanelAction_setBottomRightPanelFocusOn(false)}>
             <SubPanelBorder subPanelState={props.bottomRightPanelState} borderBlurLevel={BLUR_LEVEL.LIGHT}/>
-            {enginePartModels.map((model: EnginePartStateModel, index: number) =>
-            {
-                return <EnginePart key={index} stateModel={model} engineIndex={index}
-                                   engineRotationX={props.bottomRightPanelState.engineRotationX}
-                                   engineRotationY={props.bottomRightPanelState.engineRotationY}
-                                   mouseHoverOnAnyEnginePart={mouseHoverOnAny}/>
-            })}
+            <Engine stateModel={engineModel}
+                    engineRotationX={props.bottomRightPanelState.engineRotationX}
+                    engineRotationY={props.bottomRightPanelState.engineRotationY}
+                    mouseHoverOnAnyEnginePart={mouseHoverOnAny}/>
         </div>);
 };
 
