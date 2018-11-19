@@ -48,6 +48,7 @@ export default class SingleSelectionModel extends StateModel
         result.selectItem(this.getSelectedItemIndex());
         result.mouseHoversItem(this.getMouseHoveredItemIndex());
         result.setMouseHover(this.getMouseHover());
+        result.setIsSelected(this.getIsSelected());
         return result;
     }
 }

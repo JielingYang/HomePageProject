@@ -76,5 +76,6 @@ export const THEMES_DESCRIPTIONS = themesDescriptions;
 
 let enginePartIds = [];
 enginePartIds[INDEX.ENGINE_PART_FRONT] = "engineFront";
+enginePartIds[INDEX.ENGINE_PART_MIDDLE] = "engineMiddle";
 enginePartIds[INDEX.ENGINE_PART_BACK] = "engineBack";
 export const ENGINE_PART_IDS = enginePartIds;
