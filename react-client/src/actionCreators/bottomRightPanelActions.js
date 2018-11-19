@@ -26,8 +26,8 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         let bottomRightPanelBorderSize: number = basePanelUnitLength * 0.5;
         let bottomRightPanelBorderRadius: number = basePanelUnitLength * 3;
 
-        let enginePartSize: number = bottomRightPanelShapeModel.getWidth() / (ENGINE_PART_IDS.length + 3);
-        let enginePartsGapDistance: number = bottomRightPanelShapeModel.getWidth() / (ENGINE_PART_IDS.length + 1);
+        let numberOfEngineParts: number = ENGINE_PART_IDS.length;
+        let enginePartSize: number = bottomRightPanelShapeModel.getWidth() / (numberOfEngineParts + 1);
         if (getState().bottomRightPanelState.enginePartStateModels.length === 0) // Initialize engine part state models if none exist
         {
             let enginePartStateModels: Array<EnginePartStateModel> = [];
@@ -36,11 +36,9 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
             let engineRotationY: number = 45;
             ENGINE_PART_IDS.forEach((id: string, index: number) =>
             {
-                let position: number = (ENGINE_PART_IDS.length * 0.4 - index) * enginePartsGapDistance;
-                enginePartStateModels.push(new EnginePartStateModel(numberIdGenerator.generateId(), id, position));
+                enginePartStateModels.push(new EnginePartStateModel(numberIdGenerator.generateId(), id, enginePartSize * ((numberOfEngineParts - 1) / 2 - index) + enginePartSize / 4));
             });
 
-            dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
             dispatch(bottomRightPanelAction_updateEngineDistance(engineDistance));
             dispatch(bottomRightPanelAction_updateEngineRotation(engineRotationX, engineRotationY));
             dispatch(bottomRightPanelAction_setEnginePartStateModels(enginePartStateModels));
@@ -50,12 +48,11 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         {
             ENGINE_PART_IDS.forEach((modelStringId: string, index: number) =>
             {
-                let position: number = (ENGINE_PART_IDS.length * 0.4 - index) * enginePartsGapDistance;
-                dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
-                dispatch(bottomRightPanelAction_updateEnginePartStateModelPosition(modelStringId, position));
+                dispatch(bottomRightPanelAction_updateEnginePartStateModelPosition(modelStringId, enginePartSize * ((numberOfEngineParts - 1) / 2 - index) + enginePartSize / 4));
             });
         }
 
+        dispatch(bottomRightPanelAction_updateEnginePartSize(enginePartSize));
         dispatch(bottomRightPanelAction_updateBottomRightPanelContentLayoutData(bottomRightPanelBorderWidth, bottomRightPanelBorderHeight, bottomRightPanelBorderSize, bottomRightPanelBorderRadius));
     }
 };
