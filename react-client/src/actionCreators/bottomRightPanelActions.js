@@ -98,7 +98,7 @@ export const bottomRightPanelAction_requestToSetPerspective = () =>
 {
     return (dispatch, getState) =>
     {
-        let perspective: number = getState().bottomRightPanelState.bottomRightPanelShapeModel.getWidth();
+        let perspective: number = getState().bottomRightPanelState.bottomRightPanelShapeModel.getWidth() * 0.7;
         if (getState().bottomRightPanelState.bottomRightPanelPerspective !== perspective)
         {
             dispatch(bottomRightPanelAction_setPerspective(perspective));
