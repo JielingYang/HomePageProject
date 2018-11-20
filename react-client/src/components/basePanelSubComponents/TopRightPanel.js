@@ -8,7 +8,6 @@ import {BLUR_LEVEL} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
 import {topRightPanelAction_setTopRightPanelFocusOn} from "../../actionCreators/topRightPanelActions";
 import type {appStateType} from "../../reducers/appReducer";
-import {appAction_changeAppTheme} from "../../actionCreators/appActions";
 import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
 import SubPanelBorder from "./SubPanelBorder";
 import TopRightPanel_SettingsTabs from "./TopRightPanel_SettingsTabs";
@@ -20,7 +19,6 @@ import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 type TopRightPanelPropsType = {
     appState: appStateType,
     topRightPanelState: topRightPanelStateType,
-    appAction_changeAppTheme: Function,
     topRightPanelAction_setTopRightPanelFocusOn: Function,
 }
 
@@ -60,7 +58,6 @@ const mapStateToProps = (store) =>
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-        appAction_changeAppTheme: appAction_changeAppTheme,
         topRightPanelAction_setTopRightPanelFocusOn: topRightPanelAction_setTopRightPanelFocusOn,
     }, dispatch);
 };

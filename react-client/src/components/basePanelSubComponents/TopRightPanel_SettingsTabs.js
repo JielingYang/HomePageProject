@@ -8,7 +8,6 @@ import {topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem, t
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 import {getSettingsTabsSvgIcon} from "../../utilities/svgIcons";
 import type {appStateType} from "../../reducers/appReducer";
-import {appAction_changeAppTheme} from "../../actionCreators/appActions";
 import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
 import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
 
@@ -114,7 +113,6 @@ const mapStateToProps = (store) =>
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-        appAction_changeAppTheme: appAction_changeAppTheme,
         topRightPanelAction_selectSingleSelectionModelItem: topRightPanelAction_selectSingleSelectionModelItem,
         topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem,
         topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems: topRightPanelAction_requestToSetMouseHoversSingleSelectionModelItems,

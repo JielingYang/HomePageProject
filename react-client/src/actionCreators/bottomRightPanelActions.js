@@ -5,7 +5,7 @@ import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateMo
 import numberIdGenerator from "../classes/NumberIdGenerator";
 import {ENGINE_PART_IDS} from "../utilities/CONSTANTS_STRING";
 import {getRegularPolygonSideLength, numberToPercentageString} from "../utilities/UTILITIES";
-import {NUMBER_OF_ENGINE_PART_SIDE_FACES, NUMBER_OF_ENGINE_PART_SIDES} from "../utilities/CONSTANTS_NUMBER";
+import {DEFAULT_ENGINE_ROTATION_X_VALUE, DEFAULT_ENGINE_ROTATION_Y_VALUE, NUMBER_OF_ENGINE_PART_SIDE_FACES, NUMBER_OF_ENGINE_PART_SIDES} from "../utilities/CONSTANTS_NUMBER";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -32,8 +32,8 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         {
             let enginePartStateModels: Array<EnginePartStateModel> = [];
             let engineDistance: number = -100 * basePanelUnitLength;
-            let engineRotationX: number = -10;
-            let engineRotationY: number = 45;
+            let engineRotationX: number = DEFAULT_ENGINE_ROTATION_X_VALUE;
+            let engineRotationY: number = DEFAULT_ENGINE_ROTATION_Y_VALUE;
             ENGINE_PART_IDS.forEach((id: string, index: number) =>
             {
                 enginePartStateModels.push(new EnginePartStateModel(numberIdGenerator.generateId(), id, enginePartSize * ((numberOfEngineParts - 1) / 2 - index) + enginePartSize / 4));

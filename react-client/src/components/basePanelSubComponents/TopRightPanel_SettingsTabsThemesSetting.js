@@ -10,14 +10,14 @@ import {BLACK_TRANSPARENT_00, WHITE_TRANSPARENT_00} from "../../utilities/CONSTA
 import SingleSelectionModel from "../../classes/StateModelClasses/SingleSelectionModel";
 import {getThemesSvgIcon} from "../../utilities/svgIcons";
 import type {appStateType} from "../../reducers/appReducer";
-import {appAction_changeAppTheme} from "../../actionCreators/appActions";
+import {appAction_requestToChangeAppTheme} from "../../actionCreators/appActions";
 import type {topRightPanelStateType} from "../../reducers/topRightPanelReducer";
 import {COMMON_TYPE, THEMES_DESCRIPTIONS, THEMES_TITLES} from "../../utilities/CONSTANTS_STRING";
 
 type TopRightPanel_SettingsTabsThemesSettingPropsType = {
     appState: appStateType,
     topRightPanelState: topRightPanelStateType,
-    appAction_changeAppTheme: Function,
+    appAction_requestToChangeAppTheme: Function,
     topRightPanelAction_selectSingleSelectionModelItem: Function,
     topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: Function,
     topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd: Function,
@@ -146,7 +146,7 @@ const TopRightPanel_SettingsTabsThemesSetting = (props: TopRightPanel_SettingsTa
                          if (index !== INDEX.THEME_YELLOW) // TODO - bright theme not available for now
                          {
                              props.topRightPanelAction_selectSingleSelectionModelItem(index, themesSettingStateModelStringId);
-                             props.appAction_changeAppTheme(index);
+                             props.appAction_requestToChangeAppTheme(index);
                          }
                      }}
                      onMouseEnter={() => props.topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem(index, themesSettingStateModelStringId)}
@@ -173,7 +173,7 @@ const mapStateToProps = (store) =>
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-        appAction_changeAppTheme: appAction_changeAppTheme,
+        appAction_requestToChangeAppTheme: appAction_requestToChangeAppTheme,
         topRightPanelAction_selectSingleSelectionModelItem: topRightPanelAction_selectSingleSelectionModelItem,
         topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem: topRightPanelAction_setMouseHoverOnSingleSelectionModelIndividualItem,
         topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd: topRightPanelAction_requestToSetSettingsTabsContentDisplayValueToNoneWhenTransitionEnd,

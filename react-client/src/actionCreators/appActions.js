@@ -84,6 +84,18 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
     };
 };
 
+
+export const appAction_requestToChangeAppTheme = (themeIndex: number) =>
+{
+    return (dispatch, getState) =>
+    {
+        if (getState().appState.themeIndex !== themeIndex)
+        {
+            dispatch(appAction_changeAppTheme(themeIndex));
+        }
+    }
+};
+
 /* **************************** Updating actions ***************************** */
 /* This kind of actions send new data to reducer directly and contain no logic */
 /* *************************************************************************** */
@@ -120,7 +132,7 @@ const appAction_updateAppMouseMoveEventTimeStamp = (mouseMoveEventTimeStamp: num
     };
 };
 
-export const appAction_changeAppTheme = (themeIndex: number) =>
+const appAction_changeAppTheme = (themeIndex: number) =>
 {
     return {
         type: APP_ACTION_TYPE.APP_ACTION_CHANGE_APP_THEME,
