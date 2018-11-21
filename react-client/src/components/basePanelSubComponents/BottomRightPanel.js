@@ -31,6 +31,7 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
 
     let enginePartModels: Array<EnginePartStateModel> = props.bottomRightPanelState.enginePartStateModels;
     let mouseHoverOnAnyEnginePart: boolean = enginePartModels.some((m: EnginePartStateModel) => m.getMouseHover());
+    let isAnyEnginePartSelected: boolean = enginePartModels.some((m: EnginePartStateModel) => m.getIsSelected());
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
@@ -43,7 +44,8 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
                 return <EnginePart key={index} engineIndex={index}
                                    engineRotationX={props.bottomRightPanelState.engineRotationX}
                                    engineRotationY={props.bottomRightPanelState.engineRotationY}
-                                   mouseHoverOnAnyEnginePart={mouseHoverOnAnyEnginePart}/>
+                                   mouseHoverOnAnyEnginePart={mouseHoverOnAnyEnginePart}
+                                   isAnyEnginePartSelected={isAnyEnginePartSelected}/>
             })}
         </div>);
 };

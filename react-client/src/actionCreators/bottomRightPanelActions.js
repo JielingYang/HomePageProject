@@ -73,48 +73,26 @@ export const bottomRightPanelAction_requestToUpdateEngineDistanceAndRotation = (
     }
 };
 
-export const bottomRightPanelAction_requestToSetMouseHoverOnEnginePart = (engineIndex: number, hover: boolean) =>
+export const bottomRightPanelAction_requestToSetMouseHoverOnEnginePart = (engineIndex: number, shouldSet: boolean, hover: boolean) =>
 {
     return (dispatch, getState) =>
     {
-        if (getState().bottomRightPanelState.enginePartStateModels[engineIndex].getMouseHover() !== hover)
+        if (shouldSet && getState().bottomRightPanelState.enginePartStateModels[engineIndex].getMouseHover() !== hover)
         {
             dispatch(bottomRightPanelAction_setMouseHoverOnEnginePart(engineIndex, hover));
         }
     }
 };
 
-export const bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart = (engineIndex: number) =>
+export const bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart = (engineIndex: number, shouldToggle: boolean) =>
 {
     return (dispatch, getState) =>
     {
-        let enginePartModels: Array<EnginePartStateModel> = getState().bottomRightPanelState.enginePartStateModels;
-        enginePartModels.forEach((model: EnginePartStateModel, index: number) =>
+        if (shouldToggle)
         {
-            // let rotationX: number = DEFAULT_ENGINE_ROTATION_X_VALUE;
-            // let rotationY: number = DEFAULT_ENGINE_ROTATION_Y_VALUE;
-            let select: boolean = !model.getIsSelected();
-            let value: boolean = engineIndex === index
-                                 ? select
-                                 : false;
-            // if (value)
-            // {
-            //     if (engineIndex === INDEX.ENGINE_PART_FRONT)
-            //     {
-            //         rotationY = 0;
-            //     }
-            //     else if (engineIndex === INDEX.ENGINE_PART_MIDDLE)
-            //     {
-            //         rotationY = 0;
-            //     }
-            //     else if (engineIndex === INDEX.ENGINE_PART_BACK)
-            //     {
-            //         rotationY = 0;
-            //     }
-            // }
-
-            dispatch(bottomRightPanelAction_setSelectOnEnginePart(index, value));
-        })
+            let model: EnginePartStateModel = getState().bottomRightPanelState.enginePartStateModels[engineIndex];
+            dispatch(bottomRightPanelAction_setSelectOnEnginePart(engineIndex, !model.getIsSelected()));
+        }
     }
 };
 
