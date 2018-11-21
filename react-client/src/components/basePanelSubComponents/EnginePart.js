@@ -16,7 +16,7 @@ type EnginePartPropsType = {
     appState: appStateType,
     basePanelState: basePanelStateType,
     bottomRightPanelState: bottomRightPanelStateType,
-    stateModel: EnginePartStateModel,
+
     engineIndex: number,
     engineRotationX: number,
     engineRotationY: number,
@@ -28,7 +28,7 @@ type EnginePartPropsType = {
 
 const EnginePart = (props: EnginePartPropsType) =>
 {
-    let stateModel: EnginePartStateModel = props.stateModel;
+    let stateModel: EnginePartStateModel = props.bottomRightPanelState.enginePartStateModels[props.engineIndex];
     let basePanelState: basePanelStateType = props.basePanelState;
     let engineBasicColor: string = props.appState.engineBasicColor;
     let enginePartSize = props.bottomRightPanelState.enginePartSize;
@@ -42,13 +42,12 @@ const EnginePart = (props: EnginePartPropsType) =>
     let enginePartBlurLevel: BLUR_LEVEL = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
                                           ? BLUR_LEVEL.LIGHT
                                           : BLUR_LEVEL.NONE;
-    let enginePartOpacity: BLUR_LEVEL = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
-                                        ? 0.4
-                                        : 1;
+    let enginePartOpacity: number = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
+                                    ? 0.4
+                                    : 1;
 
     let enginePartContainerDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics(enginePartSize, enginePartSize, enginePartInitialMiddlePosition, enginePartInitialMiddlePosition)
-        // .setBorder(1, "solid", "rgba(0,255,255,0.5)")
         .setPointerEvents("none")
         .addRotationX(props.engineRotationX + basePanelRotationX)
         .addRotationY(props.engineRotationY + basePanelRotationY)
@@ -76,11 +75,11 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
     let isFrontPart: boolean = enginePartId === ENGINE_PART_IDS[INDEX.ENGINE_PART_FRONT];
     let isMiddlePart: boolean = enginePartId === ENGINE_PART_IDS[INDEX.ENGINE_PART_MIDDLE];
     let isBackPart: boolean = enginePartId === ENGINE_PART_IDS[INDEX.ENGINE_PART_BACK];
-    let initialTranslation: number = 0;
-    let initialRotation: number = 0;
-    let individualRotation: number = 0;
-    let selectTranslation: number = 0;
-    let hoverTranslation: number = 0;
+    let initialTranslationZ: number = 0;
+    let initialRotationZ: number = 0;
+    let individualRotationZ: number = 0;
+    let selectTranslationZ: number = 0;
+    let hoverTranslationZ: number = 0;
     let svgFaces: Array = isFrontPart
                           ? getEngineFrontFaceSvg(engineBasicColor)
                           : isMiddlePart
@@ -93,22 +92,22 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
 
     if (isFrontPart)
     {
-        initialTranslation = -enginePartSize / 2;
-        initialRotation = 180;
-        hoverTranslation = svgGap / 2;
-        selectTranslation = svgGap;
+        initialTranslationZ = -enginePartSize / 2;
+        initialRotationZ = 180;
+        hoverTranslationZ = svgGap / 2;
+        selectTranslationZ = svgGap;
     }
     else if (isMiddlePart)
     {
-        initialRotation = 0;
-        hoverTranslation = 0;
-        selectTranslation = svgGap / 2;
+        initialRotationZ = 0;
+        hoverTranslationZ = 0;
+        selectTranslationZ = svgGap / 2;
     }
     else if (isBackPart)
     {
-        initialTranslation = enginePartSize / 2;
-        hoverTranslation = -svgGap / 2;
-        selectTranslation = -svgGap;
+        initialTranslationZ = enginePartSize / 2;
+        hoverTranslationZ = -svgGap / 2;
+        selectTranslationZ = -svgGap;
     }
 
     return svgFaces.map((svg, i) =>
@@ -117,27 +116,27 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
         if (isMiddlePart)
         {
             indexVariant = i - (numberOfSvg - 1) / 2;
-            initialTranslation = svgGap * indexVariant;
-            individualRotation = 180 * (i - 1);
+            initialTranslationZ = svgGap * indexVariant;
+            individualRotationZ = 180 * (i - 1);
         }
-        let transitionTranslation: number = initialTranslation + (isThisEnginePartSelected
-                                                                  ? selectTranslation * indexVariant
-                                                                  : mouseHoverOnThisEnginePart
-                                                                    ? hoverTranslation * indexVariant
-                                                                    : 0);
-        let transitionRotation: number = initialRotation + (isThisEnginePartSelected
-                                                            ? 270
-                                                            : mouseHoverOnThisEnginePart
+        let transitionTranslationZ: number = initialTranslationZ + (isThisEnginePartSelected
+                                                                    ? selectTranslationZ * indexVariant
+                                                                    : mouseHoverOnThisEnginePart
+                                                                      ? hoverTranslationZ * indexVariant
+                                                                      : 0);
+        let transitionRotationZ: number = initialRotationZ + (isThisEnginePartSelected
                                                               ? 270
-                                                              : individualRotation);
+                                                              : mouseHoverOnThisEnginePart
+                                                                ? 270
+                                                                : individualRotationZ);
 
         let enginePartFaceDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
             .setBasics("100%", "100%", 0, 0)
             .addRotationY(-90)
             .setBlur(enginePartBlurLevel)
             .setOpacity(enginePartOpacity)
-            .addRotationZ(transitionRotation)
-            .addTranslationZ(transitionTranslation)
+            .addRotationZ(transitionRotationZ)
+            .addTranslationZ(transitionTranslationZ)
             .addTransition("filter", TRANSITION_TIME_SLOW)
             .addTransition("opacity", TRANSITION_TIME_SLOW)
             .addTransition("transform", TRANSITION_TIME_SLOW);

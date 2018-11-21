@@ -30,7 +30,7 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
                  : BLUR_LEVEL.MEDIUM);
 
     let enginePartModels: Array<EnginePartStateModel> = props.bottomRightPanelState.enginePartStateModels;
-    let mouseHoverOnAny: boolean = enginePartModels.some((m: EnginePartStateModel) => m.getMouseHover());
+    let mouseHoverOnAnyEnginePart: boolean = enginePartModels.some((m: EnginePartStateModel) => m.getMouseHover());
 
     console.log(LEVEL2_CONSOLE_PREFIX + bottomRightPanelShapeModel.getStringId(), LEVEL2_CONSOLE_FONT);
     return (
@@ -40,10 +40,10 @@ const BottomRightPanel = (props: BottomRightPanelPropsType) =>
             <SubPanelBorder subPanelState={props.bottomRightPanelState} borderBlurLevel={BLUR_LEVEL.LIGHT}/>
             {enginePartModels.map((model: EnginePartStateModel, index: number) =>
             {
-                return <EnginePart key={index} stateModel={model} engineIndex={index}
+                return <EnginePart key={index} engineIndex={index}
                                    engineRotationX={props.bottomRightPanelState.engineRotationX}
                                    engineRotationY={props.bottomRightPanelState.engineRotationY}
-                                   mouseHoverOnAnyEnginePart={mouseHoverOnAny}/>
+                                   mouseHoverOnAnyEnginePart={mouseHoverOnAnyEnginePart}/>
             })}
         </div>);
 };
