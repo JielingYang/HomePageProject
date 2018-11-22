@@ -4,13 +4,14 @@ import {connect} from "react-redux";
 import StyleObject from "../../classes/StyleObject";
 import type {bottomRightPanelStateType} from "../../reducers/bottomRightPanelReducer";
 import {TRANSITION_TIME_NORMAL, TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
-import {COMMON_TYPE, ENGINE_PART_IDS} from "../../utilities/CONSTANTS_STRING";
+import {COMMON_TYPE, ENGINE_PART_IDS, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
 import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart, bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart} from "../../actionCreators/bottomRightPanelActions";
 import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
 import {BLUR_LEVEL, DEFAULT_ENGINE_ROTATION_Y_VALUE, INDEX} from "../../utilities/CONSTANTS_NUMBER";
 import type {basePanelStateType} from "../../reducers/basePanelReducer";
 import {getEngineMiddleFaceSvg, getEngineFrontFaceSvg, getEngineBackFaceSvg} from "../../utilities/svgIcons";
 import type {appStateType} from "../../reducers/appReducer";
+import EnginePartMenu from "./EnginePartMenu";
 
 type EnginePartPropsType = {
     appState: appStateType,
@@ -64,7 +65,7 @@ const EnginePart = (props: EnginePartPropsType) =>
 
     return <div id={enginePartId} style={enginePartContainerDivStyleObject.getStyle()}>
         {enginePartFaces}
-        <div style={enginePartActionDivStyleObject.getStyle()}
+        <div id={enginePartId + UTILITY_STRING.ACTION_DIV} style={enginePartActionDivStyleObject.getStyle()}
              onClick={() => props.bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart(props.engineIndex, isThisEnginePartSelected || !props.isAnyEnginePartSelected)}
              onMouseEnter={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, !props.isAnyEnginePartSelected, true)}
              onMouseLeave={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, !props.isAnyEnginePartSelected, false)}/>
@@ -94,7 +95,9 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
 
     if (isFrontPart)
     {
-        initialTranslationZ = -enginePartSize / 2;
+        initialTranslationZ = isThisEnginePartSelected
+                              ? 0
+                              : -enginePartSize / 2;
         initialRotationZ = 180;
         hoverTranslationZ = svgGap / 2;
         selectTranslationZ = svgGap;
@@ -131,7 +134,7 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
                                                               : mouseHoverOnThisEnginePart
                                                                 ? 270
                                                                 : individualRotationZ);
-        let transitionRotationY: number = isThisEnginePartSelected && !isFrontPart
+        let transitionRotationY: number = isThisEnginePartSelected
                                           ? 0
                                           : -90;
 
@@ -152,40 +155,31 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
 
 const getEnginePartMenus: Array = (enginePartId: string, engineIndex: number, numberOfEngineParts: number, enginePartSize: number, engineRotationX: number, engineRotationY: number, mouseHoverOnThisEnginePart: boolean, isThisEnginePartSelected: boolean) =>
 {
-    let isFrontPart: boolean = enginePartId === ENGINE_PART_IDS[INDEX.ENGINE_PART_FRONT];
-    let isMiddlePart: boolean = enginePartId === ENGINE_PART_IDS[INDEX.ENGINE_PART_MIDDLE];
-    let isBackPart: boolean = enginePartId === ENGINE_PART_IDS[INDEX.ENGINE_PART_BACK];
-    let menuWidth: number = enginePartSize / 2;
-    let menuHeight: number = enginePartSize / 10;
-    let menuX: number = enginePartSize - menuWidth;
-    let menuY: number = -menuHeight * 2;
     let menuTranslationZ: number = enginePartSize * Math.sin(DEFAULT_ENGINE_ROTATION_Y_VALUE * Math.PI / 180) * (numberOfEngineParts - 1 - engineIndex);
-    let menuDisplayValue: string = mouseHoverOnThisEnginePart
-                                   ? "block"
-                                   : "none";
     let menuOpacity: number = isThisEnginePartSelected
                               ? 1
                               : 0;
+    let menuDisplayValue: string = mouseHoverOnThisEnginePart
+                                   ? "block"
+                                   : "none";
     let menuPointerEvents: string = isThisEnginePartSelected
                                     ? "auto"
                                     : "none";
 
     let enginePartMenuBaseDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("100%", "100%", 0, 0)
+        .setBasics("200%", "200%", "-100%", "-100%")
         .setDisplay(menuDisplayValue)
         // .setPointerEvents(menuPointerEvents)
-        // .setBorder(1, "solid", "rgba(0,255,255,0.2)")
-        .setBackgroundColor("rgba(255,255,255,0.1)")
+        .setBorder(1, "solid", "rgb(0,255,255)")
         .addRotationY(-engineRotationY)
         .addRotationX(-engineRotationX)
-        // .addTranslationZ(menuTranslationZ);
+        .addTranslationZ(menuTranslationZ)
         .setOpacity(menuOpacity)
-        // .addRotationZ(transitionRotation)
-        // .addTranslationZ(transitionTranslation)
-        .addTransition("opacity", TRANSITION_TIME_NORMAL)
-    // .addTransition("transform", TRANSITION_TIME_SLOW);
+        .addTransition("opacity", TRANSITION_TIME_NORMAL);
 
-    return <div style={enginePartMenuBaseDivStyleObject.getStyle()}></div>
+    return <div id={enginePartId + UTILITY_STRING.MENU_BASE_DIV} style={enginePartMenuBaseDivStyleObject.getStyle()}>
+        <EnginePartMenu engineIndex={enginePartId} enginePartSize={enginePartSize}/>
+    </div>
 };
 
 const mapStateToProps = (store) =>

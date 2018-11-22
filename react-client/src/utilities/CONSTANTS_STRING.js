@@ -46,7 +46,9 @@ export const ID = Object.freeze({
 export const UTILITY_STRING = Object.freeze({
     SHARP: "#",
     SVG_URL_PREFIX: "url(#",
-    CLOSE_PARENTHESIS: ")"
+    CLOSE_PARENTHESIS: ")",
+    ACTION_DIV: "ActionDiv",
+    MENU_BASE_DIV: "MenuBaseDiv"
 });
 
 export const COMMON_TYPE = Object.freeze({
