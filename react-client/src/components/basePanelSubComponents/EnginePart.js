@@ -7,7 +7,7 @@ import {TRANSITION_TIME_NORMAL, TRANSITION_TIME_SLOW} from "../../utilities/CONS
 import {COMMON_TYPE, ENGINE_PART_IDS, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
 import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart, bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart} from "../../actionCreators/bottomRightPanelActions";
 import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
-import {BLUR_LEVEL, DEFAULT_ENGINE_ROTATION_Y_VALUE, INDEX} from "../../utilities/CONSTANTS_NUMBER";
+import {BLUR_LEVEL, DEFAULT_ENGINE_ROTATION_Y_VALUE, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_SIZE, INDEX} from "../../utilities/CONSTANTS_NUMBER";
 import type {basePanelStateType} from "../../reducers/basePanelReducer";
 import {getEngineMiddleFaceSvg, getEngineFrontFaceSvg, getEngineBackFaceSvg} from "../../utilities/svgIcons";
 import type {appStateType} from "../../reducers/appReducer";
@@ -156,29 +156,20 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
 const getEnginePartMenus: Array = (enginePartId: string, engineIndex: number, numberOfEngineParts: number, enginePartSize: number, engineRotationX: number, engineRotationY: number, mouseHoverOnThisEnginePart: boolean, isThisEnginePartSelected: boolean) =>
 {
     let menuTranslationZ: number = enginePartSize * Math.sin(DEFAULT_ENGINE_ROTATION_Y_VALUE * Math.PI / 180) * (numberOfEngineParts - 1 - engineIndex);
-    let menuOpacity: number = isThisEnginePartSelected
-                              ? 1
-                              : 0;
     let menuDisplayValue: string = mouseHoverOnThisEnginePart
                                    ? "block"
                                    : "none";
-    let menuPointerEvents: string = isThisEnginePartSelected
-                                    ? "auto"
-                                    : "none";
 
     let enginePartMenuBaseDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("200%", "200%", "-100%", "-100%")
+        .setBasics(ENGINE_PART_MENU_BASE_DIV_SIZE, ENGINE_PART_MENU_BASE_DIV_SIZE, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_POSITION)
         .setDisplay(menuDisplayValue)
-        // .setPointerEvents(menuPointerEvents)
-        .setBorder(1, "solid", "rgb(0,255,255)")
+        .setBorder(1, "solid", "rgba(0,0,0,0)") // For unknown reason, Firefox won't render part menu base div properly without this
         .addRotationY(-engineRotationY)
         .addRotationX(-engineRotationX)
-        .addTranslationZ(menuTranslationZ)
-        .setOpacity(menuOpacity)
-        .addTransition("opacity", TRANSITION_TIME_NORMAL);
+        .addTranslationZ(menuTranslationZ);
 
     return <div id={enginePartId + UTILITY_STRING.MENU_BASE_DIV} style={enginePartMenuBaseDivStyleObject.getStyle()}>
-        <EnginePartMenu engineIndex={enginePartId} enginePartSize={enginePartSize}/>
+        <EnginePartMenu engineIndex={engineIndex} isThisEnginePartSelected={isThisEnginePartSelected}/>
     </div>
 };
 

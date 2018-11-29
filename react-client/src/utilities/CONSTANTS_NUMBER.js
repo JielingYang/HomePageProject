@@ -48,3 +48,65 @@ export const NUMBER_OF_ENGINE_PART_SIDES = 8;
 export const NUMBER_OF_ENGINE_PART_SIDE_FACES = 3;
 export const DEFAULT_ENGINE_ROTATION_X_VALUE = -10;
 export const DEFAULT_ENGINE_ROTATION_Y_VALUE = 45;
+
+export const ENGINE_PART_MENU_BASE_DIV_SIZE = "200%";
+export const ENGINE_PART_MENU_BASE_DIV_POSITION = "-100%";
+export const ENGINE_PART_MENU_ITEM_WIDTH = "30%";
+export const ENGINE_PART_MENU_ITEM_HEIGHT = "10%";
+export const enginePartMenuItemsPositions = [];
+enginePartMenuItemsPositions[INDEX.ENGINE_PART_FRONT] = [
+    {
+        left: "80%",
+        top: "35%"
+    },
+    {
+        left: "45%",
+        top: "35%"
+    },
+    {
+        left: "25%",
+        top: "50%"
+    },
+    {
+        left: "20%",
+        top: "65%"
+    }];
+enginePartMenuItemsPositions[INDEX.ENGINE_PART_MIDDLE] = [
+    {
+        left: "67.5%",
+        top: "50%"
+    },
+    {
+        left: "32.5%",
+        top: "50%"
+    },
+    {
+        left: "7.5%",
+        top: "70%"
+    },
+    {
+        left: "32.5%",
+        top: "90%"
+    },
+    {
+        left: "67.5%",
+        top: "90%"
+    },
+    {
+        left: "87.5%",
+        top: "70%"
+    }];
+enginePartMenuItemsPositions[INDEX.ENGINE_PART_BACK] = [
+    {
+        left: "32.5%",
+        top: "55%"
+    },
+    {
+        left: "60%",
+        top: "72.5%"
+    },
+    {
+        left: "32.5%",
+        top: "90%"
+    }];
+export const ENGINE_PART_MENU_ITEMS_POSITIONS = enginePartMenuItemsPositions;

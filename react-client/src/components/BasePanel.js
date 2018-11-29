@@ -28,11 +28,11 @@ const BasePanel = (props: BasePanelPropsType) =>
     let basePanelRotationY: string = props.basePanelState.basePanelRotationY;
 
     let basePanelComponentStyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(basePanelShapeModel.getWidth(), basePanelShapeModel.getHeight(), basePanelShapeModel.getTopLeftPoint().getX(), basePanelShapeModel.getTopLeftPoint().getY())
-        .setBackgroundColor(BLACK_TRANSPARENT_00)
-        .addTranslationX(basePanelTranslatePercentageX)
-        .addTranslationY(basePanelTranslatePercentageY)
-        .addRotationX(basePanelRotationX)
-        .addRotationY(basePanelRotationY);
+        .setBackgroundColor(BLACK_TRANSPARENT_00);
+        // .addTranslationX(basePanelTranslatePercentageX)
+        // .addTranslationY(basePanelTranslatePercentageY)
+        // .addRotationX(basePanelRotationX)
+        // .addRotationY(basePanelRotationY);
 
     console.log(LEVEL1_CONSOLE_PREFIX + basePanelShapeModel.getStringId(), LEVEL1_CONSOLE_FONT);
     return (
