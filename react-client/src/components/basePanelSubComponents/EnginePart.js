@@ -3,7 +3,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import StyleObject from "../../classes/StyleObject";
 import type {bottomRightPanelStateType} from "../../reducers/bottomRightPanelReducer";
-import {TRANSITION_TIME_NORMAL, TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
+import {TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
 import {COMMON_TYPE, ENGINE_PART_IDS, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
 import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart, bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart} from "../../actionCreators/bottomRightPanelActions";
 import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
@@ -155,7 +155,7 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
 
 const getEnginePartMenus: Array = (enginePartId: string, engineIndex: number, numberOfEngineParts: number, enginePartSize: number, engineRotationX: number, engineRotationY: number, mouseHoverOnThisEnginePart: boolean, isThisEnginePartSelected: boolean) =>
 {
-    let menuTranslationZ: number = enginePartSize * Math.sin(DEFAULT_ENGINE_ROTATION_Y_VALUE * Math.PI / 180) * (numberOfEngineParts - 1 - engineIndex);
+    let menuTranslationZ: number = enginePartSize * Math.sin(DEFAULT_ENGINE_ROTATION_Y_VALUE * Math.PI / 180) * (numberOfEngineParts - 2 - engineIndex);
     let menuDisplayValue: string = mouseHoverOnThisEnginePart
                                    ? "block"
                                    : "none";

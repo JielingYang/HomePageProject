@@ -22,20 +22,19 @@ export const INDEX = Object.freeze({
     ENGINE_PART_MIDDLE: 1,
     ENGINE_PART_BACK: 0,
 
+    TICK_SVG: 0,
+    CANCEL_SVG: 1,
+
     ENGINE_FRONT_FACE_SVG_1: 0,
     ENGINE_FRONT_FACE_SVG_2: 1,
     ENGINE_FRONT_FACE_SVG_3: 2,
     ENGINE_FRONT_FACE_SVG_4: 3,
-    ENGINE_FRONT_FACE_SVG_5: 4,
-    ENGINE_FRONT_FACE_SVG_6: 5,
 
     ENGINE_MIDDLE_FACE_SVG_1: 0,
     ENGINE_MIDDLE_FACE_SVG_2: 1,
     ENGINE_MIDDLE_FACE_SVG_3: 2,
     ENGINE_MIDDLE_FACE_SVG_4: 3,
     ENGINE_MIDDLE_FACE_SVG_5: 4,
-    ENGINE_MIDDLE_FACE_SVG_6: 5,
-    ENGINE_MIDDLE_FACE_SVG_7: 6,
 
     ENGINE_BACK_FACE_SVG_1: 0,
     ENGINE_BACK_FACE_SVG_2: 1,
@@ -53,60 +52,26 @@ export const ENGINE_PART_MENU_BASE_DIV_SIZE = "200%";
 export const ENGINE_PART_MENU_BASE_DIV_POSITION = "-100%";
 export const ENGINE_PART_MENU_ITEM_WIDTH = "30%";
 export const ENGINE_PART_MENU_ITEM_HEIGHT = "10%";
-export const enginePartMenuItemsPositions = [];
-enginePartMenuItemsPositions[INDEX.ENGINE_PART_FRONT] = [
-    {
-        left: "80%",
-        top: "35%"
-    },
-    {
-        left: "45%",
-        top: "35%"
-    },
-    {
-        left: "25%",
-        top: "50%"
-    },
-    {
-        left: "20%",
-        top: "65%"
-    }];
-enginePartMenuItemsPositions[INDEX.ENGINE_PART_MIDDLE] = [
-    {
-        left: "67.5%",
-        top: "50%"
-    },
-    {
-        left: "32.5%",
-        top: "50%"
-    },
-    {
-        left: "7.5%",
-        top: "70%"
-    },
-    {
-        left: "32.5%",
-        top: "90%"
-    },
-    {
-        left: "67.5%",
-        top: "90%"
-    },
-    {
-        left: "87.5%",
-        top: "70%"
-    }];
-enginePartMenuItemsPositions[INDEX.ENGINE_PART_BACK] = [
-    {
-        left: "32.5%",
-        top: "55%"
-    },
-    {
-        left: "60%",
-        top: "72.5%"
-    },
-    {
-        left: "32.5%",
-        top: "90%"
-    }];
+let enginePartMenuItemsPositions = [];
+let enginePartFrontMenuItemsPositions = [];
+let enginePartMiddleMenuItemsPositions = [];
+let enginePartBackMenuItemsPositions = [];
+enginePartFrontMenuItemsPositions[INDEX.ENGINE_FRONT_FACE_SVG_1] = {left: "70%", top: "32.5%"};
+enginePartFrontMenuItemsPositions[INDEX.ENGINE_FRONT_FACE_SVG_2] = {left: "90%", top: "50%"};
+enginePartFrontMenuItemsPositions[INDEX.ENGINE_FRONT_FACE_SVG_3] = {left: "105%", top: "67.5%"};
+enginePartFrontMenuItemsPositions[INDEX.ENGINE_FRONT_FACE_SVG_4] = {left: "105%", top: "85%"};
+enginePartFrontMenuItemsPositions.push({left: "20%", top: "85%"});
+enginePartMiddleMenuItemsPositions[INDEX.ENGINE_MIDDLE_FACE_SVG_1] = {left: "32.5%", top: "47.5%"};
+enginePartMiddleMenuItemsPositions[INDEX.ENGINE_MIDDLE_FACE_SVG_2] = {left: "67.5%", top: "47.5%"};
+enginePartMiddleMenuItemsPositions[INDEX.ENGINE_MIDDLE_FACE_SVG_3] = {left: "97.5%", top: "70%"};
+enginePartMiddleMenuItemsPositions[INDEX.ENGINE_MIDDLE_FACE_SVG_4] = {left: "67.5%", top: "95%"};
+enginePartMiddleMenuItemsPositions[INDEX.ENGINE_MIDDLE_FACE_SVG_5] = {left: "32.5%", top: "95%"};
+enginePartMiddleMenuItemsPositions.push({left: "2.5%", top: "70%"});
+enginePartBackMenuItemsPositions[INDEX.ENGINE_BACK_FACE_SVG_1] = {left: "40%", top: "50%"};
+enginePartBackMenuItemsPositions[INDEX.ENGINE_BACK_FACE_SVG_2] = {left: "68%", top: "70%"};
+enginePartBackMenuItemsPositions[INDEX.ENGINE_BACK_FACE_SVG_3] = {left: "40%", top: "87.5%"};
+enginePartBackMenuItemsPositions.push({left: "12%", top: "70%"});
+enginePartMenuItemsPositions[INDEX.ENGINE_PART_FRONT] = enginePartFrontMenuItemsPositions;
+enginePartMenuItemsPositions[INDEX.ENGINE_PART_MIDDLE] = enginePartMiddleMenuItemsPositions;
+enginePartMenuItemsPositions[INDEX.ENGINE_PART_BACK] = enginePartBackMenuItemsPositions;
 export const ENGINE_PART_MENU_ITEMS_POSITIONS = enginePartMenuItemsPositions;

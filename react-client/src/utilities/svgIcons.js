@@ -171,3 +171,15 @@ export const getEngineBackFaceSvg = (iconColor: string) =>
         </svg>;
     return icons;
 };
+
+export const getTickCrossSvg = (iconColor: string) =>
+{
+    let icons = [];
+    icons[INDEX.TICK_SVG] =
+        <svg width="100%" height="100%" viewBox="0 0 275.078 275.077" fill={iconColor}>
+        </svg>;
+    icons[INDEX.CANCEL_SVG] =
+        <svg width="100%" height="100%" viewBox="0 0 275.078 275.077" fill={iconColor}>
+        </svg>;
+    return icons;
+};
