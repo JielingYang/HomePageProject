@@ -1,4 +1,4 @@
-import {INDEX} from "./CONSTANTS_NUMBER";
+import {ENGINE_PART_INDICES, INDEX} from "./CONSTANTS_NUMBER";
 
 export const ID = Object.freeze({
     APP_ID: "appComponent",
@@ -43,6 +43,26 @@ export const ID = Object.freeze({
 
 });
 
+
+
+
+
+export const APP_NAME = "appComponent";
+
+export const CONTENT_PANEL_NAME = "contentPanel";
+
+export const ENGINE_PART_NAME = "enginePart";
+
+export const ENGINE_PART_MENU_NAME = "enginePartMenu";
+
+export const ENGINE_PART_MENU_ITEM_NAME = "enginePartMenuItem";
+
+export const SVG_IMAGE_NAME = "svgImage";
+
+
+
+
+
 export const UTILITY_STRING = Object.freeze({
     SHARP: "#",
     SVG_URL_PREFIX: "url(#",
@@ -58,10 +78,10 @@ export const COMMON_TYPE = Object.freeze({
 
 let settingsTabsTitles = [];
 settingsTabsTitles[INDEX.SETTINGS_TABS_THEME] = "theme setting";
-// settingsTabsTitles[INDEX.SETTINGS_TABS_COLOR] = "color setting";
-// settingsTabsTitles[INDEX.SETTINGS_TABS_SHAPE] = "shape setting";
 settingsTabsTitles[INDEX.SETTINGS_TABS_VIEW] = "view setting";
 settingsTabsTitles[INDEX.SETTINGS_TABS_PLAYGROUND] = "playground setting";
+// settingsTabsTitles[INDEX.SETTINGS_TABS_COLOR] = "color setting";
+// settingsTabsTitles[INDEX.SETTINGS_TABS_SHAPE] = "shape setting";
 export const SETTINGS_TABS_TITLES = settingsTabsTitles;
 
 let themesTitles = [];

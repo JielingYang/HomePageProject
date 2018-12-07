@@ -1,4 +1,5 @@
 import Base from "../classes/Base";
+import BaseModel from "../classes/BaseModel";
 
 export const CLASS_NAMES = Object.freeze({
     Base: "Base",
@@ -16,6 +17,11 @@ export const CLASS_NAMES = Object.freeze({
  */
 export const deepCopy = (originalObject) =>
 {
+    if(originalObject instanceof BaseModel)
+    {
+        return originalObject.deepClone();
+    }
+
     let copiedObject = Array.isArray(originalObject)
                        ? []
                        : {};
@@ -27,7 +33,7 @@ export const deepCopy = (originalObject) =>
             let o = originalObject[key];
 
             // If target is Base class object
-            if (o instanceof Base)
+            if (o instanceof BaseModel)
             {
                 // Call class object deepClone method
                 copiedObject[key] = o.deepClone();
@@ -134,6 +140,12 @@ export const getRegularPolygonSideLength: number = (numberOfSides: number, inner
  * @param number
  * @returns {boolean}
  */
-export const isEven: boolean = (number: number) => {
+export const isEven: boolean = (number: number) =>
+{
     return number % 2 === 0
+};
+
+export const isUndefineOrNull: boolean = (target) =>
+{
+    return target === undefined || target === null
 };

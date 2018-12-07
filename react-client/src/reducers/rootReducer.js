@@ -1,18 +1,12 @@
 import {combineReducers} from "redux";
-import basePanelReducer from "./basePanelReducer";
 import appReducer from "./appReducer";
-import bottomRightPanelReducer from "./bottomRightPanelReducer";
-import topLeftPanelReducer from "./topLeftPanelReducer";
-import topRightPanelReducer from "./topRightPanelReducer";
-import bottomLeftPanelReducer from "./bottomLeftPanelReducer";
+import contentPanelsReducer from "./contentPanelsReducer";
+import engineReducer from "./engineReducer";
 
 const rootReducer = combineReducers({
     appState: appReducer,
-    basePanelState: basePanelReducer,
-    topLeftPanelState: topLeftPanelReducer,
-    topRightPanelState: topRightPanelReducer,
-    bottomLeftPanelState: bottomLeftPanelReducer,
-    bottomRightPanelState: bottomRightPanelReducer
+    contentPanelsState: contentPanelsReducer,
+    engineState: engineReducer,
 });
 
 export default rootReducer;

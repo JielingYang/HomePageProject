@@ -1,11 +1,8 @@
 import type {appStateType} from "../reducers/appReducer";
-import {basePanelAction_updateBasePanelSize, basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint} from "./basePanelActions";
-import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
-import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData, topLeftPanelAction_updateTopLeftPanelSize} from "./topLeftPanelActions";
-import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData, topRightPanelAction_updateTopRightPanelPosition, topRightPanelAction_updateTopRightPanelSize} from "./topRightPanelActions";
-import Shape2d_Point from "../classes/shapeClasses/Shape2d_Point";
-import {bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData, bottomLeftPanelAction_updateBottomLeftPanelPosition, bottomLeftPanelAction_updateBottomLeftPanelSize} from "./bottomLeftPanelActions";
-import {bottomRightPanelAction_requestToSetPerspective, bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData, bottomRightPanelAction_updateBottomRightPanelPosition, bottomRightPanelAction_updateBottomRightPanelSize} from "./bottomRightPanelActions";
+import BaseModelWithStateAndShape from "../classes/BaseModelWithStateAndShape";
+import {contentPanelAction_updateContentPanelPositionAndSize} from "./contentPanelActions";
+import {CONTENT_PANELS_INDICES} from "../utilities/CONSTANTS_NUMBER";
+import {engineAction_requestToUpdateEngineLayout, engineAction_requestToUpdateEnginePerspective, engineAction_requestToUpdateEngineRotation} from "./engineActions";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -29,57 +26,32 @@ export const appAction_requestToUpdateAppMouseMoveRelatedData = (mouseMoveEventT
         if (currentTimestamp - previousTimestamp >= appMaximumRefreshingTimeGap)
         {
             dispatch(appAction_updateAppMouseMoveEventTimeStamp(currentTimestamp)); // Update timestamp to prepare next check
-            dispatch(basePanelAction_requestToUpdateBasePanelTransformAndFocusPoint(mouseMoveX, mouseMoveY)); // Request base panel action to update base panel transformation data
+            dispatch(engineAction_requestToUpdateEngineRotation(mouseMoveX, mouseMoveY));
         }
     };
 };
 
-export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeight: number) =>
+export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeight: number, forceToUpdate: boolean) =>
 {
     return (dispatch, getState) =>
     {
-        let appShapeModel: Shape2d_Rectangle = getState().appState.appShapeModel;
-        let previousAppWidth: number = appShapeModel.getWidth();
-        let previousAppHeight: number = appShapeModel.getHeight();
+        let appModel: BaseModelWithStateAndShape = getState().appState.appModel;
+        let previousAppWidth: number = appModel.getWidth();
+        let previousAppHeight: number = appModel.getHeight();
 
         // Compare against previous size
-        if (newAppWidth !== previousAppWidth || newAppHeight !== previousAppHeight)
+        if (forceToUpdate || newAppWidth !== previousAppWidth || newAppHeight !== previousAppHeight)
         {
-            let newTopLeftPanelWidth: number = newAppWidth / 2;
-            let newTopLeftPanelHeight: number = newAppHeight / 2;
+            let menuContentPanelWidth: number = newAppWidth / 6;
 
-            let newTopRightPanelWidth: number = newAppWidth / 2;
-            let newTopRightPanelHeight: number = newAppHeight / 2;
-            let newTopRightPanelPosition: Shape2d_Point = new Shape2d_Point(newAppWidth / 2, 0);
+            let engineContentPanelWidth: number = newAppWidth - menuContentPanelWidth;
+            let engineContentPanelX: number = menuContentPanelWidth;
 
-            let newBottomLeftPanelWidth: number = newAppWidth / 2;
-            let newBottomLeftPanelHeight: number = newAppHeight / 2;
-            let newBottomLeftPanelPosition: Shape2d_Point = new Shape2d_Point(0, newAppHeight / 2);
-
-            let newBottomRightPanelWidth: number = newAppWidth / 2;
-            let newBottomRightPanelHeight: number = newAppHeight / 2;
-            let newBottomRightPanelPosition: Shape2d_Point = new Shape2d_Point(newAppWidth / 2, newAppHeight / 2);
-
-            // Update app component size
             dispatch(appAction_updateAppSize(newAppWidth, newAppHeight));
-            // Update base panel size
-            dispatch(basePanelAction_updateBasePanelSize(newAppWidth, newAppHeight));
-            // Update top left panel size
-            dispatch(topLeftPanelAction_updateTopLeftPanelSize(newTopLeftPanelWidth, newTopLeftPanelHeight));
-            dispatch(topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData());
-            // Update top right panel size and position
-            dispatch(topRightPanelAction_updateTopRightPanelSize(newTopRightPanelWidth, newTopRightPanelHeight));
-            dispatch(topRightPanelAction_updateTopRightPanelPosition(newTopRightPanelPosition));
-            dispatch(topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData());
-            // Update bottom left panel size and position
-            dispatch(bottomLeftPanelAction_updateBottomLeftPanelSize(newBottomLeftPanelWidth, newBottomLeftPanelHeight));
-            dispatch(bottomLeftPanelAction_updateBottomLeftPanelPosition(newBottomLeftPanelPosition));
-            dispatch(bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData());
-            // Update bottom right panel size, position, perspective
-            dispatch(bottomRightPanelAction_updateBottomRightPanelSize(newBottomRightPanelWidth, newBottomRightPanelHeight));
-            dispatch(bottomRightPanelAction_updateBottomRightPanelPosition(newBottomRightPanelPosition));
-            dispatch(bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData());
-            dispatch(bottomRightPanelAction_requestToSetPerspective());
+            dispatch(contentPanelAction_updateContentPanelPositionAndSize(CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU, 0, 0, 0, menuContentPanelWidth, newAppHeight));
+            dispatch(contentPanelAction_updateContentPanelPositionAndSize(CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE, engineContentPanelX, 0, 0, engineContentPanelWidth, newAppHeight));
+            dispatch(engineAction_requestToUpdateEnginePerspective());
+            dispatch(engineAction_requestToUpdateEngineLayout());
         }
     };
 };
@@ -102,9 +74,9 @@ export const appAction_requestToChangeAppTheme = (themeIndex: number) =>
 
 export const APP_ACTION_TYPE = Object.freeze({
     APP_ACTION_UPDATE_APP_SIZE: "APP_ACTION_UPDATE_APP_SIZE",
+    APP_ACTION_CHANGE_APP_THEME: "APP_ACTION_CHANGE_APP_THEME",
     APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP: "APP_ACTION_UPDATE_APP_MAXIMUM_REFRESHING_TIME_GAP",
     APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP: "APP_ACTION_UPDATE_APP_MOUSE_MOVE_EVENT_TIME_STAMP",
-    APP_ACTION_CHANGE_APP_THEME: "APP_ACTION_CHANGE_APP_THEME"
 });
 
 export const appAction_updateAppMaximumRefreshingTimeGap = (timeGap: number) =>

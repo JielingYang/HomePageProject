@@ -17,6 +17,7 @@ class NumberIdGenerator
     generateId()
     {
         this.counter++;
+        console.log("idCounter", this.counter)
         return this.counter;
     }
 }

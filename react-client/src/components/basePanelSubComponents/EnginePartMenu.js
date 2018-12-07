@@ -2,11 +2,14 @@ import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import StyleObject from "../../classes/StyleObject";
-import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
+import {COMMON_TYPE, ENGINE_PART_MENU_ITEM_NAME} from "../../utilities/CONSTANTS_STRING";
 import {ENGINE_PART_MENU_ITEM_HEIGHT, ENGINE_PART_MENU_ITEM_WIDTH, ENGINE_PART_MENU_ITEMS_POSITIONS} from "../../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_QUICK, TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
+import {LEVEL4_CONSOLE_FONT, LEVEL4_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 
 type EnginePartMenuPropsType = {
+    /* Values from parent */
+    enginePartStringId: string,
     engineIndex: number,
     isThisEnginePartSelected: boolean,
 }
@@ -37,6 +40,8 @@ const EnginePartMenu = (props: EnginePartMenuPropsType) =>
                 .setLeft(positionObject.left)
                 .setTop(positionObject.top)
                 .addTransition("opacity", TRANSITION_TIME_SLOW, undefined, menuItemTransitionDelay);
+
+            console.log(LEVEL4_CONSOLE_PREFIX + props.enginePartStringId + ENGINE_PART_MENU_ITEM_NAME + index, LEVEL4_CONSOLE_FONT);
             return <div key={index} style={enginePartMenuItemStyleObject.getStyle()}>
                 {!isLastItem
                  ? <div style={{margin: "auto"}}>{text}</div>

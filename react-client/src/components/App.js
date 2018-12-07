@@ -1,30 +1,26 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import BasePanel from "./BasePanel";
 import {LEVEL0_CONSOLE_FONT, LEVEL0_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 import {bindActionCreators} from "redux";
 import {appAction_requestToUpdateAppSize, appAction_requestToUpdateAppMouseMoveRelatedData} from "../actionCreators/appActions";
 import StyleObject from "../classes/StyleObject";
-import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
-import {topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData} from "../actionCreators/topRightPanelActions";
 import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
-import {topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData} from "../actionCreators/topLeftPanelActions";
-import {bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData} from "../actionCreators/bottomLeftPanelActions";
-import {bottomRightPanelAction_requestToSetPerspective, bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData} from "../actionCreators/bottomRightPanelActions";
 import {COMMON_TYPE} from "../utilities/CONSTANTS_STRING";
+import BaseModelWithStateAndShape from "../classes/BaseModelWithStateAndShape";
+import {contentPanelAction_requestToInitializeContentPanelsModels} from "../actionCreators/contentPanelActions";
+import {CONTENT_PANELS_INDICES} from "../utilities/CONSTANTS_NUMBER";
+import ContentPanel from "./ContentPanel";
+import {engineAction_requestToUpdateEnginePerspective} from "../actionCreators/engineActions";
 
 type AppPropsType = {
-    appShapeModel: Shape2d_Rectangle,
+    /* Values from mapStateToProps() */
+    appModel: BaseModelWithStateAndShape,
     appBackgroundColor: string,
-    appPerspective: number,
-
+    /* Functions from matchDispatchToProps() */
     appAction_requestToUpdateAppSize: Function,
     appAction_requestToUpdateAppMouseMoveRelatedData: Function,
-    topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData: Function,
-    topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: Function,
-    bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData: Function,
-    bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData: Function,
-    bottomRightPanelAction_requestToSetPerspective: Function,
+    contentPanelAction_requestToInitializeContentPanelsModels: Function,
+    engineAction_requestToUpdateEnginePerspective: Function,
 }
 
 /**
@@ -48,11 +44,9 @@ class App extends Component<AppPropsType>
         window.addEventListener("mousemove", (event) => this.props.appAction_requestToUpdateAppMouseMoveRelatedData(event.timeStamp, event.clientX, event.clientY));
         console.log("Finish registering functions on window events.");
 
-        this.props.topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData();
-        this.props.topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData();
-        this.props.bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData();
-        this.props.bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData();
-        this.props.bottomRightPanelAction_requestToSetPerspective();
+        this.props.contentPanelAction_requestToInitializeContentPanelsModels(Object.values(CONTENT_PANELS_INDICES));
+        this.props.appAction_requestToUpdateAppSize(window.innerWidth, window.innerHeight, true);
+        this.props.engineAction_requestToUpdateEnginePerspective();
     }
 
     componentWillUnmount()
@@ -63,17 +57,18 @@ class App extends Component<AppPropsType>
 
     render()
     {
-        let appComponentShapeModel: Shape2d_Rectangle = this.props.appShapeModel;
+        let appComponentModel: BaseModelWithStateAndShape = this.props.appModel;
         let appComponentStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-            .setBasics(appComponentShapeModel.getWidth(), appComponentShapeModel.getHeight(), appComponentShapeModel.getTopLeftPoint().getX(), appComponentShapeModel.getTopLeftPoint().getY())
+            .setBasics(appComponentModel.getWidth(), appComponentModel.getHeight(), appComponentModel.getX(), appComponentModel.getY())
+            .setPointerEvents("none")
             .setBackgroundColor(this.props.appBackgroundColor)
-            .setPerspective(this.props.appPerspective)
             .addTransition("background-color", TRANSITION_TIME_NORMAL);
 
-        console.log(LEVEL0_CONSOLE_PREFIX + appComponentShapeModel.getStringId(), LEVEL0_CONSOLE_FONT);
+        console.log(LEVEL0_CONSOLE_PREFIX + appComponentModel.getStringId(), LEVEL0_CONSOLE_FONT);
         return (
-            <div id={appComponentShapeModel.getStringId()} style={appComponentStyleObject.getStyle()}>
-                <BasePanel/>
+            <div id={appComponentModel.getStringId()} style={appComponentStyleObject.getStyle()}>
+                {Object.values(CONTENT_PANELS_INDICES).map((index: number) =>
+                    <ContentPanel key={index} contentPanelIndex={index}/>)}
             </div>);
     }
 }
@@ -81,9 +76,8 @@ class App extends Component<AppPropsType>
 const mapStateToProps = (store) =>
 {
     return {
-        appShapeModel: store.appState.appShapeModel,
+        appModel: store.appState.appModel,
         appBackgroundColor: store.appState.appBackgroundColor,
-        appPerspective: store.appState.appPerspective,
     };
 };
 
@@ -92,11 +86,8 @@ const matchDispatchToProps = (dispatch) =>
     return bindActionCreators({
         appAction_requestToUpdateAppSize: appAction_requestToUpdateAppSize,
         appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
-        topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData: topRightPanelAction_requestToUpdateTopRightPanelContentLayoutData,
-        topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData: topLeftPanelAction_requestToUpdateTopLeftPanelContentLayoutData,
-        bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData: bottomLeftPanelAction_requestToUpdateBottomLeftPanelContentLayoutData,
-        bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData: bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayoutData,
-        bottomRightPanelAction_requestToSetPerspective: bottomRightPanelAction_requestToSetPerspective,
+        contentPanelAction_requestToInitializeContentPanelsModels: contentPanelAction_requestToInitializeContentPanelsModels,
+        engineAction_requestToUpdateEnginePerspective: engineAction_requestToUpdateEnginePerspective,
     }, dispatch);
 };
 

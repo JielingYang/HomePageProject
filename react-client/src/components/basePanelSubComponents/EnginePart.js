@@ -2,82 +2,79 @@ import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import StyleObject from "../../classes/StyleObject";
-import type {bottomRightPanelStateType} from "../../reducers/bottomRightPanelReducer";
 import {TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
-import {COMMON_TYPE, ENGINE_PART_IDS, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
-import {bottomRightPanelAction_requestToSetMouseHoverOnEnginePart, bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart} from "../../actionCreators/bottomRightPanelActions";
-import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
-import {BLUR_LEVEL, DEFAULT_ENGINE_ROTATION_Y_VALUE, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_SIZE, INDEX} from "../../utilities/CONSTANTS_NUMBER";
-import type {basePanelStateType} from "../../reducers/basePanelReducer";
+import {COMMON_TYPE, ENGINE_PART_MENU_NAME, SVG_IMAGE_NAME, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
+import {BLUR_LEVEL, DEFAULT_ENGINE_ROTATION_Y_VALUE, ENGINE_PART_INDICES, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_SIZE} from "../../utilities/CONSTANTS_NUMBER";
 import {getEngineMiddleFaceSvg, getEngineFrontFaceSvg, getEngineBackFaceSvg} from "../../utilities/svgIcons";
-import type {appStateType} from "../../reducers/appReducer";
 import EnginePartMenu from "./EnginePartMenu";
+import BaseModelWithStateAndShape from "../../classes/BaseModelWithStateAndShape";
+import type {engineReducerType} from "../../reducers/engineReducer";
+import {engineAction_enginePartMouseClicks, engineAction_enginePartMouseEnters, engineAction_enginePartMouseLeaves} from "../../actionCreators/engineActions";
+import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX, LEVEL3_CONSOLE_FONT, LEVEL3_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 
 type EnginePartPropsType = {
-    appState: appStateType,
-    basePanelState: basePanelStateType,
-    bottomRightPanelState: bottomRightPanelStateType,
-
-    engineIndex: number,
-    engineRotationX: number,
-    engineRotationY: number,
-    mouseHoverOnAnyEnginePart: boolean,
-    isAnyEnginePartSelected: boolean,
-
-    bottomRightPanelAction_requestToSetMouseHoverOnEnginePart: Function,
-    bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart: Function,
+    /* Values from parent */
+    enginePartIndex: number,
+    /* Values from mapStateToProps() */
+    engineBasicColor: string,
+    engineState: engineReducerType,
+    /* Functions from matchDispatchToProps() */
+    engineAction_enginePartMouseClicks: Function,
+    engineAction_enginePartMouseEnters: Function,
+    engineAction_enginePartMouseLeaves: Function,
 }
 
 const EnginePart = (props: EnginePartPropsType) =>
 {
-    let enginePartStateModels: Array<EnginePartStateModel> = props.bottomRightPanelState.enginePartStateModels;
-    let numberOfEngineParts: number = enginePartStateModels.length;
-    let stateModel: EnginePartStateModel = enginePartStateModels[props.engineIndex];
-    let basePanelState: basePanelStateType = props.basePanelState;
-    let engineBasicColor: string = props.appState.engineBasicColor;
-    let enginePartSize = props.bottomRightPanelState.enginePartSize;
-    let basePanelRotationX: number = basePanelState.basePanelRotationX;
-    let basePanelRotationY: number = basePanelState.basePanelRotationY;
+    let enginePartModels: Array<BaseModelWithStateAndShape> = props.engineState.enginePartModels;
+    let enginePartModel: BaseModelWithStateAndShape = enginePartModels[props.enginePartIndex];
+    let enginePartStringId: string = enginePartModel.getStringId();
 
-    let enginePartInitialMiddlePosition: string = "calc(50% - " + enginePartSize / 2 + "px)";
-    let mouseHoverOnThisEnginePart: boolean = stateModel.getMouseHover();
-    let isThisEnginePartSelected: boolean = stateModel.getIsSelected();
-    let enginePartId: string = stateModel.getStringId();
-    let enginePartBlurLevel: BLUR_LEVEL = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
-                                          ? BLUR_LEVEL.LIGHT
-                                          : BLUR_LEVEL.NONE;
-    let enginePartOpacity: number = props.mouseHoverOnAnyEnginePart && !mouseHoverOnThisEnginePart
-                                    ? 0.4
-                                    : 1;
+    let mouseHoverOnThisEnginePart: boolean = enginePartModel.getMouseHover();
+    let isAnyEnginePartSelected: boolean = enginePartModels.some((m: BaseModelWithStateAndShape) => m.getIsSelected());
+    let isThisEnginePartSelected: boolean = enginePartModel.getIsSelected();
+    let shouldFocus: boolean = isThisEnginePartSelected || mouseHoverOnThisEnginePart;
+    let disableMouse: boolean = isAnyEnginePartSelected && !isThisEnginePartSelected;
+    let actualEngineRotationX: number = props.engineState.engineInitialRotationX + props.engineState.engineRotationX;
+    let actualEngineRotationY: number = props.engineState.engineInitialRotationY + props.engineState.engineRotationY;
+    let enginePartBlur: BLUR_LEVEL = shouldFocus
+                                     ? BLUR_LEVEL.NONE
+                                     : BLUR_LEVEL.LIGHT;
+    let enginePartOpacity: number = shouldFocus
+                                    ? 1
+                                    : 0.4;
+    let enginePartPointerEvents: string = disableMouse
+                                          ? "none"
+                                          : "auto";
 
     let enginePartContainerDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics(enginePartSize, enginePartSize, enginePartInitialMiddlePosition, enginePartInitialMiddlePosition)
+        .setBasics(enginePartModel.getWidth(), enginePartModel.getHeight(), enginePartModel.getX(), enginePartModel.getY())
         .setPointerEvents("none")
-        .addRotationX(props.engineRotationX + basePanelRotationX)
-        .addRotationY(props.engineRotationY + basePanelRotationY)
-        .addTranslationX(stateModel.getPosition())
+        .setBorder(0.5, "solid", "rgba(0,255,255,0.1)")
+        .addRotationX(actualEngineRotationX)
+        .addRotationY(actualEngineRotationY)
+        .addTranslationX(enginePartModel.getZ())
         .setTransformStyle("preserve-3d");
     let enginePartActionDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics("100%", "100%", 0, 0)
-        .setPointerEvents("auto");
+        .setPointerEvents(enginePartPointerEvents);
 
-    let enginePartFaces: Array = getEnginePartFaces(enginePartId, enginePartSize, mouseHoverOnThisEnginePart, isThisEnginePartSelected, enginePartBlurLevel, enginePartOpacity, engineBasicColor);
-
-    return <div id={enginePartId} style={enginePartContainerDivStyleObject.getStyle()}>
-        {enginePartFaces}
-        <div id={enginePartId + UTILITY_STRING.ACTION_DIV} style={enginePartActionDivStyleObject.getStyle()}
-             onClick={() => props.bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart(props.engineIndex, isThisEnginePartSelected || !props.isAnyEnginePartSelected)}
-             onMouseEnter={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, !props.isAnyEnginePartSelected, true)}
-             onMouseLeave={() => props.bottomRightPanelAction_requestToSetMouseHoverOnEnginePart(props.engineIndex, !props.isAnyEnginePartSelected, false)}/>
-        {getEnginePartMenus(enginePartId, props.engineIndex, numberOfEngineParts, enginePartSize, props.engineRotationX + basePanelRotationX, props.engineRotationY + basePanelRotationY, mouseHoverOnThisEnginePart, isThisEnginePartSelected)}
+    console.log(LEVEL2_CONSOLE_PREFIX + enginePartStringId, LEVEL2_CONSOLE_FONT);
+    return <div id={enginePartStringId} style={enginePartContainerDivStyleObject.getStyle()}>
+        {getEnginePartFaces(enginePartStringId, props.enginePartIndex, enginePartModel.getWidth(), mouseHoverOnThisEnginePart, isThisEnginePartSelected, enginePartBlur, enginePartOpacity, props.engineBasicColor)}
+        <div id={enginePartStringId + UTILITY_STRING.ACTION_DIV} style={enginePartActionDivStyleObject.getStyle()}
+             onClick={() => props.engineAction_enginePartMouseClicks(props.enginePartIndex)}
+             onMouseEnter={() => props.engineAction_enginePartMouseEnters(props.enginePartIndex)}
+             onMouseLeave={() => props.engineAction_enginePartMouseLeaves(props.enginePartIndex)}/>
+        {getEnginePartMenus(enginePartStringId, props.enginePartIndex, enginePartModels.length, enginePartModel.getWidth(), actualEngineRotationX, actualEngineRotationY, mouseHoverOnThisEnginePart, isThisEnginePartSelected)}
     </div>;
 };
 
-const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number, mouseHoverOnThisEnginePart: boolean, isThisEnginePartSelected: boolean, enginePartBlurLevel: BLUR_LEVEL, enginePartOpacity: number, engineBasicColor: string) =>
+const getEnginePartFaces: Array = (enginePartStringId: string, enginePartIndex: number, enginePartSize: number, mouseHoverOnThisEnginePart: boolean, isThisEnginePartSelected: boolean, enginePartBlurLevel: BLUR_LEVEL, enginePartOpacity: number, engineBasicColor: string) =>
 {
-    let isFrontPart: boolean = enginePartId === ENGINE_PART_IDS[INDEX.ENGINE_PART_FRONT];
-    let isMiddlePart: boolean = enginePartId === ENGINE_PART_IDS[INDEX.ENGINE_PART_MIDDLE];
-    let isBackPart: boolean = enginePartId === ENGINE_PART_IDS[INDEX.ENGINE_PART_BACK];
+    let isFrontPart: boolean = enginePartIndex === ENGINE_PART_INDICES.ENGINE_PART_FRONT;
+    let isMiddlePart: boolean = enginePartIndex === ENGINE_PART_INDICES.ENGINE_PART_MIDDLE;
+    let isBackPart: boolean = enginePartIndex === ENGINE_PART_INDICES.ENGINE_PART_BACK;
     let initialTranslationZ: number = 0;
     let initialRotationZ: number = 0;
     let individualRotationZ: number = 0;
@@ -149,14 +146,15 @@ const getEnginePartFaces: Array = (enginePartId: string, enginePartSize: number,
             .addTransition("opacity", TRANSITION_TIME_SLOW)
             .addTransition("transform", TRANSITION_TIME_SLOW);
 
+        console.log(LEVEL3_CONSOLE_PREFIX + enginePartStringId + SVG_IMAGE_NAME + i, LEVEL3_CONSOLE_FONT);
         return <div key={i} style={enginePartFaceDivStyleObject.getStyle()}>{svg}</div>
     });
 };
 
-const getEnginePartMenus: Array = (enginePartId: string, engineIndex: number, numberOfEngineParts: number, enginePartSize: number, engineRotationX: number, engineRotationY: number, mouseHoverOnThisEnginePart: boolean, isThisEnginePartSelected: boolean) =>
+const getEnginePartMenus: Array = (enginePartStringId: string, engineIndex: number, numberOfEngineParts: number, enginePartSize: number, engineRotationX: number, engineRotationY: number, mouseHoverOnThisEnginePart: boolean, isThisEnginePartSelected: boolean) =>
 {
     let menuTranslationZ: number = enginePartSize * Math.sin(DEFAULT_ENGINE_ROTATION_Y_VALUE * Math.PI / 180) * (numberOfEngineParts - 2 - engineIndex);
-    let menuDisplayValue: string = mouseHoverOnThisEnginePart
+    let menuDisplayValue: string = mouseHoverOnThisEnginePart || isThisEnginePartSelected
                                    ? "block"
                                    : "none";
 
@@ -168,25 +166,28 @@ const getEnginePartMenus: Array = (enginePartId: string, engineIndex: number, nu
         .addRotationX(-engineRotationX)
         .addTranslationZ(menuTranslationZ);
 
-    return <div id={enginePartId + UTILITY_STRING.MENU_BASE_DIV} style={enginePartMenuBaseDivStyleObject.getStyle()}>
-        <EnginePartMenu engineIndex={engineIndex} isThisEnginePartSelected={isThisEnginePartSelected}/>
+    console.log(LEVEL3_CONSOLE_PREFIX + enginePartStringId + ENGINE_PART_MENU_NAME + " display = " + menuDisplayValue, LEVEL3_CONSOLE_FONT);
+    return <div id={enginePartStringId + UTILITY_STRING.MENU_BASE_DIV}
+                style={enginePartMenuBaseDivStyleObject.getStyle()}>
+        <EnginePartMenu enginePartStringId={enginePartStringId} engineIndex={engineIndex}
+                        isThisEnginePartSelected={isThisEnginePartSelected}/>
     </div>
 };
 
 const mapStateToProps = (store) =>
 {
     return {
-        appState: store.appState,
-        basePanelState: store.basePanelState,
-        bottomRightPanelState: store.bottomRightPanelState,
+        engineBasicColor: store.appState.engineBasicColor,
+        engineState: store.engineState,
     };
 };
 
 const matchDispatchToProps = (dispatch) =>
 {
     return bindActionCreators({
-        bottomRightPanelAction_requestToSetMouseHoverOnEnginePart: bottomRightPanelAction_requestToSetMouseHoverOnEnginePart,
-        bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart: bottomRightPanelAction_requestToToggleIsSelectedOnEnginePart,
+        engineAction_enginePartMouseClicks: engineAction_enginePartMouseClicks,
+        engineAction_enginePartMouseEnters: engineAction_enginePartMouseEnters,
+        engineAction_enginePartMouseLeaves: engineAction_enginePartMouseLeaves,
     }, dispatch);
 };
 
