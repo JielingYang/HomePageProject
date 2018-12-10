@@ -44,9 +44,6 @@ export const ID = Object.freeze({
 });
 
 
-
-
-
 export const APP_NAME = "appComponent";
 
 export const CONTENT_PANEL_NAME = "contentPanel";
@@ -55,12 +52,11 @@ export const ENGINE_PART_NAME = "enginePart";
 
 export const ENGINE_PART_MENU_NAME = "enginePartMenu";
 
+export const ENGINE_PART_ACTION_DIV_NAME = "enginePartActionDiv";
+
 export const ENGINE_PART_MENU_ITEM_NAME = "enginePartMenuItem";
 
 export const SVG_IMAGE_NAME = "svgImage";
-
-
-
 
 
 export const UTILITY_STRING = Object.freeze({

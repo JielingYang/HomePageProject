@@ -3,25 +3,21 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import StyleObject from "../../classes/StyleObject";
 import {TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
-import {COMMON_TYPE, SVG_IMAGE_NAME, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
+import {COMMON_TYPE, SVG_IMAGE_NAME} from "../../utilities/CONSTANTS_STRING";
 import {BLUR_LEVEL, ENGINE_PART_INDICES} from "../../utilities/CONSTANTS_NUMBER";
 import {getEngineMiddleFaceSvg, getEngineFrontFaceSvg, getEngineBackFaceSvg} from "../../utilities/svgIcons";
 import EnginePartMenu from "./EnginePartMenu";
 import BaseModelWithStateAndShape from "../../classes/BaseModelWithStateAndShape";
 import type {engineReducerType} from "../../reducers/engineReducer";
-import {engineAction_enginePartMouseClicks, engineAction_enginePartMouseEnters, engineAction_enginePartMouseLeaves} from "../../actionCreators/engineActions";
 import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX, LEVEL3_CONSOLE_FONT, LEVEL3_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
+import EnginePartActionComponent from "./EnginePartActionComponent";
 
 type EnginePartPropsType = {
     /* Values from parent */
     enginePartIndex: number,
     /* Values from mapStateToProps() */
     engineBasicColor: string,
-    engineState: engineReducerType,
-    /* Functions from matchDispatchToProps() */
-    engineAction_enginePartMouseClicks: Function,
-    engineAction_enginePartMouseEnters: Function,
-    engineAction_enginePartMouseLeaves: Function,
+    engineState: engineReducerType
 }
 
 const EnginePart = (props: EnginePartPropsType) =>
@@ -34,7 +30,6 @@ const EnginePart = (props: EnginePartPropsType) =>
     let isAnyEnginePartSelected: boolean = enginePartModels.some((m: BaseModelWithStateAndShape) => m.getIsSelected());
     let isThisEnginePartSelected: boolean = enginePartModel.getIsSelected();
     let shouldFocus: boolean = isThisEnginePartSelected || mouseHoverOnThisEnginePart;
-    let disableMouse: boolean = isAnyEnginePartSelected && !isThisEnginePartSelected;
     let actualEngineRotationX: number = props.engineState.engineInitialRotationX + props.engineState.engineRotationX;
     let actualEngineRotationY: number = props.engineState.engineInitialRotationY + props.engineState.engineRotationY;
     let enginePartBlur: BLUR_LEVEL = shouldFocus
@@ -43,9 +38,6 @@ const EnginePart = (props: EnginePartPropsType) =>
     let enginePartOpacity: number = shouldFocus
                                     ? 1
                                     : 0.4;
-    let enginePartPointerEvents: string = disableMouse
-                                          ? "none"
-                                          : "auto";
 
     let enginePartContainerDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
         .setBasics(enginePartModel.getWidth(), enginePartModel.getHeight(), enginePartModel.getX(), enginePartModel.getY())
@@ -55,20 +47,19 @@ const EnginePart = (props: EnginePartPropsType) =>
         .addRotationY(actualEngineRotationY)
         .addTranslationX(enginePartModel.getZ())
         .setTransformStyle("preserve-3d");
-    let enginePartActionDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics("100%", "100%", 0, 0)
-        .setPointerEvents(enginePartPointerEvents);
 
     console.log(LEVEL2_CONSOLE_PREFIX + enginePartStringId, LEVEL2_CONSOLE_FONT);
     return <div id={enginePartStringId} style={enginePartContainerDivStyleObject.getStyle()}>
         {getEnginePartFaces(enginePartStringId, props.enginePartIndex, enginePartModel.getWidth(), mouseHoverOnThisEnginePart, isThisEnginePartSelected, enginePartBlur, enginePartOpacity, props.engineBasicColor)}
-        <div id={enginePartStringId + UTILITY_STRING.ACTION_DIV} style={enginePartActionDivStyleObject.getStyle()}
-             onClick={() => props.engineAction_enginePartMouseClicks(props.enginePartIndex)}
-             onMouseEnter={() => props.engineAction_enginePartMouseEnters(props.enginePartIndex)}
-             onMouseLeave={() => props.engineAction_enginePartMouseLeaves(props.enginePartIndex)}/>
-        <EnginePartMenu enginePartStringId={enginePartStringId} engineIndex={props.enginePartIndex}
-                        numberOfEngineParts={enginePartModels.length} enginePartSize={enginePartModel.getWidth()}
-                        engineRotationX={actualEngineRotationX} engineRotationY={actualEngineRotationY}
+        <EnginePartActionComponent enginePartStringId={enginePartStringId}
+                                   enginePartIndex={props.enginePartIndex}
+                                   disableMouse={isAnyEnginePartSelected && !isThisEnginePartSelected}/>
+        <EnginePartMenu enginePartStringId={enginePartStringId}
+                        engineIndex={props.enginePartIndex}
+                        numberOfEngineParts={enginePartModels.length}
+                        enginePartSize={enginePartModel.getWidth()}
+                        engineRotationX={actualEngineRotationX}
+                        engineRotationY={actualEngineRotationY}
                         mouseHoverOnThisEnginePart={mouseHoverOnThisEnginePart}
                         isThisEnginePartSelected={isThisEnginePartSelected}/>
     </div>;
@@ -116,7 +107,8 @@ const getEnginePartFaces: Array = (enginePartStringId: string, enginePartIndex: 
         selectTranslationZ = -svgGap;
     }
 
-    return svgFaces.map((svg, i) =>
+    console.log(LEVEL3_CONSOLE_PREFIX + enginePartStringId + SVG_IMAGE_NAME, LEVEL3_CONSOLE_FONT);
+    return <span>{svgFaces.map((svg, i) =>
     {
         let indexVariant: number = i + 1;
         if (isMiddlePart)
@@ -150,9 +142,8 @@ const getEnginePartFaces: Array = (enginePartStringId: string, enginePartIndex: 
             .addTransition("opacity", TRANSITION_TIME_SLOW)
             .addTransition("transform", TRANSITION_TIME_SLOW);
 
-        console.log(LEVEL3_CONSOLE_PREFIX + enginePartStringId + SVG_IMAGE_NAME + i, LEVEL3_CONSOLE_FONT);
         return <div key={i} style={enginePartFaceDivStyleObject.getStyle()}>{svg}</div>
-    });
+    })}</span>;
 };
 
 const mapStateToProps = (store) =>
@@ -165,11 +156,7 @@ const mapStateToProps = (store) =>
 
 const matchDispatchToProps = (dispatch) =>
 {
-    return bindActionCreators({
-        engineAction_enginePartMouseClicks: engineAction_enginePartMouseClicks,
-        engineAction_enginePartMouseEnters: engineAction_enginePartMouseEnters,
-        engineAction_enginePartMouseLeaves: engineAction_enginePartMouseLeaves,
-    }, dispatch);
+    return bindActionCreators({}, dispatch);
 };
 
 export default connect(mapStateToProps, matchDispatchToProps)(EnginePart);
