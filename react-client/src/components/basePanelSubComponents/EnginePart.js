@@ -51,6 +51,7 @@ const EnginePart = (props: EnginePartPropsType) =>
 
     console.log(LEVEL2_CONSOLE_PREFIX + enginePartStringId, LEVEL2_CONSOLE_FONT);
     return <div id={enginePartStringId} style={enginePartContainerDivStyleObject.getStyle()}>
+        {/* This getEnginePartFaces() is not a functional component by itself because of browser compatibility problem, firefox won't render them properly if they are wrapped as one element */}
         {getEnginePartFaces(enginePartStringId, props.enginePartIndex, enginePartModel.getWidth(), mouseHoverOnThisEnginePart, isThisEnginePartSelected, enginePartBlur, enginePartOpacity, props.engineBasicColor)}
         <EnginePartActionComponent enginePartStringId={enginePartStringId}
                                    enginePartIndex={props.enginePartIndex}
