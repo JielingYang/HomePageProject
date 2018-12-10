@@ -2,63 +2,56 @@ import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import StyleObject from "../../classes/StyleObject";
-import {COMMON_TYPE, ENGINE_PART_MENU_ITEM_NAME} from "../../utilities/CONSTANTS_STRING";
-import {ENGINE_PART_MENU_ITEM_HEIGHT, ENGINE_PART_MENU_ITEM_WIDTH, ENGINE_PART_MENU_ITEMS_POSITIONS} from "../../utilities/CONSTANTS_NUMBER";
-import {TRANSITION_TIME_QUICK, TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
-import {LEVEL4_CONSOLE_FONT, LEVEL4_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
+import {COMMON_TYPE, ENGINE_PART_MENU_NAME, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
+import {DEFAULT_ENGINE_ROTATION_Y_VALUE, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_SIZE, ENGINE_PART_MENU_ITEMS_POSITIONS} from "../../utilities/CONSTANTS_NUMBER";
+import {LEVEL3_CONSOLE_FONT, LEVEL3_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
+import EnginePartMenuItem from "./EnginePartMenuItem";
 
 type EnginePartMenuPropsType = {
     /* Values from parent */
     enginePartStringId: string,
     engineIndex: number,
+    numberOfEngineParts: number,
+    enginePartSize: number,
+    engineRotationX: number,
+    engineRotationY: number,
+    mouseHoverOnThisEnginePart: boolean,
     isThisEnginePartSelected: boolean,
 }
 
 const EnginePartMenu = (props: EnginePartMenuPropsType) =>
 {
+    let menuTranslationZ: number = props.enginePartSize * Math.sin(DEFAULT_ENGINE_ROTATION_Y_VALUE * Math.PI / 180) * (props.numberOfEngineParts - 2 - props.engineIndex);
+    let menuDisplayValue: string = props.mouseHoverOnThisEnginePart || props.isThisEnginePartSelected
+                                   ? "block"
+                                   : "none";
+
+    let enginePartMenuBaseDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
+        .setBasics(ENGINE_PART_MENU_BASE_DIV_SIZE, ENGINE_PART_MENU_BASE_DIV_SIZE, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_POSITION)
+        .setDisplay(menuDisplayValue)
+        .setBorder(1, "solid", "rgba(255,0,0,0.5)") // For unknown reason, Firefox won't render part menu base div properly without this
+        .addRotationY(-props.engineRotationY)
+        .addRotationX(-props.engineRotationX)
+        .addTranslationZ(menuTranslationZ);
+
     let partMenuItemsPositions: Array<Array<{ left: string, top: string }>> = ENGINE_PART_MENU_ITEMS_POSITIONS[props.engineIndex];
     let numberOfMenuItems: number = partMenuItemsPositions.length;
-    let enginePartMenuItemOpacity: number = props.isThisEnginePartSelected
-                                            ? 1
-                                            : 0;
-    let enginePartMenuItemTransitionBaseDelay: number = props.isThisEnginePartSelected
-                                                        ? TRANSITION_TIME_QUICK
-                                                        : 0;
-    let enginePartMenuItemCommonStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics(ENGINE_PART_MENU_ITEM_WIDTH, ENGINE_PART_MENU_ITEM_HEIGHT, 0, 0)
-        .setDisplay("flex")
-        // .setBorder(1, "solid", "rgba(0,255,255,0.5)")
-        .setOpacity(enginePartMenuItemOpacity);
 
-    return <span>
+    console.log(LEVEL3_CONSOLE_PREFIX + props.enginePartStringId + ENGINE_PART_MENU_NAME + " display = " + menuDisplayValue, LEVEL3_CONSOLE_FONT);
+    return <div id={props.enginePartStringId + UTILITY_STRING.MENU_BASE_DIV}
+                style={enginePartMenuBaseDivStyleObject.getStyle()}>
         {partMenuItemsPositions.map((positionObject: { left: string, top: string }, index: number) =>
-        {
-            let text: string = "parameter#" + index;
-            let isLastItem = numberOfMenuItems === index + 1;
-            let menuItemTransitionDelay: number = enginePartMenuItemTransitionBaseDelay * (index + 2);
-            let enginePartMenuItemStyleObject: StyleObject = enginePartMenuItemCommonStyleObject.clone()
-                .setLeft(positionObject.left)
-                .setTop(positionObject.top)
-                .addTransition("opacity", TRANSITION_TIME_SLOW, undefined, menuItemTransitionDelay);
-
-            console.log(LEVEL4_CONSOLE_PREFIX + props.enginePartStringId + ENGINE_PART_MENU_ITEM_NAME + index, LEVEL4_CONSOLE_FONT);
-            return <div key={index} style={enginePartMenuItemStyleObject.getStyle()}>
-                {!isLastItem
-                 ? <div style={{margin: "auto"}}>{text}</div>
-                 : null}
-
-                {isLastItem
-                 ? <div style={{margin: "auto"}}>ok</div>
-                 : null}
-                {isLastItem
-                 ? <div style={{margin: "auto"}}>cancel</div>
-                 : null}
-            </div>;
-        })}
-    </span>;
+            <EnginePartMenuItem key={index}
+                                enginePartStringId={props.enginePartStringId}
+                                enginePartMenuItemIndex={index}
+                                enginePartMenuItemPosition={positionObject}
+                                isThisEnginePartSelected={props.isThisEnginePartSelected}
+                                isLastMenuItem={numberOfMenuItems === index + 1}/>
+        )}
+    </div>;
 };
 
-const mapStateToProps = (store) =>
+const mapStateToProps = () =>
 {
     return {};
 };

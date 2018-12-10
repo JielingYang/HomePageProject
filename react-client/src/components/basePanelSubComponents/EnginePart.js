@@ -3,8 +3,8 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import StyleObject from "../../classes/StyleObject";
 import {TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
-import {COMMON_TYPE, ENGINE_PART_MENU_NAME, SVG_IMAGE_NAME, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
-import {BLUR_LEVEL, DEFAULT_ENGINE_ROTATION_Y_VALUE, ENGINE_PART_INDICES, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_SIZE} from "../../utilities/CONSTANTS_NUMBER";
+import {COMMON_TYPE, SVG_IMAGE_NAME, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
+import {BLUR_LEVEL, ENGINE_PART_INDICES} from "../../utilities/CONSTANTS_NUMBER";
 import {getEngineMiddleFaceSvg, getEngineFrontFaceSvg, getEngineBackFaceSvg} from "../../utilities/svgIcons";
 import EnginePartMenu from "./EnginePartMenu";
 import BaseModelWithStateAndShape from "../../classes/BaseModelWithStateAndShape";
@@ -66,7 +66,11 @@ const EnginePart = (props: EnginePartPropsType) =>
              onClick={() => props.engineAction_enginePartMouseClicks(props.enginePartIndex)}
              onMouseEnter={() => props.engineAction_enginePartMouseEnters(props.enginePartIndex)}
              onMouseLeave={() => props.engineAction_enginePartMouseLeaves(props.enginePartIndex)}/>
-        {getEnginePartMenus(enginePartStringId, props.enginePartIndex, enginePartModels.length, enginePartModel.getWidth(), actualEngineRotationX, actualEngineRotationY, mouseHoverOnThisEnginePart, isThisEnginePartSelected)}
+        <EnginePartMenu enginePartStringId={enginePartStringId} engineIndex={props.enginePartIndex}
+                        numberOfEngineParts={enginePartModels.length} enginePartSize={enginePartModel.getWidth()}
+                        engineRotationX={actualEngineRotationX} engineRotationY={actualEngineRotationY}
+                        mouseHoverOnThisEnginePart={mouseHoverOnThisEnginePart}
+                        isThisEnginePartSelected={isThisEnginePartSelected}/>
     </div>;
 };
 
@@ -149,29 +153,6 @@ const getEnginePartFaces: Array = (enginePartStringId: string, enginePartIndex: 
         console.log(LEVEL3_CONSOLE_PREFIX + enginePartStringId + SVG_IMAGE_NAME + i, LEVEL3_CONSOLE_FONT);
         return <div key={i} style={enginePartFaceDivStyleObject.getStyle()}>{svg}</div>
     });
-};
-
-const getEnginePartMenus: Array = (enginePartStringId: string, engineIndex: number, numberOfEngineParts: number, enginePartSize: number, engineRotationX: number, engineRotationY: number, mouseHoverOnThisEnginePart: boolean, isThisEnginePartSelected: boolean) =>
-{
-    let menuTranslationZ: number = enginePartSize * Math.sin(DEFAULT_ENGINE_ROTATION_Y_VALUE * Math.PI / 180) * (numberOfEngineParts - 2 - engineIndex);
-    let menuDisplayValue: string = mouseHoverOnThisEnginePart || isThisEnginePartSelected
-                                   ? "block"
-                                   : "none";
-
-    let enginePartMenuBaseDivStyleObject: StyleObject = new StyleObject(COMMON_TYPE.DEFAULT)
-        .setBasics(ENGINE_PART_MENU_BASE_DIV_SIZE, ENGINE_PART_MENU_BASE_DIV_SIZE, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_POSITION)
-        .setDisplay(menuDisplayValue)
-        .setBorder(1, "solid", "rgba(0,0,0,0)") // For unknown reason, Firefox won't render part menu base div properly without this
-        .addRotationY(-engineRotationY)
-        .addRotationX(-engineRotationX)
-        .addTranslationZ(menuTranslationZ);
-
-    console.log(LEVEL3_CONSOLE_PREFIX + enginePartStringId + ENGINE_PART_MENU_NAME + " display = " + menuDisplayValue, LEVEL3_CONSOLE_FONT);
-    return <div id={enginePartStringId + UTILITY_STRING.MENU_BASE_DIV}
-                style={enginePartMenuBaseDivStyleObject.getStyle()}>
-        <EnginePartMenu enginePartStringId={enginePartStringId} engineIndex={engineIndex}
-                        isThisEnginePartSelected={isThisEnginePartSelected}/>
-    </div>
 };
 
 const mapStateToProps = (store) =>
