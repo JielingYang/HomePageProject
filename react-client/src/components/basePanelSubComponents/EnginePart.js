@@ -26,10 +26,11 @@ const EnginePart = (props: EnginePartPropsType) =>
     let enginePartModel: BaseModelWithStateAndShape = enginePartModels[props.enginePartIndex];
     let enginePartStringId: string = enginePartModel.getStringId();
 
+    let mouseHoverOnAnyEnginePart: boolean = enginePartModels.some((m: BaseModelWithStateAndShape) => m.getMouseHover());
     let mouseHoverOnThisEnginePart: boolean = enginePartModel.getMouseHover();
     let isAnyEnginePartSelected: boolean = enginePartModels.some((m: BaseModelWithStateAndShape) => m.getIsSelected());
     let isThisEnginePartSelected: boolean = enginePartModel.getIsSelected();
-    let shouldFocus: boolean = isThisEnginePartSelected || mouseHoverOnThisEnginePart;
+    let shouldFocus: boolean = isThisEnginePartSelected || mouseHoverOnThisEnginePart || (!mouseHoverOnAnyEnginePart && !isAnyEnginePartSelected);
     let actualEngineRotationX: number = props.engineState.engineInitialRotationX + props.engineState.engineRotationX;
     let actualEngineRotationY: number = props.engineState.engineInitialRotationY + props.engineState.engineRotationY;
     let enginePartBlur: BLUR_LEVEL = shouldFocus

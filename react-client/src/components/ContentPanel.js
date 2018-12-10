@@ -33,13 +33,13 @@ const ContentPanel = (props: ContentPanelPropsType) =>
 
     let blur: BLUR_LEVEL = contentPanelModel.getMouseHover()
                            ? BLUR_LEVEL.NONE
-                           : BLUR_LEVEL.MEDIUM;
+                           : BLUR_LEVEL.LIGHT;
 
     let contentPanelComponentStyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(contentPanelModel.getWidth(), contentPanelModel.getHeight(), contentPanelModel.getX(), contentPanelModel.getY())
         .setPointerEvents("auto")
         .setBlur(blur)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
-        .setBorder(4, "solid", "rgba(0,255,255,0.5)");
+        .setBorder(1, "solid", "rgba(0,255,255,0.1)");
 
     contentPanelComponentStyleObject = appendContentPanelSpecifiedStyle(contentPanelIndex, contentPanelComponentStyleObject, props);
 
