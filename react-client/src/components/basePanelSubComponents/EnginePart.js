@@ -110,7 +110,7 @@ const getEnginePartFaces: Array = (enginePartStringId: string, enginePartIndex: 
     }
 
     console.log(LEVEL3_CONSOLE_PREFIX + enginePartStringId + SVG_IMAGE_NAME, LEVEL3_CONSOLE_FONT);
-    return <span>{svgFaces.map((svg, i) =>
+    return svgFaces.map((svg, i) =>
     {
         let indexVariant: number = i + 1;
         if (isMiddlePart)
@@ -145,7 +145,7 @@ const getEnginePartFaces: Array = (enginePartStringId: string, enginePartIndex: 
             .addTransition("transform", TRANSITION_TIME_SLOW);
 
         return <div key={i} style={enginePartFaceDivStyleObject.getStyle()}>{svg}</div>
-    })}</span>;
+    });
 };
 
 const mapStateToProps = (store) =>
