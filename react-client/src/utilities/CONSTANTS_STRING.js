@@ -1,4 +1,4 @@
-import {ENGINE_PART_INDICES, INDEX} from "./CONSTANTS_NUMBER";
+import {ENGINE_PART_INDICES, INDEX, MAIN_MENU_ITEMS_INDICES, THEME_INDICES} from "./CONSTANTS_NUMBER";
 
 export const ID = Object.freeze({
     APP_ID: "appComponent",
@@ -39,10 +39,28 @@ export const ID = Object.freeze({
     CENTER_COMPONENT_ANIMATE_PARTIAL_CIRCLE_TO_FULL: "centerComponent_animatePartialCircleToFull",
     CENTER_COMPONENT_ANIMATE_FULL_CIRCLE_TO_FINAL: "centerComponent_animateFullCircleToFinal",
     CENTER_COMPONENT_ANIMATE_DASH_CIRCLE_TO_NONE: "centerComponent_animateDashCircleToNone"
-
-
 });
 
+export const UTILITY_STRING = Object.freeze({
+    SHARP: "#",
+    SVG_URL_PREFIX: "url(#",
+    CLOSE_PARENTHESIS: ")",
+    ACTION_DIV: "ActionDiv",
+    MENU_BASE_DIV: "MenuBaseDiv"
+});
+
+let settingsTabsTitles = [];
+settingsTabsTitles[INDEX.SETTINGS_TABS_THEME] = "theme setting";
+settingsTabsTitles[INDEX.SETTINGS_TABS_VIEW] = "view setting";
+settingsTabsTitles[INDEX.SETTINGS_TABS_PLAYGROUND] = "playground setting";
+// settingsTabsTitles[INDEX.SETTINGS_TABS_COLOR] = "color setting";
+// settingsTabsTitles[INDEX.SETTINGS_TABS_SHAPE] = "shape setting";
+export const SETTINGS_TABS_TITLES = settingsTabsTitles;
+
+
+/******************/
+/* Single strings */
+/******************/
 
 export const APP_NAME = "appComponent";
 
@@ -58,42 +76,42 @@ export const ENGINE_PART_MENU_ITEM_NAME = "enginePartMenuItem";
 
 export const SVG_IMAGE_NAME = "svgImage";
 
+export const MAIN_MENU_NAME = "maniMenu";
 
-export const UTILITY_STRING = Object.freeze({
-    SHARP: "#",
-    SVG_URL_PREFIX: "url(#",
-    CLOSE_PARENTHESIS: ")",
-    ACTION_DIV: "ActionDiv",
-    MENU_BASE_DIV: "MenuBaseDiv"
-});
+/*****************************/
+/* Strings grouped by object */
+/*****************************/
 
 export const COMMON_TYPE = Object.freeze({
     DEFAULT: "default",
     EMPTY: "empty",
 });
 
-let settingsTabsTitles = [];
-settingsTabsTitles[INDEX.SETTINGS_TABS_THEME] = "theme setting";
-settingsTabsTitles[INDEX.SETTINGS_TABS_VIEW] = "view setting";
-settingsTabsTitles[INDEX.SETTINGS_TABS_PLAYGROUND] = "playground setting";
-// settingsTabsTitles[INDEX.SETTINGS_TABS_COLOR] = "color setting";
-// settingsTabsTitles[INDEX.SETTINGS_TABS_SHAPE] = "shape setting";
-export const SETTINGS_TABS_TITLES = settingsTabsTitles;
+/****************************/
+/* Strings grouped by array */
+/****************************/
+
+let enginePartNames = [];
+enginePartNames[ENGINE_PART_INDICES.ENGINE_PART_FRONT] = "engineFront";
+enginePartNames[ENGINE_PART_INDICES.ENGINE_PART_MIDDLE] = "engineMiddle";
+enginePartNames[ENGINE_PART_INDICES.ENGINE_PART_BACK] = "engineBack";
+export const ENGINE_PART_NAMES = enginePartNames;
 
 let themesTitles = [];
-themesTitles[INDEX.THEME_DARK] = "DARK THEME";
-themesTitles[INDEX.THEME_BRIGHT] = "BRIGHT THEME";
-themesTitles[INDEX.THEME_YELLOW] = "YELLOW THEME";
+themesTitles[THEME_INDICES.THEME_DARK] = "DARK THEME";
+themesTitles[THEME_INDICES.THEME_BRIGHT] = "BRIGHT THEME";
+themesTitles[THEME_INDICES.THEME_YELLOW] = "YELLOW THEME";
 export const THEMES_TITLES = themesTitles;
 
 let themesDescriptions = [];
-themesDescriptions[INDEX.THEME_DARK] = "Come to the DARK side, we have cookies...";
-themesDescriptions[INDEX.THEME_BRIGHT] = "BRIGHT it up!!!";
-themesDescriptions[INDEX.THEME_YELLOW] = "Under construction..."; // Boring...zZ... let's add some YELLOW!
+themesDescriptions[THEME_INDICES.THEME_DARK] = "Come to the DARK side, we have cookies...";
+themesDescriptions[THEME_INDICES.THEME_BRIGHT] = "BRIGHT it up!!!";
+themesDescriptions[THEME_INDICES.THEME_YELLOW] = "Under construction..."; // Boring...zZ... let's add some YELLOW!
 export const THEMES_DESCRIPTIONS = themesDescriptions;
 
-let enginePartIds = [];
-enginePartIds[INDEX.ENGINE_PART_FRONT] = "engineFront";
-enginePartIds[INDEX.ENGINE_PART_MIDDLE] = "engineMiddle";
-enginePartIds[INDEX.ENGINE_PART_BACK] = "engineBack";
-export const ENGINE_PART_IDS = enginePartIds;
+let mainMenuItemsNames = [];
+mainMenuItemsNames[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ENGINE] = "3D ENGINE";
+mainMenuItemsNames[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ABOUT] = "ABOUT";
+mainMenuItemsNames[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_SETTINGS] = "SETTINGS";
+mainMenuItemsNames[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_4] = "PLACEHOLDER";
+export const MAIN_MENU_ITEMS_NAMES = mainMenuItemsNames;

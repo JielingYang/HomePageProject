@@ -3,7 +3,7 @@ import type {bottomRightPanelStateType} from "../reducers/bottomRightPanelReduce
 import Shape2d_Rectangle from "../classes/shapeClasses/Shape2d_Rectangle";
 import EnginePartStateModel from "../classes/StateModelClasses/EnginePartStateModel";
 import numberIdGenerator from "../classes/NumberIdGenerator";
-import {ENGINE_PART_IDS} from "../utilities/CONSTANTS_STRING";
+import {ENGINE_PART_NAMES} from "../utilities/CONSTANTS_STRING";
 import {getRegularPolygonSideLength, numberToPercentageString} from "../utilities/UTILITIES";
 import {DEFAULT_ENGINE_ROTATION_X_VALUE, DEFAULT_ENGINE_ROTATION_Y_VALUE, NUMBER_OF_ENGINE_PART_SIDE_FACES, NUMBER_OF_ENGINE_PART_SIDES} from "../utilities/CONSTANTS_NUMBER";
 
@@ -26,13 +26,13 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         let bottomRightPanelBorderSize: number = basePanelUnitLength * 0.5;
         let bottomRightPanelBorderRadius: number = basePanelUnitLength * 3;
 
-        let numberOfEngineParts: number = ENGINE_PART_IDS.length;
+        let numberOfEngineParts: number = ENGINE_PART_NAMES.length;
         let enginePartSize: number = bottomRightPanelShapeModel.getWidth() / (numberOfEngineParts + 1);
         if (getState().bottomRightPanelState.enginePartStateModels.length === 0) // Initialize engine part state models if none exist
         {
             let enginePartStateModels: Array<EnginePartStateModel> = [];
             let engineDistance: number = -100 * basePanelUnitLength;
-            ENGINE_PART_IDS.forEach((id: string, index: number) =>
+            ENGINE_PART_NAMES.forEach((id: string, index: number) =>
             {
                 enginePartStateModels.push(new EnginePartStateModel(numberIdGenerator.generateId(), id, enginePartSize * ((numberOfEngineParts - 1) / 2 - index) + enginePartSize / 4));
             });
@@ -44,7 +44,7 @@ export const bottomRightPanelAction_requestToUpdateBottomRightPanelContentLayout
         }
         else
         {
-            ENGINE_PART_IDS.forEach((modelStringId: string, index: number) =>
+            ENGINE_PART_NAMES.forEach((modelStringId: string, index: number) =>
             {
                 dispatch(bottomRightPanelAction_updateEnginePartStateModelPosition(modelStringId, enginePartSize * ((numberOfEngineParts - 1) / 2 - index) + enginePartSize / 4));
             });

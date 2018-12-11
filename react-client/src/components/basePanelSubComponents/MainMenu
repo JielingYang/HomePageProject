@@ -1,0 +1,32 @@
+import React from "react";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
+import {MAIN_MENU_NAME} from "../../utilities/CONSTANTS_STRING";
+
+type MainMenuPropsType = {
+    /* Values from parent */
+    /* Values from mapStateToProps() */
+    /* Functions from matchDispatchToProps() */
+}
+
+const MainMenu = (props: MainMenuPropsType) =>
+{
+    console.log(LEVEL2_CONSOLE_PREFIX + MAIN_MENU_NAME, LEVEL2_CONSOLE_FONT);
+    return (
+        <div>
+        </div>);
+};
+
+
+const mapStateToProps = () =>
+{
+    return {};
+};
+
+const matchDispatchToProps = (dispatch) =>
+{
+    return bindActionCreators({}, dispatch);
+};
+
+export default connect(mapStateToProps, matchDispatchToProps)(MainMenu);

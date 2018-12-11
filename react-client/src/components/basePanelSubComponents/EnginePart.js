@@ -57,7 +57,7 @@ const EnginePart = (props: EnginePartPropsType) =>
                                    enginePartIndex={props.enginePartIndex}
                                    disableMouse={isAnyEnginePartSelected && !isThisEnginePartSelected}/>
         <EnginePartMenu enginePartStringId={enginePartStringId}
-                        engineIndex={props.enginePartIndex}
+                        enginePartIndex={props.enginePartIndex}
                         numberOfEngineParts={enginePartModels.length}
                         enginePartSize={enginePartModel.getWidth()}
                         engineRotationX={actualEngineRotationX}

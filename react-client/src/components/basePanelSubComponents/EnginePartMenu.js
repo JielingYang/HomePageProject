@@ -10,7 +10,7 @@ import EnginePartMenuItem from "./EnginePartMenuItem";
 type EnginePartMenuPropsType = {
     /* Values from parent */
     enginePartStringId: string,
-    engineIndex: number,
+    enginePartIndex: number,
     numberOfEngineParts: number,
     enginePartSize: number,
     engineRotationX: number,
@@ -21,7 +21,7 @@ type EnginePartMenuPropsType = {
 
 const EnginePartMenu = (props: EnginePartMenuPropsType) =>
 {
-    let menuTranslationZ: number = props.enginePartSize * Math.sin(DEFAULT_ENGINE_ROTATION_Y_VALUE * Math.PI / 180) * (props.numberOfEngineParts - 2 - props.engineIndex);
+    let menuTranslationZ: number = props.enginePartSize * Math.sin(DEFAULT_ENGINE_ROTATION_Y_VALUE * Math.PI / 180) * (props.numberOfEngineParts - 2 - props.enginePartIndex);
     let menuDisplayValue: string = props.mouseHoverOnThisEnginePart || props.isThisEnginePartSelected
                                    ? "block"
                                    : "none";
@@ -34,7 +34,7 @@ const EnginePartMenu = (props: EnginePartMenuPropsType) =>
         .addRotationX(-props.engineRotationX)
         .addTranslationZ(menuTranslationZ);
 
-    let partMenuItemsPositions: Array<Array<{ left: string, top: string }>> = ENGINE_PART_MENU_ITEMS_POSITIONS[props.engineIndex];
+    let partMenuItemsPositions: Array<Array<{ left: string, top: string }>> = ENGINE_PART_MENU_ITEMS_POSITIONS[props.enginePartIndex];
     let numberOfMenuItems: number = partMenuItemsPositions.length;
 
     console.log(LEVEL3_CONSOLE_PREFIX + props.enginePartStringId + ENGINE_PART_MENU_NAME + " display = " + menuDisplayValue, LEVEL3_CONSOLE_FONT);
