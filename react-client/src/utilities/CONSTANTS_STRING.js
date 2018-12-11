@@ -78,6 +78,8 @@ export const SVG_IMAGE_NAME = "svgImage";
 
 export const MAIN_MENU_NAME = "maniMenu";
 
+export const MAIN_MENU_ITEM_NAME = "maniMenuItem";
+
 /*****************************/
 /* Strings grouped by object */
 /*****************************/
@@ -109,9 +111,9 @@ themesDescriptions[THEME_INDICES.THEME_BRIGHT] = "BRIGHT it up!!!";
 themesDescriptions[THEME_INDICES.THEME_YELLOW] = "Under construction..."; // Boring...zZ... let's add some YELLOW!
 export const THEMES_DESCRIPTIONS = themesDescriptions;
 
-let mainMenuItemsNames = [];
-mainMenuItemsNames[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ENGINE] = "3D ENGINE";
-mainMenuItemsNames[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ABOUT] = "ABOUT";
-mainMenuItemsNames[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_SETTINGS] = "SETTINGS";
-mainMenuItemsNames[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_4] = "PLACEHOLDER";
-export const MAIN_MENU_ITEMS_NAMES = mainMenuItemsNames;
+let mainMenuItemsTitles = [];
+mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ENGINE] = "3D ENGINE";
+mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ABOUT] = "ABOUT";
+mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_SETTINGS] = "SETTINGS";
+mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_4] = "PLACEHOLDER";
+export const MAIN_MENU_ITEMS_TITLES = mainMenuItemsTitles;

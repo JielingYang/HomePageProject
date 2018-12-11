@@ -8,9 +8,10 @@ import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
 import {COMMON_TYPE} from "../utilities/CONSTANTS_STRING";
 import BaseModelWithStateAndShape from "../classes/BaseModelWithStateAndShape";
 import {contentPanelAction_requestToInitializeContentPanelsModels} from "../actionCreators/contentPanelActions";
-import {CONTENT_PANELS_INDICES} from "../utilities/CONSTANTS_NUMBER";
+import {CONTENT_PANELS_INDICES, MAIN_MENU_ITEMS_INDICES} from "../utilities/CONSTANTS_NUMBER";
 import ContentPanel from "./ContentPanel";
 import {engineAction_requestToUpdateEnginePerspective} from "../actionCreators/engineActions";
+import {mainMenuAction_requestToInitializeMainMenuItemModels} from "../actionCreators/mainMenuActions";
 
 type AppPropsType = {
     /* Values from mapStateToProps() */
@@ -21,6 +22,7 @@ type AppPropsType = {
     appAction_requestToUpdateAppMouseMoveRelatedData: Function,
     contentPanelAction_requestToInitializeContentPanelsModels: Function,
     engineAction_requestToUpdateEnginePerspective: Function,
+    mainMenuAction_requestToInitializeMainMenuItemModels: Function,
 }
 
 /**
@@ -45,6 +47,7 @@ class App extends Component<AppPropsType>
         console.log("Finish registering functions on window events.");
 
         this.props.contentPanelAction_requestToInitializeContentPanelsModels(Object.values(CONTENT_PANELS_INDICES));
+        this.props.mainMenuAction_requestToInitializeMainMenuItemModels(Object.values(MAIN_MENU_ITEMS_INDICES));
         this.props.appAction_requestToUpdateAppSize(window.innerWidth, window.innerHeight, true);
         this.props.engineAction_requestToUpdateEnginePerspective();
     }
@@ -87,6 +90,7 @@ const matchDispatchToProps = (dispatch) =>
         appAction_requestToUpdateAppSize: appAction_requestToUpdateAppSize,
         appAction_requestToUpdateAppMouseMoveRelatedData: appAction_requestToUpdateAppMouseMoveRelatedData,
         contentPanelAction_requestToInitializeContentPanelsModels: contentPanelAction_requestToInitializeContentPanelsModels,
+        mainMenuAction_requestToInitializeMainMenuItemModels: mainMenuAction_requestToInitializeMainMenuItemModels,
         engineAction_requestToUpdateEnginePerspective: engineAction_requestToUpdateEnginePerspective,
     }, dispatch);
 };
