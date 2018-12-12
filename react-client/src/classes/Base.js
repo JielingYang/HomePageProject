@@ -4,6 +4,7 @@ export default class Base
     {
         this.numId = numId;
         this.strId = strId;
+        
     }
 
     getNumberId(): number {return this.numId;}
