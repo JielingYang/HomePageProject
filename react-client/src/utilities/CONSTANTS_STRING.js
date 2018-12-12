@@ -112,8 +112,8 @@ themesDescriptions[THEME_INDICES.THEME_YELLOW] = "Under construction..."; // Bor
 export const THEMES_DESCRIPTIONS = themesDescriptions;
 
 let mainMenuItemsTitles = [];
-mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ENGINE] = "3D ENGINE";
-mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ABOUT] = "ABOUT";
-mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_SETTINGS] = "SETTINGS";
-mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_4] = "PLACEHOLDER";
+mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ENGINE] = "3D engine";
+mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ABOUT] = "About";
+mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_SETTINGS] = "Settings";
+mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_4] = "Placeholder";
 export const MAIN_MENU_ITEMS_TITLES = mainMenuItemsTitles;

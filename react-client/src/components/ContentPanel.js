@@ -10,6 +10,7 @@ import {isUndefineOrNull} from "../utilities/UTILITIES";
 import {BLUR_LEVEL, CONTENT_PANELS_INDICES, ENGINE_PART_INDICES} from "../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
 import EnginePart from "./basePanelSubComponents/EnginePart";
+import MainMenu from "./basePanelSubComponents/MainMenu";
 
 type ContentPanelPropsType = {
     /* Values from parent */
@@ -32,8 +33,8 @@ const ContentPanel = (props: ContentPanelPropsType) =>
     }
 
     let blur: BLUR_LEVEL = contentPanelModel.getMouseHover()
-                           ? BLUR_LEVEL.NONE
-                           : BLUR_LEVEL.LIGHT;
+        ? BLUR_LEVEL.NONE
+        : BLUR_LEVEL.LIGHT;
 
     let contentPanelComponentStyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(contentPanelModel.getWidth(), contentPanelModel.getHeight(), contentPanelModel.getX(), contentPanelModel.getY())
         .setPointerEvents("auto")
@@ -57,6 +58,7 @@ const appendContentPanelSpecifiedStyle: StyleObject = (contentPanelIndex: number
     switch (contentPanelIndex)
     {
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU:
+            contentPanelStyleObject.setDisplay("flex").setFlexDirection("column");
             break;
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE:
             contentPanelStyleObject.setPerspective(props.enginePerspective);
@@ -72,7 +74,7 @@ const createContent = (contentPanelIndex: number) =>
     switch (contentPanelIndex)
     {
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU:
-            return null;
+            return <MainMenu/>;
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE:
             return Object.values(ENGINE_PART_INDICES).map((index: number) =>
                 <EnginePart key={index} enginePartIndex={index}/>);
