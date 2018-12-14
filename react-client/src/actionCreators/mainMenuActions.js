@@ -20,6 +20,9 @@ export const mainMenuAction_requestToInitializeMainMenuItemModels = (mainMenuIte
 
 export const MAIN_MENU_ACTION_TYPE = Object.freeze({
     MAIN_MENU_ACTION_INITIALIZE_MAIN_MENU_ITEM_MODELS: "MAIN_MENU_ACTION_INITIALIZE_MAIN_MENU_ITEM_MODELS",
+    MAIN_MENU_ACTION_MOUSE_CLICKS_MAIN_MENU_ITEM: "MAIN_MENU_ACTION_MOUSE_CLICKS_MAIN_MENU_ITEM",
+    MAIN_MENU_ACTION_MOUSE_ENTERS_MAIN_MENU_ITEM: "MAIN_MENU_ACTION_MOUSE_ENTERS_MAIN_MENU_ITEM",
+    MAIN_MENU_ACTION_MOUSE_LEAVES_MAIN_MENU_ITEM: "MAIN_MENU_ACTION_MOUSE_LEAVES_MAIN_MENU_ITEM",
 });
 
 const mainMenuAction_initializeMainMenuItemModels = (mainMenuItemsIndices: Array<number>) =>
@@ -27,5 +30,29 @@ const mainMenuAction_initializeMainMenuItemModels = (mainMenuItemsIndices: Array
     return {
         type: MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_INITIALIZE_MAIN_MENU_ITEM_MODELS,
         mainMenuItemsIndices: mainMenuItemsIndices,
+    };
+};
+
+const mainMenuAction_mouseClicksMainMenuItem = (mainMenuItemIndex: number) =>
+{
+    return {
+        type: MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_CLICKS_MAIN_MENU_ITEM,
+        mainMenuItemsIndices: mainMenuItemIndex,
+    };
+};
+
+const mainMenuAction_mouseEnetersMainMenuItem = (mainMenuItemIndex: number) =>
+{
+    return {
+        type: MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_ENTERS_MAIN_MENU_ITEM,
+        mainMenuItemsIndices: mainMenuItemIndex,
+    };
+};
+
+const mainMenuAction_mouseLeavesMainMenuItem = (mainMenuItemIndex: number) =>
+{
+    return {
+        type: MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_LEAVES_MAIN_MENU_ITEM,
+        mainMenuItemsIndices: mainMenuItemIndex,
     };
 };

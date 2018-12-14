@@ -1,5 +1,6 @@
 import {DEFAULT_FONT_COLOR} from "../utilities/CONSTANTS_COLOR";
 import {COMMON_TYPE} from "../utilities/CONSTANTS_STRING";
+import {DEFAULT_FONT_SIZE} from "../utilities/CONSTANTS_NUMBER";
 
 export default class StyleObject
 {
@@ -12,7 +13,7 @@ export default class StyleObject
                 position: "absolute",
                 boxSizing: "border-box",
                 fontFamily: "sans-serif",
-                fontSize: "0.6vw",
+                fontSize: DEFAULT_FONT_SIZE,
                 color: DEFAULT_FONT_COLOR,
             };
         }

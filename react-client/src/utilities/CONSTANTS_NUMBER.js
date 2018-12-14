@@ -15,13 +15,13 @@ export const BASE_PANEL_MAX_ROTATION_DEGREE_VALUE = 20;
 export const BASE_PANEL_MAX_TRANSLATE_PERCENTAGE_VALUE = 0;
 export const NUMBER_OF_ENGINE_PART_SIDES = 8;
 export const NUMBER_OF_ENGINE_PART_SIDE_FACES = 3;
-export const DEFAULT_ENGINE_ROTATION_X_VALUE = -10;
-export const DEFAULT_ENGINE_ROTATION_Y_VALUE = 45;
 
 
 /****************************/
 /* General number constants */
 /****************************/
+const defaultFontSize = 0.6; // vw
+export const DEFAULT_FONT_SIZE = defaultFontSize + "vw";
 export const BLUR_LEVEL = Object.freeze({
     NONE: 0,
     EXTREMELY_LIGHT: 2,
@@ -44,9 +44,10 @@ export const CONTENT_PANELS_INDICES = Object.freeze({
     CONTENT_PANEL_ENGINE: 1,
 });
 
-/********************************************/
+/****************************************/
 /* Main menu component number constants */
-/********************************************/
+/****************************************/
+export const MAIN_MENU_ITEMS_HEIGHT = defaultFontSize * 5 + "vw";
 export const MAIN_MENU_ITEMS_INDICES = Object.freeze({
     MAIN_MENU_ITEM_ENGINE: 0,
     MAIN_MENU_ITEM_ABOUT: 1,
@@ -54,9 +55,16 @@ export const MAIN_MENU_ITEMS_INDICES = Object.freeze({
     MAIN_MENU_ITEM_4: 3,
 });
 
-/*********************************************/
-/* Engine component related number constants */
-/*********************************************/
+/*************************************/
+/* Engine component number constants */
+/*************************************/
+export const DEFAULT_ENGINE_ROTATION_X_VALUE = -10;
+export const DEFAULT_ENGINE_ROTATION_Y_VALUE = 45;
+export const ENGINE_MAX_ROTATION_DEGREE_VALUE = 20;
+export const ENGINE_PART_MENU_BASE_DIV_SIZE = "200%";
+export const ENGINE_PART_MENU_BASE_DIV_POSITION = "-100%";
+export const ENGINE_PART_MENU_ITEM_WIDTH = "30%";
+export const ENGINE_PART_MENU_ITEM_HEIGHT = "10%";
 export const ENGINE_PART_SVG_INDICES = Object.freeze({
     TICK_SVG: 0,
     CANCEL_SVG: 1,
@@ -81,11 +89,6 @@ export const ENGINE_PART_INDICES = Object.freeze({
     ENGINE_PART_MIDDLE: 1,
     ENGINE_PART_FRONT: 2
 });
-export const ENGINE_MAX_ROTATION_DEGREE_VALUE = 20;
-export const ENGINE_PART_MENU_BASE_DIV_SIZE = "200%";
-export const ENGINE_PART_MENU_BASE_DIV_POSITION = "-100%";
-export const ENGINE_PART_MENU_ITEM_WIDTH = "30%";
-export const ENGINE_PART_MENU_ITEM_HEIGHT = "10%";
 let enginePartMenuItemsPositions = [];
 let enginePartFrontMenuItemsPositions = [];
 let enginePartMiddleMenuItemsPositions = [];

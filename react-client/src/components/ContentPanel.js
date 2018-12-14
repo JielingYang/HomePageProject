@@ -18,6 +18,7 @@ type ContentPanelPropsType = {
     /* Values from mapStateToProps() */
     contentPanelModel: BaseModelWithStateAndShape,
     enginePerspective: number,
+    contentPanelEngine_backgroundColor: string,
     /* Functions from matchDispatchToProps() */
     contentPanelAction_mouseEnters: Function,
     contentPanelAction_mouseLeaves: Function,
@@ -32,7 +33,7 @@ const ContentPanel = (props: ContentPanelPropsType) =>
         return null;
     }
 
-    let blur: BLUR_LEVEL = contentPanelModel.getMouseHover()
+    let blur: BLUR_LEVEL = contentPanelIndex === CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU || contentPanelModel.getMouseHover()
         ? BLUR_LEVEL.NONE
         : BLUR_LEVEL.LIGHT;
 
@@ -40,7 +41,7 @@ const ContentPanel = (props: ContentPanelPropsType) =>
         .setPointerEvents("auto")
         .setBlur(blur)
         .addTransition("filter", TRANSITION_TIME_NORMAL)
-        .setBorder(1, "solid", "rgba(0,255,255,0.1)");
+    // .setBorder(1, "solid", "rgba(0,255,255,0.1)");
 
     contentPanelComponentStyleObject = appendContentPanelSpecifiedStyle(contentPanelIndex, contentPanelComponentStyleObject, props);
 
@@ -61,7 +62,7 @@ const appendContentPanelSpecifiedStyle: StyleObject = (contentPanelIndex: number
             contentPanelStyleObject.setDisplay("flex").setFlexDirection("column");
             break;
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE:
-            contentPanelStyleObject.setPerspective(props.enginePerspective);
+            contentPanelStyleObject.setPerspective(props.enginePerspective).setBackgroundColor(props.contentPanelEngine_backgroundColor);
             break;
         default:
             break;
@@ -89,6 +90,7 @@ const mapStateToProps = (store, props) =>
     return {
         contentPanelModel: store.contentPanelsState.contentPanelsModels[props.contentPanelIndex],
         enginePerspective: store.engineState.enginePerspective,
+        contentPanelEngine_backgroundColor: store.appState.mainMenuItemBackgroundColor_selected,
     };
 };
 

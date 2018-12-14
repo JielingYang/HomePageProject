@@ -26,6 +26,10 @@ export type appStateType = {
     iconColorBrightThemeSelected: string,
     lightUpEffectColor: string,
 
+    mainMenuItemBackgroundColor_default: string,
+    mainMenuItemBackgroundColor_hover: string,
+    mainMenuItemBackgroundColor_selected: string,
+
     engineBasicColor: string,
 }
 
@@ -46,6 +50,10 @@ const appDefaultState: appStateType = {
     iconColorYellowThemeSelected: CONSOLE_FONT_YELLOW,
     iconColorBrightThemeSelected: WHITE,
     lightUpEffectColor: YELLOW_LIGHT_1,
+
+    mainMenuItemBackgroundColor_default: GREY_HEAVY,
+    mainMenuItemBackgroundColor_hover: GREY_DARK,
+    mainMenuItemBackgroundColor_selected: BLACK_TRANSPARENT_00,
 
     engineBasicColor: ENGINE_BASIC_COLOR_DARK_THEME,
 };

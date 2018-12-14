@@ -16,7 +16,15 @@ const mainMenuReducerDefaultType: mainMenuReducerType = {
 const mainMenuAction_initializeMainMenuItemModels_handler = (state: mainMenuReducerType, action) =>
 {
     let nextState: mainMenuReducerType = deepCopy(state);
-    nextState.mainMenuItemModels = action.mainMenuItemsIndices.map(() => new BaseModelWithState(MAIN_MENU_ITEM_NAME, numberIdGenerator.generateId()));
+    nextState.mainMenuItemModels = action.mainMenuItemsIndices.map((index: number) =>
+    {
+        let mainMenuItemModel: BaseModelWithState = new BaseModelWithState(MAIN_MENU_ITEM_NAME, numberIdGenerator.generateId());
+        if (index === 0)
+        {
+            mainMenuItemModel.mouseClicks();
+        }
+        return mainMenuItemModel;
+    });
     return nextState;
 };
 
