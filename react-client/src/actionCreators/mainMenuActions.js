@@ -33,26 +33,26 @@ const mainMenuAction_initializeMainMenuItemModels = (mainMenuItemsIndices: Array
     };
 };
 
-const mainMenuAction_mouseClicksMainMenuItem = (mainMenuItemIndex: number) =>
+export const mainMenuAction_mouseClicksMainMenuItem = (mainMenuItemIndex: number) =>
 {
     return {
         type: MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_CLICKS_MAIN_MENU_ITEM,
-        mainMenuItemsIndices: mainMenuItemIndex,
+        mainMenuItemIndex: mainMenuItemIndex,
     };
 };
 
-const mainMenuAction_mouseEnetersMainMenuItem = (mainMenuItemIndex: number) =>
+export const mainMenuAction_mouseEntersMainMenuItem = (mainMenuItemIndex: number) =>
 {
     return {
         type: MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_ENTERS_MAIN_MENU_ITEM,
-        mainMenuItemsIndices: mainMenuItemIndex,
+        mainMenuItemIndex: mainMenuItemIndex,
     };
 };
 
-const mainMenuAction_mouseLeavesMainMenuItem = (mainMenuItemIndex: number) =>
+export const mainMenuAction_mouseLeavesMainMenuItem = (mainMenuItemIndex: number) =>
 {
     return {
         type: MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_LEAVES_MAIN_MENU_ITEM,
-        mainMenuItemsIndices: mainMenuItemIndex,
+        mainMenuItemIndex: mainMenuItemIndex,
     };
 };

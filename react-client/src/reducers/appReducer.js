@@ -4,7 +4,7 @@ import {APP_ACTION_TYPE} from "../actionCreators/appActions";
 import {APP_REFRESHING_TIME_GAP} from "../utilities/CONSTANTS_TIME";
 import {APP_NAME} from "../utilities/CONSTANTS_STRING";
 import numberIdGenerator from "../classes/NumberIdGenerator";
-import {BLACK_TRANSPARENT_00, BLACK_TRANSPARENT_10, BLACK_TRANSPARENT_50, BLACK_TRANSPARENT_90, CONSOLE_FONT_YELLOW, ENGINE_BASIC_COLOR_DARK_THEME, GREY_DARK, GREY_HEAVY, GREY_LIGHT, WHITE, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90, YELLOW, YELLOW_DARK_1, YELLOW_DARK_2, YELLOW_LIGHT_1, YELLOW_LIGHT_3} from "../utilities/CONSTANTS_COLOR";
+import {BLACK, BLACK_TRANSPARENT_00, BLACK_TRANSPARENT_10, BLACK_TRANSPARENT_50, BLACK_TRANSPARENT_90, CONSOLE_FONT_YELLOW, ENGINE_BASIC_COLOR_DARK_THEME, GREY_DARK, GREY_HEAVY, GREY_LIGHT, WHITE, WHITE_TRANSPARENT_50, WHITE_TRANSPARENT_90, YELLOW, YELLOW_DARK_1, YELLOW_DARK_2, YELLOW_LIGHT_1, YELLOW_LIGHT_3} from "../utilities/CONSTANTS_COLOR";
 import {INDEX} from "../utilities/CONSTANTS_NUMBER";
 import BaseModelWithStateAndShape from "../classes/BaseModelWithStateAndShape";
 
@@ -51,9 +51,12 @@ const appDefaultState: appStateType = {
     iconColorBrightThemeSelected: WHITE,
     lightUpEffectColor: YELLOW_LIGHT_1,
 
-    mainMenuItemBackgroundColor_default: GREY_HEAVY,
+    mainMenu_contentPanel_backgroundColor: BLACK,
+    mainMenuItemBackgroundColor_default: BLACK_TRANSPARENT_00,
     mainMenuItemBackgroundColor_hover: GREY_DARK,
-    mainMenuItemBackgroundColor_selected: BLACK_TRANSPARENT_00,
+    mainMenuItemBackgroundColor_selected: GREY_DARK,
+
+    engine_contentPanel_backgroundColor: GREY_DARK,
 
     engineBasicColor: ENGINE_BASIC_COLOR_DARK_THEME,
 };

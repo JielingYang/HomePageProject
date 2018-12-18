@@ -28,9 +28,33 @@ const mainMenuAction_initializeMainMenuItemModels_handler = (state: mainMenuRedu
     return nextState;
 };
 
+const mainMenuAction_mouseClicksMainMenuItem_handler = (state: mainMenuReducerType, action) =>
+{
+    let nextState: mainMenuReducerType = deepCopy(state);
+    nextState.mainMenuItemModels[action.mainMenuItemIndex].mouseClicks();
+    return nextState;
+};
+
+const mainMenuAction_mouseEntersMainMenuItem_handler = (state: mainMenuReducerType, action) =>
+{
+    let nextState: mainMenuReducerType = deepCopy(state);
+    nextState.mainMenuItemModels[action.mainMenuItemIndex].mouseEnters();
+    return nextState;
+};
+
+const mainMenuAction_mouseLeavesMainMenuItem_handler = (state: mainMenuReducerType, action) =>
+{
+    let nextState: mainMenuReducerType = deepCopy(state);
+    nextState.mainMenuItemModels[action.mainMenuItemIndex].mouseLeaves();
+    return nextState;
+};
+
 // Check reducerCreator for explanation of handlers
 const mainMenuReducerHandlers = {
     [MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_INITIALIZE_MAIN_MENU_ITEM_MODELS]: mainMenuAction_initializeMainMenuItemModels_handler,
+    [MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_CLICKS_MAIN_MENU_ITEM]: mainMenuAction_mouseClicksMainMenuItem_handler,
+    [MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_ENTERS_MAIN_MENU_ITEM]: mainMenuAction_mouseEntersMainMenuItem_handler,
+    [MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_LEAVES_MAIN_MENU_ITEM]: mainMenuAction_mouseLeavesMainMenuItem_handler,
 };
 
 export default createReducer(mainMenuReducerDefaultType, mainMenuReducerHandlers);

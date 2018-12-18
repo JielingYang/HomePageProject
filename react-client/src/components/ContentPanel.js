@@ -19,6 +19,7 @@ type ContentPanelPropsType = {
     contentPanelModel: BaseModelWithStateAndShape,
     enginePerspective: number,
     contentPanelEngine_backgroundColor: string,
+    contentPanelMainMenu_backgroundColor: string,
     /* Functions from matchDispatchToProps() */
     contentPanelAction_mouseEnters: Function,
     contentPanelAction_mouseLeaves: Function,
@@ -40,7 +41,7 @@ const ContentPanel = (props: ContentPanelPropsType) =>
     let contentPanelComponentStyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(contentPanelModel.getWidth(), contentPanelModel.getHeight(), contentPanelModel.getX(), contentPanelModel.getY())
         .setPointerEvents("auto")
         .setBlur(blur)
-        .addTransition("filter", TRANSITION_TIME_NORMAL)
+        .addTransition("filter", TRANSITION_TIME_NORMAL);
     // .setBorder(1, "solid", "rgba(0,255,255,0.1)");
 
     contentPanelComponentStyleObject = appendContentPanelSpecifiedStyle(contentPanelIndex, contentPanelComponentStyleObject, props);
@@ -59,7 +60,7 @@ const appendContentPanelSpecifiedStyle: StyleObject = (contentPanelIndex: number
     switch (contentPanelIndex)
     {
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU:
-            contentPanelStyleObject.setDisplay("flex").setFlexDirection("column");
+            contentPanelStyleObject.setDisplay("flex").setFlexDirection("column").setBackgroundColor(props.contentPanelMainMenu_backgroundColor);
             break;
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE:
             contentPanelStyleObject.setPerspective(props.enginePerspective).setBackgroundColor(props.contentPanelEngine_backgroundColor);
@@ -77,8 +78,7 @@ const createContent = (contentPanelIndex: number) =>
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU:
             return <MainMenu/>;
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE:
-            return Object.values(ENGINE_PART_INDICES).map((index: number) =>
-                <EnginePart key={index} enginePartIndex={index}/>);
+            return Object.values(ENGINE_PART_INDICES).map((index: number) => <EnginePart key={index} enginePartIndex={index}/>);
         default:
             return null;
     }
@@ -90,7 +90,8 @@ const mapStateToProps = (store, props) =>
     return {
         contentPanelModel: store.contentPanelsState.contentPanelsModels[props.contentPanelIndex],
         enginePerspective: store.engineState.enginePerspective,
-        contentPanelEngine_backgroundColor: store.appState.mainMenuItemBackgroundColor_selected,
+        contentPanelEngine_backgroundColor: store.appState.engine_contentPanel_backgroundColor,
+        contentPanelMainMenu_backgroundColor: store.appState.mainMenu_contentPanel_backgroundColor,
     };
 };
 
