@@ -35,8 +35,8 @@ const ContentPanel = (props: ContentPanelPropsType) =>
     }
 
     let blur: BLUR_LEVEL = contentPanelIndex === CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU || contentPanelModel.getMouseHover()
-        ? BLUR_LEVEL.NONE
-        : BLUR_LEVEL.LIGHT;
+                           ? BLUR_LEVEL.NONE
+                           : BLUR_LEVEL.LIGHT;
 
     let contentPanelComponentStyleObject = new StyleObject(COMMON_TYPE.DEFAULT).setBasics(contentPanelModel.getWidth(), contentPanelModel.getHeight(), contentPanelModel.getX(), contentPanelModel.getY())
         .setPointerEvents("auto")
@@ -78,7 +78,8 @@ const createContent = (contentPanelIndex: number) =>
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU:
             return <MainMenu/>;
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE:
-            return Object.values(ENGINE_PART_INDICES).map((index: number) => <EnginePart key={index} enginePartIndex={index}/>);
+            return Object.values(ENGINE_PART_INDICES).map((index: number) => <EnginePart key={index}
+                                                                                         enginePartIndex={index}/>);
         default:
             return null;
     }

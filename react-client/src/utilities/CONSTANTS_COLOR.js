@@ -30,6 +30,7 @@ export const GREY_LIGHT = "rgb(200,200,200)";
 export const GREY_MEDIUM = "rgb(145,145,145)";
 export const GREY_HEAVY = "rgb(90,90,90)";
 export const GREY_DARK = "rgb(35,35,35)";
+export const GREY_EXTREME_DARK = "rgb(25,25,25)";
 
 export const YELLOW = "rgb(255,255,0)";
 export const YELLOW_LIGHT_1 = "rgb(255,255,200)";

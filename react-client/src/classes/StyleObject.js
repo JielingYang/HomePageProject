@@ -205,8 +205,8 @@ export default class StyleObject
     addTranslationX(translateX: string | number)
     {
         let tx = typeof translateX === "number"
-            ? (translateX + "px")
-            : translateX;
+                 ? (translateX + "px")
+                 : translateX;
         let translation: string = " translateX(" + tx + ")";
         if (this.style.transform !== undefined)
         {
@@ -222,8 +222,8 @@ export default class StyleObject
     addTranslationY(translateY: string | number)
     {
         let ty = typeof translateY === "number"
-            ? (translateY + "px")
-            : translateY;
+                 ? (translateY + "px")
+                 : translateY;
         let translation: string = " translateY(" + ty + ")";
         if (this.style.transform !== undefined)
         {
@@ -239,8 +239,8 @@ export default class StyleObject
     addTranslationZ(translateZ: string | number)
     {
         let tx = typeof translateZ === "number"
-            ? (translateZ + "px")
-            : translateZ;
+                 ? (translateZ + "px")
+                 : translateZ;
         let translation: string = " translateZ(" + tx + ")";
         if (this.style.transform !== undefined)
         {
@@ -379,11 +379,11 @@ export default class StyleObject
     addTransition(name: string, duration: number, timingFunction: string, delay: number)
     {
         let tf: string = timingFunction === undefined
-            ? ""
-            : timingFunction + " ";
+                         ? ""
+                         : timingFunction + " ";
         let d: string = delay === undefined
-            ? ""
-            : delay + "s";
+                        ? ""
+                        : delay + "s";
         let transition = name + " " + duration + "s " + tf + d;
 
         if (this.style.transition !== undefined)

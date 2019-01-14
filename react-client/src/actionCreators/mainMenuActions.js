@@ -3,6 +3,8 @@
 /* They check on new data to decide whether to call updating actions or not */
 /* ************************************************************************ */
 
+import BaseModelWithState from "../classes/BaseModelWithState";
+
 export const mainMenuAction_requestToInitializeMainMenuItemModels = (mainMenuItemsIndices: Array<number>) =>
 {
     return (dispatch, getState) =>
@@ -11,6 +13,21 @@ export const mainMenuAction_requestToInitializeMainMenuItemModels = (mainMenuIte
         {
             dispatch(mainMenuAction_initializeMainMenuItemModels(mainMenuItemsIndices));
         }
+    }
+};
+
+export const mainMenuAction_requestToSelectMainMenuItem = (mainMenuItemIndex: number) =>
+{
+    return (dispatch, getState) =>
+    {
+        let mainMenuItems: Array<BaseModelWithState> = getState().mainMenuState.mainMenuItemModels;
+        mainMenuItems.forEach((model: BaseModelWithState, index: number) =>
+        {
+            if ((index !== mainMenuItemIndex && model.getIsSelected()) || (index === mainMenuItemIndex && !model.getIsSelected()))
+            {
+                dispatch(mainMenuAction_mouseClicksMainMenuItem(index));
+            }
+        })
     }
 };
 
@@ -33,7 +50,7 @@ const mainMenuAction_initializeMainMenuItemModels = (mainMenuItemsIndices: Array
     };
 };
 
-export const mainMenuAction_mouseClicksMainMenuItem = (mainMenuItemIndex: number) =>
+const mainMenuAction_mouseClicksMainMenuItem = (mainMenuItemIndex: number) =>
 {
     return {
         type: MAIN_MENU_ACTION_TYPE.MAIN_MENU_ACTION_MOUSE_CLICKS_MAIN_MENU_ITEM,
