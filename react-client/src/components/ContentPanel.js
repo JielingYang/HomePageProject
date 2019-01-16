@@ -11,6 +11,7 @@ import {BLUR_LEVEL, CONTENT_PANELS_INDICES, ENGINE_PART_INDICES} from "../utilit
 import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
 import EnginePart from "./basePanelSubComponents/EnginePart";
 import MainMenu from "./basePanelSubComponents/MainMenu";
+import BaseModelWithState from "../classes/BaseModelWithState";
 
 type ContentPanelPropsType = {
     /* Values from parent */
@@ -20,6 +21,7 @@ type ContentPanelPropsType = {
     enginePerspective: number,
     contentPanelEngine_backgroundColor: string,
     contentPanelMainMenu_backgroundColor: string,
+    selectedMenuItemIndex: number,
     /* Functions from matchDispatchToProps() */
     contentPanelAction_mouseEnters: Function,
     contentPanelAction_mouseLeaves: Function,
@@ -44,7 +46,7 @@ const ContentPanel = (props: ContentPanelPropsType) =>
         .addTransition("filter", TRANSITION_TIME_NORMAL);
     // .setBorder(1, "solid", "rgba(0,255,255,0.1)");
 
-    contentPanelComponentStyleObject = appendContentPanelSpecifiedStyle(contentPanelIndex, contentPanelComponentStyleObject, props);
+    contentPanelComponentStyleObject = appendContentPanelSpecifiedStyle(contentPanelComponentStyleObject, props);
 
     console.log(LEVEL1_CONSOLE_PREFIX + contentPanelModel.getStringId(), LEVEL1_CONSOLE_FONT);
     return (
@@ -55,15 +57,27 @@ const ContentPanel = (props: ContentPanelPropsType) =>
         </div>);
 };
 
-const appendContentPanelSpecifiedStyle: StyleObject = (contentPanelIndex: number, contentPanelStyleObject: StyleObject, props: ContentPanelPropsType) =>
+const appendContentPanelSpecifiedStyle: StyleObject = (contentPanelStyleObject: StyleObject, props: ContentPanelPropsType) =>
 {
-    switch (contentPanelIndex)
+    let shouldDisplay: string = props.contentPanelIndex === props.selectedMenuItemIndex
+                                ? "block"
+                                : "none";
+    switch (props.contentPanelIndex)
     {
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU:
             contentPanelStyleObject.setDisplay("flex").setFlexDirection("column").setBackgroundColor(props.contentPanelMainMenu_backgroundColor);
             break;
         case CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE:
-            contentPanelStyleObject.setPerspective(props.enginePerspective).setBackgroundColor(props.contentPanelEngine_backgroundColor);
+            contentPanelStyleObject.setDisplay(shouldDisplay).setPerspective(props.enginePerspective).setBackgroundColor(props.contentPanelEngine_backgroundColor);
+            break;
+        case CONTENT_PANELS_INDICES.CONTENT_PANEL_ABOUT:
+            contentPanelStyleObject.setDisplay(shouldDisplay).setBackgroundColor("rgba(50,0,0,0.5)");
+            break;
+        case CONTENT_PANELS_INDICES.CONTENT_PANEL_SETTINGS:
+            contentPanelStyleObject.setDisplay(shouldDisplay).setBackgroundColor("rgba(0,50,0,0.5)");
+            break;
+        case CONTENT_PANELS_INDICES.CONTENT_PANEL_PLACEHOLDER:
+            contentPanelStyleObject.setDisplay(shouldDisplay).setBackgroundColor("rgba(0,0,50,0.5)");
             break;
         default:
             break;
@@ -88,11 +102,25 @@ const createContent = (contentPanelIndex: number) =>
 
 const mapStateToProps = (store, props) =>
 {
+    let selectedMenuItemIndex: number = 0;
+    store.mainMenuState.mainMenuItemModels.some((model: BaseModelWithState, index: number) =>
+    {
+        if (model.getIsSelected())
+        {
+            selectedMenuItemIndex = index;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    });
     return {
         contentPanelModel: store.contentPanelsState.contentPanelsModels[props.contentPanelIndex],
         enginePerspective: store.engineState.enginePerspective,
         contentPanelEngine_backgroundColor: store.appState.engine_contentPanel_backgroundColor,
         contentPanelMainMenu_backgroundColor: store.appState.mainMenu_contentPanel_backgroundColor,
+        selectedMenuItemIndex: selectedMenuItemIndex,
     };
 };
 

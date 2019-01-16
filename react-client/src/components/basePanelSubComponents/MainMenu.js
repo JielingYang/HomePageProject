@@ -4,10 +4,10 @@ import {connect} from "react-redux";
 import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
 import {COMMON_TYPE, MAIN_MENU_ITEMS_TITLES, MAIN_MENU_NAME} from "../../utilities/CONSTANTS_STRING";
 import StyleObject from "../../classes/StyleObject";
-import {BLUR_LEVEL, MAIN_MENU_ITEMS_HEIGHT} from "../../utilities/CONSTANTS_NUMBER";
+import {MAIN_MENU_ITEMS_HEIGHT} from "../../utilities/CONSTANTS_NUMBER";
 import BaseModelWithState from "../../classes/BaseModelWithState";
 import {mainMenuAction_requestToSelectMainMenuItem, mainMenuAction_mouseEntersMainMenuItem, mainMenuAction_mouseLeavesMainMenuItem} from "../../actionCreators/mainMenuActions";
-import {TRANSITION_TIME_NORMAL} from "../../utilities/CONSTANTS_TIME";
+import {TRANSITION_TIME_QUICK} from "../../utilities/CONSTANTS_TIME";
 
 type MainMenuPropsType = {
     /* Values from parent */
@@ -29,9 +29,6 @@ const MainMenu = (props: MainMenuPropsType) =>
         .setWidth("100%")
         .setHeight(MAIN_MENU_ITEMS_HEIGHT)
         .setBoxSizing("border-box");
-    let mainMenuItemsTitleTextWrapperStyleObject: StyleObject = new StyleObject(COMMON_TYPE.EMPTY)
-        .setMargin("auto auto auto 10%")
-        .setPointerEvents("none");
 
     let mainMenuItems: Array = props.mainMenuItemModels.map((menuItemModel: BaseModelWithState, index: number) =>
     {
@@ -42,24 +39,31 @@ const MainMenu = (props: MainMenuPropsType) =>
                                                    : isMouseOver
                                                      ? props.mainMenuItemBackgroundColor_hover
                                                      : props.mainMenuItemBackgroundColor_default;
-        let blur: BLUR_LEVEL = isSelected || isMouseOver
-                               ? BLUR_LEVEL.NONE
-                               : BLUR_LEVEL.EXTREMELY_LIGHT;
         let opacity: number = isSelected
                               ? 1
                               : isMouseOver
                                 ? 0.7
                                 : 0.4;
+        let mainMenuItemsTitleTextMargin: string = isSelected
+                                                   ? "auto 5% auto auto"
+                                                   : "auto 15% auto auto";
+
+        let mainMenuItemsTitleTextWrapperStyleObject: StyleObject = new StyleObject(COMMON_TYPE.EMPTY)
+            .setMargin(mainMenuItemsTitleTextMargin)
+            .addTransition("margin", TRANSITION_TIME_QUICK)
+            .setPointerEvents("none");
 
         let mainMenuItemStyleObject: StyleObject = mainMenuItemsCommonStyleObject.clone()
             .setBackgroundColor(mainMenuItemsBackgroundColor)
             .setOpacity(opacity)
             // .setBlur(blur)
             // .addTransition("filter", TRANSITION_TIME_NORMAL)
-            .addTransition("background-color", TRANSITION_TIME_NORMAL)
-            .addTransition("opacity", TRANSITION_TIME_NORMAL);
+            .addTransition("background-color", TRANSITION_TIME_QUICK)
+            .addTransition("opacity", TRANSITION_TIME_QUICK);
 
+        console.log(LEVEL2_CONSOLE_PREFIX + menuItemModel.getStringId(), LEVEL2_CONSOLE_FONT);
         return <div key={index}
+                    id={menuItemModel.getStringId()}
                     style={mainMenuItemStyleObject.getStyle()}
                     onClick={() => props.mainMenuAction_requestToSelectMainMenuItem(index)}
                     onMouseEnter={() => props.mainMenuAction_mouseEntersMainMenuItem(index)}
@@ -68,7 +72,6 @@ const MainMenu = (props: MainMenuPropsType) =>
         </div>;
     });
 
-    console.log(LEVEL2_CONSOLE_PREFIX + MAIN_MENU_NAME, LEVEL2_CONSOLE_FONT);
     return (mainMenuItems);
 };
 

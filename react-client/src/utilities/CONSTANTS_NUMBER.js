@@ -40,8 +40,11 @@ export const THEME_INDICES = Object.freeze({
 /* Content panel component number constants */
 /********************************************/
 export const CONTENT_PANELS_INDICES = Object.freeze({
-    CONTENT_PANEL_MENU: 0,
-    CONTENT_PANEL_ENGINE: 1,
+    CONTENT_PANEL_ENGINE: 0,
+    CONTENT_PANEL_ABOUT: 1,
+    CONTENT_PANEL_SETTINGS: 2,
+    CONTENT_PANEL_PLACEHOLDER: 3,
+    CONTENT_PANEL_MENU: 4,
 });
 
 /****************************************/
@@ -52,7 +55,7 @@ export const MAIN_MENU_ITEMS_INDICES = Object.freeze({
     MAIN_MENU_ITEM_ENGINE: 0,
     MAIN_MENU_ITEM_ABOUT: 1,
     MAIN_MENU_ITEM_SETTINGS: 2,
-    MAIN_MENU_ITEM_4: 3,
+    MAIN_MENU_ITEM_PLACEHOLDER: 3,
 });
 
 /*************************************/

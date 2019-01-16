@@ -1,7 +1,7 @@
 import type {appStateType} from "../reducers/appReducer";
 import BaseModelWithStateAndShape from "../classes/BaseModelWithStateAndShape";
 import {contentPanelAction_updateContentPanelPositionAndSize} from "./contentPanelActions";
-import {CONTENT_PANELS_INDICES} from "../utilities/CONSTANTS_NUMBER";
+import {CONTENT_PANELS_INDICES, MAIN_MENU_ITEMS_INDICES} from "../utilities/CONSTANTS_NUMBER";
 import {engineAction_requestToUpdateEngineLayout, engineAction_requestToUpdateEnginePerspective, engineAction_requestToUpdateEngineRotation} from "./engineActions";
 
 /* ************************** Requesting actions ************************** */
@@ -23,7 +23,7 @@ export const appAction_requestToUpdateAppMouseMoveRelatedData = (mouseMoveEventT
          I use timestamp to prevent new data being sent to reducer too often
          New data will be sent only if current timestamp is at least 30ms (by default) younger than previous one
          */
-        if (currentTimestamp - previousTimestamp >= appMaximumRefreshingTimeGap)
+        if (currentTimestamp - previousTimestamp >= appMaximumRefreshingTimeGap && getState().mainMenuState.mainMenuItemModels[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ENGINE].getIsSelected())
         {
             dispatch(appAction_updateAppMouseMoveEventTimeStamp(currentTimestamp)); // Update timestamp to prepare next check
             dispatch(engineAction_requestToUpdateEngineRotation(mouseMoveX, mouseMoveY));
@@ -42,14 +42,17 @@ export const appAction_requestToUpdateAppSize = (newAppWidth: number, newAppHeig
         // Compare against previous size
         if (forceToUpdate || newAppWidth !== previousAppWidth || newAppHeight !== previousAppHeight)
         {
-            let menuContentPanelWidth: number = newAppWidth / 6;
+            let menuContentPanelWidth: number = newAppWidth / 12;
 
-            let engineContentPanelWidth: number = newAppWidth - menuContentPanelWidth;
-            let engineContentPanelX: number = menuContentPanelWidth;
+            let rightContentPanelWidth: number = newAppWidth - menuContentPanelWidth;
+            let rightContentPanelX: number = menuContentPanelWidth;
 
             dispatch(appAction_updateAppSize(newAppWidth, newAppHeight));
             dispatch(contentPanelAction_updateContentPanelPositionAndSize(CONTENT_PANELS_INDICES.CONTENT_PANEL_MENU, 0, 0, 0, menuContentPanelWidth, newAppHeight));
-            dispatch(contentPanelAction_updateContentPanelPositionAndSize(CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE, engineContentPanelX, 0, 0, engineContentPanelWidth, newAppHeight));
+            dispatch(contentPanelAction_updateContentPanelPositionAndSize(CONTENT_PANELS_INDICES.CONTENT_PANEL_ENGINE, rightContentPanelX, 0, 0, rightContentPanelWidth, newAppHeight));
+            dispatch(contentPanelAction_updateContentPanelPositionAndSize(CONTENT_PANELS_INDICES.CONTENT_PANEL_ABOUT, rightContentPanelX, 0, 0, rightContentPanelWidth, newAppHeight));
+            dispatch(contentPanelAction_updateContentPanelPositionAndSize(CONTENT_PANELS_INDICES.CONTENT_PANEL_SETTINGS, rightContentPanelX, 0, 0, rightContentPanelWidth, newAppHeight));
+            dispatch(contentPanelAction_updateContentPanelPositionAndSize(CONTENT_PANELS_INDICES.CONTENT_PANEL_PLACEHOLDER, rightContentPanelX, 0, 0, rightContentPanelWidth, newAppHeight));
             dispatch(engineAction_requestToUpdateEnginePerspective());
             dispatch(engineAction_requestToUpdateEngineLayout());
         }

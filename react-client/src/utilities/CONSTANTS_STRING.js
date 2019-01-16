@@ -115,5 +115,5 @@ let mainMenuItemsTitles = [];
 mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ENGINE] = "3D engine";
 mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_ABOUT] = "About";
 mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_SETTINGS] = "Settings";
-mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_4] = "Placeholder";
+mainMenuItemsTitles[MAIN_MENU_ITEMS_INDICES.MAIN_MENU_ITEM_PLACEHOLDER] = "Placeholder";
 export const MAIN_MENU_ITEMS_TITLES = mainMenuItemsTitles;
