@@ -1,11 +1,11 @@
 import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import StyleObject from "../../classes/StyleObject";
-import {COMMON_TYPE, ENGINE_PART_MENU_ITEM_NAME} from "../../utilities/CONSTANTS_STRING";
-import {ENGINE_PART_MENU_ITEM_HEIGHT, ENGINE_PART_MENU_ITEM_WIDTH} from "../../utilities/CONSTANTS_NUMBER";
-import {TRANSITION_TIME_QUICK, TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
-import {LEVEL4_CONSOLE_FONT, LEVEL4_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
+import StyleObject from "../classes/StyleObject";
+import {COMMON_TYPE, ENGINE_PART_MENU_ITEM_NAME} from "../utilities/CONSTANTS_STRING";
+import {ENGINE_PART_MENU_ITEM_HEIGHT, ENGINE_PART_MENU_ITEM_WIDTH} from "../utilities/CONSTANTS_NUMBER";
+import {TRANSITION_TIME_QUICK, TRANSITION_TIME_SLOW} from "../utilities/CONSTANTS_TIME";
+import {LEVEL4_CONSOLE_FONT, LEVEL4_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 
 type EnginePartMenuItemPropsType = {
     /* Values from parent */

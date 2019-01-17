@@ -11,7 +11,7 @@ import type {bottomRightPanelStateType} from "../../reducers/bottomRightPanelRed
 import SubPanelBorder from "./SubPanelBorder";
 import EnginePartStateModel from "../../classes/StateModelClasses/EnginePartStateModel";
 import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
-import EnginePart from "./EnginePart";
+import EnginePart from "../EnginePart";
 
 type BottomRightPanelPropsType = {
     bottomRightPanelState: bottomRightPanelStateType,

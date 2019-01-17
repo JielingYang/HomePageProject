@@ -1,12 +1,12 @@
 import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {COMMON_TYPE, SVG_IMAGE_NAME} from "../../utilities/CONSTANTS_STRING";
-import StyleObject from "../../classes/StyleObject";
-import {LEVEL3_CONSOLE_FONT, LEVEL3_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
-import {BLUR_LEVEL, ENGINE_PART_INDICES} from "../../utilities/CONSTANTS_NUMBER";
-import {getEngineBackFaceSvg, getEngineFrontFaceSvg, getEngineMiddleFaceSvg} from "../../utilities/svgIcons";
-import {TRANSITION_TIME_SLOW} from "../../utilities/CONSTANTS_TIME";
+import {COMMON_TYPE, SVG_IMAGE_NAME} from "../utilities/CONSTANTS_STRING";
+import StyleObject from "../classes/StyleObject";
+import {LEVEL3_CONSOLE_FONT, LEVEL3_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
+import {BLUR_LEVEL, ENGINE_PART_INDICES} from "../utilities/CONSTANTS_NUMBER";
+import {getEngineBackFaceSvg, getEngineFrontFaceSvg, getEngineMiddleFaceSvg} from "../utilities/svgIcons";
+import {TRANSITION_TIME_SLOW} from "../utilities/CONSTANTS_TIME";
 
 type EnginePartSvgPropsType = {
     /* Values from parent */

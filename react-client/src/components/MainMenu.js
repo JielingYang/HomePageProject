@@ -1,13 +1,13 @@
 import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
-import {COMMON_TYPE, MAIN_MENU_ITEMS_TITLES, MAIN_MENU_NAME} from "../../utilities/CONSTANTS_STRING";
-import StyleObject from "../../classes/StyleObject";
-import {MAIN_MENU_ITEMS_HEIGHT} from "../../utilities/CONSTANTS_NUMBER";
-import BaseModelWithState from "../../classes/BaseModelWithState";
-import {mainMenuAction_requestToSelectMainMenuItem, mainMenuAction_mouseEntersMainMenuItem, mainMenuAction_mouseLeavesMainMenuItem} from "../../actionCreators/mainMenuActions";
-import {TRANSITION_TIME_QUICK} from "../../utilities/CONSTANTS_TIME";
+import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
+import {COMMON_TYPE, MAIN_MENU_ITEMS_TITLES, MAIN_MENU_NAME} from "../utilities/CONSTANTS_STRING";
+import StyleObject from "../classes/StyleObject";
+import {MAIN_MENU_ITEMS_HEIGHT} from "../utilities/CONSTANTS_NUMBER";
+import BaseModelWithState from "../classes/BaseModelWithState";
+import {mainMenuAction_requestToSelectMainMenuItem, mainMenuAction_mouseEntersMainMenuItem, mainMenuAction_mouseLeavesMainMenuItem} from "../actionCreators/mainMenuActions";
+import {TRANSITION_TIME_QUICK} from "../utilities/CONSTANTS_TIME";
 
 type MainMenuPropsType = {
     /* Values from parent */

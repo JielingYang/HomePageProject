@@ -1,12 +1,12 @@
 import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import StyleObject from "../../classes/StyleObject";
-import {COMMON_TYPE} from "../../utilities/CONSTANTS_STRING";
+import StyleObject from "../classes/StyleObject";
+import {COMMON_TYPE} from "../utilities/CONSTANTS_STRING";
 import EnginePartMenu from "./EnginePartMenu";
-import BaseModelWithStateAndShape from "../../classes/BaseModelWithStateAndShape";
-import type {engineReducerType} from "../../reducers/engineReducer";
-import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
+import BaseModelWithStateAndShape from "../classes/BaseModelWithStateAndShape";
+import type {engineReducerType} from "../reducers/engineReducer";
+import {LEVEL2_CONSOLE_FONT, LEVEL2_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 import EnginePartActionComponent from "./EnginePartActionComponent";
 import EnginePartSvg from "./EnginePartSvg";
 

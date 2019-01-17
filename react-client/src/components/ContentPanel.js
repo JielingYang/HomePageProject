@@ -9,9 +9,9 @@ import {contentPanelAction_mouseEnters, contentPanelAction_mouseLeaves} from "..
 import {isUndefineOrNull} from "../utilities/UTILITIES";
 import {BLUR_LEVEL, CONTENT_PANELS_INDICES, ENGINE_PART_INDICES} from "../utilities/CONSTANTS_NUMBER";
 import {TRANSITION_TIME_NORMAL} from "../utilities/CONSTANTS_TIME";
-import EnginePart from "./basePanelSubComponents/EnginePart";
-import MainMenu from "./basePanelSubComponents/MainMenu";
+import MainMenu from "./MainMenu";
 import BaseModelWithState from "../classes/BaseModelWithState";
+import EnginePart from "./EnginePart";
 
 type ContentPanelPropsType = {
     /* Values from parent */

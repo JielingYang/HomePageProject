@@ -1,10 +1,10 @@
 import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {COMMON_TYPE, ENGINE_PART_ACTION_DIV_NAME, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
-import StyleObject from "../../classes/StyleObject";
-import {engineAction_enginePartMouseClicks, engineAction_enginePartMouseEnters, engineAction_enginePartMouseLeaves} from "../../actionCreators/engineActions";
-import {LEVEL3_CONSOLE_FONT, LEVEL3_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
+import {COMMON_TYPE, ENGINE_PART_ACTION_DIV_NAME, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
+import StyleObject from "../classes/StyleObject";
+import {engineAction_enginePartMouseClicks, engineAction_enginePartMouseEnters, engineAction_enginePartMouseLeaves} from "../actionCreators/engineActions";
+import {LEVEL3_CONSOLE_FONT, LEVEL3_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 
 type EnginePartActionComponentPropsType = {
     /* Values from parent */

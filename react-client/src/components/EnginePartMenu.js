@@ -1,10 +1,10 @@
 import React from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import StyleObject from "../../classes/StyleObject";
-import {COMMON_TYPE, ENGINE_PART_MENU_NAME, UTILITY_STRING} from "../../utilities/CONSTANTS_STRING";
-import {DEFAULT_ENGINE_ROTATION_Y_VALUE, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_SIZE, ENGINE_PART_MENU_ITEMS_POSITIONS} from "../../utilities/CONSTANTS_NUMBER";
-import {LEVEL3_CONSOLE_FONT, LEVEL3_CONSOLE_PREFIX} from "../../utilities/CONSTANTS_CONSOLE_FONT";
+import StyleObject from "../classes/StyleObject";
+import {COMMON_TYPE, ENGINE_PART_MENU_NAME, UTILITY_STRING} from "../utilities/CONSTANTS_STRING";
+import {DEFAULT_ENGINE_ROTATION_Y_VALUE, ENGINE_PART_MENU_BASE_DIV_POSITION, ENGINE_PART_MENU_BASE_DIV_SIZE, ENGINE_PART_MENU_ITEMS_POSITIONS} from "../utilities/CONSTANTS_NUMBER";
+import {LEVEL3_CONSOLE_FONT, LEVEL3_CONSOLE_PREFIX} from "../utilities/CONSTANTS_CONSOLE_FONT";
 import EnginePartMenuItem from "./EnginePartMenuItem";
 
 type EnginePartMenuPropsType = {
@@ -40,14 +40,16 @@ const EnginePartMenu = (props: EnginePartMenuPropsType) =>
     console.log(LEVEL3_CONSOLE_PREFIX + props.enginePartStringId + ENGINE_PART_MENU_NAME + " display = " + menuDisplayValue, LEVEL3_CONSOLE_FONT);
     return <div id={props.enginePartStringId + UTILITY_STRING.MENU_BASE_DIV}
                 style={enginePartMenuBaseDivStyleObject.getStyle()}>
-        {partMenuItemsPositions.map((positionObject: { left: string, top: string }, index: number) =>
-            <EnginePartMenuItem key={index}
-                                enginePartStringId={props.enginePartStringId}
-                                enginePartMenuItemIndex={index}
-                                enginePartMenuItemPosition={positionObject}
-                                isThisEnginePartSelected={props.isThisEnginePartSelected}
-                                isLastMenuItem={numberOfMenuItems === index + 1}/>
-        )}
+        {
+            partMenuItemsPositions.map((positionObject: { left: string, top: string }, index: number) =>
+                <EnginePartMenuItem key={index}
+                                    enginePartStringId={props.enginePartStringId}
+                                    enginePartMenuItemIndex={index}
+                                    enginePartMenuItemPosition={positionObject}
+                                    isThisEnginePartSelected={props.isThisEnginePartSelected}
+                                    isLastMenuItem={numberOfMenuItems === index + 1}/>
+            )
+        }
     </div>;
 };
 
