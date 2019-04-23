@@ -2,6 +2,7 @@ import {deepCopy} from "../utilities/UTILITIES";
 import {createReducer} from "./reducerCreator";
 import {ENGINE_ACTION_TYPE} from "../actionCreators/engineActions";
 import BaseModelWithStateAndShape from "../classes/BaseModelWithStateAndShape";
+import BaseModelWithState from "../classes/BaseModelWithState";
 
 export type engineReducerType = {
     enginePartModels: Array<BaseModelWithStateAndShape>,
@@ -11,6 +12,8 @@ export type engineReducerType = {
     engineRotationX: number,
     engineRotationY: number,
     engineDistance: number,
+
+    enginePartMenuItemModels: Array<Array<BaseModelWithState>>
 }
 
 const engineReducerDefaultState: engineReducerType = {
@@ -21,12 +24,21 @@ const engineReducerDefaultState: engineReducerType = {
     engineRotationX: 0,
     engineRotationY: 0,
     engineDistance: 0,
+
+    enginePartMenuItemModels: [],
 };
 
 const engineAction_setEnginePartModels_handler = (state: engineReducerType, action) =>
 {
     let nextState: engineReducerType = deepCopy(state);
     nextState.enginePartModels = action.enginePartModels;
+    return nextState;
+};
+
+const engineAction_setEnginePartMenuItemModels_handler = (state: engineReducerType, action) =>
+{
+    let nextState: engineReducerType = deepCopy(state);
+    nextState.enginePartMenuItemModels = action.enginePartMenuItemModels;
     return nextState;
 };
 
@@ -91,6 +103,7 @@ const engineAction_enginePartMouseLeaves_handler = (state: engineReducerType, ac
 // Check reducerCreator for explanation of handlers
 const engineReducerHandlers = {
     [ENGINE_ACTION_TYPE.ENGINE_ACTION_SET_ENGINE_PART_MODELS]: engineAction_setEnginePartModels_handler,
+    [ENGINE_ACTION_TYPE.ENGINE_ACTION_SET_ENGINE_PART_MENU_ITEM_MODELS]: engineAction_setEnginePartMenuItemModels_handler,
     [ENGINE_ACTION_TYPE.ENGINE_ACTION_SET_ENGINE_PERSPECTIVE]: engineAction_setEnginePerspective_handler,
     [ENGINE_ACTION_TYPE.ENGINE_ACTION_UPDATE_ENGINE_ROTATION]: engineAction_updateEngineRotation_handler,
     [ENGINE_ACTION_TYPE.ENGINE_ACTION_SET_ENGINE_DISTANCE]: engineAction_setEngineDistance_handler,

@@ -1,8 +1,9 @@
-import {CONTENT_PANELS_INDICES, ENGINE_MAX_ROTATION_DEGREE_VALUE, ENGINE_PART_INDICES} from "../utilities/CONSTANTS_NUMBER";
+import {CONTENT_PANELS_INDICES, ENGINE_MAX_ROTATION_DEGREE_VALUE, ENGINE_PART_INDICES, ENGINE_PART_MENU_ITEMS_POSITIONS} from "../utilities/CONSTANTS_NUMBER";
 import BaseModelWithStateAndShape from "../classes/BaseModelWithStateAndShape";
 import type {engineReducerType} from "../reducers/engineReducer";
-import {ENGINE_PART_NAME} from "../utilities/CONSTANTS_STRING";
+import {ENGINE_PART_MENU_ITEM_NAME, ENGINE_PART_NAME} from "../utilities/CONSTANTS_STRING";
 import numberIdGenerator from "../classes/NumberIdGenerator";
+import BaseModelWithState from "../classes/BaseModelWithState";
 
 /* ************************** Requesting actions ************************** */
 /* This kind of actions do not send new data directly to reducer            */
@@ -27,12 +28,16 @@ export const engineAction_requestToUpdateEngineLayout = () =>
         if (!isEngineModelInitialized) // Initialize engine part models if none exist
         {
             let enginePartModels: Array<BaseModelWithStateAndShape> = [];
-            enginePartIndices.forEach((index: number) =>
+            let enginePartMenuItemModels: Array<Array<BaseModelWithState>> = [];
+            enginePartIndices.forEach((enginePartIndex: number) =>
             {
-                let z: number = enginePartSize * ((numberOfEngineParts - 1) / 2 - index) + enginePartSize / 4;
+                let z: number = enginePartSize * ((numberOfEngineParts - 1) / 2 - enginePartIndex) + enginePartSize / 4;
                 enginePartModels.push(new BaseModelWithStateAndShape(ENGINE_PART_NAME, numberIdGenerator.generateId(), x, y, z, enginePartSize, enginePartSize));
+
+                enginePartMenuItemModels.push(ENGINE_PART_MENU_ITEMS_POSITIONS[enginePartIndex].map(() => new BaseModelWithState(ENGINE_PART_MENU_ITEM_NAME, numberIdGenerator.generateId())));
             });
             dispatch(engineAction_setEnginePartModels(enginePartModels));
+            dispatch(engineAction_setEnginePartMenuItemModels(enginePartMenuItemModels));
         }
         else
         {
@@ -86,6 +91,7 @@ export const engineAction_requestToUpdateEngineRotation = (mouseMoveX: number, m
 
 export const ENGINE_ACTION_TYPE = Object.freeze({
     ENGINE_ACTION_SET_ENGINE_PART_MODELS: "ENGINE_ACTION_SET_ENGINE_PART_MODELS",
+    ENGINE_ACTION_SET_ENGINE_PART_MENU_ITEM_MODELS: "ENGINE_ACTION_SET_ENGINE_PART_MENU_ITEM_MODELS",
     ENGINE_ACTION_SET_ENGINE_PERSPECTIVE: "ENGINE_ACTION_SET_ENGINE_PERSPECTIVE",
     ENGINE_ACTION_UPDATE_ENGINE_ROTATION: "ENGINE_ACTION_UPDATE_ENGINE_ROTATION",
     ENGINE_ACTION_SET_ENGINE_DISTANCE: "ENGINE_ACTION_SET_ENGINE_DISTANCE",
@@ -100,6 +106,14 @@ const engineAction_setEnginePartModels = (enginePartModels: Array<BaseModelWithS
     return {
         type: ENGINE_ACTION_TYPE.ENGINE_ACTION_SET_ENGINE_PART_MODELS,
         enginePartModels: enginePartModels,
+    }
+};
+
+const engineAction_setEnginePartMenuItemModels = (enginePartMenuItemModels: Array<Array<BaseModelWithState>>) =>
+{
+    return {
+        type: ENGINE_ACTION_TYPE.ENGINE_ACTION_SET_ENGINE_PART_MENU_ITEM_MODELS,
+        enginePartMenuItemModels: enginePartMenuItemModels,
     }
 };
 

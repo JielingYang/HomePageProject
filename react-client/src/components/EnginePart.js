@@ -23,6 +23,7 @@ const EnginePart = (props: EnginePartPropsType) =>
     let enginePartModel: BaseModelWithStateAndShape = enginePartModels[props.enginePartIndex];
     let enginePartStringId: string = enginePartModel.getStringId();
 
+
     let mouseHoverOnAnyEnginePart: boolean = enginePartModels.some((m: BaseModelWithStateAndShape) => m.getMouseHover());
     let mouseHoverOnThisEnginePart: boolean = enginePartModel.getMouseHover();
     let isAnyEnginePartSelected: boolean = enginePartModels.some((m: BaseModelWithStateAndShape) => m.getIsSelected());

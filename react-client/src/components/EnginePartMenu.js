@@ -43,7 +43,7 @@ const EnginePartMenu = (props: EnginePartMenuPropsType) =>
         {
             partMenuItemsPositions.map((positionObject: { left: string, top: string }, index: number) =>
                 <EnginePartMenuItem key={index}
-                                    enginePartStringId={props.enginePartStringId}
+                                    enginePartIndex={props.enginePartIndex}
                                     enginePartMenuItemIndex={index}
                                     enginePartMenuItemPosition={positionObject}
                                     isThisEnginePartSelected={props.isThisEnginePartSelected}
